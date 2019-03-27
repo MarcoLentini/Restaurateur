@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Restaurateur</string>
+
+    <string name="name">name</string>
+    <string name="phone">phone number</string>
+    <string name="address">address</string>
+    <string name="opening_hours">opening_hours</string>
+    <string name="email">email</string>
+    <string name="notice">notification</string>
+    <string name="delivery_service">delivery service</string>
+
+    <string name="hint_edit_restaurant_name">please input your name here</string>
+    <string name="btn_clear">Clear</string>
+    <string name="btn_save">Save</string>
+
+
 </resources>
