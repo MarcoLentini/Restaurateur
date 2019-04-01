@@ -15,6 +15,9 @@ public class ViewMoreInfoActivity extends AppCompatActivity {
     private TextView tvOpeningHours;
     private TextView tvDeliveryInfo;
 
+    private TextView tvUserPassword;
+    private String userPassword;
+
     private String userAddress;
     private String userNotification;
     private String openingHours;
@@ -27,6 +30,13 @@ public class ViewMoreInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_viewmore);
+        String title;
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        String titile = getString(R.string.InfoTitle);
+        getSupportActionBar().setTitle(titile);
 
         tvUserAddress = findViewById(R.id.textViewUserAddress);
         tvUserAddress.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +74,20 @@ public class ViewMoreInfoActivity extends AppCompatActivity {
             }
         });
 
+        tvUserPassword = findViewById(R.id.textViewChangePassword);
+        tvUserPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(userPassword.equals(""))
+                    invokeChangePwdActivity(getString(R.string.pwd_field_id));
+                else{
+                    String idField = getString(R.string.pwd_field_id);
+                    invokeModifyInfoActivity(idField, userPassword);
+
+                }
+            }
+        });
+
         sharedPref =getSharedPreferences(userFile, Context.MODE_PRIVATE);
         String userName = sharedPref.getString("userName","");
 
@@ -82,6 +106,9 @@ public class ViewMoreInfoActivity extends AppCompatActivity {
         deliveryInfo =sharedPref.getString("deliveryInfo","");
         if (!deliveryInfo.equals(""))
             tvDeliveryInfo.setText(deliveryInfo);
+
+        userPassword = sharedPref.getString("userPassword", "");
+
     }
     private void invokeModifyInfoActivity(String fieldName, String fieldNameValue){
         Intent intent = new Intent(getApplicationContext(), ModifyInfoActivity.class);
@@ -91,7 +118,19 @@ public class ViewMoreInfoActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivityForResult(intent, 1);
     }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+    private void invokeChangePwdActivity( String fieldName) {
+        Intent intent = new Intent(getApplicationContext(), ChangePwdActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("field", fieldName);
 
+        intent.putExtras(bundle);
+        startActivityForResult(intent, 1);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -129,6 +168,14 @@ public class ViewMoreInfoActivity extends AppCompatActivity {
                         editor.putString("deliveryInfo",deliveryInfo );
                         editor.commit();
                         tvDeliveryInfo.setText(deliveryInfo );
+                    }
+                    break;
+                case "user_password":
+                    userPassword = data.getExtras().getString("value");
+                    if(!userPassword.equals("")) {
+                        editor.putString("userPassword", userPassword);
+                        editor.commit();
+
                     }
                     break;
             }

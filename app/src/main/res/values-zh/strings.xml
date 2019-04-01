@@ -35,7 +35,7 @@
     <string name="insert_opening_hours">请输入营业时间</string>
     <string name="insert_delivery_info">请输入配送信息</string>
 
-    <string name="InfoTitle">个人信息</string>
+    <string name="InfoTitle">外卖商家信息</string>
     <string name="username_title">用户名</string>
     <string name="email_title">邮箱</string>
     <string name="phone_number_title">电话号码</string>
@@ -43,7 +43,7 @@
     <string name="password_title">更改密码</string>
     <string name="address_title">地址</string>
     <string name="notification_title">通知</string>
-    <string name="opening_hours_title">电话号码</string>
+    <string name="opening_hours_title">营业时间</string>
     <string name="delivery_info_title">配送信息</string>
 
     <string name="insert_old_password">填写原密码</string>

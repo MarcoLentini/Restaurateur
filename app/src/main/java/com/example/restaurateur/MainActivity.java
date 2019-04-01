@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        String titile = getString(R.string.InfoTitle);
+        getSupportActionBar().setTitle(titile);
+
         ivUserPhoto = findViewById(R.id.imageViewUserPhoto);
 
 

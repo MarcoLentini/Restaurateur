@@ -21,7 +21,7 @@
 
     <string name="viewMore">show more information</string>
     <string name="btnOk">OK</string>
-    <string name="btnCancel">CANCEL</string>
+    <string name="btnCancel">Cancel</string>
 
     <string name="insert_username">Type your username</string>
     <string name="insert_email">Type your email address</string>
@@ -32,7 +32,7 @@
     <string name="insert_opening_hours">Type your phone number</string>
     <string name="insert_delivery_info">Type a short description about you</string>
 
-    <string name="InfoTitle">Informazioni</string>
+    <string name="InfoTitle">Information</string>
     <string name="username_title">Username</string>
     <string name="email_title">Email</string>
     <string name="phone_number_title">Numero di telefono</string>

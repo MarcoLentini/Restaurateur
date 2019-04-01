@@ -76,7 +76,46 @@ public class ModifyInfoActivity extends AppCompatActivity {
                 etEditInfo.setRawInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
                 etEditInfo.setMinLines(3);
                 break;
-
+            case "user_address":
+                title=getString(R.string.address_title);
+                getSupportActionBar().setTitle(title);
+                tvInfoMessage.setText(R.string.insert_address);
+                etEditInfo.setText(fieldValue);
+                etEditInfo.setInputType(InputType.TYPE_CLASS_TEXT);
+                etEditInfo.setInputType(InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS);
+                etEditInfo.selectAll();
+                break;
+            case "user_notification":
+                title=getString(R.string.notification_title);
+                getSupportActionBar().setTitle(title);
+                tvInfoMessage.setText(R.string.insert_notification);
+                etEditInfo.setText(fieldValue);
+                etEditInfo.setInputType(InputType.TYPE_CLASS_TEXT);
+                etEditInfo.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+                etEditInfo.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+                etEditInfo.selectAll();
+                break;
+            case "opening_hours":
+                title=getString(R.string.opening_hours_title);
+                getSupportActionBar().setTitle(title);
+                tvInfoMessage.setText(R.string.insert_opening_hours);
+                etEditInfo.setText(fieldValue);
+                etEditInfo.setInputType(InputType.TYPE_CLASS_TEXT);
+                etEditInfo.setInputType(InputType.TYPE_CLASS_DATETIME);
+                etEditInfo.setInputType(InputType.TYPE_DATETIME_VARIATION_TIME);
+                etEditInfo.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+                etEditInfo.selectAll();
+                break;
+            case "delivery_service":
+                title=getString(R.string.delivery_info_title);
+                getSupportActionBar().setTitle(title);
+                tvInfoMessage.setText(R.string.insert_delivery_info);
+                etEditInfo.setText(fieldValue);
+                etEditInfo.setInputType(InputType.TYPE_CLASS_TEXT);
+                etEditInfo.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+                etEditInfo.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+                etEditInfo.selectAll();
+                break;
             case "user_password":
                 title=getString(R.string.password_title);
                 getSupportActionBar().setTitle(title);
@@ -85,6 +124,7 @@ public class ModifyInfoActivity extends AppCompatActivity {
                 etEditInfo.setInputType(InputType.TYPE_CLASS_TEXT);
                 etEditInfo.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
                 break;
+
         }
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(etEditInfo , InputMethodManager.SHOW_IMPLICIT);
