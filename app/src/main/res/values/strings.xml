@@ -1,17 +1,24 @@
 <resources>
     <string name="app_name">Restaurateur</string>
+    <string name="default_user_name">Insert username</string>
+    <string name="default_user_email">Insert email</string>
+    <string name="default_user_description">Insert description</string>
+    <string name="default_user_phone_number">Insert phone number</string>
+    <string name="default_user_address">Insert user address</string>
+    <string name="default_opening_hours">Insert opening hours</string>
+    <string name="default_delivery_service">Insert delivery info</string>
+    <string name="default_user_notification">Insert notification </string>
 
-    <string name="name">name</string>
-    <string name="phone">phone number</string>
-    <string name="address">address</string>
-    <string name="opening_hours">opening_hours</string>
-    <string name="email">email</string>
-    <string name="notice">notification</string>
-    <string name="delivery_service">delivery service</string>
+    <string name="name_field_id">user_name</string>
+    <string name="email_field_id">user_email</string>
+    <string name="phone_number__field_id">user_phone_number</string>
+    <string name="description_field_id">user_description</string>
+    <string name="address_field_id">user_address</string>
+    <string name="notification_field_id">user_notification</string>
+    <string name="opening_hours_field_id">opening_hours</string>
+    <string name="delivery_service_field_id">delivery_service</string>
 
-    <string name="hint_edit_restaurant_name">please input your name here</string>
-    <string name="btn_clear">Clear</string>
-    <string name="btn_save">Save</string>
-
-
+    <string name="viewMore">show more information</string>
+    <string name="btnOk">Ok</string>
+    <string name="btnCancel">Cancel</string>
 </resources>
