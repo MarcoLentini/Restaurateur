@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Restaurateur</string>
+    <string name="default_user_name">用户名</string>
+    <string name="default_user_email">邮箱</string>
+    <string name="default_user_description">店铺简介</string>
+    <string name="default_user_phone_number">联系电话</string>
+    <string name="default_user_address">店铺地址</string>
+    <string name="default_opening_hours">营业时间</string>
+    <string name="default_delivery_service">送餐服务</string>
+    <string name="default_user_notification">通知</string>
+
+    <string name="name_field_id">user_name</string>
+    <string name="email_field_id">user_email</string>
+    <string name="phone_number__field_id">user_phone_number</string>
+    <string name="description_field_id">user_description</string>
+    <string name="address_field_id">user_address</string>
+    <string name="notification_field_id">user_notification</string>
+    <string name="opening_hours_field_id">opening_hours</string>
+    <string name="delivery_service_field_id">delivery_service</string>
+
+    <string name="viewMore">详细资料</string>
+
+    <string name="btnOk">确认</string>
+    <string name="btnCancel">取消</string>
+
+
+
+</resources>
