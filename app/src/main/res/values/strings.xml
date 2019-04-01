@@ -17,8 +17,40 @@
     <string name="notification_field_id">user_notification</string>
     <string name="opening_hours_field_id">opening_hours</string>
     <string name="delivery_service_field_id">delivery_service</string>
+    <string name="pwd_field_id">user_password</string>
 
     <string name="viewMore">show more information</string>
-    <string name="btnOk">Ok</string>
-    <string name="btnCancel">Cancel</string>
+    <string name="btnOk">OK</string>
+    <string name="btnCancel">CANCEL</string>
+
+    <string name="insert_username">Type your username</string>
+    <string name="insert_email">Type your email address</string>
+    <string name="insert_phone_number">Type your phone number</string>
+    <string name="insert_description">Type a short description about you</string>
+    <string name="insert_address">Type your username</string>
+    <string name="insert_notification">Type your email address</string>
+    <string name="insert_opening_hours">Type your phone number</string>
+    <string name="insert_delivery_info">Type a short description about you</string>
+
+    <string name="InfoTitle">Informazioni</string>
+    <string name="username_title">Username</string>
+    <string name="email_title">Email</string>
+    <string name="phone_number_title">Numero di telefono</string>
+    <string name="description_title">Descrizione</string>
+    <string name="address_title">Username</string>
+    <string name="notification_title">Email</string>
+    <string name="opening_hours_title">Numero di telefono</string>
+    <string name="delivery_info_title">Descrizione</string>
+
+
+    <string name="password_title">Cambia Password</string>
+    <string name="insert_old_password">Inserisci  password attuale</string>
+    <string name="insert_password">Inserisci la nuova password</string>
+    <string name="repeat_password">Re-inseririsci la nuova password</string>
+    <string name="invalid_password">Password invalida</string>
+    <string name="different_password">Le due password sono diverse</string>
+
+    <string name="ok_button">OK</string>
+    <string name="cancel_button">ANNULLA</string>
+
 </resources>

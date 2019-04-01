@@ -30,70 +30,60 @@ public class ModifyInfoActivity extends AppCompatActivity {
         btnOk = findViewById(R.id.buttonOk);
         btnCancel = findViewById(R.id.buttonCancel);
 
+        String title;
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         Intent receivedIntent = getIntent();
         fieldName = receivedIntent.getExtras().getString("field");
         String fieldValue = receivedIntent.getExtras().getString("value");
         switch (fieldName) {
             case "user_name":
-                tvInfoMessage.setText("Type your username");
+                title=getString(R.string.username_title);
+                getSupportActionBar().setTitle(title);
+                tvInfoMessage.setText(R.string.insert_username);
                 etEditInfo.setText(fieldValue);
                 etEditInfo.setHint("username");
                 etEditInfo.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
                 etEditInfo.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
                 //etEditInfo.setSelectAllOnFocus(true);
                 etEditInfo.selectAll();
-            break;
+                break;
             case "user_email":
-                tvInfoMessage.setText("Type your email address");
+                title=getString(R.string.email_title);
+                getSupportActionBar().setTitle(title);
+                tvInfoMessage.setText(R.string.insert_email);
                 etEditInfo.setText(fieldValue);
                 etEditInfo.setHint("example@domain.com");
                 etEditInfo.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-            break;
+                break;
             case "user_phone_number":
-                tvInfoMessage.setText("Type your phone number");
+                title=getString(R.string.phone_number_title);
+                getSupportActionBar().setTitle(title);
+                tvInfoMessage.setText(R.string.insert_phone_number);
                 etEditInfo.setText(fieldValue);
                 etEditInfo.setInputType(InputType.TYPE_CLASS_PHONE);
-            break;
+                break;
             case "user_description":
-                tvInfoMessage.setText("Type a short description about you");
+                title=getString(R.string.description_title);
+                getSupportActionBar().setTitle(title);
+                tvInfoMessage.setText(R.string.insert_description);
                 etEditInfo.setText(fieldValue);
                 etEditInfo.setInputType(InputType.TYPE_CLASS_TEXT);
                 etEditInfo.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
                 etEditInfo.setInputType(InputType.TYPE_TEXT_VARIATION_LONG_MESSAGE);
                 etEditInfo.setRawInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
                 etEditInfo.setMinLines(3);
-            break;
-            case "user_address":
-                tvInfoMessage.setText("Type your address");
-                etEditInfo.setText(fieldValue);
-                etEditInfo.setInputType(InputType.TYPE_CLASS_TEXT);
-                etEditInfo.setInputType(InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS);
-                etEditInfo.selectAll();
                 break;
-            case "user_notification":
-                tvInfoMessage.setText("Type your notification");
-                etEditInfo.setText(fieldValue);
+
+            case "user_password":
+                title=getString(R.string.password_title);
+                getSupportActionBar().setTitle(title);
+                tvInfoMessage.setText(R.string.insert_old_password);
+                etEditInfo.setText("");
                 etEditInfo.setInputType(InputType.TYPE_CLASS_TEXT);
-                etEditInfo.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-                etEditInfo.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-                etEditInfo.selectAll();
-                break;
-            case "opening_hours":
-                tvInfoMessage.setText("Type opening hours ");
-                etEditInfo.setText(fieldValue);
-                etEditInfo.setInputType(InputType.TYPE_CLASS_TEXT);
-                etEditInfo.setInputType(InputType.TYPE_CLASS_DATETIME);
-                etEditInfo.setInputType(InputType.TYPE_DATETIME_VARIATION_TIME);
-                etEditInfo.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-                etEditInfo.selectAll();
-                break;
-            case "delivery_service":
-                tvInfoMessage.setText("Type delivery service");
-                etEditInfo.setText(fieldValue);
-                etEditInfo.setInputType(InputType.TYPE_CLASS_TEXT);
-                etEditInfo.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-                etEditInfo.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-                etEditInfo.selectAll();
+                etEditInfo.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);
                 break;
         }
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -119,5 +109,12 @@ public class ModifyInfoActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
