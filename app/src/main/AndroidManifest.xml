@@ -9,10 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".ChangePwdActivity"></activity>
-        <activity android:name=".ViewMoreInfoActivity"></activity>
-        <activity android:name=".ModifyInfoActivity"></activity>
-        <activity android:name=".MainActivity" >
+        <activity android:name=".ChangePwdActivity"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity android:name=".ModifyInfoActivity"
+            android:windowSoftInputMode="adjustResize"/>
+         <activity android:name=".ViewMoreInfoActivity"></activity>
+
+         <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

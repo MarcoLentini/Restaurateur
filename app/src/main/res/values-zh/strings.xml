@@ -40,12 +40,12 @@
     <string name="email_title">邮箱</string>
     <string name="phone_number_title">电话号码</string>
     <string name="description_title">简介</string>
-    <string name="password_title">更改密码</string>
     <string name="address_title">地址</string>
     <string name="notification_title">通知</string>
     <string name="opening_hours_title">营业时间</string>
     <string name="delivery_info_title">配送信息</string>
 
+    <string name="password_title">更改密码</string>
     <string name="insert_old_password">填写原密码</string>
     <string name="insert_password">填写新密码</string>
     <string name="repeat_password">再次填写确认</string>

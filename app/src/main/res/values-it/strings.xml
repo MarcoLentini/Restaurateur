@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">Restaurateur</string>
+    <string name="default_user_name">Inserisci username</string>
+    <string name="default_user_email">Inserisci email</string>
+    <string name="default_user_description">Inserisci  descrizione</string>
+    <string name="default_user_phone_number">Inserisci telefono</string>
+
+    <string name="name_field_id">user_name</string>
+    <string name="email_field_id">user_email</string>
+    <string name="phone_number__field_id">user_phone_number</string>
+    <string name="description_field_id">user_description</string>
+    <string name="address_field_id">user_address</string>
+    <string name="notification_field_id">user_notification</string>
+    <string name="opening_hours_field_id">opening_hours</string>
+    <string name="delivery_service_field_id">delivery_service</string>
+    <string name="pwd_field_id">user_password</string>
+
+    <string name="InfoTitle">Information</string>
+    <string name="username_title">Username</string>
+    <string name="email_title">Email</string>
+    <string name="phone_number_title">Numero di telefono</string>
+    <string name="description_title">Descrizione</string>
+
+    <string name="password_title">Cambia Password</string>
+    <string name="insert_old_password">Inserisci  password attuale</string>
+    <string name="insert_password">Inserisci la nuova password</string>
+    <string name="repeat_password">Re-inseririsci la nuova password</string>
+    <string name="invalid_password">Password invalida</string>
+    <string name="different_password">Le due password sono diverse</string>
+
+    <string name="insert_username">Inserisci il tuo username</string>
+    <string name="insert_email">Inserisci la tua address</string>
+    <string name="insert_phone_number">Inserisci il tuo numero di telefono</string>
+    <string name="insert_description">Descrivi te stesso</string>
+
+    <string name="btnOk">OK</string>
+    <string name="btnCancel">ANNULLA</string>
+
+    <string name="ok_button">OK</string>
+    <string name="cancel_button">ANNULLA</string>
+
+    <!--The following were translated with the help of Google Translate-->
+    <string name="default_user_address">Inserisci indirizzo</string>
+    <string name="default_opening_hours">Inserisci orario</string>
+    <string name="default_delivery_service">Inserisci informazioni di consegna</string>
+    <string name="default_user_notification">Inserisci notifica </string>
+
+    <string name="viewMore">Mostra di più</string>
+
+    <string name="insert_address">Inserisci il tuo indirizzo</string>
+    <string name="insert_notification">Inserisci la tua notifica </string>
+    <string name="insert_opening_hours">Inserisci il tuo orario</string>
+    <string name="insert_delivery_info">Inserisci informazioni di consegna</string>
+
+    <string name="address_title">Indirizzo</string>
+    <string name="notification_title">Notifica</string>
+    <string name="opening_hours_title">Orario</string>
+    <string name="delivery_info_title">Informazioni di consegna </string>
+</resources>
