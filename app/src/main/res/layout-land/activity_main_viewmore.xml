@@ -13,28 +13,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textViewUserAddress"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:background="?attr/selectableItemBackground"
-        android:drawableStart="@drawable/ic_account_address"
-        android:drawableLeft="@drawable/ic_account_address"
-        android:drawableEnd="@drawable/ic_account_edit"
-        android:drawableRight="@drawable/ic_account_edit"
-        android:drawablePadding="12dp"
-        android:maxEms="20"
-        android:maxLines="1"
-        android:text="@string/default_user_address"
-        android:textAppearance="@android:style/TextAppearance.Large"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textViewUserAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawableStart="@drawable/ic_account_address"
+            android:drawableLeft="@drawable/ic_account_address"
+            android:drawableEnd="@drawable/ic_account_edit"
+            android:drawableRight="@drawable/ic_account_edit"
+            android:drawablePadding="12dp"
+            android:maxEms="20"
+            android:maxLines="1"
+            android:text="@string/default_user_address"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewOpeningHours"
@@ -104,5 +104,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewDeliveryService" />
+
+        <TextView
+            android:id="@+id/textViewChangePassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:drawableStart="@drawable/ic_account_password"
+
+            android:drawableLeft="@drawable/ic_account_password"
+            android:drawablePadding="12dp"
+            android:maxEms="20"
+            android:maxLines="1"
+            android:text="@string/password_title"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewNotification" />
 </android.support.constraint.ConstraintLayout>
 </ScrollView>
