@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Restaurateur</string>
+    <string name="InfoTitle">Information</string>
+
+    <!-- Main Activity (Empty) -->
     <string name="default_user_name">Insert username</string>
     <string name="default_user_email">Insert email</string>
     <string name="default_user_description">Insert description</string>
@@ -9,6 +12,7 @@
     <string name="default_delivery_service">Insert delivery info</string>
     <string name="default_user_notification">Insert notification </string>
 
+    <!-- Field -->
     <string name="name_field_id">user_name</string>
     <string name="email_field_id">user_email</string>
     <string name="phone_number__field_id">user_phone_number</string>
@@ -19,10 +23,15 @@
     <string name="delivery_service_field_id">delivery_service</string>
     <string name="pwd_field_id">user_password</string>
 
-    <string name="viewMore">show more information</string>
-    <string name="btnOk">OK</string>
-    <string name="btnCancel">Cancel</string>
-
+    <!-- Modify Activity -->
+    <string name="username_title">Username</string>
+    <string name="email_title">Email</string>
+    <string name="phone_number_title">Phone number</string>
+    <string name="description_title">Description</string>
+    <string name="address_title">Address</string>
+    <string name="notification_title">Notification</string>
+    <string name="opening_hours_title">Opening hours</string>
+    <string name="delivery_info_title">Delivery Info</string>
     <string name="insert_username">Type your username</string>
     <string name="insert_email">Type your email address</string>
     <string name="insert_phone_number">Type your phone number</string>
@@ -32,16 +41,14 @@
     <string name="insert_opening_hours">Type your opening hours</string>
     <string name="insert_delivery_info">Type your delivery info</string>
 
-    <string name="InfoTitle">Information</string>
-    <string name="username_title">Username</string>
-    <string name="email_title">Email</string>
-    <string name="phone_number_title">Phone number</string>
-    <string name="description_title">Description</string>
-    <string name="address_title">Address</string>
-    <string name="notification_title">Notification</string>
-    <string name="opening_hours_title">Opening hours</string>
-    <string name="delivery_info_title">Delivery Info</string>
+    <!-- Generic -->
+    <string name="viewMore">show more information</string>
+    <string name="ok_button">OK</string>
+    <string name="cancel_button">CANCEL</string>
 
+
+
+    <!-- Password -->
     <string name="password_title">Change Password</string>
     <string name="insert_old_password">Insert your actual password</string>
     <string name="insert_password">Insert the new password</string>
@@ -49,7 +56,18 @@
     <string name="invalid_password">Invalid password</string>
     <string name="different_password">The two password are different</string>
 
-    <string name="ok_button">OK</string>
-    <string name="cancel_button">Cancel</string>
+    <!-- Image Profile -->
+    <string name="select_photo">Select photo</string>
+    <string name="take_a_picture">Take a picture</string>
+    <string name="pick_from_gallery">Pick from gallery</string>
+    <string name="cancel_string">Cancel</string>
+    <string name="image_disappear">The selected image is no longer available</string>
+
+    <!-- Permission -->
+    <string name="perm_needed">Permission needed</string>
+    <string name="perm_why_1">This permission is needed to pick a photo from gallery</string>
+    <string name="perm_why_2">This permission is needed to take photo</string>
+    <string name="ok_string">Ok</string>
+    <string name="perm_denied">Permission Denied</string>
 
 </resources>

@@ -39,52 +39,37 @@ public class ViewMoreInfoActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(titile);
 
         tvUserAddress = findViewById(R.id.textViewUserAddress);
-        tvUserAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String idField = getString(R.string.address_field_id);
-                invokeModifyInfoActivity(idField,userAddress);
-            }
+        tvUserAddress.setOnClickListener(v -> {
+            String idField = getString(R.string.address_field_id);
+            invokeModifyInfoActivity(idField,userAddress);
         });
 
         tvUserNotification = findViewById(R.id.textViewNotification);
-        tvUserNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String idField = getString(R.string.notification_field_id);
-                invokeModifyInfoActivity(idField,userNotification);
-            }
+        tvUserNotification.setOnClickListener(v -> {
+            String idField = getString(R.string.notification_field_id);
+            invokeModifyInfoActivity(idField,userNotification);
         });
 
         tvOpeningHours = findViewById(R.id.textViewOpeningHours);
-        tvOpeningHours.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String idField = getString(R.string.opening_hours_field_id);
-                invokeModifyInfoActivity(idField,openingHours);
-            }
+        tvOpeningHours.setOnClickListener(v -> {
+            String idField = getString(R.string.opening_hours_field_id);
+            invokeModifyInfoActivity(idField,openingHours);
         });
 
         tvDeliveryInfo = findViewById(R.id.textViewDeliveryService);
-        tvDeliveryInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String idField = getString(R.string.delivery_service_field_id);
-                invokeModifyInfoActivity(idField,deliveryInfo);
-            }
+        tvDeliveryInfo.setOnClickListener(v -> {
+            String idField = getString(R.string.delivery_service_field_id);
+            invokeModifyInfoActivity(idField,deliveryInfo);
         });
 
         tvUserPassword = findViewById(R.id.textViewChangePassword);
-        tvUserPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(userPassword.equals(""))
-                    invokeChangePwdActivity(getString(R.string.pwd_field_id));
-                else{
-                    String idField = getString(R.string.pwd_field_id);
-                    invokeModifyInfoActivity(idField, userPassword);
+        tvUserPassword.setOnClickListener(v -> {
+            if(userPassword.equals(""))
+                invokeChangePwdActivity(getString(R.string.pwd_field_id));
+            else{
+                String idField = getString(R.string.pwd_field_id);
+                invokeModifyInfoActivity(idField, userPassword);
 
-                }
             }
         });
 

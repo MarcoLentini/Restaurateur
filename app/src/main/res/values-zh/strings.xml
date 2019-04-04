@@ -22,9 +22,6 @@
 
     <string name="viewMore">更多资料</string>
 
-    <string name="btnOk">确认</string>
-    <string name="btnCancel">取消</string>
-
     <string name="insert_username">请输入用户名</string>
     <string name="insert_email">请输入邮箱</string>
     <string name="insert_phone_number">请输入电话号码</string>
