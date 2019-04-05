@@ -15,7 +15,7 @@
     <string name="delivery_service_field_id">delivery_service</string>
     <string name="pwd_field_id">user_password</string>
 
-    <string name="InfoTitle">Information</string>
+    <string name="InfoTitle">Informazioni</string>
     <string name="username_title">Username</string>
     <string name="email_title">Email</string>
     <string name="phone_number_title">Numero di telefono</string>
@@ -46,7 +46,7 @@
 
     <string name="insert_address">Inserisci la tua mail</string>
     <string name="insert_notification">Inserisci la tua notifica </string>
-    <string name="insert_opening_hours">Inserisci il tuo orario</string>
+    <string name="insert_opening_hours">Inserisci il tuo orario di apertura</string>
     <string name="insert_delivery_info">Inserisci informazioni di consegna</string>
 
     <string name="address_title">Indirizzo</string>

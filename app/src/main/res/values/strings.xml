@@ -42,7 +42,7 @@
     <string name="insert_delivery_info">Type your delivery info</string>
 
     <!-- Generic -->
-    <string name="viewMore">show more information</string>
+    <string name="viewMore">Show more information</string>
     <string name="ok_button">OK</string>
     <string name="cancel_button">CANCEL</string>
 
@@ -67,7 +67,7 @@
     <string name="perm_needed">Permission needed</string>
     <string name="perm_why_1">This permission is needed to pick a photo from gallery</string>
     <string name="perm_why_2">This permission is needed to take photo</string>
-    <string name="ok_string">Ok</string>
+    <string name="ok_string">OK</string>
     <string name="perm_denied">Permission Denied</string>
 
 </resources>
