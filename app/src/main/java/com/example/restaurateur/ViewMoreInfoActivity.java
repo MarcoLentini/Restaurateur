@@ -122,11 +122,10 @@ public class ViewMoreInfoActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPref.edit();
         if(resultCode == 1) {
             switch (data.getExtras().getString("field")) {
-
                 case "user_address":
                     userAddress = data.getExtras().getString("value");
                     if(!userAddress.equals("")) {
-                        editor.putString("userDescription", userAddress);
+                        editor.putString("userAddress", userAddress);
                         editor.commit();
                         tvUserAddress.setText(userAddress);
                     }
@@ -160,7 +159,6 @@ public class ViewMoreInfoActivity extends AppCompatActivity {
                     if(!userPassword.equals("")) {
                         editor.putString("userPassword", userPassword);
                         editor.commit();
-
                     }
                     break;
             }

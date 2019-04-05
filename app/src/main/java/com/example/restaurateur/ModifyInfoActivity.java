@@ -156,7 +156,7 @@ public class ModifyInfoActivity extends AppCompatActivity {
                 Intent retIntent;
                 Bundle bn;
                 if(fieldName.equals("user_password")) {
-                    Log.d("password", "onClick:old "+fieldValue + " new= "+etEditInfo.getText().toString());
+                     Log.d("password", "onClick:old "+fieldValue + " new= "+etEditInfo.getText().toString());
                     if(fieldValue.equals(etEditInfo.getText().toString())){
                         retIntent = new Intent(getApplicationContext(), ChangePwdActivity.class);
                         bn = new Bundle();
@@ -180,6 +180,14 @@ public class ModifyInfoActivity extends AppCompatActivity {
 
 
                     }
+                }else if(fieldName.equals("user_address")||fieldName.equals("user_notification")||fieldName.equals("opening_hours")||fieldName.equals("delivery_service")){
+                    retIntent = new Intent(getApplicationContext(), ViewMoreInfoActivity.class);
+                    bn = new Bundle();
+                    bn.putString("field", fieldName);
+                    bn.putString("value", etEditInfo.getText().toString());
+                    retIntent.putExtras(bn);
+                    setResult(1, retIntent);
+                    finish();
                 }else {
                     retIntent = new Intent(getApplicationContext(), MainActivity.class);
                     bn = new Bundle();
@@ -216,9 +224,19 @@ public class ModifyInfoActivity extends AppCompatActivity {
             retIntent.putExtras(bn);
             setResult(RESULT_OK, retIntent);
             finish();
+        }else if (resultCode == 1){
+            fieldName = data.getExtras().getString("field");
+            String fieldValue = data.getExtras().getString("value");
+
+            bn.putString("field", fieldName);
+            bn.putString("value", fieldValue);
+
+            Intent retIntent = new Intent(getApplicationContext(), ViewMoreInfoActivity.class);
+            retIntent.putExtras(bn);
+            setResult(1, retIntent);
+            finish();
         }
     }
-
 
     @Override
     public boolean onSupportNavigateUp() {

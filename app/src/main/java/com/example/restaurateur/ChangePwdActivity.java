@@ -73,7 +73,7 @@ public class ChangePwdActivity extends AppCompatActivity {
                 bn.putString("value",fieldValue);
                 retIntent.putExtras(bn);
                 Log.d("password1", "onClick:old "+fieldValue);
-                setResult(RESULT_OK, retIntent);
+                setResult(1, retIntent);
                 finish();
 
             }else{
