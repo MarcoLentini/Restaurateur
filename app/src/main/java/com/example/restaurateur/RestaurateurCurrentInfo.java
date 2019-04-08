@@ -3,6 +3,8 @@ package com.example.restaurateur;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -12,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
 
 public class RestaurateurCurrentInfo extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
 
@@ -52,7 +56,12 @@ public class RestaurateurCurrentInfo extends AppCompatActivity implements TabLay
 
         //Adding onTabSelectedListener to swipe views
         tabLayout.addOnTabSelectedListener(this);
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
+
+    // Tab
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
@@ -79,10 +88,33 @@ public class RestaurateurCurrentInfo extends AppCompatActivity implements TabLay
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            Intent i = new Intent(this, UserInformationActivity.class);
-            startActivity(i);
+            Intent information = new Intent(this, UserInformationActivity.class);
+            startActivity(information);
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    // Bottom Menu
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = item -> {
+        switch (item.getItemId()) {
+            case R.id.navigation_home:
+                Toast.makeText(RestaurateurCurrentInfo.this,"Prova1",Toast.LENGTH_LONG).show();
+                Intent i = new Intent(this,RestaurateurCurrentInfo.class);
+                startActivity(i);
+                //mTextMessage.setText(R.string.title_home);
+                return true;
+            case R.id.navigation_dashboard:
+                Toast.makeText(RestaurateurCurrentInfo.this,"Prova2",Toast.LENGTH_LONG).show();
+                //mTextMessage.setText(R.string.title_dashboard);
+                return true;
+            case R.id.navigation_notifications:
+                Toast.makeText(RestaurateurCurrentInfo.this,"Prova3",Toast.LENGTH_LONG).show();
+                //mTextMessage.setText(R.string.title_notifications);
+                return true;
+        }
+        return false;
+    };
 }
