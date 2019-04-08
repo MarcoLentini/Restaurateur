@@ -13,7 +13,7 @@ public class Pager extends FragmentStatePagerAdapter {
     public Pager(FragmentManager fm, int tabCount) {
         super(fm);
         //Initializing tab count
-        this.tabCount= tabCount;
+        this.tabCount = tabCount;
     }
 
     //Overriding method getItem

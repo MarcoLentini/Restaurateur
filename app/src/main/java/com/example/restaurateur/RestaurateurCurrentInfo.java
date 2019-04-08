@@ -38,6 +38,8 @@ public class RestaurateurCurrentInfo extends AppCompatActivity implements TabLay
 
         //Initializing viewPager
         viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
 
         //Creating our pager adapter
         Pager adapter = new Pager(getSupportFragmentManager(), tabLayout.getTabCount());
