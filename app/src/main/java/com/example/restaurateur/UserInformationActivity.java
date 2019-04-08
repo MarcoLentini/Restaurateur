@@ -28,7 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class UserInformationActivity extends AppCompatActivity {
 
     private TextView tvUserName;
     private TextView tvUserEmail;
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.user_information_activity);
 
         String titile = getString(R.string.InfoTitle);
         getSupportActionBar().setTitle(titile);
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
     // Open dialog to choose if take a selfie or pick a photo on gallery
     private void invokeDialogImageProfile(){
         final String[] items = { getString(R.string.take_a_picture), getString(R.string.pick_from_gallery), getString(R.string.cancel_string)};
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(UserInformationActivity.this);
         builder.setTitle(getString(R.string.select_photo));
         builder.setItems(items, (d, i) -> {
             if (items[i].equals(getString(R.string.take_a_picture))) {
@@ -283,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean checkPermission(String perm) {
-        int result = ContextCompat.checkSelfPermission(MainActivity.this, perm);
+        int result = ContextCompat.checkSelfPermission(UserInformationActivity.this, perm);
         return result == PackageManager.PERMISSION_GRANTED;
     }
 
@@ -292,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
             new AlertDialog.Builder(this)
                     .setTitle(getString(R.string.perm_needed))
                     .setMessage(getString(R.string.perm_why_1))
-                    .setPositiveButton(getString(R.string.ok_string), (dialog, which) -> ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE))
+                    .setPositiveButton(getString(R.string.ok_string), (dialog, which) -> ActivityCompat.requestPermissions(UserInformationActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE))
                     .setNegativeButton(getString(R.string.cancel_string), (dialog, which) -> dialog.dismiss())
                     .create().show();
         } else {
@@ -305,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
             new AlertDialog.Builder(this)
                     .setTitle(getString(R.string.perm_needed))
                     .setMessage(getString(R.string.perm_why_2))
-                    .setPositiveButton(getString(R.string.ok_string), (dialog, which) -> ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_CODE))
+                    .setPositiveButton(getString(R.string.ok_string), (dialog, which) -> ActivityCompat.requestPermissions(UserInformationActivity.this, new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_CODE))
                     .setNegativeButton(getString(R.string.cancel_string), (dialog, which) -> dialog.dismiss())
                     .create().show();
         } else {

@@ -66,7 +66,7 @@ public class ChangePwdActivity extends AppCompatActivity {
 
         btnOk.setOnClickListener(v -> {
             if(etEditPwd1.getText().toString().equals(etEditPwd2.getText().toString())) {
-                Intent retIntent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent retIntent = new Intent(getApplicationContext(), UserInformationActivity.class);
                 Bundle bn = new Bundle();
                 String fieldValue= etEditPwd1.getText().toString();
                 bn.putString("field", fieldName);

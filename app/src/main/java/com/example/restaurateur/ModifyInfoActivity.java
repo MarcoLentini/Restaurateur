@@ -75,12 +75,9 @@ public class ModifyInfoActivity extends AppCompatActivity {
                 title=getString(R.string.description_title);
                 getSupportActionBar().setTitle(title);
                 tvInfoMessage.setText(R.string.insert_description);
+                etEditInfo.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
                 etEditInfo.setText(fieldValue);
-                etEditInfo.setInputType(InputType.TYPE_CLASS_TEXT);
-                etEditInfo.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
-                etEditInfo.setInputType(InputType.TYPE_TEXT_VARIATION_LONG_MESSAGE);
-                etEditInfo.setRawInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-                etEditInfo.setMinLines(3);
+                etEditInfo.selectAll();
                 break;
             case "user_address":
                 title=getString(R.string.address_title);
@@ -189,7 +186,7 @@ public class ModifyInfoActivity extends AppCompatActivity {
                     setResult(1, retIntent);
                     finish();
                 }else {
-                    retIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    retIntent = new Intent(getApplicationContext(), UserInformationActivity.class);
                     bn = new Bundle();
                     bn.putString("field", fieldName);
                     bn.putString("value", etEditInfo.getText().toString());
@@ -220,7 +217,7 @@ public class ModifyInfoActivity extends AppCompatActivity {
             bn.putString("field", fieldName);
             bn.putString("value", fieldValue);
 
-            Intent retIntent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent retIntent = new Intent(getApplicationContext(), UserInformationActivity.class);
             retIntent.putExtras(bn);
             setResult(RESULT_OK, retIntent);
             finish();

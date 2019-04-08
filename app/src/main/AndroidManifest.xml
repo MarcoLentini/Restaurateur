@@ -30,7 +30,8 @@
             android:windowSoftInputMode="adjustResize"></activity>
          <activity android:name=".ViewMoreInfoActivity"></activity>
 
-         <activity android:name=".MainActivity" >
+        <activity android:name=".UserInformationActivity" ></activity>
+        <activity android:name=".RestaurateurCurrentInfo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
