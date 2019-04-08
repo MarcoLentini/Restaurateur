@@ -1,5 +1,6 @@
 package com.example.restaurateur;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
@@ -78,8 +79,8 @@ public class RestaurateurCurrentInfo extends AppCompatActivity implements TabLay
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-
-            return true;
+            Intent i = new Intent(this, UserInformationActivity.class);
+            startActivity(i);
         }
 
         return super.onOptionsItemSelected(item);

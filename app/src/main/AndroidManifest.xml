@@ -31,7 +31,8 @@
          <activity android:name=".ViewMoreInfoActivity"></activity>
 
         <activity android:name=".UserInformationActivity" ></activity>
-        <activity android:name=".RestaurateurCurrentInfo">
+        <activity android:name=".RestaurateurCurrentInfo"
+            android:theme="@style/AppThemeCurrentInfo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
