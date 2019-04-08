@@ -69,5 +69,6 @@
     <string name="perm_why_2">This permission is needed to take photo</string>
     <string name="ok_string">OK</string>
     <string name="perm_denied">Permission Denied</string>
+    <string name="action_settings">Information</string>
 
 </resources>

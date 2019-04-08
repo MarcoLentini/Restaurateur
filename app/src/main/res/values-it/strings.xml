@@ -64,5 +64,6 @@
     <string name="perm_why_1">Questo permesso è necessario per prendere una foto dalla Galleria</string>
     <string name="perm_denied">Permesso Negato</string>
     <string name="image_disappear">L\'immagine selezionata non è più disponibile</string>
+    <string name="action_settings">Informazioni</string>
 
 </resources>
