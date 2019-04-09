@@ -38,8 +38,8 @@ public class RestaurateurCurrentInfo extends AppCompatActivity implements TabLay
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
         //Adding the tabs using addTab() method
-        tabLayout.addTab(tabLayout.newTab().setText("Tab1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab2"));
+        tabLayout.addTab(tabLayout.newTab().setText("In preparation"));
+        tabLayout.addTab(tabLayout.newTab().setText("Incoming"));
         tabLayout.addTab(tabLayout.newTab().setText("Tab3"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 

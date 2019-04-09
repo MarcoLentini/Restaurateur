@@ -21,11 +21,7 @@ public class TabReservations extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        //Returning the layout file after inflating
-        //Change R.layout.tab1 in you classes
         View view = inflater.inflate(R.layout.tab_reservations, container, false);
-
-
         recyclerView = view.findViewById(R.id.foodRecyclerView);
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
