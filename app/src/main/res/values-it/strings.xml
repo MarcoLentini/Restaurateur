@@ -72,5 +72,12 @@
     <string name="Button_Accept">Accept Order</string>
     <string name="Button_Reject">Reject Order</string>
     <string name="total_income_info">Total income of this order</string>
+    <string name="offers_title">Offerte</string>
+    <string name="pending_label">In attesa</string>
+    <string name="reservation_title">Ordini</string>
+    <string name="accepted_label">Accetati</string>
+    <string name="refused_label">Rifiutati</string>
+    <string name="active_label">Attive</string>
+    <string name="disabled_label">Disattive</string>
 
 </resources>

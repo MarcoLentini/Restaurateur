@@ -4,13 +4,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class Pager extends FragmentStatePagerAdapter {
+public class PagerOffers extends FragmentStatePagerAdapter {
 
     //integer to count number of tabs
     int tabCount;
 
     //Constructor to the class
-    public Pager(FragmentManager fm, int tabCount) {
+    public PagerOffers(FragmentManager fm, int tabCount) {
         super(fm);
         //Initializing tab count
         this.tabCount = tabCount;
@@ -22,14 +22,11 @@ public class Pager extends FragmentStatePagerAdapter {
         //Returning the current tabs
         switch (position) {
             case 0:
-                TabReservations tab1 = new TabReservations();
+                TabActiveOffers tab1 = new TabActiveOffers();
                 return tab1;
             case 1:
-                TabActiveOffers tab2 = new TabActiveOffers();
+                TabDisabledOffers tab2 = new TabDisabledOffers();
                 return tab2;
-            case 2:
-                TabDisabledOffers tab3 = new TabDisabledOffers();
-                return tab3;
             default:
                 return null;
         }
@@ -41,4 +38,3 @@ public class Pager extends FragmentStatePagerAdapter {
         return tabCount;
     }
 }
-

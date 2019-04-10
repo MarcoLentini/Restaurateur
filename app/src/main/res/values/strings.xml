@@ -47,7 +47,6 @@
     <string name="cancel_button">CANCEL</string>
 
 
-
     <!-- Password -->
     <string name="password_title">Change Password</string>
     <string name="insert_old_password">Insert your actual password</string>
@@ -71,11 +70,23 @@
     <string name="perm_denied">Permission Denied</string>
     <string name="action_settings">Information</string>
 
-
     <!--order page-->
     <string name="total_num_products">Total Number Of Products</string>
     <string name="remarks">Remarks</string>
     <string name="Button_Accept">Accept</string>
     <string name="Button_Reject">Reject</string>
     <string name="total_income_info">Total income of this order</string>
+
+    <!-- order tabs -->
+    <string name="reservation_title">Reservation</string>
+    <string name="accepted_label">Accepted</string>
+    <string name="pending_label">Pending</string>
+    <string name="refused_label">Refused</string>
+
+    <!-- offers tabs-->
+    <string name="offers_title">Offers</string>
+    <string name="active_label">Active</string>
+    <string name="disabled_label">Disabled</string>
+
+
 </resources>

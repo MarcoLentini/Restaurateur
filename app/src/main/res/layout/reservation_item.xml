@@ -1,94 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="16dp"
-    app:cardUseCompatPadding="true"
-    app:cardBackgroundColor="#FFFFFF"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <ImageView
-            android:id="@+id/imageViewOffer"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-            <TextView
-                android:id="@+id/textViewTitleOffer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Card title"
-                android:textColor="#000"
-                android:textSize="18sp" />
-            <TextView
-                android:id="@+id/textViewContentOffer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Card content"
-                android:textColor="#555" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
-            <TextView
-                android:id="@+id/textViewPriceOffer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Prezzo"
-                android:textColor="#000"
-                android:textSize="18sp" />
-            <TextView
-                android:id="@+id/textViewPriceOfferValue"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="5€"
-                android:textColor="#000"
-                android:textSize="18sp" />
-            <TextView
-                android:id="@+id/textViewQuantityOffer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Quantità"
-                android:textColor="#000"
-                android:textSize="18sp" />
-            <TextView
-                android:id="@+id/textViewQuantityOfferValue"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="29"
-                android:textColor="#000"
-                android:textSize="18sp" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit"
-                android:theme="@style/PrimaryFlatButton" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Disable"
-                android:theme="@style/PrimaryFlatButton" />
-        </LinearLayout>
-    </LinearLayout>
-
-</android.support.v7.widget.CardView>
+<?xml version="1.0" encoding="utf-8"?><android.support.v7.widget.CardView android:layout_width="match_parent"    android:layout_height="wrap_content"    xmlns:app="http://schemas.android.com/apk/res-auto"    android:layout_margin="16dp"    app:cardUseCompatPadding="true"    app:cardBackgroundColor="#FFFFFF"    xmlns:android="http://schemas.android.com/apk/res/android">    <LinearLayout        android:layout_width="match_parent"        android:layout_height="wrap_content"        android:orientation="vertical">        <ImageView            android:id="@+id/imageViewOffer"            android:layout_width="match_parent"            android:layout_height="160dp"            android:scaleType="centerCrop"            android:src="@drawable/ic_launcher_background" />        <LinearLayout            android:layout_width="match_parent"            android:layout_height="wrap_content"            android:orientation="vertical"            android:padding="16dp">            <TextView                android:id="@+id/textViewTitleOffer"                android:layout_width="match_parent"                android:layout_height="wrap_content"                android:layout_marginBottom="8dp"                android:text="Card title"                android:textColor="#000"                android:textSize="18sp" />            <TextView                android:id="@+id/textViewContentOffer"                android:layout_width="match_parent"                android:layout_height="wrap_content"                android:text="Card content"                android:textColor="#555" />        </LinearLayout>        <LinearLayout            android:layout_width="match_parent"            android:layout_height="wrap_content"            android:orientation="horizontal"            android:paddingLeft="16dp"            android:paddingRight="16dp">            <TextView                android:id="@+id/textViewPriceOffer"                android:layout_width="0dp"                android:layout_height="wrap_content"                android:layout_weight="1"                android:text="Prezzo"                android:textColor="#000"                android:textSize="18sp" />            <TextView                android:id="@+id/textViewPriceOfferValue"                android:layout_width="0dp"                android:layout_height="wrap_content"                android:layout_weight="1"                android:text="5€"                android:textColor="#000"                android:textSize="18sp" />            <TextView                android:id="@+id/textViewQuantityOffer"                android:layout_width="0dp"                android:layout_height="wrap_content"                android:layout_weight="1"                android:text="Quantità"                android:textColor="#000"                android:textSize="18sp" />            <TextView                android:id="@+id/textViewQuantityOfferValue"                android:layout_width="0dp"                android:layout_height="wrap_content"                android:layout_weight="1"                android:text="29"                android:textColor="#000"                android:textSize="18sp" />        </LinearLayout>        <LinearLayout            android:layout_width="match_parent"            android:layout_height="wrap_content">            <Button                android:layout_width="wrap_content"                android:layout_height="wrap_content"                android:text="Edit"                android:theme="@style/PrimaryFlatButton" />            <Button                android:layout_width="wrap_content"                android:layout_height="wrap_content"                android:text="Disable"                android:theme="@style/PrimaryFlatButton" />        </LinearLayout>    </LinearLayout></android.support.v7.widget.CardView>

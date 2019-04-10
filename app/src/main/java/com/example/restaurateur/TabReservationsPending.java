@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-public class TabReservations extends Fragment {
+public class TabReservationsPending extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;

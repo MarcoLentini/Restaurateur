@@ -153,7 +153,7 @@ public class ModifyInfoActivity extends AppCompatActivity {
                 Intent retIntent;
                 Bundle bn;
                 if(fieldName.equals("user_password")) {
-                     Log.d("password", "onClick:old "+fieldValue + " new= "+etEditInfo.getText().toString());
+                    Log.d("password", "onClick:old "+fieldValue + " new= "+etEditInfo.getText().toString());
                     if(fieldValue.equals(etEditInfo.getText().toString())){
                         retIntent = new Intent(getApplicationContext(), ChangePwdActivity.class);
                         bn = new Bundle();
