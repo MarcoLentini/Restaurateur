@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="4dp"
+    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="#FFFFFF"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/textViewOrderIdReservation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_hashtag_pic"
+                    android:drawableLeft="@drawable/ic_hashtag_pic"
+                    android:drawablePadding="4dp"
+                    android:gravity="center_vertical"
+                    android:text="OrderID"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
+
+                <TextView
+                    android:id="@+id/textViewRemainingTimeReservation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_hourglass"
+                    android:drawableLeft="@drawable/ic_hourglass"
+                    android:drawablePadding="4dp"
+                    android:gravity="center_vertical"
+                    android:text="15min"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+
+                <TextView
+                    android:id="@+id/textViewCustomerIdReservation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_account_name"
+                    android:drawableLeft="@drawable/ic_account_name"
+                    android:drawablePadding="4dp"
+                    android:gravity="center_vertical"
+                    android:text="CustomerID"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewFoodReservation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:drawableStart="@drawable/ic_cutlery"
+                android:drawableLeft="@drawable/ic_cutlery"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Pizza margherita(x1), Pizza al prosciutto(x3), Zucchine grigliate(x4), peperoni con carne al forno(x1), altro"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+            <TextView
+                android:id="@+id/textViewNotesReservation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_note"
+                android:drawableLeft="@drawable/ic_note"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="La pizza la voglio buona"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+        </LinearLayout>
+
+</android.support.v7.widget.CardView>
