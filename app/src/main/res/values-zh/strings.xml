@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">外卖商家</string>
+    <string name="default_user_name">用户名</string>
+    <string name="default_user_email">邮箱</string>
+    <string name="default_user_description">店铺简介</string>
+    <string name="default_user_phone_number">联系电话</string>
+    <string name="default_user_address">店铺地址</string>
+    <string name="default_opening_hours">营业时间</string>
+    <string name="default_delivery_service">送餐服务</string>
+    <string name="default_user_notification">通知</string>
+
+    <string name="name_field_id">user_name</string>
+    <string name="email_field_id">user_email</string>
+    <string name="phone_number__field_id">user_phone_number</string>
+    <string name="description_field_id">user_description</string>
+    <string name="address_field_id">user_address</string>
+    <string name="notification_field_id">user_notification</string>
+    <string name="opening_hours_field_id">opening_hours</string>
+    <string name="delivery_service_field_id">delivery_service</string>
+    <string name="pwd_field_id">user_password</string>
+
+    <string name="viewMore">更多资料</string>
+
+    <string name="insert_username">请输入用户名</string>
+    <string name="insert_email">请输入邮箱</string>
+    <string name="insert_phone_number">请输入电话号码</string>
+    <string name="insert_description">请输入店铺简介</string>
+
+    <string name="insert_address">请输入店铺地址</string>
+    <string name="insert_notification">请输入通知</string>
+    <string name="insert_opening_hours">请输入营业时间</string>
+    <string name="insert_delivery_info">请输入配送信息</string>
+
+    <string name="InfoTitle">外卖商家信息</string>
+    <string name="username_title">用户名</string>
+    <string name="email_title">邮箱</string>
+    <string name="phone_number_title">电话号码</string>
+    <string name="description_title">简介</string>
+    <string name="address_title">地址</string>
+    <string name="notification_title">通知</string>
+    <string name="opening_hours_title">营业时间</string>
+    <string name="delivery_info_title">配送信息</string>
+
+    <string name="password_title">更改密码</string>
+    <string name="insert_old_password">填写原密码</string>
+    <string name="insert_password">填写新密码</string>
+    <string name="repeat_password">再次填写确认</string>
+    <string name="invalid_password">原密码不正确</string>
+    <string name="different_password">两次填写密码不一致</string>
+    <string name="ok_button">确定</string>
+    <string name="cancel_button">取消</string>
+
+
+    <!-- Image Profile -->
+    <string name="select_photo">选择照片</string>
+    <string name="take_a_picture">拍摄照片</string>
+    <string name="pick_from_gallery">从相册选择</string>
+    <string name="cancel_string">取消</string>
+    <string name="image_disappear">选择的照片不可用</string>
+
+    <!-- Permission -->
+    <string name="perm_needed">请求权限</string>
+    <string name="perm_why_1">请求从相册选择照片的权限</string>
+    <string name="perm_why_2">请求拍摄照片的权限</string>
+    <string name="ok_string">确认</string>
+    <string name="perm_denied">没有权限</string>
+
+
+    <string name="action_settings">店铺信息</string>
+    <!--order page-->
+    <string name="total_num_products">商品总量</string>
+    <string name="remarks">备注:</string>
+    <string name="Button_Accept">接单</string>
+    <string name="Button_Reject">拒单</string>
+    <string name="total_income_info">本单预计收入</string>
+
+</resources>

@@ -1,3 +1,92 @@
 <resources>
     <string name="app_name">Restaurateur</string>
+    <string name="InfoTitle">Information</string>
+
+    <!-- Main Activity (Empty) -->
+    <string name="default_user_name">Insert username</string>
+    <string name="default_user_email">Insert email</string>
+    <string name="default_user_description">Insert description</string>
+    <string name="default_user_phone_number">Insert phone number</string>
+    <string name="default_user_address">Insert user address</string>
+    <string name="default_opening_hours">Insert opening hours</string>
+    <string name="default_delivery_service">Insert delivery info</string>
+    <string name="default_user_notification">Insert notification </string>
+
+    <!-- Field -->
+    <string name="name_field_id">user_name</string>
+    <string name="email_field_id">user_email</string>
+    <string name="phone_number__field_id">user_phone_number</string>
+    <string name="description_field_id">user_description</string>
+    <string name="address_field_id">user_address</string>
+    <string name="notification_field_id">user_notification</string>
+    <string name="opening_hours_field_id">opening_hours</string>
+    <string name="delivery_service_field_id">delivery_service</string>
+    <string name="pwd_field_id">user_password</string>
+
+    <!-- Modify Activity -->
+    <string name="username_title">Username</string>
+    <string name="email_title">Email</string>
+    <string name="phone_number_title">Phone number</string>
+    <string name="description_title">Description</string>
+    <string name="address_title">Address</string>
+    <string name="notification_title">Notification</string>
+    <string name="opening_hours_title">Opening hours</string>
+    <string name="delivery_info_title">Delivery Info</string>
+    <string name="insert_username">Type your username</string>
+    <string name="insert_email">Type your email address</string>
+    <string name="insert_phone_number">Type your phone number</string>
+    <string name="insert_description">Type a short description about you</string>
+    <string name="insert_address">Type your address</string>
+    <string name="insert_notification">Type your notification</string>
+    <string name="insert_opening_hours">Type your opening hours</string>
+    <string name="insert_delivery_info">Type your delivery info</string>
+
+    <!-- Generic -->
+    <string name="viewMore">Show more information</string>
+    <string name="ok_button">OK</string>
+    <string name="cancel_button">CANCEL</string>
+
+
+    <!-- Password -->
+    <string name="password_title">Change Password</string>
+    <string name="insert_old_password">Insert your actual password</string>
+    <string name="insert_password">Insert the new password</string>
+    <string name="repeat_password">Repeat the password</string>
+    <string name="invalid_password">Invalid password</string>
+    <string name="different_password">The two password are different</string>
+
+    <!-- Image Profile -->
+    <string name="select_photo">Select photo</string>
+    <string name="take_a_picture">Take a picture</string>
+    <string name="pick_from_gallery">Pick from gallery</string>
+    <string name="cancel_string">Cancel</string>
+    <string name="image_disappear">The selected image is no longer available</string>
+
+    <!-- Permission -->
+    <string name="perm_needed">Permission needed</string>
+    <string name="perm_why_1">This permission is needed to pick a photo from gallery</string>
+    <string name="perm_why_2">This permission is needed to take photo</string>
+    <string name="ok_string">OK</string>
+    <string name="perm_denied">Permission Denied</string>
+    <string name="action_settings">Information</string>
+
+    <!--order page-->
+    <string name="total_num_products">Total Number Of Products</string>
+    <string name="remarks">Remarks</string>
+    <string name="Button_Accept">Accept</string>
+    <string name="Button_Reject">Reject</string>
+    <string name="total_income_info">Total income of this order</string>
+
+    <!-- order tabs -->
+    <string name="reservation_title">Reservation</string>
+    <string name="accepted_label">Accepted</string>
+    <string name="pending_label">Pending</string>
+    <string name="refused_label">Refused</string>
+
+    <!-- offers tabs-->
+    <string name="offers_title">Offers</string>
+    <string name="active_label">Active</string>
+    <string name="disabled_label">Disabled</string>
+
+
 </resources>

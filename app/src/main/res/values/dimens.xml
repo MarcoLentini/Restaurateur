@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="toolbar_profile_width">160sp</dimen>
+    <dimen name="activity_padding">16sp</dimen>
+</resources>
