@@ -71,4 +71,11 @@
     <string name="perm_denied">Permission Denied</string>
     <string name="action_settings">Information</string>
 
+
+    <!--order page-->
+    <string name="total_num_products">Total Number Of Products</string>
+    <string name="remarks">Remarks</string>
+    <string name="Button_Accept">Accept</string>
+    <string name="Button_Reject">Reject</string>
+    <string name="total_income_info">Total income of this order</string>
 </resources>

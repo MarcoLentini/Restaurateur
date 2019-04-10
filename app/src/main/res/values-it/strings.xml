@@ -66,4 +66,11 @@
     <string name="image_disappear">L\'immagine selezionata non è più disponibile</string>
     <string name="action_settings">Informazioni</string>
 
+    <!--order page-->
+    <string name="total_num_products">Total Number Of Products</string>
+    <string name="remarks">Remarks</string>
+    <string name="Button_Accept">Accept Order</string>
+    <string name="Button_Reject">Reject Order</string>
+    <string name="total_income_info">Total income of this order</string>
+
 </resources>

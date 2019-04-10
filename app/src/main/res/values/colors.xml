@@ -9,4 +9,5 @@
     <color name="colorSecondaryText">#ffffff</color>
     <color name="colorTextIcon">#212121</color>
     <color name="colorError">#FF4081</color>
+    <color name="colorLightGray">#DCD7D7</color>
 </resources>

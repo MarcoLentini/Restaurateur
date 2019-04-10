@@ -63,4 +63,13 @@
         <item name="colorAccent">#FFAB40</item>
     </style>
 
+    <style name="ButtonAccept">
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorSecondaryText</item>
+    </style>
+
+    <style name="ButtonReject">
+        <item name="android:background">@color/colorLightGray</item>
+        <item name="android:textColor">@color/colorSecondaryText</item>
+    </style>
 </resources>
