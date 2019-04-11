@@ -32,7 +32,7 @@
 
         <activity android:name=".UserInformationActivity" ></activity>
 
-        <activity android:name=".Orders"
+        <activity android:name=".Reservations"
             android:theme="@style/AppThemeCurrentInfo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

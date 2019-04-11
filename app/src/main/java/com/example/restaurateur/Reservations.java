@@ -3,18 +3,15 @@ package com.example.restaurateur;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
-public class Orders extends AppCompatActivity {
+public class Reservations extends AppCompatActivity {
 
 
     private ActionBar toolbar;
@@ -32,7 +29,7 @@ public class Orders extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation_orders);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        loadFragment(new Orders_f());
+        loadFragment(new Reservations_f());
     }
 
 
@@ -63,7 +60,7 @@ public class Orders extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.navigation_order:
                 toolbar.setTitle(R.string.reservation_title);
-                fragment = new Orders_f();
+                fragment = new Reservations_f();
                 loadFragment(fragment);
                 return true;
             case R.id.navigation_offer:

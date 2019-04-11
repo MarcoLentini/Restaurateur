@@ -79,9 +79,9 @@
 
     <!-- order tabs -->
     <string name="reservation_title">Reservation</string>
-    <string name="accepted_label">Accepted</string>
+    <string name="accepted_label">In progress</string>
     <string name="pending_label">Pending</string>
-    <string name="refused_label">Refused</string>
+    <string name="refused_label">Finished</string>
 
     <!-- offers tabs-->
     <string name="offers_title">Offers</string>
