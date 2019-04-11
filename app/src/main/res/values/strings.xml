@@ -78,7 +78,7 @@
     <string name="total_income_info">Total income of this order</string>
 
     <!-- order tabs -->
-    <string name="reservation_title">Reservation</string>
+    <string name="reservation_title">Reservations</string>
     <string name="accepted_label">In progress</string>
     <string name="pending_label">Pending</string>
     <string name="refused_label">Finished</string>

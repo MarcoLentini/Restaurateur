@@ -11,14 +11,17 @@ import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
+import java.util.ArrayList;
+
 public class Reservations extends AppCompatActivity {
 
-
     private ActionBar toolbar;
+    public static ArrayList<ReservationModel> reservationsData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.orders);
+        setContentView(R.layout.reservations);
 
         //Adding toolbar to the activity
         Toolbar toolbar1 = (Toolbar) findViewById(R.id.toolbar_orders);
@@ -30,6 +33,20 @@ public class Reservations extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation_orders);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         loadFragment(new Reservations_f());
+
+        reservationsData = new ArrayList<ReservationModel>();
+        for (int i = 0; i < MyReservationsData.id.length; i++) {
+            ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
+            for(int j = 0; j < MyReservationsData.orderedDish[i].length; j++)
+                tmpArrayList.add(new ReservatedDish(MyReservationsData.orderedDish[i][j], MyReservationsData.multiplierDish[i][j]));
+            reservationsData.add(new ReservationModel(MyReservationsData.id[i],
+                                                    MyReservationsData.customerId[i],
+                                                    MyReservationsData.remainingMinutes[i],
+                                                    MyReservationsData.notes[i],
+                                                    MyReservationsData.customerPhoneNumber[i],
+                                                    tmpArrayList,
+                                                    MyReservationsData.reservationState[i]));
+        }
     }
 
 

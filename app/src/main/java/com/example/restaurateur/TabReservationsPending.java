@@ -15,7 +15,7 @@ public class TabReservationsPending extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter foodAdapter;
-    private static ArrayList<FoodOfferModel> data;
+    private Reservations reservationsActivity = (Reservations) getActivity();
 
     //Overriden method onCreateView
     @Override
@@ -29,24 +29,10 @@ public class TabReservationsPending extends Fragment {
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-
-        data = new ArrayList<FoodOfferModel>();
-        for (int i = 0; i < MyData.titleArray.length; i++) {
-            data.add(new FoodOfferModel(
-                    MyData.titleArray[i],
-                    MyData.contentArray[i],
-                    MyData.id_[i],
-                    MyData.drawableArray[i],
-                    MyData.priceArray[i],
-                    MyData.quantityArray[i]
-            ));
-        }
-
         // specify an Adapter
-        foodAdapter = new FoodListAdapter(getContext(), data); // getContext() forse non va bene
+        foodAdapter = new ReservationsListAdapter(getContext(), reservationsActivity.reservationsData); // getContext() forse non va bene
         recyclerView.setAdapter(foodAdapter);
 
         return view;
     }
-
 }
