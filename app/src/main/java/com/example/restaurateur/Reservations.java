@@ -16,7 +16,9 @@ import java.util.ArrayList;
 public class Reservations extends AppCompatActivity {
 
     private ActionBar toolbar;
-    public static ArrayList<ReservationModel> reservationsData;
+    public static ArrayList<ReservationModel> pendingReservationsData;
+    public static ArrayList<ReservationModel> inProgressReservationsData;
+    public static ArrayList<ReservationModel> finishedReservationsData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +36,31 @@ public class Reservations extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         loadFragment(new Reservations_f());
 
-        reservationsData = new ArrayList<ReservationModel>();
+        pendingReservationsData = new ArrayList<ReservationModel>();
+        inProgressReservationsData = new ArrayList<ReservationModel>();
+        finishedReservationsData = new ArrayList<ReservationModel>();
         for (int i = 0; i < MyReservationsData.id.length; i++) {
             ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
             for(int j = 0; j < MyReservationsData.orderedDish[i].length; j++)
                 tmpArrayList.add(new ReservatedDish(MyReservationsData.orderedDish[i][j], MyReservationsData.multiplierDish[i][j]));
-            reservationsData.add(new ReservationModel(MyReservationsData.id[i],
-                                                    MyReservationsData.customerId[i],
-                                                    MyReservationsData.remainingMinutes[i],
-                                                    MyReservationsData.notes[i],
-                                                    MyReservationsData.customerPhoneNumber[i],
-                                                    tmpArrayList,
-                                                    MyReservationsData.reservationState[i]));
+            ReservationModel tmpReservationModel = new ReservationModel(MyReservationsData.id[i],
+                    MyReservationsData.customerId[i],
+                    MyReservationsData.remainingMinutes[i],
+                    MyReservationsData.notes[i],
+                    MyReservationsData.customerPhoneNumber[i],
+                    tmpArrayList,
+                    MyReservationsData.reservationState[i]);
+            switch(MyReservationsData.reservationState[i]) {
+                    case ReservationState.STATE_PENDING:
+                        pendingReservationsData.add(tmpReservationModel);
+                        break;
+                    case ReservationState.STATE_IN_PROGRESS:
+                        inProgressReservationsData.add(tmpReservationModel);
+                        break;
+                    case ReservationState.STATE_FINISHED:
+                        finishedReservationsData.add(tmpReservationModel);
+                        break;
+            }
         }
     }
 

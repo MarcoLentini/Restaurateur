@@ -30,7 +30,7 @@ public class TabReservationsPending extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
-        foodAdapter = new ReservationsListAdapter(getContext(), reservationsActivity.reservationsData); // getContext() forse non va bene
+        foodAdapter = new ReservationsListAdapter(getContext(), reservationsActivity.pendingReservationsData); // getContext() forse non va bene
         recyclerView.setAdapter(foodAdapter);
 
         return view;
