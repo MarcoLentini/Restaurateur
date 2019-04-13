@@ -29,7 +29,7 @@ public class Reservations extends AppCompatActivity {
         Toolbar toolbar1 = (Toolbar) findViewById(R.id.toolbar_orders);
         toolbar1.setTitle(R.string.reservation_title);
         setSupportActionBar(toolbar1);
-        toolbar=getSupportActionBar();
+        toolbar = getSupportActionBar();
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation_orders);
@@ -39,6 +39,7 @@ public class Reservations extends AppCompatActivity {
         pendingReservationsData = new ArrayList<ReservationModel>();
         inProgressReservationsData = new ArrayList<ReservationModel>();
         finishedReservationsData = new ArrayList<ReservationModel>();
+        // The for cycle is used to put data into the previous 3 ArrayLists
         for (int i = 0; i < MyReservationsData.id.length; i++) {
             ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
             for(int j = 0; j < MyReservationsData.orderedDish[i].length; j++)
@@ -108,7 +109,6 @@ public class Reservations extends AppCompatActivity {
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container_orders, fragment);
-
         transaction.commit();
     }
 }
