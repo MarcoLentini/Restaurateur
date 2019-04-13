@@ -33,7 +33,6 @@ public class Reservations_f extends Fragment implements TabLayout.BaseOnTabSelec
         viewPager = (ViewPager) view.findViewById(R.id.pager_orders);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-
         //Creating our pager adapter
         PageReservations adapter = new PageReservations(getFragmentManager(), tabLayout.getTabCount());
 

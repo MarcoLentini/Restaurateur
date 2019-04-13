@@ -17,7 +17,6 @@ public class TabReservationsPending extends Fragment {
     private RecyclerView.Adapter foodAdapter;
     private Reservations reservationsActivity = (Reservations) getActivity();
 
-    //Overriden method onCreateView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

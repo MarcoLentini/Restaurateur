@@ -32,8 +32,8 @@ public class Reservations extends AppCompatActivity {
         toolbar = getSupportActionBar();
 
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation_orders);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        /*BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation_orders);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);*/
         loadFragment(new Reservations_f());
 
         pendingReservationsData = new ArrayList<ReservationModel>();
@@ -108,7 +108,7 @@ public class Reservations extends AppCompatActivity {
     private void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container_orders, fragment);
+        transaction.replace(R.id.frame_container_reservations, fragment);
         transaction.commit();
     }
 }
