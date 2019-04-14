@@ -22,7 +22,7 @@ public class TabReservationsFinished extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.tab_reservations, container, false);
-        recyclerView = view.findViewById(R.id.foodRecyclerView);
+        recyclerView = view.findViewById(R.id.reservationsRecyclerView);
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         /*recyclerView.setHasFixedSize(true);*/

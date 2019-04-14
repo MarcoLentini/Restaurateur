@@ -21,7 +21,7 @@ public class Reservations_f extends Fragment implements TabLayout.BaseOnTabSelec
         View view = inflater.inflate(R.layout.fragment_reservations_f, container, false);
 
         //Initializing the tablayout
-        tabLayout = (TabLayout) view.findViewById(R.id.tabLayout_orders);
+        tabLayout = (TabLayout) view.findViewById(R.id.tabLayout_reservations);
 
         //Adding the tabs using addTab() method
         tabLayout.addTab(tabLayout.newTab().setText(R.string.pending_label));
@@ -30,7 +30,7 @@ public class Reservations_f extends Fragment implements TabLayout.BaseOnTabSelec
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         //Initializing viewPager
-        viewPager = (ViewPager) view.findViewById(R.id.pager_orders);
+        viewPager = (ViewPager) view.findViewById(R.id.pager_reservations);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         //Creating our pager adapter

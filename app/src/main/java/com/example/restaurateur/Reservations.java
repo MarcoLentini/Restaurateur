@@ -26,14 +26,14 @@ public class Reservations extends AppCompatActivity {
         setContentView(R.layout.reservations);
 
         //Adding toolbar to the activity
-        Toolbar toolbar1 = (Toolbar) findViewById(R.id.toolbar_orders);
+        Toolbar toolbar1 = (Toolbar) findViewById(R.id.toolbar_reservations);
         toolbar1.setTitle(R.string.reservation_title);
         setSupportActionBar(toolbar1);
         toolbar = getSupportActionBar();
+        // Adding bottom navigation to the activity
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation_categories);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-
-        /*BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation_orders);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);*/
         loadFragment(new Reservations_f());
 
         pendingReservationsData = new ArrayList<ReservationModel>();
@@ -64,8 +64,6 @@ public class Reservations extends AppCompatActivity {
             }
         }
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
