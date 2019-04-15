@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.example.restaurateur.History.History_f;
+import com.example.restaurateur.Offer.OfferModel;
 import com.example.restaurateur.Offer.Offers_f;
 import com.example.restaurateur.Reservation.ReservatedDish;
 import com.example.restaurateur.Reservation.ReservationModel;
@@ -19,6 +20,7 @@ import com.example.restaurateur.Reservation.ReservationState;
 import com.example.restaurateur.Reservation.Reservations_f;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Reservations extends AppCompatActivity {
 
@@ -26,6 +28,7 @@ public class Reservations extends AppCompatActivity {
     public static ArrayList<ReservationModel> pendingReservationsData;
     public static ArrayList<ReservationModel> inProgressReservationsData;
     public static ArrayList<ReservationModel> finishedReservationsData;
+    public static HashMap<Integer, OfferModel> offersData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,12 @@ public class Reservations extends AppCompatActivity {
                         finishedReservationsData.add(tmpReservationModel);
                         break;
             }
+        }
+
+        offersData = new HashMap<>();
+        for(int i = 0; i < MyOffersData.id.length; i++) {
+            OfferModel tmpOM = new OfferModel(MyOffersData.id[i], MyOffersData.offerName[i], MyOffersData.price[i], MyOffersData.image[i]);
+            offersData.put(MyOffersData.id[i], tmpOM);
         }
     }
 
