@@ -1,8 +1,8 @@
 package com.example.restaurateur;
 
 public class MyOffersData {
-    static Integer[] id = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-            12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25};
+    static Integer[] id = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+            12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25 };
 
     static String[] offerName = { "Pizza Margherita", "Pizza al tonno", "Pizza tricolore",
             "Pizza con prosiutto cotto, friarielli, salsiccia e tanta gorgonzola", "Pizza quattro formaggi",
@@ -12,6 +12,9 @@ public class MyOffersData {
             "Zucchine grigliate", "Peperoni grigliati", "Pizza al prosciutto crudo e gorgonzola", "Vitello tonnato",
             "Insalata", "Ketchup", "Maionese", "Coca-cola in lattine da 33cl" };
 
-    static Integer[] price = {4, 5, 8, 6, 9, 6, 7, 8, 9, 10, 11,
-            12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25};
+    static Double[] price = { 4.0, 5.0, 8.0, 6.0, 9.50, 6.80, 7.20, 8.0, 9.10, 10.0, 11.0,
+            12.20, 13.10, 9.15, 15.25, 10.80, 20.0, 6.30, 4.20, 3.00, 2.50, 1.50, 1.50, 3.90, 0.50 };
+
+    static Integer[] image = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+            12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25 };
 }

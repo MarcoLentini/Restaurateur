@@ -12,8 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.example.restaurateur.History.History_f;
-import com.example.restaurateur.Offer.Category;
-import com.example.restaurateur.Offer.MyCategories;
+import com.example.restaurateur.Offer.OfferModel;
 import com.example.restaurateur.Offer.Offers_f;
 import com.example.restaurateur.Reservation.ReservatedDish;
 import com.example.restaurateur.Reservation.ReservationModel;
@@ -21,6 +20,7 @@ import com.example.restaurateur.Reservation.ReservationState;
 import com.example.restaurateur.Reservation.Reservations_f;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Reservations extends AppCompatActivity {
 
@@ -28,6 +28,7 @@ public class Reservations extends AppCompatActivity {
     public static ArrayList<ReservationModel> pendingReservationsData;
     public static ArrayList<ReservationModel> inProgressReservationsData;
     public static ArrayList<ReservationModel> finishedReservationsData;
+    public static HashMap<Integer, OfferModel> offersData;
     public static ArrayList<Category> categories;
 
     @Override
@@ -79,6 +80,9 @@ public class Reservations extends AppCompatActivity {
             categories.add(new Category(MyCategories.categories[j]));
 
         }
+        offersData = new HashMap<>();
+        // fillWithStaticData() is used to put data into the previous 3 ArrayLists and the HashMap
+        fillWithStaticData();
     }
 
     @Override
@@ -130,5 +134,36 @@ public class Reservations extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container_reservations, fragment);
         transaction.commit();
+    }
+
+    private void fillWithStaticData() {
+        for (int i = 0; i < MyReservationsData.id.length; i++) {
+            ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
+            for(int j = 0; j < MyReservationsData.orderedDish[i].length; j++)
+                tmpArrayList.add(new ReservatedDish(MyReservationsData.orderedDish[i][j], MyReservationsData.multiplierDish[i][j]));
+            ReservationModel tmpReservationModel = new ReservationModel(MyReservationsData.id[i],
+                    MyReservationsData.customerId[i],
+                    MyReservationsData.remainingMinutes[i],
+                    MyReservationsData.notes[i],
+                    MyReservationsData.customerPhoneNumber[i],
+                    tmpArrayList,
+                    MyReservationsData.reservationState[i]);
+            switch(MyReservationsData.reservationState[i]) {
+                case ReservationState.STATE_PENDING:
+                    pendingReservationsData.add(tmpReservationModel);
+                    break;
+                case ReservationState.STATE_IN_PROGRESS:
+                    inProgressReservationsData.add(tmpReservationModel);
+                    break;
+                case ReservationState.STATE_FINISHED:
+                    finishedReservationsData.add(tmpReservationModel);
+                    break;
+            }
+        }
+
+        for(int i = 0; i < MyOffersData.id.length; i++) {
+            OfferModel tmpOM = new OfferModel(MyOffersData.id[i], MyOffersData.offerName[i], MyOffersData.price[i], MyOffersData.image[i]);
+            offersData.put(MyOffersData.id[i], tmpOM);
+        }
     }
 }
