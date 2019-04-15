@@ -16,7 +16,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -67,7 +66,7 @@ public class UserInformationActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(titile);
 
         // Image Profile
-        imageProfile = findViewById(R.id.img_profile);
+        imageProfile = findViewById(R.id.offer_food_pic);
         imageProfile.setImageResource(placeholders[(int)(Math.random()*placeholders.length)]);
         ImageView imageAddButton = findViewById(R.id.background_img);
         imageAddButton.setOnClickListener(v -> {
@@ -118,7 +117,7 @@ public class UserInformationActivity extends AppCompatActivity {
             }
         });
 
-        imageProfile = findViewById(R.id.img_profile);
+        imageProfile = findViewById(R.id.offer_food_pic);
         sharedPref =getSharedPreferences(userFile, Context.MODE_PRIVATE);
         userName = sharedPref.getString("userName","");
         if (!userName.equals(""))
