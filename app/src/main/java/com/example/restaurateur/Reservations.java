@@ -12,6 +12,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.example.restaurateur.History.History_f;
+import com.example.restaurateur.Offer.Category;
+import com.example.restaurateur.Offer.MyCategories;
 import com.example.restaurateur.Offer.OfferModel;
 import com.example.restaurateur.Offer.Offers_f;
 import com.example.restaurateur.Reservation.ReservatedDish;
@@ -75,7 +77,7 @@ public class Reservations extends AppCompatActivity {
                         break;
             }
         }
-        for(int j =0; j< MyCategories.categories.length;j++)
+        for(int j = 0; j< MyCategories.categories.length; j++)
         {
             categories.add(new Category(MyCategories.categories[j]));
 
