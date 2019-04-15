@@ -75,4 +75,20 @@
     <string name="Button_Reject">拒单</string>
     <string name="total_income_info">本单预计收入</string>
 
+    <!-- order tabs -->
+    <string name="reservation_title">订单</string>
+    <string name="accepted_label">已完成</string>
+    <string name="pending_label">进行中</string>
+    <string name="refused_label">已取消</string>
+
+    <!-- offers tabs-->
+    <string name="offers_title">菜单</string>
+    <string name="active_label">售卖中</string>
+    <string name="disabled_label">已下架</string>
+
+    <string name="home_title">店铺管理</string>
+
+    <!-- edit_offer_item_info.xml -->
+     <string name="Button_Save">保存</string>
+
 </resources>

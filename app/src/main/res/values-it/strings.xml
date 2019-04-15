@@ -81,4 +81,10 @@
     <string name="disabled_label">Disattive</string>
     <string name="history_title">Storico</string>
 
+
+    <string name="home_title">Home</string>
+
+    <!-- edit_offer_item_info.xml -->
+     <string name="Button_Save">SAVE</string>
+
 </resources>

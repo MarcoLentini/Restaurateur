@@ -71,7 +71,7 @@ public class UserInformationActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(titile);
 
         // Image Profile
-        imageProfile = findViewById(R.id.img_profile);
+        imageProfile = findViewById(R.id.offer_food_pic);
         imageProfile.setImageResource(placeholders[(int)(Math.random()*placeholders.length)]);
         ImageView imageAddButton = findViewById(R.id.background_img);
         imageAddButton.setOnClickListener(v -> {
@@ -122,7 +122,7 @@ public class UserInformationActivity extends AppCompatActivity {
             }
         });
 
-        imageProfile = findViewById(R.id.img_profile);
+        imageProfile = findViewById(R.id.offer_food_pic);
         sharedPref =getSharedPreferences(userFile, Context.MODE_PRIVATE);
         userName = sharedPref.getString("userName","");
         if (!userName.equals(""))

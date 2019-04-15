@@ -46,7 +46,6 @@
     <string name="ok_button">OK</string>
     <string name="cancel_button">CANCEL</string>
 
-
     <!-- Password -->
     <string name="password_title">Change Password</string>
     <string name="insert_old_password">Insert your actual password</string>
@@ -89,5 +88,9 @@
     <string name="disabled_label">Disabled</string>
     <string name="history_title">History</string>
 
+    <string name="home_title">Home</string>
+
+    <!-- edit_offer_item_info.xml -->
+     <string name="Button_Save">SAVE</string>
 
 </resources>
