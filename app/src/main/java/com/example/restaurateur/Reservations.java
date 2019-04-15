@@ -49,36 +49,9 @@ public class Reservations extends AppCompatActivity {
         pendingReservationsData = new ArrayList<ReservationModel>();
         inProgressReservationsData = new ArrayList<ReservationModel>();
         finishedReservationsData = new ArrayList<ReservationModel>();
-        // The for cycle is used to put data into the previous 3 ArrayLists
-        for (int i = 0; i < MyReservationsData.id.length; i++) {
-            ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
-            for(int j = 0; j < MyReservationsData.orderedDish[i].length; j++)
-                tmpArrayList.add(new ReservatedDish(MyReservationsData.orderedDish[i][j], MyReservationsData.multiplierDish[i][j]));
-            ReservationModel tmpReservationModel = new ReservationModel(MyReservationsData.id[i],
-                    MyReservationsData.customerId[i],
-                    MyReservationsData.remainingMinutes[i],
-                    MyReservationsData.notes[i],
-                    MyReservationsData.customerPhoneNumber[i],
-                    tmpArrayList,
-                    MyReservationsData.reservationState[i]);
-            switch(MyReservationsData.reservationState[i]) {
-                    case ReservationState.STATE_PENDING:
-                        pendingReservationsData.add(tmpReservationModel);
-                        break;
-                    case ReservationState.STATE_IN_PROGRESS:
-                        inProgressReservationsData.add(tmpReservationModel);
-                        break;
-                    case ReservationState.STATE_FINISHED:
-                        finishedReservationsData.add(tmpReservationModel);
-                        break;
-            }
-        }
-
         offersData = new HashMap<>();
-        for(int i = 0; i < MyOffersData.id.length; i++) {
-            OfferModel tmpOM = new OfferModel(MyOffersData.id[i], MyOffersData.offerName[i], MyOffersData.price[i], MyOffersData.image[i]);
-            offersData.put(MyOffersData.id[i], tmpOM);
-        }
+        // fillWithStaticData() is used to put data into the previous 3 ArrayLists and the HashMap
+        fillWithStaticData();
     }
 
     @Override
@@ -97,7 +70,6 @@ public class Reservations extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
     // Bottom Menu
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -130,5 +102,36 @@ public class Reservations extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container_reservations, fragment);
         transaction.commit();
+    }
+
+    private void fillWithStaticData() {
+        for (int i = 0; i < MyReservationsData.id.length; i++) {
+            ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
+            for(int j = 0; j < MyReservationsData.orderedDish[i].length; j++)
+                tmpArrayList.add(new ReservatedDish(MyReservationsData.orderedDish[i][j], MyReservationsData.multiplierDish[i][j]));
+            ReservationModel tmpReservationModel = new ReservationModel(MyReservationsData.id[i],
+                    MyReservationsData.customerId[i],
+                    MyReservationsData.remainingMinutes[i],
+                    MyReservationsData.notes[i],
+                    MyReservationsData.customerPhoneNumber[i],
+                    tmpArrayList,
+                    MyReservationsData.reservationState[i]);
+            switch(MyReservationsData.reservationState[i]) {
+                case ReservationState.STATE_PENDING:
+                    pendingReservationsData.add(tmpReservationModel);
+                    break;
+                case ReservationState.STATE_IN_PROGRESS:
+                    inProgressReservationsData.add(tmpReservationModel);
+                    break;
+                case ReservationState.STATE_FINISHED:
+                    finishedReservationsData.add(tmpReservationModel);
+                    break;
+            }
+        }
+
+        for(int i = 0; i < MyOffersData.id.length; i++) {
+            OfferModel tmpOM = new OfferModel(MyOffersData.id[i], MyOffersData.offerName[i], MyOffersData.price[i], MyOffersData.image[i]);
+            offersData.put(MyOffersData.id[i], tmpOM);
+        }
     }
 }
