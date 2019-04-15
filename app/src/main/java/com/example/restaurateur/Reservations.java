@@ -53,37 +53,8 @@ public class Reservations extends AppCompatActivity {
         inProgressReservationsData = new ArrayList<ReservationModel>();
         finishedReservationsData = new ArrayList<ReservationModel>();
         categories = new ArrayList<Category>();
-        // The for cycle is used to put data into the previous 3 ArrayLists
-        for (int i = 0; i < MyReservationsData.id.length; i++) {
-            ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
-            for(int j = 0; j < MyReservationsData.orderedDish[i].length; j++)
-                tmpArrayList.add(new ReservatedDish(MyReservationsData.orderedDish[i][j], MyReservationsData.multiplierDish[i][j]));
-            ReservationModel tmpReservationModel = new ReservationModel(MyReservationsData.id[i],
-                    MyReservationsData.customerId[i],
-                    MyReservationsData.remainingMinutes[i],
-                    MyReservationsData.notes[i],
-                    MyReservationsData.customerPhoneNumber[i],
-                    tmpArrayList,
-                    MyReservationsData.reservationState[i]);
-            switch(MyReservationsData.reservationState[i]) {
-                    case ReservationState.STATE_PENDING:
-                        pendingReservationsData.add(tmpReservationModel);
-                        break;
-                    case ReservationState.STATE_IN_PROGRESS:
-                        inProgressReservationsData.add(tmpReservationModel);
-                        break;
-                    case ReservationState.STATE_FINISHED:
-                        finishedReservationsData.add(tmpReservationModel);
-                        break;
-            }
-        }
-        for(int j = 0; j< MyCategories.categories.length; j++)
-        {
-            categories.add(new Category(MyCategories.categories[j]));
-
-        }
         offersData = new HashMap<>();
-        // fillWithStaticData() is used to put data into the previous 3 ArrayLists and the HashMap
+        // fillWithStaticData() is used to put data into the previous first 3 ArrayLists and the HashMap
         fillWithStaticData();
     }
 
