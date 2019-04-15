@@ -12,6 +12,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.example.restaurateur.History.History_f;
+import com.example.restaurateur.Offer.Category;
+import com.example.restaurateur.Offer.MyCategories;
 import com.example.restaurateur.Offer.Offers_f;
 import com.example.restaurateur.Reservation.ReservatedDish;
 import com.example.restaurateur.Reservation.ReservationModel;
@@ -26,6 +28,7 @@ public class Reservations extends AppCompatActivity {
     public static ArrayList<ReservationModel> pendingReservationsData;
     public static ArrayList<ReservationModel> inProgressReservationsData;
     public static ArrayList<ReservationModel> finishedReservationsData;
+    public static ArrayList<Category> categories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class Reservations extends AppCompatActivity {
         pendingReservationsData = new ArrayList<ReservationModel>();
         inProgressReservationsData = new ArrayList<ReservationModel>();
         finishedReservationsData = new ArrayList<ReservationModel>();
+        categories = new ArrayList<Category>();
         // The for cycle is used to put data into the previous 3 ArrayLists
         for (int i = 0; i < MyReservationsData.id.length; i++) {
             ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
@@ -69,6 +73,11 @@ public class Reservations extends AppCompatActivity {
                         finishedReservationsData.add(tmpReservationModel);
                         break;
             }
+        }
+        for(int j =0; j< MyCategories.categories.length;j++)
+        {
+            categories.add(new Category(MyCategories.categories[j]));
+
         }
     }
 
