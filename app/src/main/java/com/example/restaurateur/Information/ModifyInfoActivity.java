@@ -1,4 +1,4 @@
-package com.example.restaurateur;
+package com.example.restaurateur.Information;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.restaurateur.R;
+import com.example.restaurateur.UserInformationActivity;
 
 public class ModifyInfoActivity extends AppCompatActivity {
 

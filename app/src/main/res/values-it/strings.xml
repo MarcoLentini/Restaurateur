@@ -79,5 +79,6 @@
     <string name="refused_label">Terminati</string>
     <string name="active_label">Attive</string>
     <string name="disabled_label">Disattive</string>
+    <string name="history_title">Storico</string>
 
 </resources>

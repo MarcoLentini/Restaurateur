@@ -1,6 +1,8 @@
-package com.example.restaurateur;
+package com.example.restaurateur.Reservation;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,15 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TabReservationsPending extends Fragment {
+import com.example.restaurateur.R;
+import com.example.restaurateur.Reservation.ReservationsListAdapter;
+import com.example.restaurateur.Reservations;
+
+public class TabReservationsFinished extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter foodAdapter;
     private Reservations reservationsActivity = (Reservations) getActivity();
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.tab_reservations, container, false);
         recyclerView = view.findViewById(R.id.reservationsRecyclerView);
@@ -27,9 +34,10 @@ public class TabReservationsPending extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
-        foodAdapter = new ReservationsListAdapter(getContext(), reservationsActivity.pendingReservationsData); // getContext() forse non va bene
+        foodAdapter = new ReservationsListAdapter(getContext(), reservationsActivity.finishedReservationsData); // getContext() forse non va bene
         recyclerView.setAdapter(foodAdapter);
 
         return view;
     }
 }
+

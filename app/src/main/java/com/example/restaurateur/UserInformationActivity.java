@@ -16,13 +16,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.net.Uri;
 import android.widget.Toast;
+
+import com.example.restaurateur.Information.ModifyInfoActivity;
+import com.example.restaurateur.Information.ViewMoreInfoActivity;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -64,6 +66,8 @@ public class UserInformationActivity extends AppCompatActivity {
         setContentView(R.layout.user_information_activity);
 
         String titile = getString(R.string.InfoTitle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(titile);
 
         // Image Profile
@@ -179,7 +183,7 @@ public class UserInformationActivity extends AppCompatActivity {
     }
 
     private void more_info_page(View view){
-        Intent intent = new Intent(this,ViewMoreInfoActivity.class);
+        Intent intent = new Intent(this, ViewMoreInfoActivity.class);
         startActivityForResult(intent, 1);
     }
 
@@ -259,6 +263,13 @@ public class UserInformationActivity extends AppCompatActivity {
             if(imageProfile.getDrawable() == null)
                 imageProfile.setImageResource(placeholders[(int)(Math.random()*placeholders.length)]);
         }
+    }
+
+    /** onSupportNavigateUp **/
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     /** Permission Function **/

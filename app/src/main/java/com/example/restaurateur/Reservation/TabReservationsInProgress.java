@@ -1,4 +1,4 @@
-package com.example.restaurateur;
+package com.example.restaurateur.Reservation;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,7 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TabReservationsFinished extends Fragment {
+import com.example.restaurateur.R;
+import com.example.restaurateur.Reservation.ReservationsListAdapter;
+import com.example.restaurateur.Reservations;
+
+public class TabReservationsInProgress extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -30,10 +34,9 @@ public class TabReservationsFinished extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
-        foodAdapter = new ReservationsListAdapter(getContext(), reservationsActivity.finishedReservationsData); // getContext() forse non va bene
+        foodAdapter = new ReservationsListAdapter(getContext(), reservationsActivity.inProgressReservationsData); // getContext() forse non va bene
         recyclerView.setAdapter(foodAdapter);
 
         return view;
     }
 }
-

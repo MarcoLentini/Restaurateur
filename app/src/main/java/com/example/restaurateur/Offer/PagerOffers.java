@@ -1,4 +1,4 @@
-package com.example.restaurateur;
+package com.example.restaurateur.Offer;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

@@ -87,6 +87,7 @@
     <string name="offers_title">Offers</string>
     <string name="active_label">Active</string>
     <string name="disabled_label">Disabled</string>
+    <string name="history_title">History</string>
 
 
 </resources>

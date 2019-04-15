@@ -1,5 +1,7 @@
 package com.example.restaurateur;
 
+import com.example.restaurateur.Reservation.ReservationState;
+
 public class MyReservationsData {
 
     static Integer[] id = {150, 151, 152, 153, 154, 155, 156, 157, 158, 519, 110,

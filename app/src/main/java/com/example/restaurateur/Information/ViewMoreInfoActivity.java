@@ -1,4 +1,4 @@
-package com.example.restaurateur;
+package com.example.restaurateur.Information;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,8 +6,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.TextView;
+
+import com.example.restaurateur.Information.ChangePwdActivity;
+import com.example.restaurateur.Information.ModifyInfoActivity;
+import com.example.restaurateur.R;
 
 public class ViewMoreInfoActivity extends AppCompatActivity {
     private TextView tvUserAddress;

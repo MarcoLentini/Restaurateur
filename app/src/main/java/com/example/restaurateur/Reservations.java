@@ -11,6 +11,13 @@ import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
+import com.example.restaurateur.History.History_f;
+import com.example.restaurateur.Offer.Offers_f;
+import com.example.restaurateur.Reservation.ReservatedDish;
+import com.example.restaurateur.Reservation.ReservationModel;
+import com.example.restaurateur.Reservation.ReservationState;
+import com.example.restaurateur.Reservation.Reservations_f;
+
 import java.util.ArrayList;
 
 public class Reservations extends AppCompatActivity {
@@ -97,6 +104,12 @@ public class Reservations extends AppCompatActivity {
             case R.id.navigation_offer:
                 toolbar.setTitle(R.string.offers_title);
                 fragment = new Offers_f();
+                loadFragment(fragment);
+                return true;
+
+            case R.id.navigation_history:
+                toolbar.setTitle(R.string.history_title);
+                fragment = new History_f();
                 loadFragment(fragment);
                 return true;
         }

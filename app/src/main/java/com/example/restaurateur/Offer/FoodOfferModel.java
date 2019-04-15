@@ -1,4 +1,4 @@
-package com.example.restaurateur;
+package com.example.restaurateur.Offer;
 
 public class FoodOfferModel {
     String title;

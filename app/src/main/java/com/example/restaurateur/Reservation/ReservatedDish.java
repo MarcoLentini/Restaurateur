@@ -1,4 +1,4 @@
-package com.example.restaurateur;
+package com.example.restaurateur.Reservation;
 
 public class ReservatedDish {
 

@@ -24,11 +24,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
         </provider>
-        <activity android:name=".ChangePwdActivity"
+        <activity android:name=".Information.ChangePwdActivity"
             android:windowSoftInputMode="adjustResize"></activity>
-        <activity android:name=".ModifyInfoActivity"
+        <activity android:name=".Information.ModifyInfoActivity"
             android:windowSoftInputMode="adjustResize"></activity>
-         <activity android:name=".ViewMoreInfoActivity"></activity>
+         <activity android:name=".Information.ViewMoreInfoActivity"></activity>
 
         <activity android:name=".UserInformationActivity" ></activity>
 
