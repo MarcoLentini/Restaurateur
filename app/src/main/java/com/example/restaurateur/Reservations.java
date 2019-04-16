@@ -120,7 +120,8 @@ public class Reservations extends AppCompatActivity {
                     MyReservationsData.notes[i],
                     MyReservationsData.customerPhoneNumber[i],
                     tmpArrayList,
-                    MyReservationsData.reservationState[i]);
+                    MyReservationsData.reservationState[i],
+                    MyReservationsData.totalIncome[i]);
             switch(MyReservationsData.reservationState[i]) {
                 case ReservationState.STATE_PENDING:
                     pendingReservationsData.add(tmpReservationModel);

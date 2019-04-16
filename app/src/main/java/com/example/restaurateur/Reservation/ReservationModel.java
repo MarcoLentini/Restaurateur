@@ -11,9 +11,10 @@ public class ReservationModel {
     private String customerPhoneNumber;
     private ArrayList<ReservatedDish> reservatedDishes;
     private int state;
+    private double totalIncome;
 
     public ReservationModel(int id, int customerId, int remainingMinutes, String notes,
-                            String customerPhoneNumber, ArrayList<ReservatedDish> reservatedDishes, int state) {
+                            String customerPhoneNumber, ArrayList<ReservatedDish> reservatedDishes, int state, double totalIncome) {
         this.id = id;
         this.customerId = customerId;
         this.remainingMinutes = remainingMinutes;
@@ -21,6 +22,7 @@ public class ReservationModel {
         this.customerPhoneNumber = customerPhoneNumber;
         this.reservatedDishes = reservatedDishes;
         this.state = state;
+        this.totalIncome = totalIncome;
     }
 
     public ArrayList<ReservatedDish> getReservatedDishes() {
@@ -77,5 +79,13 @@ public class ReservationModel {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public double getTotalIncome() {
+        return totalIncome;
+    }
+
+    public void setTotalIncome(double totalIncome) {
+        this.totalIncome = totalIncome;
     }
 }
