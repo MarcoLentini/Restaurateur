@@ -59,7 +59,7 @@
                 android:text="15min"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
             <TextView
-                android:id="@+id/textViewTotalIncomeReservation"
+                android:id="@+id/textViewCustomerIdReservation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -356,41 +356,25 @@
             android:layout_marginRight="@dimen/dp8"
             android:background="@color/colorDivider"
             />
-        <LinearLayout
-            android:id="@+id/Button_Area"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/divider4"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="@dimen/dp8"
-            android:layout_marginLeft="@dimen/dp8"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_marginEnd="@dimen/dp8"
-            android:layout_marginRight="@dimen/dp8"
-            android:orientation="horizontal"
-            >
 
             <Button
-                android:id="@+id/Reject_Order"
+                android:id="@+id/finish_order"
                 style="@style/Button"
-                android:layout_margin="@dimen/dp8"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/Button_Reject"
-                android:textColor="@color/colorPrimaryText" />
-            <Button
-                android:id="@+id/Accept_Order"
+                android:layout_below="@+id/divider4"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="@dimen/dp8"
+                android:layout_marginLeft="@dimen/dp8"
+                android:layout_marginTop="@dimen/dp8"
+                android:layout_marginEnd="@dimen/dp8"
+                android:layout_marginRight="@dimen/dp8"
                 android:layout_margin="@dimen/dp8"
-                style="@style/Button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/Button_Accept"
+                android:text="@string/Button_Finish"
                 android:textColor="@color/colorPrimaryText" />
-        </LinearLayout>
+
     </RelativeLayout>
 </android.support.v7.widget.CardView>

@@ -8,4 +8,5 @@
     <dimen name="dp8">8dp</dimen>
     <dimen name="dp16">16dp</dimen>
     <dimen name="dp24">24dp</dimen>
+    <dimen name="dp56">56dp</dimen>
 </resources>
