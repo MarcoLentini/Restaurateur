@@ -24,10 +24,10 @@ public class History_f extends Fragment implements TabLayout.BaseOnTabSelectedLi
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_offers_f, container, false);
+        View view = inflater.inflate(R.layout.fragment_history_f, container, false);
 
 //Initializing the tablayout
-        tabLayout = (TabLayout) view.findViewById(R.id.tabLayout_offers);
+        tabLayout = (TabLayout) view.findViewById(R.id.tabLayout_history);
 
         //Adding the tabs using addTab() method
 
@@ -37,12 +37,12 @@ public class History_f extends Fragment implements TabLayout.BaseOnTabSelectedLi
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         //Initializing viewPager
-        viewPager = (ViewPager) view.findViewById(R.id.pager_offers);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        viewPager = (ViewPager) view.findViewById(R.id.pager_history);
+       viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
 
         //Creating our pager adapter
-        PagerOffers adapter = new PagerOffers(getFragmentManager(), tabLayout.getTabCount());
+       PagerHistory adapter = new PagerHistory(getFragmentManager(), tabLayout.getTabCount());
 
         //Adding adapter to pager
         viewPager.setAdapter(adapter);
