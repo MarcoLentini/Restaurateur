@@ -30,8 +30,8 @@
                     android:drawablePadding="4dp"
                     android:gravity="center_vertical"
                     android:text="OrderID"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                    android:textColor="@color/colorPrimary" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:textColor="@color/colorPrimaryDark" />
 
                 <TextView
                     android:id="@+id/textViewRemainingTimeReservation"
@@ -43,36 +43,52 @@
                     android:drawablePadding="4dp"
                     android:gravity="center_vertical"
                     android:text="15min"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
+                <TextView
+                    android:id="@+id/textViewNotesReservation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="notes!"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:visibility="invisible"
+                    android:textColor="@color/colorAccent"/>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textViewFoodReservation"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:drawableStart="@drawable/ic_lunch_box"
-                android:drawableLeft="@drawable/ic_lunch_box"
-                android:drawablePadding="4dp"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:maxLines="2"
-                android:text="Pizza margherita(x1), Pizza al prosciutto(x3), Zucchine grigliate(x4), peperoni con carne al forno(x1), altro"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textViewNotesReservation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_note"
-                android:drawableLeft="@drawable/ic_note"
-                android:drawablePadding="4dp"
-                android:gravity="center_vertical"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="La pizza la voglio buona"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
+                <TextView
+                    android:id="@+id/textViewFoodReservation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:hapticFeedbackEnabled="false"
+                    android:maxLines="2"
+                    android:text="Pizza margherita(x1) Pizza al prosciutto(x3) Zucchine grigliate(x4) peperoni con carne al forno(x1)"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+                <!--<TextView
+                    android:id="@+id/textViewNotesReservation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_note"
+                    android:drawableLeft="@drawable/ic_note"
+                    android:drawablePadding="4dp"
+                    android:gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="La pizza la voglio buona"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" /> -->
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
