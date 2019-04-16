@@ -74,12 +74,11 @@
     <string name="Button_Accept">接单</string>
     <string name="Button_Reject">拒单</string>
     <string name="total_income_info">本单预计收入</string>
-
     <!-- order tabs -->
     <string name="reservation_title">订单</string>
-    <string name="accepted_label">已完成</string>
-    <string name="pending_label">进行中</string>
-    <string name="refused_label">已取消</string>
+    <string name="accepted_label">进行中</string>
+    <string name="pending_label">待处理</string>
+    <string name="refused_label">已完成</string>
 
     <!-- offers tabs-->
     <string name="offers_title">菜单</string>
