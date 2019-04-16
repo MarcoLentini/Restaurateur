@@ -39,7 +39,7 @@
             android:layout_marginRight="@dimen/dp16"
             android:layout_toEndOf="@+id/offer_food_pic"
             android:layout_toRightOf="@+id/offer_food_pic"
-            android:text="pizza com mozalera"
+            android:text="this is  a long long long long long long long long food name"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="24sp"
             app:fontFamily="sans-serif-black" />
@@ -108,8 +108,8 @@
             android:layout_marginRight="@dimen/dp24"
             android:layout_toEndOf="@+id/textViewPriceOffer"
             android:layout_toRightOf="@+id/textViewPriceOffer"
-            android:drawableStart="@drawable/ic_order_euro"
-            android:drawableLeft="@drawable/ic_order_euro"
+            android:drawableStart="@drawable/ic_currency_euro"
+            android:drawableLeft="@drawable/ic_currency_euro"
             android:text="5"
             android:textColor="@color/colorRed"
             android:textSize="18sp" />
