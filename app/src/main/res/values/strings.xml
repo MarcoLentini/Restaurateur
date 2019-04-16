@@ -69,14 +69,17 @@
     <string name="perm_denied">Permission Denied</string>
     <string name="action_settings">Information</string>
 
-    <!--order page-->
+    <!--reservations page-->
     <string name="total_num_products">Total Number Of Products</string>
     <string name="remarks">Remarks</string>
-    <string name="Button_Accept">Accept</string>
-    <string name="Button_Reject">Reject</string>
+    <string name="Button_Reservation_Accept">Accept</string>
+    <string name="Button_Reservation_Reject">Reject</string>
+    <string name="Button_Reservation_Finish">Finish</string>
+    <string name="Button_Reservation_Resume">Resume</string>
+    <string name="Button_Reservation_Remove">Remove</string>
     <string name="total_income_info">Total income </string>
 
-    <!-- order tabs -->
+    <!-- reservations tabs -->
     <string name="reservation_title">Reservations</string>
     <string name="accepted_label">In progress</string>
     <string name="pending_label">Pending</string>

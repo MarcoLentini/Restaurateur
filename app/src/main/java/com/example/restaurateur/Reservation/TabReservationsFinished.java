@@ -11,14 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.restaurateur.R;
-import com.example.restaurateur.Reservation.ReservationsListAdapter;
 import com.example.restaurateur.Reservations;
 
 public class TabReservationsFinished extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter foodAdapter;
+    private RecyclerView.Adapter finishedReservationsAdapter;
     private Reservations reservationsActivity = (Reservations) getActivity();
 
     @Nullable
@@ -34,9 +33,10 @@ public class TabReservationsFinished extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
-        foodAdapter = new ReservationsListAdapter(getContext(),
+        finishedReservationsAdapter = new FinishedReservationsListAdapter(getContext(),
+                reservationsActivity.pendingReservationsData, reservationsActivity.inProgressReservationsData,
                 reservationsActivity.finishedReservationsData, reservationsActivity.offersData); // getContext() forse non va bene
-        recyclerView.setAdapter(foodAdapter);
+        recyclerView.setAdapter(finishedReservationsAdapter);
 
         return view;
     }

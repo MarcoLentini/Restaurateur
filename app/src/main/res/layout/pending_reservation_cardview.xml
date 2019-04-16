@@ -24,7 +24,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/colorPrimary"
                     android:drawableStart="@drawable/ic_tag"
                     android:drawableLeft="@drawable/ic_tag"
                     android:drawablePadding="4dp"
@@ -47,7 +46,7 @@
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                 <TextView
-                    android:id="@+id/textViewNotesReservation"
+                    android:id="@+id/textViewStateReservation"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -95,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="8dp"
-                android:gravity="right">
+                android:gravity="end">
 
                 <TextView
                     android:id="@+id/textViewTotalIncomeReservation"
@@ -110,15 +109,17 @@
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textColor="@color/colorAccent"/>
                 <Button
+                    android:id="@+id/buttonResumeReservation"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ACCEPT"
+                    android:text="@string/Button_Reservation_Accept"
                     android:theme="@style/PrimaryFlatButton" />
                 <Button
+                    android:id="@+id/buttonRemoveReservation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="REJECT"
+                    android:text="@string/Button_Reservation_Reject"
                     android:theme="@style/PrimaryFlatButton"/>
             </LinearLayout>
         </LinearLayout>

@@ -433,7 +433,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/Button_Reject"
+                android:text="@string/Button_Reservation_Reject"
                 android:textColor="@color/colorPrimaryText" />
 
             <Button
@@ -442,7 +442,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                 android:text="@string/Button_Accept"
+                 android:text="@string/Button_Reservation_Accept"
                 android:textColor="@color/colorPrimaryText" />
         </LinearLayout>
     </LinearLayout>
