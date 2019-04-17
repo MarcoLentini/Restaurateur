@@ -135,6 +135,10 @@ public class Reservations extends AppCompatActivity {
             }
         }
 
+        for(int i = 0;  i< MyCategories.categories.length;i++)
+        {
+            categories.add(new Category(MyCategories.categories[i]));
+        }
         for(int i = 0; i < MyOffersData.id.length; i++) {
             OfferModel tmpOM = new OfferModel(MyOffersData.id[i], MyOffersData.offerName[i], MyOffersData.price[i], MyOffersData.image[i]);
             offersData.put(MyOffersData.id[i], tmpOM);
