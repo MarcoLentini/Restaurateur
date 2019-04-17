@@ -114,6 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Button_Reservation_Finish"
+                android:textColor="@color/colorSecondaryText"
                 android:theme="@style/PrimaryFlatButton" />
             <Button
                 android:id="@+id/buttonRemoveReservation"

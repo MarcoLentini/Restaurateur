@@ -66,12 +66,15 @@
     <string name="image_disappear">L\'immagine selezionata non è più disponibile</string>
     <string name="action_settings">Informazioni</string>
 
-    <!--order page-->
+    <!-- reservations page-->
     <string name="total_num_products">Total Number Of Products</string>
     <string name="remarks">Remarks</string>
-    <string name="Button_Reservation_Accept">Accept Order</string>
-    <string name="Button_Reservation_Reject">Reject Order</string>
-    <string name="total_income_info">Total income of this order</string>
+    <string name="Button_Reservation_Accept">Accetta</string>
+    <string name="Button_Reservation_Reject">Rifiuta</string>
+    <string name="Button_Reservation_Finish">Termina</string>
+    <string name="Button_Reservation_Resume">Ripristina</string>
+    <string name="Button_Reservation_Remove">Rimuovi</string>
+    <string name="total_income_info">Totale</string>
     <string name="offers_title">Offerte</string>
     <string name="pending_label">In arrivo</string>
     <string name="reservation_title">Ordini</string>
