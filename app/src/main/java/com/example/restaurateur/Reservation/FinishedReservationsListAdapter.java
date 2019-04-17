@@ -72,7 +72,7 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
             reservationOffer += offerName + "(" + tmpRM.getReservatedDishes().get(i).getDishMultiplier() + ")  ";
         }
         textViewOrderedFood.setText(reservationOffer);
-        textViewReservationState.setText("Stato" + tmpRM.getState());
+        textViewReservationState.setText(tmpRM.getState());
         btnResumeReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +80,7 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
                 finishedDataSet.remove(pos);
                 notifyItemRemoved(pos);
                 notifyItemRangeChanged(pos, finishedDataSet.size());
-                // TODO change the state of the reservation
+                tmpRM.setState(ReservationState.STATE_IN_PROGRESS);
                 inProgressDataSet.add(tmpRM);
             }
         });

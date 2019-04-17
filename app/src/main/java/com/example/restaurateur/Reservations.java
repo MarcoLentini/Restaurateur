@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,12 +18,15 @@ import com.example.restaurateur.Offer.Category;
 import com.example.restaurateur.Offer.MyCategories;
 import com.example.restaurateur.Offer.OfferModel;
 import com.example.restaurateur.Offer.Offers_f;
+import com.example.restaurateur.Reservation.PendingReservationsListAdapter;
 import com.example.restaurateur.Reservation.ReservatedDish;
 import com.example.restaurateur.Reservation.ReservationModel;
 import com.example.restaurateur.Reservation.ReservationState;
 import com.example.restaurateur.Reservation.Reservations_f;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class Reservations extends AppCompatActivity {
@@ -129,11 +134,16 @@ public class Reservations extends AppCompatActivity {
                 case ReservationState.STATE_IN_PROGRESS:
                     inProgressReservationsData.add(tmpReservationModel);
                     break;
-                case ReservationState.STATE_FINISHED:
+                case ReservationState.STATE_FINISHED_SUCCESS:
                     finishedReservationsData.add(tmpReservationModel);
+                    break;
+                    default: finishedReservationsData.add(tmpReservationModel);
                     break;
             }
         }
+        Collections.sort(pendingReservationsData);
+        Collections.sort(inProgressReservationsData);
+        Collections.sort(finishedReservationsData);
 
         for(int i = 0;  i< MyCategories.categories.length;i++)
         {

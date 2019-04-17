@@ -59,7 +59,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
         TextView textViewTotalIncome = inProgressReservationViewHolder.textViewTotalIncome;
         TextView textViewOrderedFood = inProgressReservationViewHolder.textViewOrderedDishes;
         TextView textViewReservationNotes = inProgressReservationViewHolder.textViewReservationNotes;
-        Button btnFinishtReservation = inProgressReservationViewHolder.btnFinishtReservation;
+        Button btnFinishReservation = inProgressReservationViewHolder.btnFinishtReservation;
         Button btnRejectReservation = inProgressReservationViewHolder.btnRejectReservation;
 
         ReservationModel tmpRM = inProgressDataSet.get(position);
@@ -74,14 +74,14 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
         textViewOrderedFood.setText(reservationOffer);
         if(!inProgressDataSet.get(position).getNotes().equals(""))
             textViewReservationNotes.setVisibility(View.VISIBLE);
-        btnFinishtReservation.setOnClickListener(new View.OnClickListener() {
+        btnFinishReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int pos = inProgressReservationViewHolder.getAdapterPosition();
                 inProgressDataSet.remove(pos);
                 notifyItemRemoved(pos);
                 notifyItemRangeChanged(pos, inProgressDataSet.size());
-                // TODO change the state of the reservation to successful
+                tmpRM.setState(ReservationState.STATE_FINISHED_SUCCESS);
                 finishedDataSet.add(tmpRM);
             }
         });
@@ -92,7 +92,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
                 inProgressDataSet.remove(pos);
                 notifyItemRemoved(pos);
                 notifyItemRangeChanged(pos, inProgressDataSet.size());
-                // TODO change the state of the reservation to rejected
+                tmpRM.setState(ReservationState.STATE_FINISHED_REJECTED);
                 finishedDataSet.add(tmpRM);
             }
         });

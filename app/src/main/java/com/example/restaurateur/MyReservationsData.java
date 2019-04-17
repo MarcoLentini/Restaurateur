@@ -36,14 +36,14 @@ public class MyReservationsData {
             "3201758534", "3201758572", "3292868534", "3171796534",
             "3241758534", "3251758534", "3291758534", "3211758534", "3200758534", "3201750034", "3202908534"};
 
-    static int[] reservationState = {ReservationState.STATE_PENDING, ReservationState.STATE_IN_PROGRESS,
+    static String[] reservationState = {ReservationState.STATE_PENDING, ReservationState.STATE_IN_PROGRESS,
             ReservationState.STATE_PENDING, ReservationState.STATE_IN_PROGRESS,
-            ReservationState.STATE_FINISHED, ReservationState.STATE_FINISHED,
-            ReservationState.STATE_PENDING, ReservationState.STATE_FINISHED,
+            ReservationState.STATE_FINISHED_SUCCESS, ReservationState.STATE_FINISHED_REJECTED,
+            ReservationState.STATE_PENDING, ReservationState.STATE_FINISHED_SUCCESS,
             ReservationState.STATE_PENDING, ReservationState.STATE_IN_PROGRESS, ReservationState.STATE_IN_PROGRESS,
             ReservationState.STATE_PENDING, ReservationState.STATE_IN_PROGRESS,
             ReservationState.STATE_PENDING, ReservationState.STATE_IN_PROGRESS,
-            ReservationState.STATE_FINISHED, ReservationState.STATE_FINISHED,
-            ReservationState.STATE_PENDING, ReservationState.STATE_FINISHED,
+            ReservationState.STATE_FINISHED_REJECTED, ReservationState.STATE_FINISHED_REJECTED,
+            ReservationState.STATE_PENDING, ReservationState.STATE_FINISHED_REJECTED,
             ReservationState.STATE_PENDING, ReservationState.STATE_IN_PROGRESS, ReservationState.STATE_IN_PROGRESS};
 }

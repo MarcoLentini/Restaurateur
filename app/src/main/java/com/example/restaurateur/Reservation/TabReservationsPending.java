@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.restaurateur.R;
 import com.example.restaurateur.Reservations;
+
+import java.util.Collections;
 
 public class TabReservationsPending extends Fragment {
 
@@ -36,5 +39,10 @@ public class TabReservationsPending extends Fragment {
         recyclerView.setAdapter(pendingReservationsAdapter);
 
         return view;
+    }
+
+    public void sortDataAndNotify() {
+        Collections.sort(reservationsActivity.pendingReservationsData);
+        pendingReservationsAdapter.notifyDataSetChanged();
     }
 }

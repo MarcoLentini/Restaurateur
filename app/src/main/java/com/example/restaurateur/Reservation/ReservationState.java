@@ -1,8 +1,8 @@
 package com.example.restaurateur.Reservation;
 
 public class ReservationState {
-    public static final int STATE_PENDING = 1;
-    public static final int STATE_IN_PROGRESS = 2;
-    public static final int STATE_FINISHED = 3;
-    public static final int STATE_REJECTED = 4;
+    public static final String STATE_PENDING = "PENDING";
+    public static final String STATE_IN_PROGRESS = "IN_PROGRESS";
+    public static final String STATE_FINISHED_SUCCESS = "FINISHED";
+    public static final String STATE_FINISHED_REJECTED = "REJECTED";
 }

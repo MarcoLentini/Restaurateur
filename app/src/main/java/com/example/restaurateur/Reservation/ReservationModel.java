@@ -2,7 +2,7 @@ package com.example.restaurateur.Reservation;
 
 import java.util.ArrayList;
 
-public class ReservationModel {
+public class ReservationModel implements Comparable<ReservationModel> {
 
     private int id;
     private int customerId;
@@ -10,11 +10,11 @@ public class ReservationModel {
     private String notes;
     private String customerPhoneNumber;
     private ArrayList<ReservatedDish> reservatedDishes;
-    private int state;
+    private String state;
     private double totalIncome;
 
     public ReservationModel(int id, int customerId, int remainingMinutes, String notes,
-                            String customerPhoneNumber, ArrayList<ReservatedDish> reservatedDishes, int state, double totalIncome) {
+                            String customerPhoneNumber, ArrayList<ReservatedDish> reservatedDishes, String state, double totalIncome) {
         this.id = id;
         this.customerId = customerId;
         this.remainingMinutes = remainingMinutes;
@@ -73,11 +73,11 @@ public class ReservationModel {
         this.customerPhoneNumber = customerPhoneNumber;
     }
 
-    public int getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(String state) {
         this.state = state;
     }
 
@@ -87,5 +87,10 @@ public class ReservationModel {
 
     public void setTotalIncome(double totalIncome) {
         this.totalIncome = totalIncome;
+    }
+
+    @Override
+    public int compareTo(ReservationModel other) {
+        return this.getRemainingMinutes() - other.getRemainingMinutes();
     }
 }

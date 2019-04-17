@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import com.example.restaurateur.R;
 import com.example.restaurateur.Reservations;
 
+import java.util.Collections;
+
 public class TabReservationsFinished extends Fragment {
 
     private RecyclerView recyclerView;
@@ -39,6 +41,11 @@ public class TabReservationsFinished extends Fragment {
         recyclerView.setAdapter(finishedReservationsAdapter);
 
         return view;
+    }
+
+    public void sortDataAndNotify() {
+        Collections.sort(reservationsActivity.finishedReservationsData);
+        finishedReservationsAdapter.notifyDataSetChanged();
     }
 }
 

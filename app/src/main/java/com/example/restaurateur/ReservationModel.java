@@ -120,8 +120,6 @@ public class ReservationModel {
             this.price = price;
         }
 
-
-
         public String getFood_name() {
             return food_name;
         }
