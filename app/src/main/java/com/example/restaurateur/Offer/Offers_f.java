@@ -13,8 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.restaurateur.R;
+import com.example.restaurateur.MainActivity;
 
 public class Offers_f extends Fragment implements TabLayout.BaseOnTabSelectedListener {
+
+    FloatingActionButton FabActive;
+    FloatingActionButton FabDisabled;
+
 
     //This is our tablayout
     private TabLayout tabLayout;
@@ -33,8 +38,12 @@ public class Offers_f extends Fragment implements TabLayout.BaseOnTabSelectedLis
 //Initializing the tablayout
         tabLayout = (TabLayout) view.findViewById(R.id.tabLayout_offers);
 //echo -- initializing the floatingActionButton
-        fab = view.findViewById(R.id.floatingActionButton2);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        FabActive= view.findViewById(R.id.FabAddActiveCategories);
+        FabDisabled= view.findViewById(R.id.FabAddDisabledCategories);
+        FabDisabled.hide();
+
+        FabActive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                /*Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
@@ -53,17 +62,48 @@ public class Offers_f extends Fragment implements TabLayout.BaseOnTabSelectedLis
 
         //Initializing viewPager
         viewPager = (ViewPager) view.findViewById(R.id.pager_offers);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout){
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                animateFab(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
 
         //Creating our pager adapter
-        PagerOffers adapter = new PagerOffers(getFragmentManager(), tabLayout.getTabCount());
+        PagerOffers adapter = new PagerOffers(getChildFragmentManager(), tabLayout.getTabCount());
 
         //Adding adapter to pager
         viewPager.setAdapter(adapter);
 
         //Adding onTabSelectedListener to swipe views
-        tabLayout.addOnTabSelectedListener(this);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+                animateFab(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         return view;
 
@@ -74,7 +114,9 @@ public class Offers_f extends Fragment implements TabLayout.BaseOnTabSelectedLis
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
+        animateFab(tab.getPosition());
         viewPager.setCurrentItem(tab.getPosition());
+
     }
 
     @Override
@@ -87,6 +129,37 @@ public class Offers_f extends Fragment implements TabLayout.BaseOnTabSelectedLis
 
     }
 
+    private void animateFab(int position) {
 
+         MainActivity reservationsActivity = (MainActivity) getActivity();
+
+        switch (position) {
+            case 0:
+                if(reservationsActivity.state_offers[0]==0) {
+                    FabActive.show();
+                    FabDisabled.hide();
+                    ((MainActivity) getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                }
+                else {
+                    FabDisabled.hide();
+                    ((MainActivity) getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                } break;
+            case 1:
+                if(reservationsActivity.state_offers[1]==0) {
+                    FabActive.hide();
+                    FabDisabled.show();
+                    ((MainActivity) getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                }
+                else {
+                    FabActive.hide();
+                    ((MainActivity) getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                }break;
+
+            default:
+                FabActive.show();
+                FabDisabled.hide();
+                break;
+        }
+    }
 
 }

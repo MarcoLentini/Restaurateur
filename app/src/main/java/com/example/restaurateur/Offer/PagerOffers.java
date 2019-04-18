@@ -1,5 +1,6 @@
 package com.example.restaurateur.Offer;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -20,8 +21,10 @@ public class PagerOffers extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         //Returning the current tabs
+
         switch (position) {
             case 0:
+
                 TabActiveOffers tab1 = new TabActiveOffers();
                 return tab1;
             case 1:

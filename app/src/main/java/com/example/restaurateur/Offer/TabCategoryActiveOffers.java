@@ -1,9 +1,7 @@
 package com.example.restaurateur.Offer;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,9 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.restaurateur.R;
-import com.example.restaurateur.Reservation.Reservations_f;
-import com.example.restaurateur.Reservations;
-import com.example.restaurateur.UserInformationActivity;
+import com.example.restaurateur.MainActivity;
 
 
 public class TabCategoryActiveOffers extends Fragment {
@@ -21,7 +17,7 @@ public class TabCategoryActiveOffers extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter categoriesAdapter;
-    private Reservations reservationsActivity = (Reservations) getActivity();
+    private MainActivity reservationsActivity = (MainActivity) getActivity();
     private String type;
 
 

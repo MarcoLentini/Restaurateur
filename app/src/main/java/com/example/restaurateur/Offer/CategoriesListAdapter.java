@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.restaurateur.R;
-import com.example.restaurateur.Reservations;
+import com.example.restaurateur.MainActivity;
 
 import java.util.ArrayList;
 
@@ -23,9 +23,9 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         private LayoutInflater mInflater;
         private Context context;
         private String type;
-    private Reservations reservationsActivity ;
+    private MainActivity reservationsActivity ;
 
-    public CategoriesListAdapter(Context context, ArrayList<Category> categories, Reservations reservationsActivity, String type) {
+    public CategoriesListAdapter(Context context, ArrayList<Category> categories, MainActivity reservationsActivity, String type) {
         this.dataSet = categories;
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
@@ -84,14 +84,16 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         bundle.putString("Category", category);
         // set Fragmentclass Arguments
         fragment.setArguments(bundle);
-        if(type=="active")
-        transaction.replace(R.id.frame_container_active_offers, fragment);
-        else
-            transaction.replace(R.id.frame_container_disabled_offers, fragment);
-
-        transaction.addToBackStack(null);
+        if(type=="active"){
+            transaction.replace(R.id.frame_container_active_offers, fragment,"ActiveDishesOffers");
+            transaction.addToBackStack("ActiveCategory");
+        }else if(type=="disabled") {
+            transaction.replace(R.id.frame_container_disabled_offers, fragment, "DisabledDishesOffers");
+            transaction.addToBackStack("DisabledCategoryOffers");
+        }
 
         transaction.commit();
+        ((MainActivity)view.getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     }
 

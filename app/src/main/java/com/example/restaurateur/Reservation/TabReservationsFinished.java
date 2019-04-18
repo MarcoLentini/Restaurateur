@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.restaurateur.R;
-import com.example.restaurateur.Reservations;
+import com.example.restaurateur.MainActivity;
 
 import java.util.Collections;
 
@@ -20,7 +20,7 @@ public class TabReservationsFinished extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter finishedReservationsAdapter;
-    private Reservations reservationsActivity = (Reservations) getActivity();
+    private MainActivity reservationsActivity = (MainActivity) getActivity();
 
     @Nullable
     @Override
