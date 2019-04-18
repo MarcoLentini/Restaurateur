@@ -425,38 +425,59 @@
                 />
         </LinearLayout>
 
-
-        <ImageButton
-            android:id="@+id/print_order"
-            android:layout_width="@dimen/dp56"
-            android:layout_height="@dimen/dp56"
+        <View
+            android:id="@+id/divider5"
+            android:layout_width="395dp"
+            android:layout_height="2dp"
             android:layout_below="@+id/LinearLayout_order_created"
-            android:layout_marginTop="@dimen/dp24"
-            android:layout_marginEnd="@dimen/dp56"
-            android:layout_marginRight="@dimen/dp56"
-            android:layout_marginBottom="@dimen/dp16"
-            android:layout_toStartOf="@+id/close_order"
-            android:layout_toLeftOf="@+id/close_order"
-            android:src="@drawable/ic_order_print"
-            android:text="@string/Button_Print"
-            android:textColor="@color/colorPrimaryText"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="@dimen/dp8"
+            android:layout_marginLeft="@dimen/dp8"
+            android:layout_marginTop="@dimen/dp8"
+            android:layout_marginEnd="@dimen/dp8"
+            android:layout_marginRight="@dimen/dp8"
+            android:background="@color/colorDivider"
             />
+        <LinearLayout
+            android:id="@+id/Button_Area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/divider5"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="@dimen/dp8"
+            android:layout_marginLeft="@dimen/dp8"
+            android:layout_marginTop="@dimen/dp8"
+            android:layout_marginEnd="@dimen/dp8"
+            android:layout_marginRight="@dimen/dp8"
+            android:orientation="horizontal">
 
             <Button
-                android:id="@+id/close_order"
-                style="@style/Button"
-                android:layout_width="@dimen/dp156"
-                android:layout_height="@dimen/dp56"
-                android:text="@string/Button_Close"
-                android:textColor="@color/colorPrimaryText"
-                android:layout_below="@+id/LinearLayout_order_created"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="@dimen/dp24"
-                android:layout_marginRight="@dimen/dp24"
-                android:layout_marginTop="@dimen/dp24"
-                android:layout_marginBottom="@dimen/dp16"
-                />
+                android:id="@+id/Accept_Order"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp8"
+                android:layout_weight="2"
+                android:text="@string/Button_Reservation_Resume"
+                android:textColor="@color/colorSecondaryText"
+                android:theme="@style/PrimaryFlatButton" />
+
+            <Button
+                android:id="@+id/Reject_Order"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp8"
+                android:layout_weight="1"
+                android:text="@string/Button_Reservation_Remove"
+                android:theme="@style/PrimaryFlatButton" />
+
+        </LinearLayout>
 
 
     </RelativeLayout>

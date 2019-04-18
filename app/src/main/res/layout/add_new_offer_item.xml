@@ -10,25 +10,25 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayoutFoodPic"
-        android:layout_width="140dp"
+        android:layout_width="match_parent"
         android:layout_height="156dp"
         android:layout_marginTop="@dimen/dp8"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/activity_padding"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.mikhaellopez.circularimageview.CircularImageView
+
+
+        <ImageView
             android:id="@+id/offer_food_pic"
-            android:layout_width="@dimen/toolbar_profile_width"
-            android:layout_height="@dimen/toolbar_profile_width"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="@dimen/activity_padding"
             android:layout_marginBottom="@dimen/activity_padding"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_offer_pizza"
-            app:civ_border_color="@color/colorPrimaryText"
-            app:civ_border_width="2sp" />
-
+            android:scaleType="fitXY"
+            android:src="@drawable/img_rest_1" />
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/background_img"
             android:layout_width="48sp"
@@ -155,22 +155,26 @@
             >
             <Button
                 android:id="@+id/etOfferBtnCancel"
-                style="@style/Button"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:textColor="@color/colorSecondaryText"
+                android:theme="@style/PrimaryFlatButton"
                 android:layout_marginRight="4dp"
                  android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/cancel_button"
-                android:textColor="@color/colorPrimaryText" />
+                  />
             <Button
                 android:id="@+id/etOfferBtnSave"
-                style="@style/Button"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:textColor="@color/colorSecondaryText"
+                android:theme="@style/PrimaryFlatButton"
                 android:layout_marginLeft="4dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:text="@string/Button_Save"
-                android:textColor="@color/colorPrimaryText" />
+                  />
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

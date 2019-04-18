@@ -95,9 +95,7 @@
 
     <!-- edit_offer_item_info.xml -->
     <string name="Button_Save">SAVE</string>
-    <string name="Button_Finish">Finish</string>
-    <string name="Button_Close">Close</string>
-    <string name="Button_Print">Print</string>
+
 
 
 </resources>

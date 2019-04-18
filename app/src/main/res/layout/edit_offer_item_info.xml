@@ -122,22 +122,26 @@
             >
             <Button
                 android:id="@+id/etOfferBtnCancel"
-                style="@style/Button"
-                android:layout_margin="@dimen/dp8"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:textColor="@color/colorSecondaryText"
+                android:theme="@style/PrimaryFlatButton"
+                android:layout_marginRight="4dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/cancel_button"
-                android:textColor="@color/colorPrimaryText" />
+                />
             <Button
                 android:id="@+id/etOfferBtnSave"
-                android:layout_margin="@dimen/dp8"
-                style="@style/Button"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:textColor="@color/colorSecondaryText"
+                android:theme="@style/PrimaryFlatButton"
+                android:layout_marginLeft="4dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:text="@string/Button_Save"
-                android:textColor="@color/colorPrimaryText" />
+                />
         </LinearLayout>
 
     </RelativeLayout>

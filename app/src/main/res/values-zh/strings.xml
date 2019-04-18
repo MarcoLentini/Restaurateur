@@ -74,6 +74,10 @@
     <string name="Button_Reservation_Accept">接单</string>
     <string name="Button_Reservation_Reject">拒单</string>
     <string name="total_income_info">本单预计收入</string>
+    <string name="Button_Reservation_Resume">撤销</string>
+    <string name="Button_Reservation_Remove">移除</string>
+    <string name="Button_Reservation_Finish">完成</string>
+
     <!-- order tabs -->
     <string name="reservation_title">订单</string>
     <string name="accepted_label">进行中</string>
@@ -84,6 +88,8 @@
     <string name="offers_title">菜单</string>
     <string name="active_label">售卖中</string>
     <string name="disabled_label">已下架</string>
+
+    <string name="history_title">历史订单</string>
 
     <string name="home_title">店铺管理</string>
 
