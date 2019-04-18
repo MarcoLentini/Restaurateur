@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.Offer.OfferModel;
 import com.example.restaurateur.R;
 import com.example.restaurateur.UserInformationActivity;
@@ -24,21 +25,17 @@ import java.util.HashMap;
 public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InProgressReservationsListAdapter.InProgressReservationViewHolder> {
 
     private Context context;
-   // private FragmentActivity fragmentActivity;
-    private ArrayList<ReservationModel> pendingDataSet;
+    private MainActivity fragmentActivity;
     private ArrayList<ReservationModel> inProgressDataSet;
-    private ArrayList<ReservationModel> finishedDataSet;
     private LayoutInflater mInflater;
     private HashMap<Integer, OfferModel> offersData;
 
-    public InProgressReservationsListAdapter(Context context, ArrayList<ReservationModel> pendingData, ArrayList<ReservationModel> inProgressData,
-                                             ArrayList<ReservationModel> finishedData, HashMap<Integer, OfferModel> offersData) {//,FragmentActivity fragmentActivity
+    public InProgressReservationsListAdapter(Context context, ArrayList<ReservationModel> inProgressData,
+                                             HashMap<Integer, OfferModel> offersData, MainActivity fragmentActivity) {
         this.context = context;
-       // this.fragmentActivity = fragmentActivity;
+        this.fragmentActivity = fragmentActivity;
         this.mInflater = LayoutInflater.from(context);
-        this.pendingDataSet = pendingData;
         this.inProgressDataSet = inProgressData;
-        this.finishedDataSet = finishedData;
         this.offersData = offersData;
     }
 
@@ -86,22 +83,22 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
             @Override
             public void onClick(View v) {
                 int pos = inProgressReservationViewHolder.getAdapterPosition();
-                inProgressDataSet.remove(pos);
+                fragmentActivity.removeItemFromInProgress(pos);//inProgressDataSet.remove(pos);
                 notifyItemRemoved(pos);
                 notifyItemRangeChanged(pos, inProgressDataSet.size());
                 tmpRM.setState(ReservationState.STATE_FINISHED_SUCCESS);
-                finishedDataSet.add(tmpRM);
+                fragmentActivity.addItemToFinished(tmpRM);//finishedDataSet.add(tmpRM);
             }
         });
         btnRejectReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int pos = inProgressReservationViewHolder.getAdapterPosition();
-                inProgressDataSet.remove(pos);
+                fragmentActivity.removeItemFromInProgress(pos);//inProgressDataSet.remove(pos);
                 notifyItemRemoved(pos);
                 notifyItemRangeChanged(pos, inProgressDataSet.size());
                 tmpRM.setState(ReservationState.STATE_FINISHED_REJECTED);
-                finishedDataSet.add(tmpRM);
+                fragmentActivity.addItemToFinished(tmpRM);//finishedDataSet.add(tmpRM);
             }
         });
 /*

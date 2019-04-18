@@ -35,9 +35,8 @@ public class TabReservationsFinished extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
-        finishedReservationsAdapter = new FinishedReservationsListAdapter(getContext(),
-                reservationsActivity.pendingReservationsData, reservationsActivity.inProgressReservationsData,
-                reservationsActivity.finishedReservationsData, reservationsActivity.offersData); // getContext() forse non va bene
+        finishedReservationsAdapter = new FinishedReservationsListAdapter(getContext(), reservationsActivity.finishedReservationsData,
+                reservationsActivity.offersData, (MainActivity)getActivity()); // getContext() forse non va bene
         recyclerView.setAdapter(finishedReservationsAdapter);
 
         return view;

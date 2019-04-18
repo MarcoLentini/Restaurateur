@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.Offer.OfferModel;
 import com.example.restaurateur.R;
 import com.example.restaurateur.UserInformationActivity;
@@ -20,18 +21,16 @@ import java.util.HashMap;
 public class FinishedReservationsListAdapter extends RecyclerView.Adapter<FinishedReservationsListAdapter.FinishedReservationViewHolder> {
 
     private Context context;
-    private ArrayList<ReservationModel> pendingDataSet;
-    private ArrayList<ReservationModel> inProgressDataSet;
+    private MainActivity fragmentActivity;
     private ArrayList<ReservationModel> finishedDataSet;
     private LayoutInflater mInflater;
     private HashMap<Integer, OfferModel> offersData;
 
-    public FinishedReservationsListAdapter(Context context, ArrayList<ReservationModel> pendingData, ArrayList<ReservationModel> inProgressData,
-                                           ArrayList<ReservationModel> finishedData, HashMap<Integer, OfferModel> offersData) {
+    public FinishedReservationsListAdapter(Context context, ArrayList<ReservationModel> finishedData,
+                                           HashMap<Integer, OfferModel> offersData, MainActivity fragmentActivity) {
         this.context = context;
+        this.fragmentActivity = fragmentActivity;
         this.mInflater = LayoutInflater.from(context);
-        this.pendingDataSet = pendingData;
-        this.inProgressDataSet = inProgressData;
         this.finishedDataSet = finishedData;
         this.offersData = offersData;
     }
@@ -77,18 +76,18 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
             @Override
             public void onClick(View v) {
                 int pos = finishedReservationViewHolder.getAdapterPosition();
-                finishedDataSet.remove(pos);
+                fragmentActivity.removeItemFromFinished(pos);//finishedDataSet.remove(pos);
                 notifyItemRemoved(pos);
                 notifyItemRangeChanged(pos, finishedDataSet.size());
                 tmpRM.setState(ReservationState.STATE_IN_PROGRESS);
-                inProgressDataSet.add(tmpRM);
+                fragmentActivity.addItemToInProgress(tmpRM);//inProgressDataSet.add(tmpRM);
             }
         });
         btnRemoveReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int pos = finishedReservationViewHolder.getAdapterPosition();
-                finishedDataSet.remove(pos);
+                fragmentActivity.removeItemFromFinished(pos);//finishedDataSet.remove(pos);
                 notifyItemRemoved(pos);
                 notifyItemRangeChanged(pos, finishedDataSet.size());
                 // TODO probably we will need to save on the history database
