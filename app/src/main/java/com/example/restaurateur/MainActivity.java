@@ -181,4 +181,28 @@ public class MainActivity extends AppCompatActivity {
             offersData.put(MyOffersData.id[i], tmpOM);
         }
     }
+
+    public void addItemToPending(ReservationModel rm) {
+        pendingReservationsData.add(rm);
+    }
+
+    public void removeItemFromPending(int position) {
+        pendingReservationsData.remove(position);
+    }
+
+    public void addItemToInProgress(ReservationModel rm) {
+        inProgressReservationsData.add(rm);
+    }
+
+    public void removeItemFromInProgress(int position) {
+        inProgressReservationsData.remove(position);
+    }
+
+    public void addItemToFinished(ReservationModel rm) {
+        finishedReservationsData.add(rm);
+    }
+
+    public void removeItemFromFinished(int position) {
+        pendingReservationsData.remove(position);
+    }
 }
