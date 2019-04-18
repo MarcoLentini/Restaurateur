@@ -40,6 +40,7 @@ public class Reservations extends AppCompatActivity {
     public static ArrayList<ReservationModel> finishedReservationsData;
     public static HashMap<Integer, OfferModel> offersData;
     public static ArrayList<Category> categories;
+    public static int[] state_offers={0,0};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,8 +133,8 @@ public class Reservations extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() > 1) {
-            getFragmentManager().popBackStack();
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            getSupportFragmentManager().popBackStack();
         } else {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             super.onBackPressed();
@@ -163,7 +164,7 @@ public class Reservations extends AppCompatActivity {
                 case ReservationState.STATE_FINISHED_SUCCESS:
                     finishedReservationsData.add(tmpReservationModel);
                     break;
-                    default: finishedReservationsData.add(tmpReservationModel);
+                default: finishedReservationsData.add(tmpReservationModel);
                     break;
             }
         }
