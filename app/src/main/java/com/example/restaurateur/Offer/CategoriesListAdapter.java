@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.restaurateur.R;
-import com.example.restaurateur.Reservations;
+import com.example.restaurateur.MainActivity;
 
 import java.util.ArrayList;
 
@@ -23,9 +23,9 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         private LayoutInflater mInflater;
         private Context context;
         private String type;
-    private Reservations reservationsActivity ;
+    private MainActivity reservationsActivity ;
 
-    public CategoriesListAdapter(Context context, ArrayList<Category> categories, Reservations reservationsActivity, String type) {
+    public CategoriesListAdapter(Context context, ArrayList<Category> categories, MainActivity reservationsActivity, String type) {
         this.dataSet = categories;
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
@@ -93,7 +93,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         }
 
         transaction.commit();
-        ((Reservations)view.getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MainActivity)view.getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     }
 

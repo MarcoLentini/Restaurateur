@@ -32,7 +32,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
-public class Reservations extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     private ActionBar toolbar;
     public static ArrayList<ReservationModel> pendingReservationsData; // remove static from all ArrayLists

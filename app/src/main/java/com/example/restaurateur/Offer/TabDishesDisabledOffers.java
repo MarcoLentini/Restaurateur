@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.restaurateur.R;
-import com.example.restaurateur.Reservations;
+import com.example.restaurateur.MainActivity;
 
 public class TabDishesDisabledOffers extends android.support.v4.app.Fragment {
     private FloatingActionButton FabActive;
     private FloatingActionButton FabDisabled;
-    private Reservations reservationsActivity;
+    private MainActivity reservationsActivity;
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.tab_dishes_offers, container, false);
@@ -27,7 +27,7 @@ public class TabDishesDisabledOffers extends android.support.v4.app.Fragment {
         FabDisabled= ((FragmentActivity)view.getContext()).findViewById(R.id.FabAddDisabledCategories);
         FabActive.hide();
         FabDisabled.hide();
-        reservationsActivity=((Reservations)view.getContext());
+        reservationsActivity=((MainActivity)view.getContext());
         reservationsActivity.state_offers[1]=1;
 
         return view;

@@ -7,14 +7,13 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.restaurateur.R;
-import com.example.restaurateur.Reservations;
+import com.example.restaurateur.MainActivity;
 
 public class Offers_f extends Fragment implements TabLayout.BaseOnTabSelectedListener {
 
@@ -132,28 +131,28 @@ public class Offers_f extends Fragment implements TabLayout.BaseOnTabSelectedLis
 
     private void animateFab(int position) {
 
-         Reservations reservationsActivity = (Reservations) getActivity();
+         MainActivity reservationsActivity = (MainActivity) getActivity();
 
         switch (position) {
             case 0:
                 if(reservationsActivity.state_offers[0]==0) {
                     FabActive.show();
                     FabDisabled.hide();
-                    ((Reservations) getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                    ((MainActivity) getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 }
                 else {
                     FabDisabled.hide();
-                    ((Reservations) getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    ((MainActivity) getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 } break;
             case 1:
                 if(reservationsActivity.state_offers[1]==0) {
                     FabActive.hide();
                     FabDisabled.show();
-                    ((Reservations) getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                    ((MainActivity) getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 }
                 else {
                     FabActive.hide();
-                    ((Reservations) getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    ((MainActivity) getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 }break;
 
             default:
