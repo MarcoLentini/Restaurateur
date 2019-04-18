@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.restaurateur.Offer.PagerOffers;
 import com.example.restaurateur.R;
 
 public class History_f extends Fragment implements TabLayout.BaseOnTabSelectedListener {
@@ -24,8 +23,8 @@ public class History_f extends Fragment implements TabLayout.BaseOnTabSelectedLi
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_history_f, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_tab_history, container, false);
+/*
 //Initializing the tablayout
         tabLayout = (TabLayout) view.findViewById(R.id.tabLayout_history);
 
@@ -49,7 +48,7 @@ public class History_f extends Fragment implements TabLayout.BaseOnTabSelectedLi
 
         //Adding onTabSelectedListener to swipe views
         tabLayout.addOnTabSelectedListener(this);
-
+*/
         return view;
 
 
