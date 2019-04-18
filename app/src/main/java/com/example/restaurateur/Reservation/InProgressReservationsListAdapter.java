@@ -57,7 +57,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
 
     @Override
     public void onBindViewHolder(@NonNull InProgressReservationViewHolder inProgressReservationViewHolder, int position) {
-        //TextView textViewOrderIdReservation = inProgressReservationViewHolder.textViewOrderIdReservation;
+        TextView textViewOrderIdInProgress = inProgressReservationViewHolder.textViewOrderIdInProgress;
 
         TextView textViewOrderId = inProgressReservationViewHolder.textViewReservationId;
         TextView textViewRemainingTime = inProgressReservationViewHolder.textViewRemainingTime;
@@ -101,8 +101,8 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
                 fragmentActivity.addItemToFinished(tmpRM);//finishedDataSet.add(tmpRM);
             }
         });
-/*
-        inProgressReservationViewHolder.itemView.setOnClickListener(v -> {
+
+       inProgressReservationViewHolder.itemView.setOnClickListener(v -> {
             DetailsFragment detailsFragment = DetailsFragment.newInstance(tmpRM);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -112,17 +112,18 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
                 detailsFragment.setSharedElementReturnTransition(new DetailsTransition());
             }
 
-            ViewCompat.setTransitionName(textViewOrderIdReservation,"lessDetails");
+            ViewCompat.setTransitionName(textViewOrderIdInProgress,"lessDetailsInProgress");
             fragmentActivity.getSupportFragmentManager()
                     .beginTransaction()
-                    .addSharedElement(textViewOrderIdReservation,
-                            "seeDetails")
+                    .addSharedElement(textViewOrderIdInProgress,
+                            "seeDetailsInProgress")
                     .replace(R.id.frame_container_reservations, detailsFragment)
                     .addToBackStack(null)
                     .commit();
         });
 
-*/
+
+
     }
 
     @Override
@@ -139,6 +140,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
         TextView textViewReservationNotes;
         Button btnFinishtReservation;
         Button btnRejectReservation;
+       TextView textViewOrderIdInProgress;
 
         InProgressReservationViewHolder(View itemView) {
             super(itemView);
@@ -149,6 +151,9 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
             this.textViewReservationNotes = itemView.findViewById(R.id.textViewStateReservation);
             btnFinishtReservation = itemView.findViewById(R.id.buttonResumeReservation);
             btnRejectReservation = itemView.findViewById(R.id.buttonRemoveReservation);
+
+            this.textViewOrderIdInProgress = itemView.findViewById(R.id.textViewOrderIdInProgress);
+
         }
     }
 }

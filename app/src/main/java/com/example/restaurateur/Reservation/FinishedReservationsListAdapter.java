@@ -2,7 +2,10 @@ package com.example.restaurateur.Reservation;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.transition.Fade;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,19 +43,21 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
     public FinishedReservationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.finished_reservation_cardview, parent, false);
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(context.getApplicationContext(), UserInformationActivity.class);
-                context.startActivity(myIntent);
-            }
-        });
+ //       view.setOnClickListener(new View.OnClickListener() {
+ //           @Override
+ //           public void onClick(View v) {
+  //              Intent myIntent = new Intent(context.getApplicationContext(), UserInformationActivity.class);
+ //               context.startActivity(myIntent);
+//            }
+//        });
 
         return new FinishedReservationViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull FinishedReservationViewHolder finishedReservationViewHolder, int position) {
+        TextView textViewOrderIdFinished = finishedReservationViewHolder.textViewOrderIdFinished;
+
         TextView textViewOrderId = finishedReservationViewHolder.textViewReservationId;
         TextView textViewRemainingTime = finishedReservationViewHolder.textViewRemainingTime;
         TextView textViewTotalIncome = finishedReservationViewHolder.textViewTotalIncome;
@@ -93,6 +98,26 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
                 // TODO probably we will need to save on the history database
             }
         });
+
+        finishedReservationViewHolder.itemView.setOnClickListener(v -> {
+            DetailsFragment detailsFragment = DetailsFragment.newInstance(tmpRM);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                detailsFragment.setSharedElementEnterTransition(new DetailsTransition());
+                detailsFragment.setEnterTransition(new Fade());
+                detailsFragment.setExitTransition(new Fade());
+                detailsFragment.setSharedElementReturnTransition(new DetailsTransition());
+            }
+
+            ViewCompat.setTransitionName(textViewOrderIdFinished,"lessDetailsFinish");
+            fragmentActivity.getSupportFragmentManager()
+                    .beginTransaction()
+                    .addSharedElement(textViewOrderIdFinished,
+                            "seeDetailsFinish")
+                    .replace(R.id.frame_container_reservations, detailsFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
     }
 
     @Override
@@ -101,6 +126,7 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
     }
 
     static class FinishedReservationViewHolder extends RecyclerView.ViewHolder {
+        TextView textViewOrderIdFinished;
 
         TextView textViewReservationId;
         TextView textViewRemainingTime;
@@ -119,6 +145,9 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
             this.textViewReservationState = itemView.findViewById(R.id.textViewStateReservation);
             this.btnResumeReservation = itemView.findViewById(R.id.buttonResumeReservation);
             this.btnRemoveReservation = itemView.findViewById(R.id.buttonRemoveReservation);
+
+            this.textViewOrderIdFinished = itemView.findViewById(R.id.textViewOrderIdFinished);
+
         }
     }
 }
