@@ -35,7 +35,7 @@ public class TabReservationsPending extends Fragment {
         // specify an Adapter
         pendingReservationsAdapter = new PendingReservationsListAdapter(getContext(),
                 reservationsActivity.pendingReservationsData, reservationsActivity.inProgressReservationsData,
-                reservationsActivity.finishedReservationsData, reservationsActivity.offersData); // getContext() forse non va bene
+                reservationsActivity.finishedReservationsData, reservationsActivity.offersData, getActivity()); // getContext() forse non va bene
         recyclerView.setAdapter(pendingReservationsAdapter);
 
         return view;

@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
     app:cardUseCompatPadding="true"
-    app:cardBackgroundColor="#FFFFFF">
+    app:cardBackgroundColor="#FFFFFF"
+    android:id="@+id/reservation_detail_info_pending"
+    android:transitionName="seeDetails">
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/textViewOrderIdReservation"
@@ -50,7 +48,6 @@
             android:layout_marginEnd="@dimen/dp24"
             android:layout_marginRight="@dimen/dp24"
             android:orientation="horizontal">
-
             <TextView
                 android:id="@+id/textViewRemainingTimeReservation"
                 android:layout_width="0dp"
@@ -62,7 +59,6 @@
                 android:gravity="center_vertical"
                 android:text="15min"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-
             <TextView
                 android:id="@+id/textViewTotalIncomeReservation"
                 android:layout_width="0dp"
@@ -93,10 +89,12 @@
             android:background="@color/colorDivider" />
 
 
+
         <LinearLayout
             android:id="@+id/pending_order_detail_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_below="@+id/divider1"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
@@ -106,16 +104,15 @@
             android:layout_marginLeft="@dimen/dp8"
             android:layout_marginTop="@dimen/dp8"
             android:layout_marginEnd="@dimen/dp8"
-            android:layout_marginRight="@dimen/dp8"
-            android:orientation="vertical"
-            android:transitionName="seeDetails">
+            android:layout_marginRight="@dimen/dp8">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:paddingRight="16dp"
+                >
 
                 <TextView
                     android:layout_width="0dp"
@@ -153,7 +150,6 @@
                 android:orientation="horizontal"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp">
-
                 <TextView
                     android:id="@+id/OrderFoodName"
                     android:layout_width="0dp"
@@ -162,7 +158,6 @@
                     android:text="This is a medium long long name"
                     android:textColor="#000"
                     android:textSize="18sp" />
-
                 <TextView
                     android:id="@+id/OrderQuantity"
                     android:layout_width="0dp"
@@ -173,7 +168,6 @@
                     android:textAlignment="viewEnd"
                     android:textColor="#000"
                     android:textSize="18sp" />
-
                 <TextView
                     android:id="@+id/OrderTotalCost"
                     android:layout_width="0dp"
@@ -192,7 +186,6 @@
                 android:orientation="horizontal"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp">
-
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -200,7 +193,6 @@
                     android:text="This is a short food name"
                     android:textColor="#000"
                     android:textSize="18sp" />
-
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -210,7 +202,6 @@
                     android:textAlignment="viewEnd"
                     android:textColor="#000"
                     android:textSize="18sp" />
-
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -222,7 +213,6 @@
                     android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
-
         <View
             android:id="@+id/divider2"
             android:layout_width="395dp"
@@ -237,12 +227,14 @@
             android:layout_marginTop="@dimen/dp8"
             android:layout_marginEnd="@dimen/dp8"
             android:layout_marginRight="@dimen/dp8"
-            android:background="@color/colorDivider" />
+            android:background="@color/colorDivider"
+            />
 
         <LinearLayout
             android:id="@+id/pending_notice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_below="@+id/divider2"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
@@ -252,8 +244,7 @@
             android:layout_marginLeft="@dimen/dp8"
             android:layout_marginTop="@dimen/dp8"
             android:layout_marginEnd="@dimen/dp8"
-            android:layout_marginRight="@dimen/dp8"
-            android:orientation="horizontal">
+            android:layout_marginRight="@dimen/dp8">
 
             <TextView
                 android:id="@+id/textView7"
@@ -263,13 +254,14 @@
                 android:text="@string/remarks"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textColor="@color/colorPrimary"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                />
 
             <TextView
                 android:id="@+id/Order_Notice"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="4"
+                android:layout_height="wrap_content"
                 android:text="do not put so much chilly this is a notice you can write as many words as you want plesae leave more notice here "
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -290,7 +282,8 @@
             android:layout_marginTop="@dimen/dp8"
             android:layout_marginEnd="@dimen/dp8"
             android:layout_marginRight="@dimen/dp8"
-            android:background="@color/colorDivider" />
+            android:background="@color/colorDivider"
+            />
 
 
         <TextView
@@ -325,13 +318,13 @@
             android:id="@+id/imageViewMsg"
             android:layout_width="@dimen/dp16"
             android:layout_height="@dimen/dp16"
+            android:src="@drawable/ic_order_msg"
             android:layout_below="@+id/divider3"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/dp16"
             android:layout_marginEnd="@dimen/dp24"
-            android:layout_marginRight="@dimen/dp24"
-            android:src="@drawable/ic_order_msg" />
+            android:layout_marginRight="@dimen/dp24" />
 
         <TextView
             android:id="@+id/customer_phone_number"
@@ -362,8 +355,8 @@
             android:layout_marginTop="@dimen/dp8"
             android:layout_marginEnd="@dimen/dp8"
             android:layout_marginRight="@dimen/dp8"
-            android:background="@color/colorDivider" />
-
+            android:background="@color/colorDivider"
+            />
         <LinearLayout
             android:id="@+id/Button_Area"
             android:layout_width="match_parent"
@@ -378,27 +371,27 @@
             android:layout_marginTop="@dimen/dp8"
             android:layout_marginEnd="@dimen/dp8"
             android:layout_marginRight="@dimen/dp8"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
             <Button
                 android:id="@+id/Reject_Order"
                 style="@style/Button"
+                android:layout_margin="@dimen/dp8"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp8"
                 android:layout_weight="1"
                 android:text="@string/Button_Reservation_Reject"
                 android:textColor="@color/colorPrimaryText" />
-
             <Button
                 android:id="@+id/Accept_Order"
+                android:layout_margin="@dimen/dp8"
                 style="@style/Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp8"
                 android:layout_weight="2"
                 android:text="@string/Button_Reservation_Accept"
                 android:textColor="@color/colorPrimaryText" />
         </LinearLayout>
     </RelativeLayout>
-</android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

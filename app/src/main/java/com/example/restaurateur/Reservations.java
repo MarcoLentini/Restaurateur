@@ -3,6 +3,8 @@ package com.example.restaurateur;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 
 import com.example.restaurateur.History.History_f;
 import com.example.restaurateur.Offer.Category;
@@ -52,6 +55,17 @@ public class Reservations extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation_categories);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+//        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+//            @Override
+//            public void onBackStackChanged() {
+//                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+//                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//                } else {
+//                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//                }
+//            }
+//        });
+
         loadFragment(new Reservations_f());
 
         pendingReservationsData = new ArrayList<ReservationModel>();
@@ -62,6 +76,7 @@ public class Reservations extends AppCompatActivity {
         // fillWithStaticData() is used to put data into the previous first 3 ArrayLists and the HashMap
         fillWithStaticData();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,11 +91,12 @@ public class Reservations extends AppCompatActivity {
             Intent information = new Intent(this, UserInformationActivity.class);
             startActivity(information);
         }
-
+        if(id == android.R.id.home){
+            onBackPressed();
+            //getSupportFragmentManager().popBackStack();
+        }
         return super.onOptionsItemSelected(item);
     }
-
-
     // Bottom Menu
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
@@ -112,6 +128,16 @@ public class Reservations extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container_reservations, fragment);
         transaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 1) {
+            getFragmentManager().popBackStack();
+        } else {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            super.onBackPressed();
+        }
     }
 
     private void fillWithStaticData() {

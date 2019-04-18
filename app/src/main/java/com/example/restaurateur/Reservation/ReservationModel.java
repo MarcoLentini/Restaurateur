@@ -1,8 +1,9 @@
 package com.example.restaurateur.Reservation;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ReservationModel implements Comparable<ReservationModel> {
+public class ReservationModel implements Comparable<ReservationModel>, Serializable {
 
     private int id;
     private int customerId;
