@@ -6,32 +6,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Offer.Offers_f">
 
-    <!-- our tablayout to display tabs  -->
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabLayout_offers"
-        style="@style/AppTabLayout"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/frame_container_active_offers"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:tabTextAppearance="@style/AppTabTextAppearance"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="16dp" />
-
-    <!-- View pager to swipe views -->
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager_offers"
-        android:layout_width="411dp"
-        android:layout_height="0dp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout_offers" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/FabAddActiveCategories"
+        android:id="@+id/FabAddDishes"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_gravity="end|bottom"
@@ -45,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/FabAddDisabledCategories"
+        android:id="@+id/FabAddCategories"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_gravity="end|bottom"

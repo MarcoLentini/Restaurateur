@@ -22,14 +22,14 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         private ArrayList<Category> dataSet;
         private LayoutInflater mInflater;
         private Context context;
-        private String type;
+
     private MainActivity reservationsActivity ;
 
-    public CategoriesListAdapter(Context context, ArrayList<Category> categories, MainActivity reservationsActivity, String type) {
+    public CategoriesListAdapter(Context context, ArrayList<Category> categories, MainActivity reservationsActivity) {
         this.dataSet = categories;
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
-        this.type=type;
+
         this.reservationsActivity = reservationsActivity;
         }
 
@@ -42,9 +42,6 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(type=="disabled")
-                    loadFragment(v,new TabDishesDisabledOffers(),v.findViewById(R.id.textViewCategoryName));
-                    else
                         loadFragment(v,new TabDishesActiveOffers(),v.findViewById(R.id.textViewCategoryName));
                 }
             });
@@ -84,13 +81,10 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         bundle.putString("Category", category);
         // set Fragmentclass Arguments
         fragment.setArguments(bundle);
-        if(type=="active"){
-            transaction.replace(R.id.frame_container_active_offers, fragment,"ActiveDishesOffers");
-            transaction.addToBackStack("ActiveCategory");
-        }else if(type=="disabled") {
-            transaction.replace(R.id.frame_container_disabled_offers, fragment, "DisabledDishesOffers");
-            transaction.addToBackStack("DisabledCategoryOffers");
-        }
+
+            transaction.replace(R.id.frame_container_active_offers, fragment, "DishesOffers");
+            transaction.addToBackStack("Category");
+
 
         transaction.commit();
         ((MainActivity)view.getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);

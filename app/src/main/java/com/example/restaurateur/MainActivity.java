@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<ReservationModel> pendingReservationsData; // remove static from all ArrayLists
     public static ArrayList<ReservationModel> inProgressReservationsData;
     public static ArrayList<ReservationModel> finishedReservationsData;
-    public static ArrayList<OfferModel> ActiveDishes;
-    public static ArrayList<OfferModel> DisabledDishes;
+    public static ArrayList<OfferModel> DishesOffers;
+
     public static HashMap<Integer, OfferModel> offersData;
     public static ArrayList<Category> categories;
     public static int[] state_offers={0,0};
@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
         pendingReservationsData = new ArrayList<ReservationModel>();
         inProgressReservationsData = new ArrayList<ReservationModel>();
         finishedReservationsData = new ArrayList<ReservationModel>();
-        ActiveDishes=new ArrayList<OfferModel>();
-        DisabledDishes=new ArrayList<OfferModel>();
+        DishesOffers=new ArrayList<OfferModel>();
+
 
         categories = new ArrayList<Category>();
         offersData = new HashMap<>();
@@ -182,12 +182,10 @@ public class MainActivity extends AppCompatActivity {
             categories.add(new Category(MyCategories.categories[i]));
         }
         for(int i = 0; i < MyOffersData.id.length; i++) {
-            OfferModel tmpOM = new OfferModel(MyOffersData.id[i], MyOffersData.offerName[i], MyOffersData.price[i], MyOffersData.quantity[i],MyOffersData.image[i],MyOffersData.state[i]);
+            OfferModel tmpOM = new OfferModel(MyOffersData.id[i], MyOffersData.offerName[i],MyOffersData.category[i], MyOffersData.price[i], MyOffersData.quantity[i],MyOffersData.image[i],MyOffersData.state[i]);
             offersData.put(MyOffersData.id[i],tmpOM);
-            if(MyOffersData.state[i]=="Active")
-                ActiveDishes.add(tmpOM);
-            if(MyOffersData.state[i]=="Disabled")
-                DisabledDishes.add(tmpOM);
+            DishesOffers.add(tmpOM);
+
         }
 
     }

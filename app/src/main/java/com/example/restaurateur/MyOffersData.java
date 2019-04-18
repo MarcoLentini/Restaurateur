@@ -11,7 +11,9 @@ public class MyOffersData {
             "Zucchine", "Patatine fritte", "Hamburger e patatine fritte", "Bistecca di pollo impanata",
             "Zucchine grigliate", "Peperoni grigliati", "Pizza al prosciutto crudo e gorgonzola", "Vitello tonnato",
             "Insalata", "Ketchup", "Maionese", "Coca-cola in lattine da 33cl" };
-
+    static String[] category= {"Antipasti","Primi piatti","Pizza","Antipasti","Primi piatti","Pizza","Antipasti","Primi piatti","Pizza",
+            "Antipasti","Primi piatti","Pizza","Antipasti","Primi piatti","Pizza","Antipasti","Primi piatti","Pizza",
+            "Antipasti","Primi piatti","Pizza","Antipasti","Primi piatti","Pizza","Antipasti"};
     static Double[] price = { 4.0, 5.0, 8.0, 6.0, 9.50, 6.80, 7.20, 8.0, 9.10, 10.0, 11.0,
             12.20, 13.10, 9.15, 15.25, 10.80, 20.0, 6.30, 4.20, 3.00, 2.50, 1.50, 1.50, 3.90, 0.50 };
     static Integer[] quantity = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,

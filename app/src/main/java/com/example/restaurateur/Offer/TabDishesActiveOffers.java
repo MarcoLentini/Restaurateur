@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.example.restaurateur.R;
 import com.example.restaurateur.MainActivity;
 
+import java.util.ArrayList;
+
 public class TabDishesActiveOffers extends android.support.v4.app.Fragment {
 
 
@@ -22,24 +24,23 @@ public class TabDishesActiveOffers extends android.support.v4.app.Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter ActiveDishesAdapter;
     private MainActivity reservationsActivity = (MainActivity) getActivity();
-    private String type;
+    private String category;
 
-    private FloatingActionButton FabActive;
-    private FloatingActionButton FabDisabled;
+    private FloatingActionButton FabCategory;
+    private FloatingActionButton FabDishes;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.tab_active_dishes_offers, container, false);
         TextView a=view.findViewById(R.id.textViewDishesOffers);
         a.setText("DishesActiveOffers");
-        FabActive= ((FragmentActivity)view.getContext()).findViewById(R.id.FabAddActiveCategories);
-        FabDisabled= ((FragmentActivity)view.getContext()).findViewById(R.id.FabAddDisabledCategories);
-        FabActive.hide();
-        FabDisabled.hide();
-        reservationsActivity=((MainActivity)view.getContext());
-        reservationsActivity.state_offers[0]=1;
+        FabCategory= ((FragmentActivity)view.getContext()).findViewById(R.id.FabAddCategories);
+        FabDishes= ((FragmentActivity)view.getContext()).findViewById(R.id.FabAddDishes);
+        FabCategory.hide();
+        FabDishes.show();
+        category=getArguments().getString("Category");
+        ((MainActivity)view.getContext()).getSupportActionBar().setTitle(category);
 
-        type=getArguments().getString("Type");
         //Returning the layout file after inflating
         //Change R.layout.tab1 in you classes
         recyclerView = view.findViewById(R.id.ActiveDishesRecyclerView);
@@ -50,7 +51,11 @@ public class TabDishesActiveOffers extends android.support.v4.app.Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
-        ActiveDishesAdapter = new DishesListAdapter(getContext(), reservationsActivity.ActiveDishes,reservationsActivity); // getContext() forse non va bene
+        ArrayList<OfferModel> dishesOfCategory= new ArrayList<>();
+        for(int i=0;i<reservationsActivity.DishesOffers.size();i++)
+            if(reservationsActivity.DishesOffers.get(i).getCategory().equals(category))
+                dishesOfCategory.add(reservationsActivity.DishesOffers.get(i));
+        ActiveDishesAdapter = new DishesListAdapter(getContext(), dishesOfCategory,reservationsActivity); // getContext() forse non va bene
         recyclerView.setAdapter(ActiveDishesAdapter);
 
 
@@ -62,17 +67,14 @@ public class TabDishesActiveOffers extends android.support.v4.app.Fragment {
     public void onPause() {
 
         super.onPause();
-        FabActive.show();
-        FabDisabled.show();
+        FabDishes.hide();
 
     }
-    @Override
-    public void onDestroy() {
 
-        super.onDestroy();
-        FabActive.show();
-        FabDisabled.show();
-        reservationsActivity.state_offers[0]=0;
-        reservationsActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+    @Override
+    public void onResume() {
+        FabCategory.hide();
+        FabDishes.show();
+        super.onResume();
     }
 }

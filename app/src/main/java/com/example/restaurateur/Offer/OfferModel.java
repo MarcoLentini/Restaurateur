@@ -4,16 +4,16 @@ public class OfferModel {
 
     private int id;
     private String name;
+    private String category;
     private double price;
-
-
-
     private int quantity;
     private int image;
     private String state;
-    public OfferModel(int id, String name, double price,int quantity, int image,String state) {
+
+    public OfferModel(int id, String name,String category, double price,int quantity, int image,String state) {
         this.id = id;
         this.name = name;
+        this.category=category;
         this.price = price;
         this.quantity=quantity;
         this.image = image;
@@ -66,4 +66,13 @@ public class OfferModel {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
 }
