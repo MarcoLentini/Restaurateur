@@ -65,10 +65,10 @@ public class UserInformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_information_activity);
 
-        String titile = getString(R.string.InfoTitle);
+        String title = getString(R.string.InfoTitle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(titile);
+        getSupportActionBar().setTitle(title);
 
         // Image Profile
         imageProfile = findViewById(R.id.img_profile);

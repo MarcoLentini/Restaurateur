@@ -89,5 +89,6 @@
 
     <!-- edit_offer_item_info.xml -->
      <string name="Button_Save">SAVE</string>
+    <string name="title_new_food">Aggiungi offerta</string>
 
 </resources>
