@@ -103,4 +103,14 @@
     <string name="no_dishes_offers">There are no dishes in this category</string>
     <string name="no_category_offers">There are no category</string>
 
+
+    <!-- in offer_item_info.xml-->
+    <string name="FoodPic">Food Pictrue</string>
+    <string name="FoodQuantityValue">29</string>
+    <string name="FoodPriceValue">10</string>
+
+    <string name="FoodName">Food Name</string>
+    <string name="FoodQuantity">Quantity</string>
+    <string name="FoodPrice">Press</string>
+
 </resources>

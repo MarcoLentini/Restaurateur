@@ -10,5 +10,7 @@
     <dimen name="dp24">24dp</dimen>
     <dimen name="dp56">56dp</dimen>
     <dimen name="dp4">4dp</dimen>
+    <dimen name="dp96">96dp</dimen>
+
 
 </resources>
