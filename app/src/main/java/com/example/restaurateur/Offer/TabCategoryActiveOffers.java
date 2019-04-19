@@ -26,7 +26,7 @@ public class TabCategoryActiveOffers extends Fragment {
     private MainActivity reservationsActivity = (MainActivity) getActivity();
     private FloatingActionButton FabCategory;
     private FloatingActionButton FabDishes;
-
+private  TextView a;
     //Overriden method onCreateView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class TabCategoryActiveOffers extends Fragment {
         //Change R.layout.tab1 in you classes
         View view=inflater.inflate(R.layout.fragment_tab_category_offers, container, false);
         recyclerView = view.findViewById(R.id.ActiveOfferRecyclerView);
-
+        a=view.findViewById(R.id.textViewCategoryOffers);
         FabCategory= ((FragmentActivity)view.getContext()).findViewById(R.id.FabAddCategories);
         FabDishes= ((FragmentActivity)view.getContext()).findViewById(R.id.FabAddDishes);
         FabCategory.show();
@@ -50,7 +50,7 @@ public class TabCategoryActiveOffers extends Fragment {
         // specify an Adapter
         if(reservationsActivity.categories.isEmpty())
             {
-                TextView a=view.findViewById(R.id.textViewCategoryOffers);
+
                 a.setText(R.string.no_category_offers);
 
             }
@@ -70,6 +70,10 @@ public class TabCategoryActiveOffers extends Fragment {
     @Override
     public void onResume() {
         Log.d("TABCATEGORIES", "Categories: onResume() chiamato");
+        if(reservationsActivity.categories.isEmpty())
+        {
+            a.setText(R.string.no_category_offers);
+        }else a.setVisibility(View.INVISIBLE);
         categoriesAdapter.notifyDataSetChanged();
         FabCategory.show();
         FabDishes.hide();

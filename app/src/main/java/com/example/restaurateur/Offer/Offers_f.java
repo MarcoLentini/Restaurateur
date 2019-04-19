@@ -23,6 +23,8 @@ public class Offers_f extends Fragment  {
 
     private static final int ADD_CATEGORY_ACTIVITY = 1;
     private static final int ADD_FOOD_OFFER_ACTIVITY = 2;
+    private static final int EDIT_DISHES_ACTIVITY = 3;
+
     FloatingActionButton FabCategory;
     FloatingActionButton FabDishes;
 
@@ -111,9 +113,41 @@ public class Offers_f extends Fragment  {
             }
 
      if (requestCode == ADD_CATEGORY_ACTIVITY && resultCode == RESULT_OK) {
-            String category = data.getStringExtra("category");
-            MainActivity reservationsActivity = (MainActivity)getActivity();
-            reservationsActivity.categories.add(new Category(category));
-        }
+         String category = data.getStringExtra("category");
+         MainActivity reservationsActivity = (MainActivity) getActivity();
+         reservationsActivity.categories.add(new Category(category));
+     }
+     if (requestCode == EDIT_DISHES_ACTIVITY && resultCode == RESULT_OK) {
+
+         String foodCategory=  data.getExtras().getString("foodCategory");
+         String foodName=  data.getExtras().getString("foodName");
+         String foodDescription=  data.getExtras().getString("foodDescription");
+         int foodId=  data.getExtras().getInt("foodId");
+         int foodImage=  data.getExtras().getInt("foodImage");
+         int foodQuantity=  data.getExtras().getInt("foodQuantity");
+         Double foodPrice=  data.getExtras().getDouble("foodPrice");
+         String foodState= data.getExtras().getString("fooodState");
+         MainActivity reservationsActivity = (MainActivity)getActivity();
+         for(int i=1;i<reservationsActivity.DishesOffers.size();i++)
+         {
+
+             if(reservationsActivity.DishesOffers.get(i).getId()==foodId)
+             {
+                 reservationsActivity.DishesOffers.get(i).setCategory(foodCategory);
+                 reservationsActivity.DishesOffers.get(i).setDescription(foodDescription);
+                 reservationsActivity.DishesOffers.get(i).setImage(foodImage);
+                 reservationsActivity.DishesOffers.get(i).setName(foodName);
+                 reservationsActivity.DishesOffers.get(i).setPrice(foodPrice);
+                 reservationsActivity.DishesOffers.get(i).setQuantity(foodQuantity);
+                 reservationsActivity.DishesOffers.get(i).setState(foodState);
+                 if(!reservationsActivity.categories.contains(new Category(foodCategory)))
+                     reservationsActivity.categories.add(new Category(foodCategory));
+                 break;
+             }
+         }
+
+
+            }
+
     }
 }}

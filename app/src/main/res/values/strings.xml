@@ -108,6 +108,7 @@
     <string name="FoodQuantityValue">29</string>
     <string name="FoodPriceValue">10</string>
     <string name="FoodName">Food Name</string>
+    <string name="FoodCategory">Food Category</string>
 
     <string name="FoodQuantity">Quantity</string>
     <string name="FoodPrice">Price</string>
@@ -128,5 +129,7 @@
     <string name="str_phonenumber">33456832901</string>
     <string name="str_messagecustomer">messageCustomer</string>
     <string name="str_callcustonmer">callCustonmer</string>
+    <string name="title_activity_edit_dishes">EditDishesActivity</string>
+    <string name="show_dish">Your dish</string>
 
 </resources>
