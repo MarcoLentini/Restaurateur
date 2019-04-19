@@ -30,17 +30,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="@dimen/dp16"
-                android:layout_marginLeft="@dimen/dp16"
                 android:layout_marginTop="@dimen/dp4"
                 android:backgroundTint="@color/colorPrimary"
                 android:drawableStart="@drawable/ic_tag"
-                android:drawableLeft="@drawable/ic_tag"
                 android:drawablePadding="4dp"
                 android:gravity="center_vertical"
-                android:text="OrderID"
+                android:text="@string/str_orderid"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                 android:textColor="@color/colorPrimary" />
 
@@ -50,9 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textViewOrderIdReservation"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_marginStart="@dimen/dp24"
                 android:layout_marginLeft="@dimen/dp24"
                 android:layout_marginTop="@dimen/dp16"
@@ -66,10 +61,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawableStart="@drawable/ic_hourglass"
-                    android:drawableLeft="@drawable/ic_hourglass"
                     android:drawablePadding="4dp"
                     android:gravity="center_vertical"
-                    android:text="15min"
+                    android:text="@string/str_time"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                 <TextView
@@ -78,10 +72,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawableStart="@drawable/ic_currency_euro"
-                    android:drawableLeft="@drawable/ic_currency_euro"
                     android:drawablePadding="4dp"
                     android:gravity="center_vertical"
-                    android:text="10"
+                    android:text="@string/str_income"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
             </LinearLayout>
 
@@ -91,9 +84,7 @@
                 android:layout_height="2dp"
                 android:layout_below="@+id/layout_reservation_pending"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_marginStart="@dimen/dp8"
                 android:layout_marginLeft="@dimen/dp8"
                 android:layout_marginTop="@dimen/dp8"
@@ -108,9 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/divider1"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_marginStart="@dimen/dp8"
                 android:layout_marginLeft="@dimen/dp8"
                 android:layout_marginTop="@dimen/dp8"
@@ -130,7 +119,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:text="This is a long long long long long long long food name"
+                        android:text="@string/str_foodName"
                         android:textColor="#000"
                         android:textSize="18sp" />
 
@@ -139,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_weight="1"
-                        android:text="x1"
+                        android:text="@string/str_number"
                         android:textAlignment="viewEnd"
                         android:textColor="#000"
                         android:textSize="18sp" />
@@ -149,7 +138,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_weight="1"
-                        android:text="5€"
+                        android:text="@string/str_foodprice"
                         android:textAlignment="viewEnd"
                         android:textColor="#000"
                         android:textSize="18sp" />
@@ -168,7 +157,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:text="This is a medium long long name"
+                        android:text="@string/str_foodName"
                         android:textColor="#000"
                         android:textSize="18sp" />
 
@@ -178,7 +167,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_weight="1"
-                        android:text="x1"
+                        android:text="@string/str_number"
                         android:textAlignment="viewEnd"
                         android:textColor="#000"
                         android:textSize="18sp" />
@@ -189,7 +178,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_weight="1"
-                        android:text="5€"
+                        android:text="@string/str_foodprice"
                         android:textAlignment="viewEnd"
                         android:textColor="#000"
                         android:textSize="18sp" />
@@ -206,7 +195,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:text="This is a short food name"
+                        android:text="@string/str_foodName"
                         android:textColor="#000"
                         android:textSize="18sp" />
 
@@ -215,7 +204,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_weight="1"
-                        android:text="x1"
+                        android:text="@string/str_number"
                         android:textAlignment="viewEnd"
                         android:textColor="#000"
                         android:textSize="18sp" />
@@ -225,7 +214,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_weight="1"
-                        android:text="5€"
+                        android:text="@string/str_foodprice"
                         android:textAlignment="viewEnd"
                         android:textColor="#000"
                         android:textSize="18sp" />
@@ -238,9 +227,7 @@
                 android:layout_height="2dp"
                 android:layout_below="@+id/pending_order_detail_info"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_marginStart="@dimen/dp8"
                 android:layout_marginLeft="@dimen/dp8"
                 android:layout_marginTop="@dimen/dp8"
@@ -254,9 +241,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/divider2"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_marginStart="@dimen/dp8"
                 android:layout_marginLeft="@dimen/dp8"
                 android:layout_marginTop="@dimen/dp8"
@@ -279,7 +264,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:text="do not put so much chilly this is a notice you can write as many words as you want plesae leave more notice here "
+                    android:text="@string/str_remark"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView7" />
@@ -291,9 +276,7 @@
                 android:layout_height="2dp"
                 android:layout_below="@+id/pending_notice"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_marginStart="@dimen/dp8"
                 android:layout_marginLeft="@dimen/dp8"
                 android:layout_marginTop="@dimen/dp8"
@@ -308,13 +291,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/divider3"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:layout_marginStart="@dimen/dp24"
-                android:layout_marginLeft="@dimen/dp24"
                 android:layout_marginTop="@dimen/dp16"
                 android:drawableStart="@drawable/ic_account_name"
-                android:drawableLeft="@drawable/ic_account_name"
-                android:text="customer_name"
+                android:text="@string/str_customer_name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textStyle="bold" />
 
@@ -325,10 +305,9 @@
                 android:layout_below="@+id/divider3"
                 android:layout_marginTop="@dimen/dp16"
                 android:layout_marginEnd="@dimen/dp24"
-                android:layout_marginRight="@dimen/dp24"
                 android:layout_toStartOf="@+id/imageViewMsg"
-                android:layout_toLeftOf="@+id/imageViewMsg"
-                android:src="@drawable/ic_order_call" />
+                android:src="@drawable/ic_order_call"
+                android:contentDescription="@string/str_callcustonmer"/>
 
             <ImageView
                 android:id="@+id/imageViewMsg"
@@ -336,11 +315,10 @@
                 android:layout_height="@dimen/dp16"
                 android:layout_below="@+id/divider3"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_marginTop="@dimen/dp16"
                 android:layout_marginEnd="@dimen/dp24"
-                android:layout_marginRight="@dimen/dp24"
-                android:src="@drawable/ic_order_msg" />
+                android:src="@drawable/ic_order_msg"
+                android:contentDescription="@string/str_messagecustomer"/>
 
             <TextView
                 android:id="@+id/customer_phone_number"
@@ -348,14 +326,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/customer_name"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:layout_marginStart="@dimen/dp24"
-                android:layout_marginLeft="@dimen/dp24"
                 android:layout_marginTop="@dimen/dp8"
                 android:layout_marginBottom="@dimen/dp8"
                 android:drawableStart="@drawable/ic_order_call"
-                android:drawableLeft="@drawable/ic_order_call"
-                android:text="phone_number" />
+                android:text="@string/str_phonenumber" />
 
             <View
                 android:id="@+id/divider4"
@@ -363,9 +338,7 @@
                 android:layout_height="2dp"
                 android:layout_below="@+id/customer_phone_number"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_marginStart="@dimen/dp8"
                 android:layout_marginLeft="@dimen/dp8"
                 android:layout_marginTop="@dimen/dp8"
@@ -388,7 +361,6 @@
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp4"
                     android:layout_weight="2"
                     android:text="@string/Button_Reservation_Accept"
                     android:textColor="@color/colorSecondaryText"
@@ -398,10 +370,10 @@
                     android:id="@+id/Reject_Order"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/dp4"
                     android:layout_weight="1"
                     android:text="@string/Button_Reservation_Reject"
-                    android:theme="@style/PrimaryFlatButton" />
+                    android:theme="@style/PrimaryFlatButton"
+                    style="?android:attr/borderlessButtonStyle"/>
             </LinearLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>

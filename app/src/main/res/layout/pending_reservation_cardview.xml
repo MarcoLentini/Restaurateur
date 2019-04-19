@@ -28,7 +28,6 @@
                     android:drawableLeft="@drawable/ic_tag"
                     android:drawablePadding="4dp"
                     android:gravity="center_vertical"
-                    android:text="OrderID"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                     android:textColor="@color/colorPrimaryDark" />
 
@@ -41,7 +40,6 @@
                     android:drawableLeft="@drawable/ic_hourglass"
                     android:drawablePadding="4dp"
                     android:gravity="center_vertical"
-                    android:text="15min"
                     android:textColor="@color/colorPrimaryDark"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
@@ -51,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="notes!"
+                    android:text="@string/notes"
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                     android:visibility="invisible"
@@ -72,7 +70,6 @@
                     android:gravity="center_vertical"
                     android:hapticFeedbackEnabled="false"
                     android:maxLines="2"
-                    android:text="Pizza margherita(x1) Pizza al prosciutto(x3) Zucchine grigliate(x4) peperoni con carne al forno(x1)"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
                 <!--<TextView
@@ -105,7 +102,6 @@
                     android:drawableLeft="@drawable/ic_currency_euro"
                     android:drawablePadding="4dp"
                     android:gravity="center_vertical"
-                    android:text="12.50"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textColor="@color/colorAccent"/>
                 <Button

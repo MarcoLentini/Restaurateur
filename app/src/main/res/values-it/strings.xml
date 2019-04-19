@@ -101,7 +101,24 @@
     <string name="FoodPic">Food Pictrue</string>
     <string name="FoodQuantityValue">29</string>
     <string name="FoodPriceValue">10</string>
-    <string name="FoodName">Food Name</string>
+
+    <string name="FoodName">Food Nome</string>
     <string name="FoodQuantity">Quantità</string>
     <string name="FoodPrice">Prezzo</string>
+    <string name="futureDevelopment">For future Development....</string>
+    <string name="primi">Primi</string>
+    <string name="notes">notes!</string>
+
+    <string name="hint_food_short_description">Descrizione di food</string>
+    <string name="str_orderid">124</string>
+    <string name="str_time">15min</string>
+    <string name="str_income">10</string>
+    <string name="str_foodName">Pizza margherita</string>
+    <string name="str_number">x1</string>
+    <string name="str_foodprice">5€</string>
+    <string name="str_remark">do not put so much chilly this is a notice you can write as many words as you want plesae leave more notice here</string>
+    <string name="str_customer_name">Mr Wrong</string>
+    <string name="str_phonenumber">33456832901</string>
+    <string name="str_messagecustomer">messageCustomer</string>
+    <string name="str_callcustonmer">callCustonmer</string>
 </resources>
