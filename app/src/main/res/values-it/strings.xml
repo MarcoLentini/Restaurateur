@@ -87,7 +87,6 @@
 
     <string name="home_title">Home</string>
 
-    <!-- edit_offer_item_info.xml -->
      <string name="Button_Save">SAVE</string>
     <!--add_new_category.xml-->
     <string name="add_new_category">Inserisci il nome della nuova categoria</string>

@@ -93,8 +93,7 @@
 
     <string name="home_title">店铺管理</string>
 
-    <!-- edit_offer_item_info.xml -->
-     <string name="Button_Save">保存</string>
+      <string name="Button_Save">保存</string>
     <string name="add_new_category">请输入新的菜单分类</string>
     <string name="new_category_title">新餐单</string>
     <string name="invalid_category">分类不识别</string>
