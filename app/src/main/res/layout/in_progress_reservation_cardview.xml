@@ -20,7 +20,7 @@
             android:layout_marginBottom="8dp">
 
             <TextView
-                android:id="@+id/textViewOrderIdReservation"
+                android:id="@+id/textViewOrderIdReservationInProgress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -33,7 +33,7 @@
                 android:textColor="@color/colorPrimaryDark" />
 
             <TextView
-                android:id="@+id/textViewRemainingTimeReservation"
+                android:id="@+id/textViewRemainingTimeReservationInProgress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -45,7 +45,7 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
             <TextView
-                android:id="@+id/textViewStateReservation"
+                android:id="@+id/textViewStateReservationInProgress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -63,7 +63,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textViewFoodReservation"
+                android:id="@+id/textViewFoodReservationInProgress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -95,7 +95,7 @@
             android:gravity="end">
 
             <TextView
-                android:id="@+id/textViewTotalIncomeReservation"
+                android:id="@+id/textViewTotalIncomeReservationInProgress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -106,7 +106,7 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:textColor="@color/colorAccent"/>
             <Button
-                android:id="@+id/buttonResumeReservation"
+                android:id="@+id/buttonResumeReservationInProgress"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -114,7 +114,7 @@
                 android:textColor="@color/colorSecondaryText"
                 android:theme="@style/PrimaryFlatButton" />
             <Button
-                android:id="@+id/buttonRemoveReservation"
+                android:id="@+id/buttonRemoveReservationInProgress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Button_Reservation_Reject"

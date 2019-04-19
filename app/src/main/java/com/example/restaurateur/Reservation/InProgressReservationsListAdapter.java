@@ -1,11 +1,9 @@
 package com.example.restaurateur.Reservation;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.transition.Fade;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,7 +15,6 @@ import android.widget.TextView;
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.Offer.OfferModel;
 import com.example.restaurateur.R;
-import com.example.restaurateur.UserInformationActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,8 +54,6 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
 
     @Override
     public void onBindViewHolder(@NonNull InProgressReservationViewHolder inProgressReservationViewHolder, int position) {
-        TextView textViewOrderIdInProgress = inProgressReservationViewHolder.textViewOrderIdInProgress;
-
         TextView textViewOrderId = inProgressReservationViewHolder.textViewReservationId;
         TextView textViewRemainingTime = inProgressReservationViewHolder.textViewRemainingTime;
         TextView textViewTotalIncome = inProgressReservationViewHolder.textViewTotalIncome;
@@ -103,21 +98,21 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
         });
 
        inProgressReservationViewHolder.itemView.setOnClickListener(v -> {
-            DetailsFragment detailsFragment = DetailsFragment.newInstance(tmpRM);
+           InProgressDetailsFragment inProgressDetailsFragment = InProgressDetailsFragment.newInstance(tmpRM,position);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                detailsFragment.setSharedElementEnterTransition(new DetailsTransition());
-                detailsFragment.setEnterTransition(new Fade());
-                detailsFragment.setExitTransition(new Fade());
-                detailsFragment.setSharedElementReturnTransition(new DetailsTransition());
+                inProgressDetailsFragment.setSharedElementEnterTransition(new DetailsTransition());
+                inProgressDetailsFragment.setEnterTransition(new Fade());
+                inProgressDetailsFragment.setExitTransition(new Fade());
+                inProgressDetailsFragment.setSharedElementReturnTransition(new DetailsTransition());
             }
 
-            ViewCompat.setTransitionName(textViewOrderIdInProgress,"lessDetailsInProgress");
+            ViewCompat.setTransitionName(textViewOrderedFood,"lessDetailsInProgress");
             fragmentActivity.getSupportFragmentManager()
                     .beginTransaction()
-                    .addSharedElement(textViewOrderIdInProgress,
+                    .addSharedElement(textViewOrderedFood,
                             "seeDetailsInProgress")
-                    .replace(R.id.frame_container_reservations, detailsFragment)
+                    .replace(R.id.frame_container_reservations, inProgressDetailsFragment)
                     .addToBackStack(null)
                     .commit();
         });
@@ -132,7 +127,6 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
     }
 
    static class InProgressReservationViewHolder extends RecyclerView.ViewHolder {
-
         TextView textViewReservationId;
         TextView textViewRemainingTime;
         TextView textViewTotalIncome;
@@ -140,19 +134,16 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
         TextView textViewReservationNotes;
         Button btnFinishtReservation;
         Button btnRejectReservation;
-       TextView textViewOrderIdInProgress;
 
         InProgressReservationViewHolder(View itemView) {
             super(itemView);
-            this.textViewReservationId = itemView.findViewById(R.id.textViewOrderIdReservation);
-            this.textViewRemainingTime = itemView.findViewById(R.id.textViewRemainingTimeReservation);
-            this.textViewTotalIncome = itemView.findViewById(R.id.textViewTotalIncomeReservation);
-            this.textViewOrderedDishes = itemView.findViewById(R.id.textViewFoodReservation);
-            this.textViewReservationNotes = itemView.findViewById(R.id.textViewStateReservation);
-            btnFinishtReservation = itemView.findViewById(R.id.buttonResumeReservation);
-            btnRejectReservation = itemView.findViewById(R.id.buttonRemoveReservation);
-
-            this.textViewOrderIdInProgress = itemView.findViewById(R.id.textViewOrderIdInProgress);
+            this.textViewReservationId = itemView.findViewById(R.id.textViewOrderIdReservationInProgress);
+            this.textViewRemainingTime = itemView.findViewById(R.id.textViewRemainingTimeReservationInProgress);
+            this.textViewTotalIncome = itemView.findViewById(R.id.textViewTotalIncomeReservationInProgress);
+            this.textViewOrderedDishes = itemView.findViewById(R.id.textViewFoodReservationInProgress);
+            this.textViewReservationNotes = itemView.findViewById(R.id.textViewStateReservationInProgress);
+            btnFinishtReservation = itemView.findViewById(R.id.buttonResumeReservationInProgress);
+            btnRejectReservation = itemView.findViewById(R.id.buttonRemoveReservationInProgress);
 
         }
     }

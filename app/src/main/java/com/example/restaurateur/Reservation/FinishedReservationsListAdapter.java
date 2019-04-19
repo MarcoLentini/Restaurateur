@@ -1,7 +1,6 @@
 package com.example.restaurateur.Reservation;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.transition.Fade;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.Offer.OfferModel;
 import com.example.restaurateur.R;
-import com.example.restaurateur.UserInformationActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,8 +54,6 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
 
     @Override
     public void onBindViewHolder(@NonNull FinishedReservationViewHolder finishedReservationViewHolder, int position) {
-        TextView textViewOrderIdFinished = finishedReservationViewHolder.textViewOrderIdFinished;
-
         TextView textViewOrderId = finishedReservationViewHolder.textViewReservationId;
         TextView textViewRemainingTime = finishedReservationViewHolder.textViewRemainingTime;
         TextView textViewTotalIncome = finishedReservationViewHolder.textViewTotalIncome;
@@ -100,21 +96,21 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
         });
 
         finishedReservationViewHolder.itemView.setOnClickListener(v -> {
-            DetailsFragment detailsFragment = DetailsFragment.newInstance(tmpRM);
+            FinishedDetailsFragment finishedDetailsFragment = FinishedDetailsFragment.newInstance(tmpRM, position);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                detailsFragment.setSharedElementEnterTransition(new DetailsTransition());
-                detailsFragment.setEnterTransition(new Fade());
-                detailsFragment.setExitTransition(new Fade());
-                detailsFragment.setSharedElementReturnTransition(new DetailsTransition());
+                finishedDetailsFragment.setSharedElementEnterTransition(new DetailsTransition());
+                finishedDetailsFragment.setEnterTransition(new Fade());
+                finishedDetailsFragment.setExitTransition(new Fade());
+                finishedDetailsFragment.setSharedElementReturnTransition(new DetailsTransition());
             }
 
-            ViewCompat.setTransitionName(textViewOrderIdFinished,"lessDetailsFinish");
+            ViewCompat.setTransitionName(textViewOrderedFood,"lessDetailsFinish");
             fragmentActivity.getSupportFragmentManager()
                     .beginTransaction()
-                    .addSharedElement(textViewOrderIdFinished,
+                    .addSharedElement(textViewOrderedFood,
                             "seeDetailsFinish")
-                    .replace(R.id.frame_container_reservations, detailsFragment)
+                    .replace(R.id.frame_container_reservations, finishedDetailsFragment)
                     .addToBackStack(null)
                     .commit();
         });
@@ -126,8 +122,6 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
     }
 
     static class FinishedReservationViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewOrderIdFinished;
-
         TextView textViewReservationId;
         TextView textViewRemainingTime;
         TextView textViewTotalIncome;
@@ -138,16 +132,13 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
 
         FinishedReservationViewHolder(View itemView) {
             super(itemView);
-            this.textViewReservationId = itemView.findViewById(R.id.textViewOrderIdReservation);
-            this.textViewRemainingTime = itemView.findViewById(R.id.textViewRemainingTimeReservation);
-            this.textViewTotalIncome = itemView.findViewById(R.id.textViewTotalIncomeReservation);
-            this.textViewOrderedDishes = itemView.findViewById(R.id.textViewFoodReservation);
-            this.textViewReservationState = itemView.findViewById(R.id.textViewStateReservation);
-            this.btnResumeReservation = itemView.findViewById(R.id.buttonResumeReservation);
-            this.btnRemoveReservation = itemView.findViewById(R.id.buttonRemoveReservation);
-
-            this.textViewOrderIdFinished = itemView.findViewById(R.id.textViewOrderIdFinished);
-
+            this.textViewReservationId = itemView.findViewById(R.id.textViewOrderIdReservationFinished);
+            this.textViewRemainingTime = itemView.findViewById(R.id.textViewRemainingTimeReservationFinished);
+            this.textViewTotalIncome = itemView.findViewById(R.id.textViewTotalIncomeReservationFinished);
+            this.textViewOrderedDishes = itemView.findViewById(R.id.textViewFoodReservationFinished);
+            this.textViewReservationState = itemView.findViewById(R.id.textViewStateReservationFinished);
+            this.btnResumeReservation = itemView.findViewById(R.id.buttonResumeReservationFinished);
+            this.btnRemoveReservation = itemView.findViewById(R.id.buttonRemoveReservationFinished);
         }
     }
 }
