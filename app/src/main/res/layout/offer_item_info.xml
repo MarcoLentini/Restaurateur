@@ -41,13 +41,11 @@
             android:layout_toEndOf="@+id/offer_food_pic"
             android:layout_toRightOf="@+id/offer_food_pic"
             android:text="@string/FoodName"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textSize="24sp"
-            app:fontFamily="sans-serif-black" />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
         <TextView
             android:id="@+id/textViewQuantityOffer"
-            android:layout_width="80dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/offer_food_id"
             android:layout_marginStart="@dimen/dp24"
@@ -58,9 +56,7 @@
             android:layout_toEndOf="@+id/offer_food_pic"
             android:layout_toRightOf="@+id/offer_food_pic"
             android:text="@string/FoodQuantity"
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:textAppearance="?android:textAppearanceMedium"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             android:layout_marginBottom="@dimen/dp8"/>
 
         <TextView
@@ -78,14 +74,12 @@
             android:layout_toEndOf="@+id/textViewQuantityOffer"
             android:layout_toRightOf="@+id/textViewQuantityOffer"
             android:text="@string/FoodQuantityValue"
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:textAppearance="?android:textAppearanceMedium"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_marginBottom="@dimen/dp8"/>
 
         <TextView
             android:id="@+id/textViewPriceOffer"
-            android:layout_width="80dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewQuantityOffer"
             android:layout_marginStart="@dimen/dp24"
@@ -96,9 +90,7 @@
             android:layout_toEndOf="@+id/offer_food_pic"
             android:layout_toRightOf="@+id/offer_food_pic"
             android:text="@string/FoodPrice"
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:textAppearance="?android:textAppearanceMedium"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             android:layout_marginBottom="@dimen/dp8"/>
 
         <TextView
@@ -118,9 +110,7 @@
             android:drawableStart="@drawable/ic_currency_euro"
             android:drawableLeft="@drawable/ic_currency_euro"
             android:text="@string/FoodPriceValue"
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:textAppearance="?android:textAppearanceMedium"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_marginBottom="@dimen/dp8"
             />
 
