@@ -95,7 +95,7 @@ public class Offers_f extends Fragment  {
         if(resultCode == RESULT_OK) {
             if(requestCode == ADD_FOOD_OFFER_ACTIVITY) {
                 //TODO: to choise the id and the image: have to change it in future
-                int foodId=idDishes;
+                int foodId = idDishes;
                 idDishes++;
                 java.util.Random random = new java.util.Random();
                 int random_computer_card = random.nextInt(available_image_id.length);

@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ public class TabDishesActiveOffers extends android.support.v4.app.Fragment {
 
     private FloatingActionButton FabCategory;
     private FloatingActionButton FabDishes;
+    private ArrayList<OfferModel> dishesOfCategory;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -53,7 +55,7 @@ public class TabDishesActiveOffers extends android.support.v4.app.Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
-        ArrayList<OfferModel> dishesOfCategory= new ArrayList<>();
+        dishesOfCategory = new ArrayList<>();
         for(int i=0;i<reservationsActivity.DishesOffers.size();i++)
             if(reservationsActivity.DishesOffers.get(i).getCategory().equals(category))
                 dishesOfCategory.add(reservationsActivity.DishesOffers.get(i));
@@ -79,6 +81,10 @@ public class TabDishesActiveOffers extends android.support.v4.app.Fragment {
 
     @Override
     public void onResume() {
+        dishesOfCategory.clear();
+        for(int i=0;i<reservationsActivity.DishesOffers.size();i++)
+            if(reservationsActivity.DishesOffers.get(i).getCategory().equals(category))
+                dishesOfCategory.add(reservationsActivity.DishesOffers.get(i));
         ActiveDishesAdapter.notifyDataSetChanged();
         FabCategory.hide();
         FabDishes.show();

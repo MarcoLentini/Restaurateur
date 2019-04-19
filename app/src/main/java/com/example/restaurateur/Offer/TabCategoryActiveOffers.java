@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,8 +26,6 @@ public class TabCategoryActiveOffers extends Fragment {
     private MainActivity reservationsActivity = (MainActivity) getActivity();
     private FloatingActionButton FabCategory;
     private FloatingActionButton FabDishes;
-
-
 
     //Overriden method onCreateView
     @Override
@@ -70,6 +69,7 @@ public class TabCategoryActiveOffers extends Fragment {
 
     @Override
     public void onResume() {
+        Log.d("TABCATEGORIES", "Categories: onResume() chiamato");
         categoriesAdapter.notifyDataSetChanged();
         FabCategory.show();
         FabDishes.hide();
