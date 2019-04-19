@@ -89,6 +89,12 @@
 
     <!-- edit_offer_item_info.xml -->
      <string name="Button_Save">SAVE</string>
+    <!--add_new_category.xml-->
+    <string name="add_new_category">Inserisci il nome della nuova categoria</string>
+    <string name="new_category_title">Nuova categoria</string>
+    <string name="invalid_category">Categoria invalida</string>
     <string name="title_new_food">Aggiungi offerta</string>
+    <string name="no_dishes_offers">Non ci sono piatti disponibili in questa categoria</string>
+    <string name="no_category_offers">Non ci sono categorie disponibili</string>
 
 </resources>

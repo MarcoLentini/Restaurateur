@@ -41,6 +41,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Offer.AddNewOfferActivity"></activity>
+        <activity android:name=".Offer.AddNewCategory"></activity>
 
     </application>
 </manifest>

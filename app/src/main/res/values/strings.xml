@@ -95,6 +95,12 @@
 
     <!-- edit_offer_item_info.xml -->
     <string name="Button_Save">SAVE</string>
+    <string name="add_new_category">Insert the name of the new category</string>
+    <string name="new_category_title">New category</string>
+    <string name="invalid_category">Invalid category</string>
+
     <string name="title_new_food">Add food offer</string>
+    <string name="no_dishes_offers">There are no dishes in this category</string>
+    <string name="no_category_offers">There are no category</string>
 
 </resources>

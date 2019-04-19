@@ -18,11 +18,13 @@ public class AddNewOfferActivity extends AppCompatActivity {
     private TextInputLayout textInputFoodName, textInputFoodDescription;
     private EditText etFoodName, etFoodPrice, etFoodQuantity, etFoodDescription;
     private Button btnCancel, btnSave;
-
+    private String category;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_new_offer_item);
+        Intent receivedIntent = getIntent();
+        category=  receivedIntent.getExtras().getString("category");
 
         String title = getString(R.string.title_new_food);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -51,6 +53,7 @@ public class AddNewOfferActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent retIntent = new Intent(getApplicationContext(), Offers_f.class);
                 Bundle bn = new Bundle();
+                bn.putString("category",category);
                 bn.putString("foodName", etFoodName.getText().toString());
                 bn.putString("foodPrice", etFoodPrice.getText().toString());
                 bn.putString("foodQuantity", etFoodQuantity.getText().toString());

@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
             categories.add(new Category(MyCategories.categories[i]));
         }
         for(int i = 0; i < MyOffersData.id.length; i++) {
-            OfferModel tmpOM = new OfferModel(MyOffersData.id[i], MyOffersData.offerName[i],MyOffersData.category[i], MyOffersData.price[i], MyOffersData.quantity[i],MyOffersData.image[i],MyOffersData.state[i]);
+            OfferModel tmpOM = new OfferModel(MyOffersData.id[i], MyOffersData.offerName[i],MyOffersData.category[i], MyOffersData.price[i], MyOffersData.quantity[i],MyOffersData.image[i],MyOffersData.state[i],MyOffersData.description[i]);
             offersData.put(MyOffersData.id[i],tmpOM);
             DishesOffers.add(tmpOM);
 
@@ -212,5 +212,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void removeItemFromFinished(int position) {
         pendingReservationsData.remove(position);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

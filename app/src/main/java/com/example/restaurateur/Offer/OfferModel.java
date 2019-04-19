@@ -7,10 +7,11 @@ public class OfferModel {
     private String category;
     private double price;
     private int quantity;
+ private String description;
     private int image;
     private String state;
 
-    public OfferModel(int id, String name,String category, double price,int quantity, int image,String state) {
+    public OfferModel(int id, String name,String category, double price,int quantity, int image,String state,String description) {
         this.id = id;
         this.name = name;
         this.category=category;
@@ -18,6 +19,7 @@ public class OfferModel {
         this.quantity=quantity;
         this.image = image;
         this.state=state;
+        this.description=description;
 
     }
 
@@ -74,5 +76,15 @@ public class OfferModel {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
 
 }

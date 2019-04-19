@@ -88,8 +88,8 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
         public DishesViewHolder(View itemView) {
             super(itemView);
             this.textViewFoodId = itemView.findViewById(R.id.offer_food_id);
-            this.textViewPriceOffer=itemView.findViewById(R.id.textViewPriceOffer);
-            this.textViewQuantityOffer=itemView.findViewById(R.id.textViewQuantityOffer);
+            this.textViewPriceOffer=itemView.findViewById(R.id.textViewPriceOfferValue);
+            this.textViewQuantityOffer=itemView.findViewById(R.id.textViewQuantityOfferValue);
             this.offer_food_pic=itemView.findViewById(R.id.offer_food_pic);
         }
     }

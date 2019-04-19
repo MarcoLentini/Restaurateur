@@ -7,9 +7,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.restaurateur.R;
@@ -22,7 +24,7 @@ public class TabDishesActiveOffers extends android.support.v4.app.Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter ActiveDishesAdapter;
+    public RecyclerView.Adapter ActiveDishesAdapter;
     private MainActivity reservationsActivity = (MainActivity) getActivity();
     private String category;
 
@@ -33,7 +35,7 @@ public class TabDishesActiveOffers extends android.support.v4.app.Fragment {
 
         View view = inflater.inflate(R.layout.tab_active_dishes_offers, container, false);
         TextView a=view.findViewById(R.id.textViewDishesOffers);
-        a.setText("DishesActiveOffers");
+
         FabCategory= ((FragmentActivity)view.getContext()).findViewById(R.id.FabAddCategories);
         FabDishes= ((FragmentActivity)view.getContext()).findViewById(R.id.FabAddDishes);
         FabCategory.hide();
@@ -55,6 +57,10 @@ public class TabDishesActiveOffers extends android.support.v4.app.Fragment {
         for(int i=0;i<reservationsActivity.DishesOffers.size();i++)
             if(reservationsActivity.DishesOffers.get(i).getCategory().equals(category))
                 dishesOfCategory.add(reservationsActivity.DishesOffers.get(i));
+            if(dishesOfCategory.isEmpty())
+            {
+                a.setText(R.string.no_dishes_offers);
+            }
         ActiveDishesAdapter = new DishesListAdapter(getContext(), dishesOfCategory,reservationsActivity); // getContext() forse non va bene
         recyclerView.setAdapter(ActiveDishesAdapter);
 
@@ -73,6 +79,7 @@ public class TabDishesActiveOffers extends android.support.v4.app.Fragment {
 
     @Override
     public void onResume() {
+        ActiveDishesAdapter.notifyDataSetChanged();
         FabCategory.hide();
         FabDishes.show();
         super.onResume();

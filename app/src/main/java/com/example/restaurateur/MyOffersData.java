@@ -26,4 +26,9 @@ public class MyOffersData {
             R.drawable.ic_offer_pizza, R.drawable.ic_offer_cake, R.drawable.ic_offer_coffee, R.drawable.ic_offer_fries, R.drawable.ic_offer_fries};
     static String[] state= {"Active", "Disabled","Active", "Disabled","Active", "Disabled","Active", "Disabled","Active", "Disabled","Active", "Disabled","Active", "Disabled","Active", "Disabled","Active",
             "Disabled","Active", "Disabled","Active", "Disabled","Active", "Disabled","Active"};
+    static  String[] description={"Buona","ottima","Disgustosa","Meravigliosa","Buonissima",
+            "Buona","ottima","Disgustosa","Meravigliosa","Buonissima",
+            "Buona","ottima","Disgustosa","Meravigliosa","Buonissima",
+            "Buona","ottima","Disgustosa","Meravigliosa","Buonissima",
+            "Buona","ottima","Disgustosa","Meravigliosa","Buonissima"};
 }

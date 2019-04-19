@@ -6,9 +6,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.restaurateur.R;
 import com.example.restaurateur.MainActivity;
@@ -31,7 +34,7 @@ public class TabCategoryActiveOffers extends Fragment {
 
         //Returning the layout file after inflating
         //Change R.layout.tab1 in you classes
-        View view=inflater.inflate(R.layout.fragment_tab_active_offers, container, false);
+        View view=inflater.inflate(R.layout.fragment_tab_category_offers, container, false);
         recyclerView = view.findViewById(R.id.ActiveOfferRecyclerView);
 
         FabCategory= ((FragmentActivity)view.getContext()).findViewById(R.id.FabAddCategories);
@@ -46,6 +49,12 @@ public class TabCategoryActiveOffers extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
+        if(reservationsActivity.categories.isEmpty())
+            {
+                TextView a=view.findViewById(R.id.textViewCategoryOffers);
+                a.setText(R.string.no_category_offers);
+
+            }
         categoriesAdapter = new CategoriesListAdapter(getContext(), reservationsActivity.categories,reservationsActivity); // getContext() forse non va bene
         recyclerView.setAdapter(categoriesAdapter);
 
@@ -61,6 +70,7 @@ public class TabCategoryActiveOffers extends Fragment {
 
     @Override
     public void onResume() {
+        categoriesAdapter.notifyDataSetChanged();
         FabCategory.show();
         FabDishes.hide();
         super.onResume();
