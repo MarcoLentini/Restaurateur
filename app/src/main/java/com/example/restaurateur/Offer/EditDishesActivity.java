@@ -63,7 +63,7 @@ public class EditDishesActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent retIntent = new Intent(getApplicationContext(), Offers_f.class);
+                Intent retIntent = new Intent(getApplicationContext(), TabDishesActiveOffers.class);
                 Bundle bn = new Bundle();
                 bn.putInt("foodId",foodId);
                 bn.putString("foodCategory",etFoodCategory.getText().toString());

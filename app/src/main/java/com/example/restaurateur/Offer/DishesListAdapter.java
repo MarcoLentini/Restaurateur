@@ -26,15 +26,17 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
     private ArrayList<OfferModel> dataSet;
     private LayoutInflater mInflater;
     private Context context;
+    private TabDishesActiveOffers parentFragment;
 
     private MainActivity reservationsActivity ;
 
-    public DishesListAdapter(Context context, ArrayList<OfferModel> dishes, MainActivity reservationsActivity) {
+    public DishesListAdapter(Context context, ArrayList<OfferModel> dishes, MainActivity reservationsActivity, TabDishesActiveOffers parentFragment) {
         this.dataSet = dishes;
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
 
         this.reservationsActivity = reservationsActivity;
+        this.parentFragment = parentFragment;
     }
 
     @NonNull
@@ -70,7 +72,7 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
                 bn.putString("foodState",selected.getState());
                 myIntent.putExtras(bn);
 
-                ((MainActivity) context).startActivityForResult(myIntent,EDIT_DISHES_ACTIVITY);
+                parentFragment.startActivityForResult(myIntent,EDIT_DISHES_ACTIVITY);
                     }
                 });
 

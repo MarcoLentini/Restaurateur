@@ -67,7 +67,7 @@ public class TabDishesActiveOffers extends android.support.v4.app.Fragment {
             {
                 a.setText(R.string.no_dishes_offers);
             }
-        ActiveDishesAdapter = new DishesListAdapter(getContext(), dishesOfCategory,reservationsActivity); // getContext() forse non va bene
+        ActiveDishesAdapter = new DishesListAdapter(getContext(), dishesOfCategory,reservationsActivity, this); // getContext() forse non va bene
         recyclerView.setAdapter(ActiveDishesAdapter);
 
 
@@ -103,9 +103,10 @@ public class TabDishesActiveOffers extends android.support.v4.app.Fragment {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        Log.d("EDIT_DISH", "EDIT_DISH is working!");
         if(resultCode == RESULT_OK) {
             if (requestCode == EDIT_DISHES_ACTIVITY && resultCode == RESULT_OK) {
-
                 String foodCategory=  data.getExtras().getString("foodCategory");
                 String foodName=  data.getExtras().getString("foodName");
                 String foodDescription=  data.getExtras().getString("foodDescription");
@@ -115,7 +116,7 @@ public class TabDishesActiveOffers extends android.support.v4.app.Fragment {
                 Double foodPrice=  data.getExtras().getDouble("foodPrice");
                 String foodState= data.getExtras().getString("fooodState");
                 MainActivity reservationsActivity = (MainActivity)getActivity();
-                for(int i=1;i<reservationsActivity.DishesOffers.size();i++)
+                for(int i=0;i<reservationsActivity.DishesOffers.size();i++)
                 {
 
                     if(reservationsActivity.DishesOffers.get(i).getId()==foodId)
