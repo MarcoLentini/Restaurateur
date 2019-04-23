@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.restaurateur.R;
 
-public class Reservations_f extends Fragment implements TabLayout.BaseOnTabSelectedListener {
+public class ReservationsMainFragment extends Fragment implements TabLayout.BaseOnTabSelectedListener {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;

@@ -4,14 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.restaurateur.R;
-import com.example.restaurateur.UserInformationActivity;
 
 public class AddNewOfferActivity extends AppCompatActivity {
 
@@ -55,7 +52,7 @@ public class AddNewOfferActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(validateFoodName()) {
-                    Intent retIntent = new Intent(getApplicationContext(), Offers_f.class);
+                    Intent retIntent = new Intent(getApplicationContext(), OffersMainFragment.class);
                     Bundle bn = new Bundle();
                     bn.putString("category", category);
                     bn.putString("foodName", etFoodName.getText().toString());

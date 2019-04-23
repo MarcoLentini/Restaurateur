@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Offer.EditDishesActivity"
+            android:name=".Offer.EditOfferActivity"
             android:label="@string/title_activity_edit_dishes"></activity>
 
         <provider
@@ -47,7 +47,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Offer.AddNewOfferActivity" />
-        <activity android:name=".Offer.AddNewCategory" />
+        <activity android:name=".Offer.AddNewCategoryActivity" />
     </application>
 
 </manifest>

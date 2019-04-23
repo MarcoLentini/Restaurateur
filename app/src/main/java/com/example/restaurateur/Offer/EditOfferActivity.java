@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 import com.example.restaurateur.R;
 
-public class EditDishesActivity extends AppCompatActivity {
+public class EditOfferActivity extends AppCompatActivity {
 
     private TextInputLayout textInputFoodName, textInputFoodDescription,textInputFoodCategory ;
     private EditText etFoodName, etFoodPrice, etFoodQuantity, etFoodDescription,etFoodCategory;
@@ -63,7 +63,7 @@ public class EditDishesActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent retIntent = new Intent(getApplicationContext(), TabDishesActiveOffers.class);
+                Intent retIntent = new Intent(getApplicationContext(), OffersDishFragment.class);
                 Bundle bn = new Bundle();
                 bn.putInt("foodId",foodId);
                 bn.putString("foodCategory",etFoodCategory.getText().toString());

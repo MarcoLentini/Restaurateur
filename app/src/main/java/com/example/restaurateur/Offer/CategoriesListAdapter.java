@@ -18,61 +18,57 @@ import java.util.ArrayList;
 
 public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAdapter.CategoriesViewHolder> {
 
+    private ArrayList<Category> dataSet;
+    private LayoutInflater mInflater;
+    private Context context;
+    private MainActivity mainActivity;
 
-        private ArrayList<Category> dataSet;
-        private LayoutInflater mInflater;
-        private Context context;
-
-    private MainActivity reservationsActivity ;
-
-    public CategoriesListAdapter(Context context, ArrayList<Category> categories, MainActivity reservationsActivity) {
+    public CategoriesListAdapter(Context context, ArrayList<Category> categories, MainActivity mainActivity) {
         this.dataSet = categories;
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
-
-        this.reservationsActivity = reservationsActivity;
-        }
+        this.mainActivity = mainActivity;
+    }
 
     @NonNull
     @Override
     public CategoriesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = mInflater.inflate(R.layout.category_cardview, parent, false);
 
-            View view = mInflater.inflate(R.layout.category_cardview, parent, false);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    loadFragment(v, new OffersDishFragment(), v.findViewById(R.id.textViewCategoryName));
+            }
+        });
+        CategoriesViewHolder myViewHolder = new CategoriesViewHolder(view);
 
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                        loadFragment(v,new TabDishesActiveOffers(),v.findViewById(R.id.textViewCategoryName));
-                }
-            });
+        return myViewHolder;
+    }
 
-            CategoriesViewHolder myViewHolder = new CategoriesViewHolder(view);
-            return myViewHolder;
+    @Override
+    public void onBindViewHolder(@NonNull CategoriesViewHolder categoriesViewHolder, int position) {
+        TextView textViewCategoryName = categoriesViewHolder.textViewCategoryName;
+
+        Category tmpRM = dataSet.get(position);
+        textViewCategoryName.setText("" + tmpRM.getCategory());
+    }
+
+    @Override
+    public int getItemCount() {
+        return dataSet.size();
+    }
+
+    public static class CategoriesViewHolder extends RecyclerView.ViewHolder {
+
+        TextView textViewCategoryName;
+
+        public CategoriesViewHolder(View itemView) {
+            super(itemView);
+            this.textViewCategoryName = itemView.findViewById(R.id.textViewCategoryName);
         }
+    }
 
-        @Override
-        public void onBindViewHolder(@NonNull CategoriesViewHolder categoriesViewHolder, int position) {
-            TextView textViewCategoryName = categoriesViewHolder.textViewCategoryName;
-
-            Category tmpRM = dataSet.get(position);
-            textViewCategoryName.setText("" + tmpRM.getCategory());
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return dataSet.size();
-        }
-
-        public static class CategoriesViewHolder extends RecyclerView.ViewHolder {
-
-            TextView textViewCategoryName;
-
-            public CategoriesViewHolder(View itemView) {
-                super(itemView);
-                this.textViewCategoryName = itemView.findViewById(R.id.textViewCategoryName);
-                 }
-        }
     private void loadFragment(View view, android.support.v4.app.Fragment fragment,TextView v) {
         // load fragment
         FragmentTransaction transaction = ((FragmentActivity)view.getContext()).getSupportFragmentManager().beginTransaction();
@@ -81,15 +77,12 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         bundle.putString("Category", category);
         // set Fragmentclass Arguments
         fragment.setArguments(bundle);
-
-            transaction.replace(R.id.frame_container_active_offers, fragment, "DishesOffers");
-            transaction.addToBackStack("Category");
-
-
+        transaction.replace(R.id.frame_container_active_offers, fragment, "DishesOffers");
+        transaction.addToBackStack("Category");
         transaction.commit();
         ((MainActivity)view.getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    }
+}
 
 
 

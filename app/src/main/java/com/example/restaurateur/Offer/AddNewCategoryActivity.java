@@ -15,11 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.restaurateur.Information.ModifyInfoActivity;
 import com.example.restaurateur.R;
-import com.example.restaurateur.UserInformationActivity;
 
-public class AddNewCategory extends AppCompatActivity {
+public class AddNewCategoryActivity extends AppCompatActivity {
 
     private TextView tvInfoMessage;
     private EditText etEditInfo;
@@ -76,7 +74,7 @@ public class AddNewCategory extends AppCompatActivity {
                     setResult(RESULT_OK, retIntent);
                     finish();
                 }else{
-                    Toast mioToast = Toast.makeText(AddNewCategory.this,
+                    Toast mioToast = Toast.makeText(AddNewCategoryActivity.this,
                             getString(R.string.invalid_category),
                             Toast.LENGTH_LONG);
                     mioToast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 64);
