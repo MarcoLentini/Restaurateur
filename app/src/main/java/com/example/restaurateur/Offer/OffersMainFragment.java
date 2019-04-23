@@ -22,7 +22,6 @@ public class OffersMainFragment extends Fragment  {
     private static final int ADD_FOOD_OFFER_ACTIVITY = 2;
     FloatingActionButton fabCategory;
     FloatingActionButton fabDishes;
-    private MainActivity mainActivity = (MainActivity)getActivity();
 
     //TODO:id e image_id for dishes: are to remove
     private int idDishes=26;
@@ -92,12 +91,12 @@ public class OffersMainFragment extends Fragment  {
                 Integer foodQuantity = Integer.parseInt(data.getExtras().getString("foodQuantity"));
                 String foodDescription = data.getExtras().getString("foodDescription");
                 String foodCategory= data.getExtras().getString("category");
-                mainActivity.offersData.put(foodId, new OfferModel(foodId,foodName,foodCategory,foodPrice,foodQuantity,image,"Active",foodDescription));
+                MainActivity.offersData.put(foodId, new OfferModel(foodId,foodName,foodCategory,foodPrice,foodQuantity,image,"Active",foodDescription));
             }
 
             if (requestCode == ADD_CATEGORY_ACTIVITY) {
                 String category = data.getStringExtra("category");
-                mainActivity.categoriesData.put(category, new Category(category));
+                MainActivity.categoriesData.put(category, new Category(category));
             }
         }
     }

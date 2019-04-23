@@ -18,7 +18,6 @@ public class TabReservationsPending extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter pendingReservationsAdapter;
-    private MainActivity reservationsActivity = (MainActivity) getActivity();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,14 +32,14 @@ public class TabReservationsPending extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
         pendingReservationsAdapter = new PendingReservationsListAdapter(getContext(),
-                reservationsActivity.pendingReservationsData, reservationsActivity.offersData, (MainActivity)getActivity()); // getContext() forse non va bene
+                MainActivity.pendingReservationsData, MainActivity.offersData, (MainActivity)getActivity()); // getContext() forse non va bene
         recyclerView.setAdapter(pendingReservationsAdapter);
 
         return view;
     }
 
     public void sortDataAndNotify() {
-        Collections.sort(reservationsActivity.pendingReservationsData);
+        Collections.sort(MainActivity.pendingReservationsData);
         pendingReservationsAdapter.notifyDataSetChanged();
     }
 }

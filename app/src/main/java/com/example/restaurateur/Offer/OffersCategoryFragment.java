@@ -22,7 +22,7 @@ public class OffersCategoryFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter categoriesAdapter;
-    private MainActivity mainActivity = (MainActivity) getActivity();
+    //private MainActivity mainActivity = (MainActivity) getActivity();
     private FloatingActionButton fabCategory;
     private FloatingActionButton fabDishes;
     private TextView a;
@@ -48,10 +48,10 @@ public class OffersCategoryFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
-        if(mainActivity.categoriesData.isEmpty())
+        if(MainActivity.categoriesData.isEmpty())
             a.setText(R.string.no_category_offers);
-        categoriesList = new ArrayList<>(mainActivity.categoriesData.values());
-        categoriesAdapter = new CategoriesListAdapter(getContext(), categoriesList, mainActivity); // getContext() forse non va bene
+        categoriesList = new ArrayList<>(MainActivity.categoriesData.values());
+        categoriesAdapter = new CategoriesListAdapter(getContext(), categoriesList); // getContext() forse non va bene
         recyclerView.setAdapter(categoriesAdapter);
 
         return view;
@@ -67,8 +67,8 @@ public class OffersCategoryFragment extends Fragment {
     @Override
     public void onResume() {
         categoriesList.clear();
-        categoriesList.addAll(mainActivity.categoriesData.values());
-        if(mainActivity.categoriesData.isEmpty())
+        categoriesList.addAll(MainActivity.categoriesData.values());
+        if(MainActivity.categoriesData.isEmpty())
             a.setText(R.string.no_category_offers);
         else
             a.setVisibility(View.INVISIBLE);

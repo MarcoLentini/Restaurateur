@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<ReservationModel> finishedReservationsData;
     public static HashMap<Integer, OfferModel> offersData;
     public static HashMap<String, Category> categoriesData;
-    public static int[] state_offers={0,0};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.reservations);
 
         //Adding TOOLBAR to the activity
-        Toolbar toolbar1 = (Toolbar) findViewById(R.id.toolbar_reservations);
-        toolbar1.setTitle(R.string.reservation_title);
-        setSupportActionBar(toolbar1);
+        Toolbar toolbarReservations = findViewById(R.id.toolbar_reservations);
+        toolbarReservations.setTitle(R.string.reservation_title);
+        setSupportActionBar(toolbarReservations);
         toolbar = getSupportActionBar();
         // Adding BOTTOM NAVIGATION to the activity
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation_categories);
+        BottomNavigationView navigation = findViewById(R.id.navigation_categories);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 //        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
@@ -64,12 +63,12 @@ public class MainActivity extends AppCompatActivity {
 
         loadFragment(new ReservationsMainFragment());
 
-        pendingReservationsData = new ArrayList<ReservationModel>();
-        inProgressReservationsData = new ArrayList<ReservationModel>();
-        finishedReservationsData = new ArrayList<ReservationModel>();
+        pendingReservationsData = new ArrayList<>();
+        inProgressReservationsData = new ArrayList<>();
+        finishedReservationsData = new ArrayList<>();
         categoriesData = new HashMap<>();
         offersData = new HashMap<>();
-        // fillWithStaticData() is used to put data into the previous first 3 ArrayLists and the HashMap
+        // fillWithStaticData() is used to put data into the previous ArrayLists and the HashMap
         fillWithStaticData();
     }
 
@@ -97,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
             = item -> {
         Fragment fragment;
 
+        toolbar.setDisplayHomeAsUpEnabled(false);
+        toolbar.setDisplayShowHomeEnabled(false);
         switch (item.getItemId()) {
             case R.id.navigation_order:
                 toolbar.setTitle(R.string.reservation_title);
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 loadFragment(fragment);
                 return true;
         }
+
         return false;
     };
 
@@ -170,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
         {
             categoriesData.put(MyCategories.categories[i], new Category(MyCategories.categories[i]));
         }
+
         for(int i = 0; i < MyOffersData.id.length; i++) {
             OfferModel tmpOM = new OfferModel(MyOffersData.id[i], MyOffersData.offerName[i],MyOffersData.category[i], MyOffersData.price[i], MyOffersData.quantity[i],MyOffersData.image[i],MyOffersData.state[i],MyOffersData.description[i]);
             offersData.put(MyOffersData.id[i], tmpOM);

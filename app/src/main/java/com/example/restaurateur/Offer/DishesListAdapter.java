@@ -23,13 +23,11 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
     private LayoutInflater mInflater;
     private Context context;
     private OffersDishFragment parentFragment;
-    private MainActivity reservationsActivity ;
 
-    public DishesListAdapter(Context context, ArrayList<OfferModel> dishes, MainActivity reservationsActivity, OffersDishFragment parentFragment) {
+    public DishesListAdapter(Context context, ArrayList<OfferModel> dishes, OffersDishFragment parentFragment) {
         this.dataSet = dishes;
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
-        this.reservationsActivity = reservationsActivity;
         this.parentFragment = parentFragment;
     }
 
@@ -49,7 +47,7 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
                 TextView tvFoodId = v.findViewById(R.id.offer_food_id);
                 int id = Integer.parseInt(tvFoodId.getText().toString());
                 OfferModel selected = new OfferModel();
-                for(OfferModel om : reservationsActivity.offersData.values())
+                for(OfferModel om : MainActivity.offersData.values())
                     if(om.getId() == id) {
                         selected = om;
                         break;
@@ -67,9 +65,8 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
 
                 parentFragment.startActivityForResult(myIntent, EDIT_DISHES_ACTIVITY);
             }});
-        DishesListAdapter.DishesViewHolder myViewHolder = new DishesListAdapter.DishesViewHolder(view);
 
-        return myViewHolder;
+        return new DishesListAdapter.DishesViewHolder(view);
     }
 
     @Override

@@ -20,7 +20,6 @@ public class TabReservationsInProgress extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter inProgressReservationsAdapter;
-    private MainActivity reservationsActivity = (MainActivity) getActivity();
 
     @Nullable
     @Override
@@ -35,15 +34,15 @@ public class TabReservationsInProgress extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
-        inProgressReservationsAdapter = new InProgressReservationsListAdapter(getContext(), reservationsActivity.inProgressReservationsData,
-                reservationsActivity.offersData, (MainActivity)getActivity()); // getContext() forse non va bene
+        inProgressReservationsAdapter = new InProgressReservationsListAdapter(getContext(), MainActivity.inProgressReservationsData,
+                MainActivity.offersData, (MainActivity)getActivity()); // getContext() forse non va bene
         recyclerView.setAdapter(inProgressReservationsAdapter);
 
         return view;
     }
 
     public void sortDataAndNotify() {
-        Collections.sort(reservationsActivity.inProgressReservationsData);
+        Collections.sort(MainActivity.inProgressReservationsData);
         inProgressReservationsAdapter.notifyDataSetChanged();
     }
 }

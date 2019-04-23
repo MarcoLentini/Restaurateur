@@ -20,7 +20,6 @@ public class TabReservationsFinished extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter finishedReservationsAdapter;
-    private MainActivity reservationsActivity = (MainActivity) getActivity();
 
     @Nullable
     @Override
@@ -35,15 +34,15 @@ public class TabReservationsFinished extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
-        finishedReservationsAdapter = new FinishedReservationsListAdapter(getContext(), reservationsActivity.finishedReservationsData,
-                reservationsActivity.offersData, (MainActivity)getActivity()); // getContext() forse non va bene
+        finishedReservationsAdapter = new FinishedReservationsListAdapter(getContext(), MainActivity.finishedReservationsData,
+                MainActivity.offersData, (MainActivity)getActivity()); // getContext() forse non va bene
         recyclerView.setAdapter(finishedReservationsAdapter);
 
         return view;
     }
 
     public void sortDataAndNotify() {
-        Collections.sort(reservationsActivity.finishedReservationsData);
+        Collections.sort(MainActivity.finishedReservationsData);
         finishedReservationsAdapter.notifyDataSetChanged();
     }
 }

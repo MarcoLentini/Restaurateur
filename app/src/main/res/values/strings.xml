@@ -130,6 +130,6 @@
     <string name="str_messagecustomer">messageCustomer</string>
     <string name="str_callcustonmer">callCustonmer</string>
     <string name="title_activity_edit_dishes">EditDishesActivity</string>
-    <string name="show_dish">Your dish</string>
+    <string name="show_dish">Edit dish</string>
 
 </resources>

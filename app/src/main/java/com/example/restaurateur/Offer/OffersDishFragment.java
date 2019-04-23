@@ -27,7 +27,6 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     public RecyclerView.Adapter dishesListAdapter;
-    private MainActivity mainActivity = (MainActivity) getActivity();
     private String category;
     private TextView a;
     private FloatingActionButton fabCategory;
@@ -57,12 +56,12 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
         dishesOfCategory = new ArrayList<>();
-        for(OfferModel om : mainActivity.offersData.values())
+        for(OfferModel om : MainActivity.offersData.values())
             if(om.getCategory().equals(category))
                 dishesOfCategory.add(om);
         if(dishesOfCategory.isEmpty())
             a.setText(R.string.no_dishes_offers);
-        dishesListAdapter = new DishesListAdapter(getContext(), dishesOfCategory, mainActivity, this); // getContext() forse non va bene
+        dishesListAdapter = new DishesListAdapter(getContext(), dishesOfCategory, this); // getContext() forse non va bene
         recyclerView.setAdapter(dishesListAdapter);
 
         return view;
@@ -77,7 +76,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
     @Override
     public void onResume() {
         dishesOfCategory.clear(); // TODO find a better way to update
-        for(OfferModel om : mainActivity.offersData.values())
+        for(OfferModel om : MainActivity.offersData.values())
             if(om.getCategory().equals(category))
                 dishesOfCategory.add(om);
         if(dishesOfCategory.isEmpty())
@@ -103,7 +102,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                 int foodQuantity = data.getExtras().getInt("foodQuantity");
                 Double foodPrice = data.getExtras().getDouble("foodPrice");
                 String foodState = data.getExtras().getString("fooodState");
-                OfferModel om = mainActivity.offersData.get(foodId);
+                OfferModel om = MainActivity.offersData.get(foodId);
                 om.setCategory(foodCategory);
                 om.setDescription(foodDescription);
                 om.setImage(foodImage);
@@ -111,8 +110,8 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                 om.setPrice(foodPrice);
                 om.setQuantity(foodQuantity);
                 om.setState(foodState);
-                if(mainActivity.categoriesData.get(foodCategory) == null)
-                    mainActivity.categoriesData.put(foodCategory, new Category(foodCategory));
+                if(MainActivity.categoriesData.get(foodCategory) == null)
+                    MainActivity.categoriesData.put(foodCategory, new Category(foodCategory));
             }
         }
     }

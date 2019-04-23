@@ -74,8 +74,6 @@ public class FinishedDetailsFragment extends Fragment {
 
         LinearLayout orderDetailInfoFinished = view.findViewById(R.id.orderDetailInfoFinished);
 
-        MainActivity main = (MainActivity) getActivity();
-
         for(ReservatedDish rd : RM.getReservatedDishes()){
             LinearLayout ll = new LinearLayout(this.getContext());
             // 16dp
@@ -91,7 +89,7 @@ public class FinishedDetailsFragment extends Fragment {
 
             // Name of food
             TextView tv = new TextView(this.getContext());
-            tv.setText("▶" + main.offersData.get(rd.getDishId()).getName());
+            tv.setText("▶" + MainActivity.offersData.get(rd.getDishId()).getName());
 
             tv.setTextColor(Color.parseColor("#FF000000"));
             tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
@@ -103,7 +101,7 @@ public class FinishedDetailsFragment extends Fragment {
 
             // Quantity
             TextView tv1 = new TextView(this.getContext());
-            tv1.setText("x" + main.offersData.get(rd.getDishId()).getQuantity());
+            tv1.setText("x" + MainActivity.offersData.get(rd.getDishId()).getQuantity());
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 tv1.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
@@ -117,7 +115,7 @@ public class FinishedDetailsFragment extends Fragment {
 
             // Single price
             TextView tv2 = new TextView(this.getContext());
-            tv2.setText(String.format("%.2f", main.offersData.get(rd.getDishId()).getPrice()) + "€" );
+            tv2.setText(String.format("%.2f", MainActivity.offersData.get(rd.getDishId()).getPrice()) + "€" );
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 tv2.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);

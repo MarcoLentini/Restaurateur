@@ -21,13 +21,11 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
     private ArrayList<Category> dataSet;
     private LayoutInflater mInflater;
     private Context context;
-    private MainActivity mainActivity;
 
-    public CategoriesListAdapter(Context context, ArrayList<Category> categories, MainActivity mainActivity) {
+    public CategoriesListAdapter(Context context, ArrayList<Category> categories) {
         this.dataSet = categories;
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
-        this.mainActivity = mainActivity;
     }
 
     @NonNull

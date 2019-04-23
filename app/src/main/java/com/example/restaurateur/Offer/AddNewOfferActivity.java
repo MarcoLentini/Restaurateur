@@ -16,6 +16,7 @@ public class AddNewOfferActivity extends AppCompatActivity {
     private EditText etFoodName, etFoodPrice, etFoodQuantity, etFoodDescription;
     private Button btnCancel, btnSave;
     private String category;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +68,7 @@ public class AddNewOfferActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validateFoodName(){
+    private boolean validateFoodName() {
         String foodNameInput = etFoodName.getText().toString();
         String foodPriceInput = etFoodPrice.getText().toString();
         String foodQuantityInput = etFoodQuantity.getText().toString();
@@ -91,7 +92,7 @@ public class AddNewOfferActivity extends AppCompatActivity {
             textInputFoodDescription.setError("Field can't be empty");
             return false;
         } else
-            textInputFoodQuantity.setError(null);
+            textInputFoodDescription.setError(null);
 
         return true;
     }

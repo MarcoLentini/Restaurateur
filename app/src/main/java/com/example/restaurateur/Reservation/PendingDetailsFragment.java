@@ -12,14 +12,11 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
-
-import java.io.Serializable;
 
 public class PendingDetailsFragment extends Fragment {
 
@@ -88,14 +85,12 @@ public class PendingDetailsFragment extends Fragment {
                 LinearLayout.LayoutParams params_ll = new LinearLayout.LayoutParams(  ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT);
                 ll.setLayoutParams(params_ll);
-
             // Name of food
             TextView tv = new TextView(this.getContext());
             tv.setText("▶" + main.offersData.get(rd.getDishId()).getName());
 
                 tv.setTextColor(Color.parseColor("#FF000000"));
                 tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
-
 
                 LinearLayout.LayoutParams params_name = new LinearLayout.LayoutParams(  0,
                                                                                         ViewGroup.LayoutParams.WRAP_CONTENT,2f);
@@ -134,6 +129,5 @@ public class PendingDetailsFragment extends Fragment {
             ll.addView(tv2);
             pending_order_detail_info.addView(ll);
         }
-
     }
 }

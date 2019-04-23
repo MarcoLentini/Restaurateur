@@ -107,10 +107,9 @@
                     android:gravity="start|top"
                     android:inputType="textCapSentences"
                     android:focusable="true"
-                    android:nextFocusDown="@+id/edit_text_input_food_price"
+                    android:nextFocusDown="@+id/edit_text_input_food_price_e"
                     android:imeOptions="actionNext"/>
             </android.support.design.widget.TextInputLayout>
-
 
             <LinearLayout
                 android:baselineAligned="false"
@@ -133,7 +132,7 @@
                         android:inputType="number"
                         android:lines="1"
                         android:focusable="true"
-                        android:nextFocusDown="@+id/edit_text_input_food_quantity"/>
+                        android:nextFocusDown="@+id/edit_text_input_food_quantity_e"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -151,7 +150,7 @@
                         android:inputType="number"
                         android:lines="1"
                         android:focusable="true"
-                        android:nextFocusDown="@+id/text_input_food_description"/>
+                        android:nextFocusDown="@+id/edit_text_input_food_description_e"/>
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
