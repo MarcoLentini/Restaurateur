@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,9 @@ public class OffersCategoryFragment extends Fragment {
         categoriesAdapter.notifyDataSetChanged();
         fabCategory.show();
         fabDishes.hide();
+        Log.d("CATEGORY_FRAGMNET", "Rimuovo back button");
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
         super.onResume();
     }
 }

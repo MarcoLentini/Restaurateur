@@ -23,9 +23,9 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
     private Context context;
 
     public CategoriesListAdapter(Context context, ArrayList<Category> categories) {
+        this.context = context;
         this.dataSet = categories;
         this.mInflater = LayoutInflater.from(context);
-        this.context = context;
     }
 
     @NonNull
@@ -72,7 +72,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         Bundle bundle = new Bundle();
         String category = v.getText().toString();
         bundle.putString("Category", category);
-        // set Fragmentclass Arguments
+        // set Fragment class Arguments
         fragment.setArguments(bundle);
         transaction.replace(R.id.frame_container_offers, fragment, "DishesOffers");
         transaction.addToBackStack("Category");
