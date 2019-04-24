@@ -95,7 +95,7 @@
 
     <string name="Button_Save">SAVE</string>
     <string name="add_new_category">Insert the name of the new category</string>
-    <string name="new_category_title">New category</string>
+    <string name="new_category_title">Add new category</string>
     <string name="invalid_category">Invalid category</string>
 
     <string name="title_new_food">Add food offer</string>
@@ -108,7 +108,7 @@
     <string name="FoodQuantityValue">29</string>
     <string name="FoodPriceValue">10</string>
     <string name="FoodName">Food Name</string>
-    <string name="FoodCategory">Food Category</string>
+    <string name="FoodCategory">Insert category</string>
 
     <string name="FoodQuantity">Quantity</string>
     <string name="FoodPrice">Price</string>

@@ -3,6 +3,7 @@ package com.example.restaurateur.Offer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -19,84 +20,62 @@ import com.example.restaurateur.R;
 
 public class AddNewCategoryActivity extends AppCompatActivity {
 
-    private TextView tvInfoMessage;
-    private EditText etEditInfo;
-    private Button btnOk;
-    private Button btnCancel;
-    private String fieldName;
+    private TextInputLayout textInputFoodCategory;
+    private EditText etFoodCategory;
+    private Button btnCancel, btnSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_new_category);
 
-        tvInfoMessage = findViewById(R.id.textViewNewCategory);
-        etEditInfo = findViewById(R.id.editTextNewCategory);
-        btnOk = findViewById(R.id.buttonOkNewCategory);
-        btnCancel = findViewById(R.id.buttonCancelNewCategory);
-
-        String title=getString(R.string.new_category_title);
-
+        String title = getString(R.string.new_category_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         getSupportActionBar().setTitle(title);
 
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(etEditInfo , InputMethodManager.SHOW_IMPLICIT);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-
-        etEditInfo.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    btnOk.performClick();
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
-                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-                }
-
-                return false;
-            }
-        });
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent retIntent;
-                Bundle bn;
-               String category= etEditInfo.getText().toString();
-                if(!category.equals("")) {
-                    retIntent = new Intent();
-                    bn = new Bundle();
-                    bn.putString("category", etEditInfo.getText().toString());
-                    retIntent.putExtras(bn);
-                    setResult(RESULT_OK, retIntent);
-                    finish();
-                }else{
-                    Toast mioToast = Toast.makeText(AddNewCategoryActivity.this,
-                            getString(R.string.invalid_category),
-                            Toast.LENGTH_LONG);
-                    mioToast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.BOTTOM, 0, 64);
-                    InputMethodManager imm = (InputMethodManager)
-                            getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
-                    mioToast.show();
-                    etEditInfo.selectAll();
-                }
-            }
-        });
+        textInputFoodCategory = findViewById(R.id.text_input_food_category);
+        etFoodCategory = findViewById(R.id.edit_text_input_food_category);
+        etFoodCategory.setHorizontallyScrolling(false);
+        etFoodCategory.setLines(1);
+        btnCancel = findViewById(R.id.etOfferBtnCancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
+        btnSave = findViewById(R.id.etOfferBtnSave);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(validateFoodInput()) {
+                    Intent retIntent = new Intent(getApplicationContext(), OffersMainFragment.class);
+                    Bundle bn = new Bundle();
+                    String category = etFoodCategory.getText().toString();
+                    bn.putString("category", category);
+                    retIntent.putExtras(bn);
+                    setResult(RESULT_OK, retIntent);
+                    finish();
+                }
+            }
+        });
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
+        return true;
+    }
+
+    private boolean validateFoodInput() {
+        String foodCategoryInput = etFoodCategory.getText().toString();
+        if(foodCategoryInput.isEmpty()){
+            textInputFoodCategory.setError("Field can't be empty");
+            return false;
+        } else
+            textInputFoodCategory.setError(null);
+
         return true;
     }
 }

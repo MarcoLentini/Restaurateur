@@ -32,7 +32,7 @@ public class TabReservationsPending extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
         pendingReservationsAdapter = new PendingReservationsListAdapter(getContext(),
-                MainActivity.pendingReservationsData, MainActivity.offersData, (MainActivity)getActivity()); // getContext() forse non va bene
+                MainActivity.pendingReservationsData, MainActivity.offersData, (MainActivity)getActivity());
         recyclerView.setAdapter(pendingReservationsAdapter);
 
         return view;

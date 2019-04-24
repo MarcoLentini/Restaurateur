@@ -16,7 +16,7 @@ public class ReservationsMainFragment extends Fragment implements TabLayout.Base
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private PageReservations adapter;
+    private PageReservations pageAdapter;
 
     @Nullable
     @Override
@@ -36,11 +36,11 @@ public class ReservationsMainFragment extends Fragment implements TabLayout.Base
         viewPager = view.findViewById(R.id.pager_reservations);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        //Creating our pager adapter(a ViewPager has an associated adapter)
-         adapter = new PageReservations(getChildFragmentManager(), tabLayout.getTabCount());
+        //Creating our pager pageAdapter(a ViewPager has an associated pageAdapter)
+         pageAdapter = new PageReservations(getChildFragmentManager(), tabLayout.getTabCount());
 
-        //Adding adapter to pager
-        viewPager.setAdapter(adapter);
+        //Adding pageAdapter to pager
+        viewPager.setAdapter(pageAdapter);
 
         //Adding onTabSelectedListener to swipe views
         tabLayout.addOnTabSelectedListener(this);
@@ -48,23 +48,21 @@ public class ReservationsMainFragment extends Fragment implements TabLayout.Base
         return view;
     }
 
-    // Tab
-
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         int pos = tab.getPosition();
-        // SORTING - When the user changes tab i sort the item inside the corresponding RecyclerView
+        // SORTING - When the user changes tab I sort the item inside the corresponding RecyclerView
         // by calling "sortDataAndNotify" which will sort data and update the view
         switch (pos) {
-            case 0:TabReservationsPending tabP = adapter.getTabPending();
+            case 0:TabReservationsPending tabP = pageAdapter.getTabPending();
                 if(tabP != null)
                     tabP.sortDataAndNotify();
                 break;
-            case 1:TabReservationsInProgress tabIp = adapter.getTabInProgress();
+            case 1:TabReservationsInProgress tabIp = pageAdapter.getTabInProgress();
                 if(tabIp != null)
                     tabIp.sortDataAndNotify();
                 break;
-            case 2:TabReservationsFinished tabF = adapter.getTabFinished();
+            case 2:TabReservationsFinished tabF = pageAdapter.getTabFinished();
             if(tabF != null)
                 tabF.sortDataAndNotify();
                 break;

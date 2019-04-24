@@ -22,7 +22,7 @@ public class AddNewOfferActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_new_offer_item);
         Intent receivedIntent = getIntent();
-        category=  receivedIntent.getExtras().getString("category");
+        category =  receivedIntent.getExtras().getString("category");
 
         String title = getString(R.string.title_new_food);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -52,7 +52,7 @@ public class AddNewOfferActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validateFoodName()) {
+                if(validateFoodInput()) {
                     Intent retIntent = new Intent(getApplicationContext(), OffersMainFragment.class);
                     Bundle bn = new Bundle();
                     bn.putString("category", category);
@@ -68,7 +68,7 @@ public class AddNewOfferActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validateFoodName() {
+    private boolean validateFoodInput() {
         String foodNameInput = etFoodName.getText().toString();
         String foodPriceInput = etFoodPrice.getText().toString();
         String foodQuantityInput = etFoodQuantity.getText().toString();

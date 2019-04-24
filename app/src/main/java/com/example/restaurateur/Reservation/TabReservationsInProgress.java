@@ -35,7 +35,7 @@ public class TabReservationsInProgress extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
         inProgressReservationsAdapter = new InProgressReservationsListAdapter(getContext(), MainActivity.inProgressReservationsData,
-                MainActivity.offersData, (MainActivity)getActivity()); // getContext() forse non va bene
+                MainActivity.offersData, (MainActivity)getActivity());
         recyclerView.setAdapter(inProgressReservationsAdapter);
 
         return view;
