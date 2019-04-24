@@ -22,20 +22,18 @@ public class OffersCategoryFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter categoriesAdapter;
-    //private MainActivity mainActivity = (MainActivity) getActivity();
     private FloatingActionButton fabCategory;
     private FloatingActionButton fabDishes;
-    private TextView a;
+    private TextView tvNoCategories;
     private ArrayList<Category> categoriesList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         //Returning the layout file after inflating
-        //Change R.layout.tab1 in you classes
-        View view=inflater.inflate(R.layout.fragment_category_offers, container, false);
+        View view = inflater.inflate(R.layout.fragment_category_offers, container, false);
         recyclerView = view.findViewById(R.id.ActiveOfferRecyclerView);
-        a=view.findViewById(R.id.textViewCategoryOffers);
+        tvNoCategories = view.findViewById(R.id.textViewCategoryOffers);
         fabCategory = ((FragmentActivity)view.getContext()).findViewById(R.id.FabAddCategories);
         fabDishes = ((FragmentActivity)view.getContext()).findViewById(R.id.FabAddDishes);
         fabCategory.show();
@@ -44,12 +42,12 @@ public class OffersCategoryFragment extends Fragment {
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         /*recyclerView.setHasFixedSize(true);*/
-        // use a linear layout manager
+        // use tvNoCategories linear layout manager
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
         if(MainActivity.categoriesData.isEmpty())
-            a.setText(R.string.no_category_offers);
+            tvNoCategories.setText(R.string.no_category_offers);
         categoriesList = new ArrayList<>(MainActivity.categoriesData.values());
         categoriesAdapter = new CategoriesListAdapter(getContext(), categoriesList); // getContext() forse non va bene
         recyclerView.setAdapter(categoriesAdapter);
@@ -69,9 +67,9 @@ public class OffersCategoryFragment extends Fragment {
         categoriesList.clear();
         categoriesList.addAll(MainActivity.categoriesData.values());
         if(MainActivity.categoriesData.isEmpty())
-            a.setText(R.string.no_category_offers);
+            tvNoCategories.setText(R.string.no_category_offers);
         else
-            a.setVisibility(View.INVISIBLE);
+            tvNoCategories.setVisibility(View.INVISIBLE);
         categoriesAdapter.notifyDataSetChanged();
         fabCategory.show();
         fabDishes.hide();

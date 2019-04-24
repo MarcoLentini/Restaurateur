@@ -39,9 +39,8 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
                     loadFragment(v, new OffersDishFragment(), v.findViewById(R.id.textViewCategoryName));
             }
         });
-        CategoriesViewHolder myViewHolder = new CategoriesViewHolder(view);
 
-        return myViewHolder;
+        return new CategoriesViewHolder(view);
     }
 
     @Override
@@ -57,11 +56,11 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         return dataSet.size();
     }
 
-    public static class CategoriesViewHolder extends RecyclerView.ViewHolder {
+    static class CategoriesViewHolder extends RecyclerView.ViewHolder {
 
         TextView textViewCategoryName;
 
-        public CategoriesViewHolder(View itemView) {
+        CategoriesViewHolder(View itemView) {
             super(itemView);
             this.textViewCategoryName = itemView.findViewById(R.id.textViewCategoryName);
         }
@@ -71,11 +70,11 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         // load fragment
         FragmentTransaction transaction = ((FragmentActivity)view.getContext()).getSupportFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
-        String category=v.getText().toString();
+        String category = v.getText().toString();
         bundle.putString("Category", category);
         // set Fragmentclass Arguments
         fragment.setArguments(bundle);
-        transaction.replace(R.id.frame_container_active_offers, fragment, "DishesOffers");
+        transaction.replace(R.id.frame_container_offers, fragment, "DishesOffers");
         transaction.addToBackStack("Category");
         transaction.commit();
         ((MainActivity)view.getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);

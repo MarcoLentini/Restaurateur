@@ -100,7 +100,7 @@
 
     <string name="title_new_food">Add food offer</string>
     <string name="no_dishes_offers">There are no dishes in this category</string>
-    <string name="no_category_offers">There are no category</string>
+    <string name="no_category_offers">There is no category</string>
 
 
     <!-- in offer_item_info.xml-->

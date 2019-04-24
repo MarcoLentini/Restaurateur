@@ -39,9 +39,8 @@ public class OffersMainFragment extends Fragment  {
         fabCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /*Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
-                //start a new Activity that you can add food
+               /*Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG).setAction("Action", null).show();*/
+                //start a new Activity where you can add a new category
                 Intent myIntent = new Intent(getActivity(), AddNewCategoryActivity.class);
                 startActivityForResult(myIntent, ADD_CATEGORY_ACTIVITY);
             }
@@ -51,8 +50,7 @@ public class OffersMainFragment extends Fragment  {
         fabDishes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /*Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
+               /*Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG).setAction("Action", null).show();*/
                 //start a new Activity that you can add food
                 Intent myIntent = new Intent(getActivity(), AddNewOfferActivity.class);
                 MainActivity reservationsActivity = (MainActivity)getActivity();
@@ -71,7 +69,7 @@ public class OffersMainFragment extends Fragment  {
 
     private void loadFragment(android.support.v4.app.Fragment fragment) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container_active_offers, fragment);
+        transaction.replace(R.id.frame_container_offers, fragment);
         transaction.commit();
     }
 
@@ -79,6 +77,7 @@ public class OffersMainFragment extends Fragment  {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK) {
+
             if(requestCode == ADD_FOOD_OFFER_ACTIVITY) {
                 //TODO: to choise the id and the image: have to change it in future
                 int foodId = idDishes;
@@ -98,6 +97,7 @@ public class OffersMainFragment extends Fragment  {
                 String category = data.getStringExtra("category");
                 MainActivity.categoriesData.put(category, new Category(category));
             }
+
         }
     }
 }
