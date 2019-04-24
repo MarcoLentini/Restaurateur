@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.restaurateur.R;
-import com.example.restaurateur.UserInformationActivity;
 
 
 public class ChangePwdActivity extends AppCompatActivity {

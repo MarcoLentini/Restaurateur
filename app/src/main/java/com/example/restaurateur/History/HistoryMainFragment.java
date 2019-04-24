@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.restaurateur.R;
 
-public class History_f extends Fragment implements TabLayout.BaseOnTabSelectedListener {
+public class HistoryMainFragment extends Fragment implements TabLayout.BaseOnTabSelectedListener {
 
     //This is our tablayout
     private TabLayout tabLayout;

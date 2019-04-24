@@ -19,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.restaurateur.R;
-import com.example.restaurateur.UserInformationActivity;
 
 public class ModifyInfoActivity extends AppCompatActivity {
 

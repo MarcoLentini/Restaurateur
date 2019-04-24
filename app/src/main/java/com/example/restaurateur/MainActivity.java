@@ -11,7 +11,8 @@ import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
-import com.example.restaurateur.History.History_f;
+import com.example.restaurateur.History.HistoryMainFragment;
+import com.example.restaurateur.Information.UserInformationActivity;
 import com.example.restaurateur.Offer.Category;
 import com.example.restaurateur.Offer.MyCategories;
 import com.example.restaurateur.Offer.MyOffersData;
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.navigation_history:
                 toolbar.setTitle(R.string.history_title);
-                fragment = new History_f();
+                fragment = new HistoryMainFragment();
                 loadFragment(fragment);
                 return true;
         }

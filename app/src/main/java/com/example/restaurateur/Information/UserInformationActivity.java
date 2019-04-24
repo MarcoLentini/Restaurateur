@@ -1,4 +1,4 @@
-package com.example.restaurateur;
+package com.example.restaurateur.Information;
 
 import android.Manifest;
 import android.content.Context;
@@ -23,8 +23,7 @@ import android.widget.TextView;
 import android.net.Uri;
 import android.widget.Toast;
 
-import com.example.restaurateur.Information.ModifyInfoActivity;
-import com.example.restaurateur.Information.ViewMoreInfoActivity;
+import com.example.restaurateur.R;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -41,7 +40,6 @@ public class UserInformationActivity extends AppCompatActivity {
 
     private ImageView imageProfile;
     private Uri uriSelectedImage;
-
 
     private String userName;
     private String userEmail;
@@ -258,7 +256,7 @@ public class UserInformationActivity extends AppCompatActivity {
         super.onResume();
         if(uriSelectedImage == null || uriSelectedImage.toString().equals(""))
             imageProfile.setImageResource(placeholders[(int)(Math.random()*placeholders.length)]);
-        else{
+        else {
             imageProfile.setImageURI(uriSelectedImage);
             if(imageProfile.getDrawable() == null)
                 imageProfile.setImageResource(placeholders[(int)(Math.random()*placeholders.length)]);
