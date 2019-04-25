@@ -1,9 +1,11 @@
 package com.example.restaurateur.Offer;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,71 +14,92 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.restaurateur.R;
 import com.example.restaurateur.MainActivity;
+import com.example.restaurateur.R;
 
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
 
 public class OffersCategoryFragment extends Fragment {
 
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter categoriesAdapter;
+    private static final int ADD_CATEGORY_ACTIVITY = 1;
     private FloatingActionButton fabCategory;
-    private FloatingActionButton fabDishes;
+    private RecyclerView.Adapter categoriesAdapter;
     private TextView tvNoCategories;
     private ArrayList<Category> categoriesList;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        categoriesList = new ArrayList<>(MainActivity.categoriesData.values());
+        Log.d("CAT_FRAGMENT", "onCreate(...) chiamato una volta sola!");
+    }
 
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        Log.d("CAT_FRAGMENT", "onCreateView chiamato!");
         //Returning the layout file after inflating
         View view = inflater.inflate(R.layout.fragment_category_offers, container, false);
-        recyclerView = view.findViewById(R.id.ActiveOfferRecyclerView);
         tvNoCategories = view.findViewById(R.id.textViewCategoryOffers);
-        fabCategory = ((FragmentActivity)view.getContext()).findViewById(R.id.FabAddCategories);
-        fabDishes = ((FragmentActivity)view.getContext()).findViewById(R.id.FabAddDishes);
-        fabCategory.show();
-        fabDishes.hide();
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        /*recyclerView.setHasFixedSize(true);*/
-        // use tvNoCategories linear layout manager
-        layoutManager = new LinearLayoutManager(getActivity());
+        fabCategory = view.findViewById(R.id.fabAddCategory);
+        fabCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //start a new Activity where you can add a new category
+                Intent myIntent = new Intent(getActivity(), AddNewCategoryActivity.class);
+                startActivityForResult(myIntent, ADD_CATEGORY_ACTIVITY);
+            }
+        });
+        RecyclerView recyclerView = view.findViewById(R.id.CategoryOfferRecyclerView);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        // specify an Adapter
-        if(MainActivity.categoriesData.isEmpty())
-            tvNoCategories.setText(R.string.no_category_offers);
-        categoriesList = new ArrayList<>(MainActivity.categoriesData.values());
-        categoriesAdapter = new CategoriesListAdapter(getContext(), categoriesList); // getContext() forse non va bene
+        categoriesAdapter = new CategoriesListAdapter(getContext(), categoriesList);
         recyclerView.setAdapter(categoriesAdapter);
 
         return view;
     }
 
     @Override
-    public void onPause() {
-        fabCategory.hide();
-        fabDishes.hide();
-        super.onPause();
+    public void onResume() {
+        super.onResume();
+        Log.d("CAT_FRAGMENT", "onResume chiamato!");
+        if(MainActivity.categoriesData.isEmpty())
+            tvNoCategories.setVisibility(View.VISIBLE);
+        else
+            tvNoCategories.setVisibility(View.INVISIBLE);
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(R.string.offers_title);
     }
 
     @Override
-    public void onResume() {
-        categoriesList.clear();
-        categoriesList.addAll(MainActivity.categoriesData.values());
-        if(MainActivity.categoriesData.isEmpty())
-            tvNoCategories.setText(R.string.no_category_offers);
-        else
-            tvNoCategories.setVisibility(View.INVISIBLE);
-        categoriesAdapter.notifyDataSetChanged();
-        fabCategory.show();
-        fabDishes.hide();
-        Log.d("CATEGORY_FRAGMNET", "Rimuovo back button");
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
-        super.onResume();
+    public void onStop() {
+        super.onStop();
+        Log.d("CAT_FRAGMENT", "onStop chiamato!");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("CAT_FRAGMENT", "onDestroy chiamato!");
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("CAT_FRAGMENT", "onActivityResult chiamato dopo aver aggiunto una categoria!");
+        if(resultCode == RESULT_OK) {
+
+            if (requestCode == ADD_CATEGORY_ACTIVITY) {
+                String categoryName = data.getStringExtra("category");
+                Category category = new Category(categoryName);
+                MainActivity.categoriesData.put(categoryName, category);
+                categoriesList.add(category);
+                categoriesAdapter.notifyItemInserted(categoriesList.size() - 1);
+            }
+
+        }
     }
 }

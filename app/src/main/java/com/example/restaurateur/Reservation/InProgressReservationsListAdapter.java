@@ -112,7 +112,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
                     .beginTransaction()
                     .addSharedElement(textViewOrderedFood,
                             "seeDetailsInProgress")
-                    .replace(R.id.frame_container_reservations, inProgressDetailsFragment)
+                    .replace(R.id.frame_container_main, inProgressDetailsFragment)
                     .addToBackStack(null)
                     .commit();
         });

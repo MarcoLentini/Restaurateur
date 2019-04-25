@@ -53,7 +53,7 @@ public class AddNewOfferActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(validateFoodInput()) {
-                    Intent retIntent = new Intent(getApplicationContext(), OffersMainFragment.class);
+                    Intent retIntent = new Intent(getApplicationContext(), OffersDishFragment.class);
                     Bundle bn = new Bundle();
                     bn.putString("category", category);
                     bn.putString("foodName", etFoodName.getText().toString());

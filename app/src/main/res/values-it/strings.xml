@@ -66,7 +66,7 @@
     <string name="image_disappear">L\'immagine selezionata non è più disponibile</string>
     <string name="action_settings">Informazioni</string>
 
-    <!-- reservations page-->
+    <!-- main_layout page-->
     <string name="total_num_products">Total Number Of Products</string>
     <string name="remarks">Remarks</string>
     <string name="Button_Reservation_Accept">Accetta</string>

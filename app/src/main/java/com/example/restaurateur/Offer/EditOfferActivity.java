@@ -22,14 +22,14 @@ public class EditOfferActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_dishes);
 
         Intent receivedIntent = getIntent();
-        String foodCategory=  receivedIntent.getExtras().getString("foodCategory");
-        String foodName=  receivedIntent.getExtras().getString("foodName");
-        String foodDescription=  receivedIntent.getExtras().getString("foodDescription");
-        int foodId=  receivedIntent.getExtras().getInt("foodId");
-        int foodImage=  receivedIntent.getExtras().getInt("foodImage");
-        Integer foodQuantity=  receivedIntent.getExtras().getInt("foodQuantity");
-        Double foodPrice=  receivedIntent.getExtras().getDouble("foodPrice");
-        String foodState= receivedIntent.getExtras().getString("fooodState");
+        String foodCategory = receivedIntent.getExtras().getString("foodCategory");
+        String foodName = receivedIntent.getExtras().getString("foodName");
+        String foodDescription = receivedIntent.getExtras().getString("foodDescription");
+        int foodId = receivedIntent.getExtras().getInt("foodId");
+        int foodImage = receivedIntent.getExtras().getInt("foodImage");
+        Integer foodQuantity = receivedIntent.getExtras().getInt("foodQuantity");
+        Double foodPrice = receivedIntent.getExtras().getDouble("foodPrice");
+        String foodState = receivedIntent.getExtras().getString("fooodState");
 
         String title = getString(R.string.show_dish);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -70,14 +70,14 @@ public class EditOfferActivity extends AppCompatActivity {
                 if(validateFoodName()) {
                     Intent retIntent = new Intent(getApplicationContext(), OffersDishFragment.class);
                     Bundle bn = new Bundle();
-                    bn.putInt("foodId",foodId);
+                    bn.putInt("foodId", foodId);
                     bn.putString("foodCategory",etFoodCategory.getText().toString());
                     bn.putString("foodName", etFoodName.getText().toString());
-                    bn.putString("foodPrice", etFoodPrice.getText().toString());
-                    bn.putString("foodQuantity", etFoodQuantity.getText().toString());
+                    bn.putDouble("foodPrice", Double.parseDouble(etFoodPrice.getText().toString()));
+                    bn.putInt("foodQuantity", Integer.parseInt(etFoodQuantity.getText().toString()));
                     bn.putString("foodDescription", etFoodDescription.getText().toString());
-                    bn.putInt("foodImage",foodImage);
-                    bn.putString("foodState",foodState);
+                    bn.putInt("foodImage", foodImage);
+                    bn.putString("foodState", foodState);
                     retIntent.putExtras(bn);
                     setResult(RESULT_OK, retIntent);
                     finish();

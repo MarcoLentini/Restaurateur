@@ -110,7 +110,7 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
                     .beginTransaction()
                     .addSharedElement(textViewOrderedFood,
                             "seeDetailsFinish")
-                    .replace(R.id.frame_container_reservations, finishedDetailsFragment)
+                    .replace(R.id.frame_container_main, finishedDetailsFragment)
                     .addToBackStack(null)
                     .commit();
         });

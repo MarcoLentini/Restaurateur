@@ -5,94 +5,89 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.restaurateur.R;
 import com.example.restaurateur.MainActivity;
+import com.example.restaurateur.R;
 
 import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
+import static com.example.restaurateur.MainActivity.availableImageId;
 
 public class OffersDishFragment extends android.support.v4.app.Fragment {
 
+    private static final int ADD_FOOD_OFFER_ACTIVITY = 2;
     private static final int EDIT_DISHES_ACTIVITY = 3;
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    public RecyclerView.Adapter dishesListAdapter;
+    private RecyclerView.Adapter dishesListAdapter;
     private String category;
-    private TextView a;
-    private FloatingActionButton fabCategory;
+    private TextView tvNoDishes;
     private FloatingActionButton fabDishes;
     private ArrayList<OfferModel> dishesOfCategory;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.tab_active_dishes_offers, container, false);
-        a = view.findViewById(R.id.textViewDishesOffers);
-
-        fabCategory = ((FragmentActivity)view.getContext()).findViewById(R.id.FabAddCategories);
-        fabDishes = ((FragmentActivity)view.getContext()).findViewById(R.id.FabAddDishes);
-        fabCategory.hide();
-        fabDishes.show();
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         category = getArguments().getString("Category");
-        ((MainActivity)view.getContext()).getSupportActionBar().setTitle(category);
-
-        //Returning the layout file after inflating
-        //Change R.layout.tab1 in you classes
-        recyclerView = view.findViewById(R.id.ActiveDishesRecyclerView);
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        /*recyclerView.setHasFixedSize(true);*/
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        // specify an Adapter
         dishesOfCategory = new ArrayList<>();
         for(OfferModel om : MainActivity.offersData.values())
             if(om.getCategory().equals(category))
                 dishesOfCategory.add(om);
-        if(dishesOfCategory.isEmpty())
-            a.setText(R.string.no_dishes_offers);
-        dishesListAdapter = new DishesListAdapter(getContext(), dishesOfCategory, this); // getContext() forse non va bene
+    }
+
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_dishes_offers, container, false);
+        tvNoDishes = view.findViewById(R.id.textViewDishesOffers);
+        fabDishes = view.findViewById(R.id.fabAddDish);
+        fabDishes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*Snackbar.make(view, "Here's tvNoDishes Snackbar", Snackbar.LENGTH_LONG).setAction("Action", null).show();*/
+                //start tvNoDishes new Activity that you can add food
+                Intent myIntent = new Intent(getActivity(), AddNewOfferActivity.class);
+                String category= ((MainActivity)getActivity()).getSupportActionBar().getTitle().toString();
+                Bundle bn = new Bundle();
+                bn.putString("category", category);
+                myIntent.putExtras(bn);
+                startActivityForResult(myIntent, ADD_FOOD_OFFER_ACTIVITY);
+            }
+        });
+        //Returning the layout file after inflating
+        RecyclerView recyclerView = view.findViewById(R.id.ActiveDishesRecyclerView);
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        /*recyclerView.setHasFixedSize(true);*/
+        // use tvNoDishes linear layout manager
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        // specify an Adapter
+        dishesListAdapter = new DishesListAdapter(getContext(), dishesOfCategory, this);
         recyclerView.setAdapter(dishesListAdapter);
 
         return view;
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        fabDishes.hide();
-    }
-
-    @Override
     public void onResume() {
-        dishesOfCategory.clear(); // TODO find a better way to update
-        for(OfferModel om : MainActivity.offersData.values())
-            if(om.getCategory().equals(category))
-                dishesOfCategory.add(om);
-        if(dishesOfCategory.isEmpty())
-            a.setText(R.string.no_dishes_offers);
-        else
-            a.setVisibility(View.INVISIBLE);
-        dishesListAdapter.notifyDataSetChanged();
-        fabCategory.hide();
-        fabDishes.show();
         super.onResume();
+        if(dishesOfCategory.isEmpty())
+            tvNoDishes.setVisibility(View.VISIBLE);
+        else
+            tvNoDishes.setVisibility(View.INVISIBLE);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(category);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == RESULT_OK) {
+
             if (requestCode == EDIT_DISHES_ACTIVITY) {
                 String foodCategory = data.getExtras().getString("foodCategory");
                 String foodName = data.getExtras().getString("foodName");
@@ -110,8 +105,27 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                 om.setPrice(foodPrice);
                 om.setQuantity(foodQuantity);
                 om.setState(foodState);
+                dishesListAdapter.notifyDataSetChanged(); // TODO find a better way to update
                 if(MainActivity.categoriesData.get(foodCategory) == null)
                     MainActivity.categoriesData.put(foodCategory, new Category(foodCategory));
+                // TODO update also the category when the if is executed
+            }
+
+            if(requestCode == ADD_FOOD_OFFER_ACTIVITY) {
+                //TODO: to choise the id and the image: have to change it in future
+                int foodId = MainActivity.idDishes++;
+                java.util.Random random = new java.util.Random();
+                int random_computer_card = random.nextInt(availableImageId.length);
+                int image = availableImageId[random_computer_card];
+                String foodName = data.getExtras().getString("foodName");
+                Double foodPrice = Double.parseDouble(data.getExtras().getString("foodPrice"));
+                Integer foodQuantity = Integer.parseInt(data.getExtras().getString("foodQuantity"));
+                String foodDescription = data.getExtras().getString("foodDescription");
+                String foodCategory= data.getExtras().getString("category");
+                OfferModel offerDish = new OfferModel(foodId,foodName,foodCategory,foodPrice,foodQuantity,image,"Active",foodDescription);
+                MainActivity.offersData.put(foodId, offerDish);
+                dishesOfCategory.add(offerDish);
+                dishesListAdapter.notifyItemInserted(dishesOfCategory.size() - 1);
             }
         }
     }

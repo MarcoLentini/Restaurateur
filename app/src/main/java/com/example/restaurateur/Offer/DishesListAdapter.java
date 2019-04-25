@@ -46,23 +46,17 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
                 Intent myIntent = new Intent(view.getContext(), EditOfferActivity.class);
                 TextView tvFoodId = v.findViewById(R.id.offer_food_id);
                 int id = Integer.parseInt(tvFoodId.getText().toString());
-                OfferModel selected = new OfferModel();
-                for(OfferModel om : MainActivity.offersData.values())
-                    if(om.getId() == id) {
-                        selected = om;
-                        break;
-                    }
+                OfferModel selected = MainActivity.offersData.get(id);
                 Bundle bn = new Bundle();
                 bn.putInt("foodId", selected.getId());
                 bn.putString("foodCategory", selected.getCategory());
-                bn.putString("foodName",selected.getName());
+                bn.putString("foodName", selected.getName());
                 bn.putDouble("foodPrice", selected.getPrice());
-                bn.putInt("foodQuantity",selected.getQuantity());
-                bn.putString("foodDescription",selected.getDescription());
-                bn.putInt("foodImage",selected.getImage());
-                bn.putString("foodState",selected.getState());
+                bn.putInt("foodQuantity", selected.getQuantity());
+                bn.putString("foodDescription", selected.getDescription());
+                bn.putInt("foodImage", selected.getImage());
+                bn.putString("foodState", selected.getState());
                 myIntent.putExtras(bn);
-
                 parentFragment.startActivityForResult(myIntent, EDIT_DISHES_ACTIVITY);
             }});
 

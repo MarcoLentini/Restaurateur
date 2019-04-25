@@ -50,7 +50,7 @@ public class AddNewCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(validateFoodInput()) {
-                    Intent retIntent = new Intent(getApplicationContext(), OffersMainFragment.class);
+                    Intent retIntent = new Intent(getApplicationContext(), OffersCategoryFragment.class);
                     Bundle bn = new Bundle();
                     String category = etFoodCategory.getText().toString();
                     bn.putString("category", category);

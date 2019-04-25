@@ -32,7 +32,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
     @Override
     public CategoriesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.category_cardview, parent, false);
-
+        
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +45,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
 
     @Override
     public void onBindViewHolder(@NonNull CategoriesViewHolder categoriesViewHolder, int position) {
+
         TextView textViewCategoryName = categoriesViewHolder.textViewCategoryName;
 
         Category tmpRM = dataSet.get(position);
@@ -74,7 +75,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         bundle.putString("Category", category);
         // set Fragment class Arguments
         fragment.setArguments(bundle);
-        transaction.replace(R.id.frame_container_offers, fragment, "DishesOffers");
+        transaction.replace(R.id.frame_container_main, fragment, "DishesOffers");
         transaction.addToBackStack("Category");
         transaction.commit();
         ((MainActivity)view.getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);

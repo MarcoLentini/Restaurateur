@@ -69,7 +69,7 @@
     <string name="perm_denied">Permission Denied</string>
     <string name="action_settings">Information</string>
 
-    <!--reservations page-->
+    <!--main_layout page-->
     <string name="total_num_products">Total Number Of Products</string>
     <string name="remarks">Remarks</string>
     <string name="Button_Reservation_Accept">Accept</string>
@@ -79,7 +79,7 @@
     <string name="Button_Reservation_Remove">Remove</string>
     <string name="total_income_info">Total income </string>
 
-    <!-- reservations tabs -->
+    <!-- main_layout tabs -->
     <string name="reservation_title">Reservations</string>
     <string name="accepted_label">In progress</string>
     <string name="pending_label">Pending</string>

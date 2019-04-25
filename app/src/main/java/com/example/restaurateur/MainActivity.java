@@ -17,7 +17,7 @@ import com.example.restaurateur.Offer.Category;
 import com.example.restaurateur.Offer.MyCategories;
 import com.example.restaurateur.Offer.MyOffersData;
 import com.example.restaurateur.Offer.OfferModel;
-import com.example.restaurateur.Offer.OffersMainFragment;
+import com.example.restaurateur.Offer.OffersCategoryFragment;
 import com.example.restaurateur.Reservation.MyReservationsData;
 import com.example.restaurateur.Reservation.ReservatedDish;
 import com.example.restaurateur.Reservation.ReservationModel;
@@ -36,14 +36,17 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<ReservationModel> finishedReservationsData;
     public static HashMap<Integer, OfferModel> offersData;
     public static HashMap<String, Category> categoriesData;
+    public static int idDishes = 26; //TODO idDishes and image_id for dishes are to be removed
+    //TODO:per scegliere id image a caso tra quelli dati (da togliere percò non so come recuperare l'immagine dei dishes immassa
+    public static int[] availableImageId = {R.drawable.ic_offer_pizza, R.drawable.ic_offer_cake, R.drawable.ic_offer_coffee, R.drawable.ic_offer_fries};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.reservations);
+        setContentView(R.layout.main_layout);
 
         //Adding TOOLBAR to the activity
-        Toolbar toolbarReservations = findViewById(R.id.toolbar_reservations);
+        Toolbar toolbarReservations = findViewById(R.id.toolbar_main);
         toolbarReservations.setTitle(R.string.reservation_title);
         setSupportActionBar(toolbarReservations);
         toolbar = getSupportActionBar();
@@ -107,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.navigation_offer:
                 toolbar.setTitle(R.string.offers_title);
-                fragment = new OffersMainFragment();
+                fragment = new OffersCategoryFragment();
                 loadFragment(fragment);
                 return true;
 
@@ -124,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
     private void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container_reservations, fragment);
+        transaction.replace(R.id.frame_container_main, fragment);
         transaction.commit();
     }
 
