@@ -111,7 +111,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/FoodPrice"
                         android:gravity="start|top"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:lines="1"
                         android:focusable="true"
                         android:nextFocusDown="@+id/edit_text_input_food_quantity"/>

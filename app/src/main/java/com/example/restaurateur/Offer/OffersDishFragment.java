@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("DISH_FRAGMENT", "onCreate(...) chiamato una volta sola!");
         category = getArguments().getString("Category");
         dishesOfCategory = new ArrayList<>();
         for(OfferModel om : MainActivity.offersData.values())
@@ -42,6 +44,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        Log.d("DISH_FRAGMENT", "onCreateView chiamato!");
         View view = inflater.inflate(R.layout.fragment_dishes_offers, container, false);
         tvNoDishes = view.findViewById(R.id.textViewDishesOffers);
         fabDishes = view.findViewById(R.id.fabAddDish);
@@ -76,6 +79,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Log.d("DISH_FRAGMENT", "onResume chiamato!");
         if(dishesOfCategory.isEmpty())
             tvNoDishes.setVisibility(View.VISIBLE);
         else
@@ -83,9 +87,22 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         ((MainActivity)getActivity()).getSupportActionBar().setTitle(category);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("DISH_FRAGMENT", "onStop chiamato!");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("DISH_FRAGMENT", "onDestroy chiamato!");
+    }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        Log.d("DISH_FRAGMENT", "onActivityResult chiamato dopo aggiunta/modifica!");
         if(resultCode == RESULT_OK) {
 
             if (requestCode == EDIT_DISHES_ACTIVITY) {
@@ -106,9 +123,8 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                 om.setQuantity(foodQuantity);
                 om.setState(foodState);
                 dishesListAdapter.notifyDataSetChanged(); // TODO find a better way to update
-                if(MainActivity.categoriesData.get(foodCategory) == null)
+                if(MainActivity.categoriesData.get(foodCategory) == null) // TODO update also the category when the if is executed
                     MainActivity.categoriesData.put(foodCategory, new Category(foodCategory));
-                // TODO update also the category when the if is executed
             }
 
             if(requestCode == ADD_FOOD_OFFER_ACTIVITY) {
@@ -118,14 +134,16 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                 int random_computer_card = random.nextInt(availableImageId.length);
                 int image = availableImageId[random_computer_card];
                 String foodName = data.getExtras().getString("foodName");
-                Double foodPrice = Double.parseDouble(data.getExtras().getString("foodPrice"));
-                Integer foodQuantity = Integer.parseInt(data.getExtras().getString("foodQuantity"));
+                Double foodPrice = data.getExtras().getDouble("foodPrice");
+                Integer foodQuantity = data.getExtras().getInt("foodQuantity");
                 String foodDescription = data.getExtras().getString("foodDescription");
-                String foodCategory= data.getExtras().getString("category");
-                OfferModel offerDish = new OfferModel(foodId,foodName,foodCategory,foodPrice,foodQuantity,image,"Active",foodDescription);
+                String foodCategory = data.getExtras().getString("category");
+                OfferModel offerDish = new OfferModel(foodId, foodName, foodCategory, foodPrice,
+                                                foodQuantity, image,"Active",foodDescription);
                 MainActivity.offersData.put(foodId, offerDish);
                 dishesOfCategory.add(offerDish);
                 dishesListAdapter.notifyItemInserted(dishesOfCategory.size() - 1);
+                // TODO visualizzare il dato aggiunto secondo un ordine prestabilito
             }
         }
     }

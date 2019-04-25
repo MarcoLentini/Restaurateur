@@ -57,8 +57,8 @@ public class AddNewOfferActivity extends AppCompatActivity {
                     Bundle bn = new Bundle();
                     bn.putString("category", category);
                     bn.putString("foodName", etFoodName.getText().toString());
-                    bn.putString("foodPrice", etFoodPrice.getText().toString());
-                    bn.putString("foodQuantity", etFoodQuantity.getText().toString());
+                    bn.putDouble("foodPrice", Double.parseDouble(etFoodPrice.getText().toString()));
+                    bn.putInt("foodQuantity", Integer.parseInt(etFoodQuantity.getText().toString()));
                     bn.putString("foodDescription", etFoodDescription.getText().toString());
                     retIntent.putExtras(bn);
                     setResult(RESULT_OK, retIntent);

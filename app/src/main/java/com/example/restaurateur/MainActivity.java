@@ -46,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_layout);
 
         //Adding TOOLBAR to the activity
-        Toolbar toolbarReservations = findViewById(R.id.toolbar_main);
-        toolbarReservations.setTitle(R.string.reservation_title);
-        setSupportActionBar(toolbarReservations);
+        Toolbar toolbarMain = findViewById(R.id.toolbar_main);
+        toolbarMain.setTitle(R.string.reservation_title);
+        setSupportActionBar(toolbarMain);
         toolbar = getSupportActionBar();
         // Adding BOTTOM NAVIGATION to the activity
         BottomNavigationView navigation = findViewById(R.id.navigation_categories);

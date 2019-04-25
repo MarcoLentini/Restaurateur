@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesViewHolder> {
@@ -73,10 +74,12 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
         ImageView offer_food_pic = dishesViewHolder.offer_food_pic;
 
         OfferModel tmpOM = dataSet.get(position);
-        textViewFoodId.setText("" + tmpOM.getId());
-        textViewFoodName.setText("" + tmpOM.getName());
-        textViewQuantityOffer.setText("" + tmpOM.getQuantity());
-        textViewPriceOffer.setText("" + tmpOM.getPrice());
+        textViewFoodId.setText(String.valueOf(tmpOM.getId()));
+        textViewFoodName.setText(tmpOM.getName());
+        textViewQuantityOffer.setText(String.valueOf(tmpOM.getQuantity()));
+        DecimalFormat format = new DecimalFormat("0.00");
+        String formattedPrice = format.format(tmpOM.getPrice());
+        textViewPriceOffer.setText(formattedPrice);
         offer_food_pic.setImageResource(tmpOM.getImage());
     }
 

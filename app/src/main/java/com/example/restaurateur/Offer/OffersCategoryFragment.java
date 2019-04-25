@@ -32,8 +32,8 @@ public class OffersCategoryFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        categoriesList = new ArrayList<>(MainActivity.categoriesData.values());
         Log.d("CAT_FRAGMENT", "onCreate(...) chiamato una volta sola!");
+        categoriesList = new ArrayList<>(MainActivity.categoriesData.values());
     }
 
     @Override
@@ -65,13 +65,13 @@ public class OffersCategoryFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.d("CAT_FRAGMENT", "onResume chiamato!");
-        if(MainActivity.categoriesData.isEmpty())
-            tvNoCategories.setVisibility(View.VISIBLE);
-        else
-            tvNoCategories.setVisibility(View.INVISIBLE);
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
         ((MainActivity)getActivity()).getSupportActionBar().setTitle(R.string.offers_title);
+        if(MainActivity.categoriesData.isEmpty()) // TODO split if-else and move in the function where the user inserts/deletes category
+            tvNoCategories.setVisibility(View.VISIBLE);
+        else
+            tvNoCategories.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class OffersCategoryFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("CAT_FRAGMENT", "onActivityResult chiamato dopo aver aggiunto una categoria!");
+        Log.d("CAT_FRAGMENT", "onActivityResult() chiamato dopo aver aggiunto una categoria!");
         if(resultCode == RESULT_OK) {
 
             if (requestCode == ADD_CATEGORY_ACTIVITY) {
