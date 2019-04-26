@@ -1,7 +1,9 @@
 package com.example.restaurateur.Reservation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.transition.Fade;
 import android.support.v4.view.ViewCompat;
@@ -40,16 +42,21 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
     @Override
     public InProgressReservationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.in_progress_reservation_cardview, parent, false);
+        InProgressReservationViewHolder holder = new InProgressReservationViewHolder(view);
+       view.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent myIntent = new Intent(fragmentActivity, InProgressDetailsActivity.class);
+               int itemPosition = holder.getAdapterPosition();
+               ReservationModel selectedRm = inProgressDataSet.get(itemPosition);
+               Bundle bn = new Bundle();
+               bn.putSerializable("reservationCardData", selectedRm);
+               myIntent.putExtras(bn);
+               fragmentActivity.startActivity(myIntent);
+          }
+      });
 
- //       view.setOnClickListener(new View.OnClickListener() {
- //           @Override
- //           public void onClick(View v) {
- //               Intent myIntent = new Intent(context.getApplicationContext(), UserInformationActivity.class);
- //               context.startActivity(myIntent);
-  //          }
-  //      });
-
-        return new InProgressReservationViewHolder(view);
+        return holder;
     }
 
     @Override
@@ -97,7 +104,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
             }
         });
 
-       inProgressReservationViewHolder.itemView.setOnClickListener(v -> {
+       /*inProgressReservationViewHolder.itemView.setOnClickListener(v -> {
            InProgressDetailsFragment inProgressDetailsFragment = InProgressDetailsFragment.newInstance(tmpRM,position);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -115,10 +122,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
                     .replace(R.id.frame_container_main, inProgressDetailsFragment)
                     .addToBackStack(null)
                     .commit();
-        });
-
-
-
+        });*/
     }
 
     @Override

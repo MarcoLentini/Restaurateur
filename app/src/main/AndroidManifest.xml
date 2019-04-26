@@ -14,7 +14,9 @@
         android:roundIcon="@drawable/restaurant_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Reservation.PendingDetailsActivity"></activity>
+        <activity android:name=".Reservation.FinishedDetailsActivity"></activity>
+        <activity android:name=".Reservation.InProgressDetailsActivity" />
+        <activity android:name=".Reservation.PendingDetailsActivity" />
         <activity
             android:name=".Offer.EditOfferActivity"
             android:label="@string/title_activity_edit_dishes" />

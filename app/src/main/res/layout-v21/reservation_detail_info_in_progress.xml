@@ -7,8 +7,8 @@
     android:layout_height="wrap_content"
     app:cardUseCompatPadding="true"
     app:cardBackgroundColor="#FFFFFF"
-    android:id="@+id/reservation_detail_info_in_progress"
-    android:transitionName="seeDetailsInProgress">
+    android:id="@+id/reservation_detail_info_pending"
+    android:transitionName="seeDetailsPending">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textViewOrderIdInProgress"
+                android:id="@+id/textViewIdReservation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -46,7 +46,7 @@
                 android:id="@+id/layout_reservation_pending"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textViewOrderIdInProgress"
+                android:layout_below="@+id/textViewIdReservation"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="@dimen/dp24"
@@ -57,7 +57,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textViewRemainingTimeInProgress"
+                    android:id="@+id/textViewRemainingTimeReservation"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -68,7 +68,7 @@
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
 
                 <TextView
-                    android:id="@+id/textViewTotalIncomeInProgress"
+                    android:id="@+id/textViewTotalIncomeReservation"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -95,7 +95,7 @@
 
 
             <LinearLayout
-                android:id="@+id/orderDetailInfoInProgress"
+                android:id="@+id/pending_reservation_detail_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/divider1"
@@ -218,14 +218,14 @@
                         android:textAlignment="viewEnd"
                         android:textColor="#000"
                         android:textSize="18sp" />
-                </LinearLayout> -->
+                </LinearLayout>-->
             </LinearLayout>
 
             <View
                 android:id="@+id/divider2"
                 android:layout_width="395dp"
                 android:layout_height="2dp"
-                android:layout_below="@+id/orderDetailInfoInProgress"
+                android:layout_below="@+id/pending_reservation_detail_info"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="@dimen/dp8"
@@ -260,7 +260,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvRemarkInProgress"
+                    android:id="@+id/textViewNotesReservation"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
@@ -286,7 +286,7 @@
 
 
             <TextView
-                android:id="@+id/tvNameInProgress"
+                android:id="@+id/customer_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/divider3"
@@ -299,18 +299,18 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/imageViewPhoneInProgress"
+                android:id="@+id/imageViewPhone"
                 android:layout_width="@dimen/dp16"
                 android:layout_height="@dimen/dp16"
                 android:layout_below="@+id/divider3"
                 android:layout_marginTop="@dimen/dp16"
                 android:layout_marginEnd="@dimen/dp24"
-               android:layout_toStartOf="@+id/imageViewMsgInProgress"
+                android:layout_toStartOf="@+id/imageViewMsg"
                 android:src="@drawable/ic_order_call"
                 android:contentDescription="@string/str_callcustonmer"/>
 
             <ImageView
-                android:id="@+id/imageViewMsgInProgress"
+                android:id="@+id/imageViewMsg"
                 android:layout_width="@dimen/dp16"
                 android:layout_height="@dimen/dp16"
                 android:layout_below="@+id/divider3"
@@ -321,10 +321,10 @@
                 android:contentDescription="@string/str_messagecustomer"/>
 
             <TextView
-                android:id="@+id/tvPhoneInProgress"
+                android:id="@+id/customer_phone_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvNameInProgress"
+                android:layout_below="@+id/customer_name"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="@dimen/dp24"
                 android:layout_marginTop="@dimen/dp8"
@@ -336,7 +336,7 @@
                 android:id="@+id/divider4"
                 android:layout_width="395dp"
                 android:layout_height="2dp"
-                android:layout_below="@+id/tvPhoneInProgress"
+                android:layout_below="@+id/customer_phone_number"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="@dimen/dp8"
