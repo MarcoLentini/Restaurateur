@@ -109,14 +109,14 @@
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/Button_Reservation_Accept"
+                    android:text="@string/button_reservation_accept"
                     android:textColor="@color/colorSecondaryText"
                     android:theme="@style/PrimaryFlatButton" />
                 <Button
                     android:id="@+id/buttonRemoveReservationPending"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/Button_Reservation_Reject"
+                    android:text="@string/button_reservation_reject"
                     android:theme="@style/PrimaryFlatButton"/>
             </LinearLayout>
         </LinearLayout>

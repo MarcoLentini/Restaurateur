@@ -71,12 +71,12 @@
     <!--order page-->
     <string name="total_num_products">商品总量</string>
     <string name="remarks">备注:</string>
-    <string name="Button_Reservation_Accept">接单</string>
-    <string name="Button_Reservation_Reject">拒单</string>
+    <string name="button_reservation_accept">接单</string>
+    <string name="button_reservation_reject">拒单</string>
     <string name="total_income_info">本单预计收入</string>
-    <string name="Button_Reservation_Resume">撤销</string>
-    <string name="Button_Reservation_Remove">移除</string>
-    <string name="Button_Reservation_Finish">完成</string>
+    <string name="button_reservation_resume">撤销</string>
+    <string name="button_reservation_remove">移除</string>
+    <string name="button_reservation_finish">完成</string>
 
     <!-- order tabs -->
     <string name="reservation_title">订单</string>
@@ -93,7 +93,7 @@
 
     <string name="home_title">店铺管理</string>
 
-      <string name="Button_Save">保存</string>
+      <string name="button_save">保存</string>
     <string name="add_new_category">请输入新的菜单分类</string>
     <string name="new_category_title">新餐单</string>
     <string name="invalid_category">分类不识别</string>

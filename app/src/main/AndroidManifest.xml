@@ -14,9 +14,10 @@
         android:roundIcon="@drawable/restaurant_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Reservation.PendingDetailsActivity"></activity>
         <activity
             android:name=".Offer.EditOfferActivity"
-            android:label="@string/title_activity_edit_dishes"></activity>
+            android:label="@string/title_activity_edit_dishes" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

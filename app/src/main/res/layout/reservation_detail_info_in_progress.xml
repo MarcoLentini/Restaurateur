@@ -392,7 +392,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp4"
                     android:layout_weight="2"
-                    android:text="@string/Button_Reservation_Finish"
+                    android:text="@string/button_reservation_finish"
                     android:textColor="@color/colorSecondaryText"
                     android:theme="@style/PrimaryFlatButton"
                     android:layout_marginStart="@dimen/dp4" />
@@ -403,7 +403,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/dp4"
                     android:layout_weight="1"
-                    android:text="@string/Button_Reservation_Reject"
+                    android:text="@string/button_reservation_reject"
                     android:theme="@style/PrimaryFlatButton"
                     android:layout_marginEnd="@dimen/dp4"
                     style="?android:attr/borderlessButtonStyle"/>

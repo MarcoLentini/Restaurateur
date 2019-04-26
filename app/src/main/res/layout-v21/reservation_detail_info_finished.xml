@@ -362,7 +362,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp4"
                     android:layout_weight="2"
-                    android:text="@string/Button_Reservation_Resume"
+                    android:text="@string/button_reservation_resume"
                     android:textColor="@color/colorSecondaryText"
                     android:theme="@style/PrimaryFlatButton" />
 
@@ -372,7 +372,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dp4"
                     android:layout_weight="1"
-                    android:text="@string/Button_Reservation_Remove"
+                    android:text="@string/button_reservation_remove"
                     android:theme="@style/PrimaryFlatButton"
                     style="?android:attr/borderlessButtonStyle"/>
             </LinearLayout>

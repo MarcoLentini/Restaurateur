@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textViewOrderIdReservation"
+                android:id="@+id/textViewIdReservation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -46,7 +46,7 @@
                 android:id="@+id/layout_reservation_pending"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textViewOrderIdReservation"
+                android:layout_below="@+id/textViewIdReservation"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="@dimen/dp24"
@@ -95,7 +95,7 @@
 
 
             <LinearLayout
-                android:id="@+id/pending_order_detail_info"
+                android:id="@+id/pending_reservation_detail_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/divider1"
@@ -225,7 +225,7 @@
                 android:id="@+id/divider2"
                 android:layout_width="395dp"
                 android:layout_height="2dp"
-                android:layout_below="@+id/pending_order_detail_info"
+                android:layout_below="@+id/pending_reservation_detail_info"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="@dimen/dp8"
@@ -260,7 +260,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/Order_Notice"
+                    android:id="@+id/textViewNotesReservation"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
@@ -362,7 +362,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="@string/Button_Reservation_Accept"
+                    android:text="@string/button_reservation_accept"
                     android:textColor="@color/colorSecondaryText"
                     android:theme="@style/PrimaryFlatButton" />
 
@@ -371,7 +371,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/Button_Reservation_Reject"
+                    android:text="@string/button_reservation_reject"
                     android:theme="@style/PrimaryFlatButton"
                     style="?android:attr/borderlessButtonStyle"/>
             </LinearLayout>

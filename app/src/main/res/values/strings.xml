@@ -70,20 +70,23 @@
     <string name="action_settings">Information</string>
 
     <!--main_layout page-->
-    <string name="total_num_products">Total Number Of Products</string>
-    <string name="remarks">Remarks</string>
-    <string name="Button_Reservation_Accept">Accept</string>
-    <string name="Button_Reservation_Reject">Reject</string>
-    <string name="Button_Reservation_Finish">Finish</string>
-    <string name="Button_Reservation_Resume">Resume</string>
-    <string name="Button_Reservation_Remove">Remove</string>
+    <string name="button_reservation_accept">Accept</string>
+    <string name="button_reservation_reject">Reject</string>
+    <string name="button_reservation_finish">Finish</string>
+    <string name="button_reservation_resume">Resume</string>
+    <string name="button_reservation_remove">Remove</string>
     <string name="total_income_info">Total income </string>
+    <string name="notes">notes!</string>
 
     <!-- main_layout tabs -->
     <string name="reservation_title">Reservations</string>
     <string name="accepted_label">In progress</string>
     <string name="pending_label">Pending</string>
     <string name="refused_label">Finished</string>
+
+    <!-- reservation card detail mode -->
+    <string name="reservation_details_title">Reservation details</string>
+    <string name="remarks">Notes</string>
 
     <!-- offers tabs-->
     <string name="offers_title">Offers</string>
@@ -93,7 +96,7 @@
 
     <string name="home_title">Home</string>
 
-    <string name="Button_Save">SAVE</string>
+    <string name="button_save">Save</string>
     <string name="add_new_category">Insert the name of the new category</string>
     <string name="new_category_title">Add new category</string>
     <string name="invalid_category">Invalid category</string>
@@ -113,8 +116,7 @@
     <string name="FoodQuantity">Quantity</string>
     <string name="FoodPrice">Price</string>
     <string name="futureDevelopment">For future Development....</string>
-    <string name="primi">Primi</string>
-    <string name="notes">notes!</string>
+
     <string name="hint_food_short_description">short description</string>
 
     <!-- No need to translate -->

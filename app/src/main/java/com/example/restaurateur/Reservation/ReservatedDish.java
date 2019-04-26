@@ -1,6 +1,8 @@
 package com.example.restaurateur.Reservation;
 
-public class ReservatedDish {
+import java.io.Serializable;
+
+public class ReservatedDish implements Serializable {
 
     private int dishId;
     private int dishMultiplier;

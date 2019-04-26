@@ -69,11 +69,11 @@
     <!-- main_layout page-->
     <string name="total_num_products">Total Number Of Products</string>
     <string name="remarks">Remarks</string>
-    <string name="Button_Reservation_Accept">Accetta</string>
-    <string name="Button_Reservation_Reject">Rifiuta</string>
-    <string name="Button_Reservation_Finish">Termina</string>
-    <string name="Button_Reservation_Resume">Ripristina</string>
-    <string name="Button_Reservation_Remove">Rimuovi</string>
+    <string name="button_reservation_accept">Accetta</string>
+    <string name="button_reservation_reject">Rifiuta</string>
+    <string name="button_reservation_finish">Termina</string>
+    <string name="button_reservation_resume">Ripristina</string>
+    <string name="button_reservation_remove">Rimuovi</string>
     <string name="total_income_info">Totale</string>
     <string name="offers_title">Offerte</string>
     <string name="pending_label">In arrivo</string>
@@ -87,7 +87,7 @@
 
     <string name="home_title">Home</string>
 
-     <string name="Button_Save">SAVE</string>
+     <string name="button_save">SAVE</string>
     <!--add_new_category.xml-->
     <string name="add_new_category">Inserisci il nome della nuova categoria</string>
     <string name="new_category_title">Nuova categoria</string>
@@ -123,4 +123,5 @@
     <string name="str_callcustonmer">callCustonmer</string>
     <string name="show_dish">Il tuo piatto</string>
     <string name="FoodCategory">Inserisci categoria</string>
+    <string name="reservation_details_title">Dettagli ordine</string>
 </resources>

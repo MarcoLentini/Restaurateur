@@ -51,7 +51,7 @@ public class PendingDetailsFragment extends Fragment {
         this.RM = args.containsKey("RM") ? (ReservationModel) args.getSerializable("RM") : null;
         this.position = args.containsKey("position") ? args.getInt("position"): null;
 
-        TextView textViewOrderIdReservation = view.findViewById(R.id.textViewOrderIdReservation);
+        TextView textViewOrderIdReservation = view.findViewById(R.id.textViewIdReservation);
         textViewOrderIdReservation.setText(Integer.toString(RM.getId()));
 
         TextView textViewRemainingTimeReservation = view.findViewById(R.id.textViewRemainingTimeReservation);
@@ -60,7 +60,7 @@ public class PendingDetailsFragment extends Fragment {
         TextView textViewTotalIncomeReservation = view.findViewById(R.id.textViewTotalIncomeReservation);
         textViewTotalIncomeReservation.setText(Double.toString(RM.getTotalIncome()));
 
-        TextView Order_Notice = view.findViewById(R.id.Order_Notice);
+        TextView Order_Notice = view.findViewById(R.id.textViewNotesReservation);
         Order_Notice.setText(RM.getNotes());
 
         TextView customer_name = view.findViewById(R.id.customer_name);
@@ -69,7 +69,7 @@ public class PendingDetailsFragment extends Fragment {
         TextView customer_phone_number = view.findViewById(R.id.customer_phone_number);
         customer_phone_number.setText(RM.getCustomerPhoneNumber());
 
-        LinearLayout pending_order_detail_info = view.findViewById(R.id.pending_order_detail_info);
+        LinearLayout pending_order_detail_info = view.findViewById(R.id.pending_reservation_detail_info);
 
         MainActivity main = (MainActivity) getActivity();
 
