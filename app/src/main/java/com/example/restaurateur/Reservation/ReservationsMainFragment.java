@@ -37,7 +37,7 @@ public class ReservationsMainFragment extends Fragment implements TabLayout.Base
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         //Creating our pager pageAdapter(a ViewPager has an associated pageAdapter)
-         pageAdapter = new PageReservations(getChildFragmentManager(), tabLayout.getTabCount());
+        pageAdapter = new PageReservations(getChildFragmentManager(), tabLayout.getTabCount());
 
         //Adding pageAdapter to pager
         viewPager.setAdapter(pageAdapter);

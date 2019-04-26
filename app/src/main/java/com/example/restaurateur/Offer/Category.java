@@ -3,6 +3,7 @@ package com.example.restaurateur.Offer;
 public class Category {
 
     private String category;
+
     public Category(String category) {
         this.category = category;
     }

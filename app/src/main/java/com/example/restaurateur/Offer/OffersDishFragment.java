@@ -37,7 +37,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         Log.d("DISH_FRAGMENT", "onCreate(...) chiamato una volta sola!");
         category = getArguments().getString("Category");
         dishesOfCategory = new ArrayList<>();
-        for(OfferModel om : MainActivity.offersData.values())
+        for(OfferModel om : MainActivity.offersData.values()) // TODO prendere direttamente dalla categoria la lista dei piatti
             if(om.getCategory().equals(category))
                 dishesOfCategory.add(om);
     }
