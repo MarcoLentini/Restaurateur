@@ -72,4 +72,9 @@
         <item name="android:background">@color/colorLightGray</item>
         <item name="android:textColor">@color/colorSecondaryText</item>
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

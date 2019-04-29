@@ -12,6 +12,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.example.restaurateur.History.HistoryMainFragment;
+import com.example.restaurateur.Information.FirebaseAccount;
+import com.example.restaurateur.Information.LoginActivity;
 import com.example.restaurateur.Information.UserInformationActivity;
 import com.example.restaurateur.Offer.Category;
 import com.example.restaurateur.Offer.MyCategories;
@@ -23,6 +25,7 @@ import com.example.restaurateur.Reservation.ReservatedDish;
 import com.example.restaurateur.Reservation.ReservationModel;
 import com.example.restaurateur.Reservation.ReservationState;
 import com.example.restaurateur.Reservation.ReservationsMainFragment;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,16 +42,24 @@ public class MainActivity extends AppCompatActivity {
     public static int idDishes = 26; //TODO idDishes and image_id for dishes are to be removed
     //TODO:per scegliere id image a caso tra quelli dati (da togliere percò non so come recuperare l'immagine dei dishes immassa
     public static int[] availableImageId = {R.drawable.ic_offer_pizza, R.drawable.ic_offer_cake, R.drawable.ic_offer_coffee, R.drawable.ic_offer_fries};
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
 
+        //Get Firebase auth instance
+        auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() == null) {
+            finish();
+        }
+
         //Adding TOOLBAR to the activity
         Toolbar toolbarMain = findViewById(R.id.toolbar_main);
         toolbarMain.setTitle(R.string.reservation_title);
         setSupportActionBar(toolbarMain);
+
         toolbar = getSupportActionBar();
         // Adding BOTTOM NAVIGATION to the activity
         BottomNavigationView navigation = findViewById(R.id.navigation_categories);
@@ -77,6 +88,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() == null) {
+            finish();
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -85,7 +105,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        if (id == R.id.action_settings_firebase) {
+
+            Intent information = new Intent(this, FirebaseAccount.class);
+            startActivity(information);
+        }
         if (id == R.id.action_settings) {
+
             Intent information = new Intent(this, UserInformationActivity.class);
             startActivity(information);
         }

@@ -125,4 +125,5 @@
     <string name="str_phonenumber">33456832901</string>
     <string name="str_messagecustomer">messageCustomer</string>
     <string name="str_callcustonmer">callCustonmer</string>
+    <string name="action_settings_firebase">Firebase Account</string>
 </resources>
