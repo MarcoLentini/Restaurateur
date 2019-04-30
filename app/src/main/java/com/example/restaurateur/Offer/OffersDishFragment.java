@@ -1,14 +1,17 @@
 package com.example.restaurateur.Offer;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -28,8 +31,8 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
     private RecyclerView.Adapter dishesListAdapter;
     private String category;
     private TextView tvNoDishes;
-    private FloatingActionButton fabDishes;
     private ArrayList<OfferModel> dishesOfCategory;
+    private View view;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         Log.d("DISH_FRAGMENT", "onCreate(...) chiamato una volta sola!");
         category = getArguments().getString("Category");
         dishesOfCategory = new ArrayList<>();
-        for(OfferModel om : MainActivity.offersData.values()) // TODO prendere direttamente dalla categoria la lista dei piatti
+        for(OfferModel om : MainActivity.offersData.values()) // TODO valutare se prendere direttamente dalla categoria la lista dei piatti
             if(om.getCategory().equals(category))
                 dishesOfCategory.add(om);
     }
@@ -45,13 +48,14 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         Log.d("DISH_FRAGMENT", "onCreateView chiamato!");
-        View view = inflater.inflate(R.layout.fragment_dishes_offers, container, false);
+        view = inflater.inflate(R.layout.fragment_dishes_offers, container, false);
         tvNoDishes = view.findViewById(R.id.textViewDishesOffers);
-        fabDishes = view.findViewById(R.id.fabAddDish);
+        if(dishesOfCategory.isEmpty())
+            tvNoDishes.setVisibility(View.VISIBLE);
+        FloatingActionButton fabDishes = view.findViewById(R.id.fabAddDish);
         fabDishes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Snackbar.make(view, "Here's tvNoDishes Snackbar", Snackbar.LENGTH_LONG).setAction("Action", null).show();*/
                 //start tvNoDishes new Activity that you can add food
                 Intent myIntent = new Intent(getActivity(), AddNewOfferActivity.class);
                 String category= ((MainActivity)getActivity()).getSupportActionBar().getTitle().toString();
@@ -69,7 +73,6 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         // use tvNoDishes linear layout manager
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        // specify an Adapter
         dishesListAdapter = new DishesListAdapter(getContext(), dishesOfCategory, this);
         recyclerView.setAdapter(dishesListAdapter);
 
@@ -80,10 +83,6 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
     public void onResume() {
         super.onResume();
         Log.d("DISH_FRAGMENT", "onResume chiamato!");
-        if(dishesOfCategory.isEmpty())
-            tvNoDishes.setVisibility(View.VISIBLE);
-        else
-            tvNoDishes.setVisibility(View.INVISIBLE);
         ((MainActivity)getActivity()).getSupportActionBar().setTitle(category);
     }
 
@@ -97,6 +96,24 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.d("DISH_FRAGMENT", "onDestroy chiamato!");
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        int selectedPosition = item.getGroupId();
+        OfferModel selectedOffer = dishesOfCategory.get(selectedPosition);
+
+        switch (item.getItemId()) {
+            case 1:
+                AlertDialog.Builder removeAlertDialog = new AlertDialog.Builder(getActivity());
+                removeAlertDialog.setTitle("Do you really want to remove dish " + selectedOffer.getName() + "?");
+                removeAlertDialog.setPositiveButton("OK", (dialog, which) -> removeOffer(selectedPosition, selectedOffer));
+                removeAlertDialog.setNegativeButton("CANCEL", (dialog, which) -> {});
+                removeAlertDialog.show();
+                return true;
+
+            default: return super.onContextItemSelected(item);
+        }
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -144,7 +161,28 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                 dishesOfCategory.add(offerDish);
                 dishesListAdapter.notifyItemInserted(dishesOfCategory.size() - 1);
                 // TODO visualizzare il dato aggiunto secondo un ordine prestabilito
+                if(tvNoDishes.getVisibility() == View.VISIBLE)
+                    tvNoDishes.setVisibility(View.INVISIBLE);
             }
         }
+    }
+
+    private void removeOffer(int selectedPosition, OfferModel selectedOffer) {
+        MainActivity.offersData.remove(selectedOffer.getId());
+        dishesOfCategory.remove(selectedPosition);
+        dishesListAdapter.notifyItemRemoved(selectedPosition);
+        dishesListAdapter.notifyItemRangeChanged(selectedPosition, dishesOfCategory.size());
+        if(dishesOfCategory.isEmpty())
+            tvNoDishes.setVisibility(View.VISIBLE);
+        View.OnClickListener snackbarListener = v -> {
+            MainActivity.offersData.put(selectedOffer.getId(), selectedOffer);
+            dishesOfCategory.add(selectedPosition, selectedOffer);
+            dishesListAdapter.notifyItemInserted(selectedPosition);
+            dishesListAdapter.notifyItemRangeChanged(selectedPosition, dishesOfCategory.size());
+            if(tvNoDishes.getVisibility() == View.VISIBLE)
+                tvNoDishes.setVisibility(View.INVISIBLE);
+        };
+        Snackbar.make(view, getString(R.string.snackbar_offer_remove), Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.snackbar_offer_undo), snackbarListener).show();
     }
 }

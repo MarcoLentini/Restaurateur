@@ -37,7 +37,7 @@ public class EditCategoryActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(v -> finish());
         btnSave = findViewById(R.id.etOfferBtnSave);
         btnSave.setOnClickListener(v -> {
-            if(validateCategoryInput()) {
+            if(validateCategoryInput()) { // TODO verificare che il nuovo nome non sia già presente nella lista delle categorie
                 Intent retIntent = new Intent(getApplicationContext(), OffersCategoryFragment.class);
                 Bundle bn = new Bundle();
                 bn.putInt("selectedPosition", receivedIntent.getExtras().getInt("selectedPosition"));

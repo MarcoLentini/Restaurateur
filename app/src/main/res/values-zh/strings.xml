@@ -131,4 +131,7 @@
     <string name="snackbar_category_removed">Category removed</string>
     <string name="snackbar_category_edited">Category modified</string>
     <string name="snackbar_category_undo">UNDO</string>
+    <string name="remove_dish_item">Remove</string>
+    <string name="snackbar_offer_remove">Offer removed</string>
+    <string name="snackbar_offer_undo">UNDO</string>
 </resources>

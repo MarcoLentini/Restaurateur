@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +89,7 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
         return dataSet.size();
     }
 
-    class DishesViewHolder extends RecyclerView.ViewHolder {
+    class DishesViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         TextView textViewFoodId;
         TextView textViewFoodName;
@@ -103,6 +104,13 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
             this.textViewPriceOffer = itemView.findViewById(R.id.textViewPriceOfferValue);
             this.textViewQuantityOffer = itemView.findViewById(R.id.textViewQuantityOfferValue);
             this.offer_food_pic = itemView.findViewById(R.id.offer_food_pic);
+            itemView.setOnCreateContextMenuListener(this);
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            // I pass as first param to menu.add(...) the current adapter position that will be read in OffersDishFragment
+            menu.add(this.getAdapterPosition(), 1, 1, R.string.remove_dish_item);
         }
     }
 }
