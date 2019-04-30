@@ -170,5 +170,6 @@
     <string name="edit_category_title">Edit category</string>
     <string name="snackbar_category_removed">Category removed</string>
     <string name="snackbar_category_edited">Category modified</string>
+    <string name="snackbar_category_undo">UNDO</string>
 
 </resources>

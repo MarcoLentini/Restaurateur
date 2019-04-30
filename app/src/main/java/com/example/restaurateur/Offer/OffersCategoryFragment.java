@@ -1,5 +1,6 @@
 package com.example.restaurateur.Offer;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -99,20 +100,12 @@ public class OffersCategoryFragment extends Fragment {
                 return true;
 
             case 2:
-                MainActivity.categoriesData.remove(selectedPosition);
-                categoriesAdapter.notifyItemRemoved(selectedPosition);
-                categoriesAdapter.notifyItemRangeChanged(selectedPosition, MainActivity.categoriesData.size());
-                if(MainActivity.categoriesData.isEmpty())
-                    tvNoCategories.setVisibility(View.VISIBLE);
-                View.OnClickListener snackbarListener = v -> {
-                    MainActivity.categoriesData.add(selectedCategory);
-                    categoriesAdapter.notifyItemInserted(selectedPosition);
-                    categoriesAdapter.notifyItemRangeChanged(selectedPosition, MainActivity.categoriesData.size());
-                    if(tvNoCategories.getVisibility() == View.VISIBLE)
-                        tvNoCategories.setVisibility(View.INVISIBLE);
-                };
-                Snackbar.make(view, getString(R.string.snackbar_category_removed), Snackbar.LENGTH_LONG)
-                        .setAction("Annulla", snackbarListener).show();
+                AlertDialog.Builder removeAlertDialog = new AlertDialog.Builder(getActivity());
+                removeAlertDialog.setTitle("Do you really want to remove category " + selectedCategory.getCategoryName() + "?");
+                removeAlertDialog.setMessage("NOTE: removing the category you will delete also the dishes inside!");
+                removeAlertDialog.setPositiveButton("OK", (dialog, which) -> removeCategory(selectedPosition, selectedCategory));
+                removeAlertDialog.setNegativeButton("CANCEL", (dialog, which) -> {});
+                removeAlertDialog.show();
                 return true;
 
             default: return super.onContextItemSelected(item);
@@ -144,5 +137,22 @@ public class OffersCategoryFragment extends Fragment {
             }
 
         }
+    }
+
+    private void removeCategory(int selectedPosition, Category selectedCategory) {
+        MainActivity.categoriesData.remove(selectedPosition);
+        categoriesAdapter.notifyItemRemoved(selectedPosition);
+        categoriesAdapter.notifyItemRangeChanged(selectedPosition, MainActivity.categoriesData.size());
+        if(MainActivity.categoriesData.isEmpty())
+            tvNoCategories.setVisibility(View.VISIBLE);
+        View.OnClickListener snackbarListener = v -> {
+            MainActivity.categoriesData.add(selectedPosition, selectedCategory);
+            categoriesAdapter.notifyItemInserted(selectedPosition);
+            categoriesAdapter.notifyItemRangeChanged(selectedPosition, MainActivity.categoriesData.size());
+            if(tvNoCategories.getVisibility() == View.VISIBLE)
+                tvNoCategories.setVisibility(View.INVISIBLE);
+        };
+        Snackbar.make(view, getString(R.string.snackbar_category_removed), Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.snackbar_category_undo), snackbarListener).show();
     }
 }
