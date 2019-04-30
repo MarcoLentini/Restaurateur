@@ -16,5 +16,4 @@ public class Category {
         this.category = category;
     }
 
-
 }

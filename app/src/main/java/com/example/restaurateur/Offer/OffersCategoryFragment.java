@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,16 +25,14 @@ public class OffersCategoryFragment extends Fragment {
 
     private static final int ADD_CATEGORY_ACTIVITY = 1;
     private static final int EDIT_CATEGORY_ACTIVITY = 2;
-    private FloatingActionButton fabCategory;
+    private View view;
     private RecyclerView.Adapter categoriesAdapter;
     private TextView tvNoCategories;
-    //private ArrayList<Category> categoriesList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("CAT_FRAGMENT", "onCreate(...) chiamato una volta sola!");
-        //categoriesList = new ArrayList<>(MainActivity.categoriesData.values());
     }
 
     @Override
@@ -41,9 +40,11 @@ public class OffersCategoryFragment extends Fragment {
 
         Log.d("CAT_FRAGMENT", "onCreateView chiamato!");
         //Returning the layout file after inflating
-        View view = inflater.inflate(R.layout.fragment_category_offers, container, false);
+        view = inflater.inflate(R.layout.fragment_category_offers, container, false);
         tvNoCategories = view.findViewById(R.id.textViewCategoryOffers);
-        fabCategory = view.findViewById(R.id.fabAddCategory);
+        if(MainActivity.categoriesData.isEmpty())
+            tvNoCategories.setVisibility(View.VISIBLE);
+        FloatingActionButton fabCategory = view.findViewById(R.id.fabAddCategory);
         fabCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,10 +69,6 @@ public class OffersCategoryFragment extends Fragment {
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
         ((MainActivity)getActivity()).getSupportActionBar().setTitle(R.string.offers_title);
-        if(MainActivity.categoriesData.isEmpty()) // TODO split if-else and move in the function where the user inserts/deletes category
-            tvNoCategories.setVisibility(View.VISIBLE);
-        else
-            tvNoCategories.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -89,11 +86,12 @@ public class OffersCategoryFragment extends Fragment {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         int selectedPosition = item.getGroupId();
+        Category selectedCategory = MainActivity.categoriesData.get(selectedPosition);
+
         switch (item.getItemId()) {
             case 1:
                 Intent myIntent = new Intent(getActivity(), EditCategoryActivity.class);
                 Bundle bn = new Bundle();
-                Category selectedCategory = MainActivity.categoriesData.get(selectedPosition);
                 bn.putInt("selectedPosition", selectedPosition);
                 bn.putString("categoryName", selectedCategory.getCategoryName());
                 myIntent.putExtras(bn);
@@ -104,6 +102,17 @@ public class OffersCategoryFragment extends Fragment {
                 MainActivity.categoriesData.remove(selectedPosition);
                 categoriesAdapter.notifyItemRemoved(selectedPosition);
                 categoriesAdapter.notifyItemRangeChanged(selectedPosition, MainActivity.categoriesData.size());
+                if(MainActivity.categoriesData.isEmpty())
+                    tvNoCategories.setVisibility(View.VISIBLE);
+                View.OnClickListener snackbarListener = v -> {
+                    MainActivity.categoriesData.add(selectedCategory);
+                    categoriesAdapter.notifyItemInserted(selectedPosition);
+                    categoriesAdapter.notifyItemRangeChanged(selectedPosition, MainActivity.categoriesData.size());
+                    if(tvNoCategories.getVisibility() == View.VISIBLE)
+                        tvNoCategories.setVisibility(View.INVISIBLE);
+                };
+                Snackbar.make(view, getString(R.string.snackbar_category_removed), Snackbar.LENGTH_LONG)
+                        .setAction("Annulla", snackbarListener).show();
                 return true;
 
             default: return super.onContextItemSelected(item);
@@ -121,6 +130,8 @@ public class OffersCategoryFragment extends Fragment {
                 Category category = new Category(categoryName);
                 MainActivity.categoriesData.add(category);
                 categoriesAdapter.notifyItemInserted(MainActivity.categoriesData.size() - 1);
+                if(tvNoCategories.getVisibility() == View.VISIBLE)
+                    tvNoCategories.setVisibility(View.INVISIBLE);
             }
 
             if (requestCode == EDIT_CATEGORY_ACTIVITY) {
@@ -128,6 +139,8 @@ public class OffersCategoryFragment extends Fragment {
                 String categoryName = data.getStringExtra("categoryName");
                 MainActivity.categoriesData.get(position).setCategoryName(categoryName);
                 categoriesAdapter.notifyItemChanged(position);
+                Snackbar.make(view, getString(R.string.snackbar_category_edited), Snackbar.LENGTH_LONG)
+                        .show();
             }
 
         }

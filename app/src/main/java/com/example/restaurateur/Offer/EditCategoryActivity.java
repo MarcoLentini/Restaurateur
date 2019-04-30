@@ -37,7 +37,7 @@ public class EditCategoryActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(v -> finish());
         btnSave = findViewById(R.id.etOfferBtnSave);
         btnSave.setOnClickListener(v -> {
-            if(validateFoodInput()) {
+            if(validateCategoryInput()) {
                 Intent retIntent = new Intent(getApplicationContext(), OffersCategoryFragment.class);
                 Bundle bn = new Bundle();
                 bn.putInt("selectedPosition", receivedIntent.getExtras().getInt("selectedPosition"));
@@ -56,7 +56,7 @@ public class EditCategoryActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean validateFoodInput() {
+    private boolean validateCategoryInput() {
         String foodCategoryInput = etFoodCategory.getText().toString();
         if(foodCategoryInput.isEmpty()){
             textInputFoodCategory.setError("Field can't be empty");

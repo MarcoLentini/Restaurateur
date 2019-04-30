@@ -33,15 +33,17 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
     @Override
     public CategoriesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.category_cardview, parent, false);
-        
+        CategoriesViewHolder holder = new CategoriesViewHolder(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    loadFragment(v, new OffersDishFragment(), v.findViewById(R.id.textViewCategoryName));
+                int position = holder.getAdapterPosition();
+                String categoryName = dataSet.get(position).getCategoryName();
+                loadFragment(v, new OffersDishFragment(), categoryName);
             }
         });
 
-        return new CategoriesViewHolder(view);
+        return holder;
     }
 
     @Override
@@ -50,7 +52,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         TextView textViewCategoryName = categoriesViewHolder.textViewCategoryName;
 
         Category tmpRM = dataSet.get(position);
-        textViewCategoryName.setText("" + tmpRM.getCategoryName());
+        textViewCategoryName.setText(tmpRM.getCategoryName());
     }
 
     @Override
@@ -76,12 +78,11 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         }
     }
 
-    private void loadFragment(View view, android.support.v4.app.Fragment fragment,TextView v) {
+    private void loadFragment(View view, android.support.v4.app.Fragment fragment, String categoryName) {
         // load fragment
         FragmentTransaction transaction = ((FragmentActivity)view.getContext()).getSupportFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
-        String category = v.getText().toString();
-        bundle.putString("Category", category);
+        bundle.putString("Category", categoryName);
         // set Fragment class Arguments
         fragment.setArguments(bundle);
         transaction.replace(R.id.frame_container_main, fragment, "DishesOffers");

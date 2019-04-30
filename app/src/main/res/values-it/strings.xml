@@ -152,4 +152,6 @@
     <string name="edit_category_item">Edit</string>
     <string name="remove_category_item">Remove</string>
     <string name="edit_category_title">Modifica categoria</string>
+    <string name="snackbar_category_removed">Category removed</string>
+    <string name="snackbar_category_edited">Category modified</string>
 </resources>
