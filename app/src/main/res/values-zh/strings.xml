@@ -126,4 +126,6 @@
     <string name="str_messagecustomer">messageCustomer</string>
     <string name="str_callcustonmer">callCustonmer</string>
     <string name="action_settings_firebase">Firebase Account</string>
+    <string name="edit_category_item">Edit</string>
+    <string name="remove_category_item">Remove</string>
 </resources>

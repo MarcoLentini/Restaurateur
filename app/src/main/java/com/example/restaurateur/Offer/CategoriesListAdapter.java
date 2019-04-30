@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         TextView textViewCategoryName = categoriesViewHolder.textViewCategoryName;
 
         Category tmpRM = dataSet.get(position);
-        textViewCategoryName.setText("" + tmpRM.getCategory());
+        textViewCategoryName.setText("" + tmpRM.getCategoryName());
     }
 
     @Override
@@ -57,13 +58,21 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         return dataSet.size();
     }
 
-    static class CategoriesViewHolder extends RecyclerView.ViewHolder {
+    public static class CategoriesViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         TextView textViewCategoryName;
 
         CategoriesViewHolder(View itemView) {
             super(itemView);
             this.textViewCategoryName = itemView.findViewById(R.id.textViewCategoryName);
+            itemView.setOnCreateContextMenuListener(this);
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            // I pass as first param to menu.add(...) the current adapter position that will be read in OffersCategoryFragment
+            menu.add(this.getAdapterPosition(), 1, 1, R.string.edit_category_item);
+            menu.add(this.getAdapterPosition(), 2, 2, R.string.remove_category_item);
         }
     }
 

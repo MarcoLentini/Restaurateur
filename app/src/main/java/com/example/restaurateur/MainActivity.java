@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<ReservationModel> inProgressReservationsData;
     public static ArrayList<ReservationModel> finishedReservationsData;
     public static HashMap<Integer, OfferModel> offersData;
-    public static HashMap<String, Category> categoriesData;
+    public static ArrayList<Category> categoriesData;
     public static int idDishes = 26; //TODO idDishes and image_id for dishes are to be removed
     //TODO:per scegliere id image a caso tra quelli dati (da togliere percò non so come recuperare l'immagine dei dishes immassa
     public static int[] availableImageId = {R.drawable.ic_offer_pizza, R.drawable.ic_offer_cake, R.drawable.ic_offer_coffee, R.drawable.ic_offer_fries};
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         pendingReservationsData = new ArrayList<>();
         inProgressReservationsData = new ArrayList<>();
         finishedReservationsData = new ArrayList<>();
-        categoriesData = new HashMap<>();
+        categoriesData = new ArrayList<>();
         offersData = new HashMap<>();
         // fillWithStaticData() is used to put data into the previous ArrayLists and the HashMap
         fillWithStaticData();
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
 
         for(int i = 0; i< MyCategories.categories.length; i++)
         {
-            categoriesData.put(MyCategories.categories[i], new Category(MyCategories.categories[i]));
+            categoriesData.add(new Category(MyCategories.categories[i]));
         }
 
         for(int i = 0; i < MyOffersData.id.length; i++) {

@@ -164,5 +164,9 @@
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
     <string name="action_settings_firebase">Firebase Account</string>
     <string name="total_num_products">Numero Totale di Prodotti</string>
+    <!-- Offers - Category -->
+    <string name="edit_category_item">Edit</string>
+    <string name="remove_category_item">Remove</string>
+    <string name="edit_category_title">Edit category</string>
 
 </resources>

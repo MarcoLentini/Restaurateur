@@ -123,8 +123,8 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                 om.setQuantity(foodQuantity);
                 om.setState(foodState);
                 dishesListAdapter.notifyDataSetChanged(); // TODO find a better way to update
-                if(MainActivity.categoriesData.get(foodCategory) == null) // TODO update also the category when the if is executed
-                    MainActivity.categoriesData.put(foodCategory, new Category(foodCategory));
+                //if(MainActivity.categoriesData.get(foodCategory) == null) // TODO update also the category when the if is executed
+                //    MainActivity.categoriesData.put(foodCategory, new Category(foodCategory));
             }
 
             if(requestCode == ADD_FOOD_OFFER_ACTIVITY) {

@@ -149,4 +149,7 @@
     <string name="minimum_password">Password troppo corta, inserisci almeno 6 caratteri!</string>
     <string name="new_pass">Nuova Password</string>
     <string name="remove_user">Cancella Utente</string>
+    <string name="edit_category_item">Edit</string>
+    <string name="remove_category_item">Remove</string>
+    <string name="edit_category_title">Modifica categoria</string>
 </resources>
