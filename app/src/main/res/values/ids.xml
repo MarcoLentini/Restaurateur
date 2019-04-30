@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--id in the page of reservation_detail_info_in_progress.xml -->
+    <item name="btnRejectOrderInProgress" type="id"/>
+    <item name="btnAcceptOrderInProgress" type="id"/>
+    <item name="tvPhoneInProgress" type="id"/>
+    <item name="tvNameInProgress" type="id"/>
+    <item name="tvRemarkInProgress" type="id"/>
+    <item name="orderDetailInfoInProgress" type="id"/>
+    <item name="textViewTotalIncomeInProgress" type="id"/>
+    <item name="textViewRemainingTimeInProgress" type="id"/>
+    <item name="textViewOrderIdInProgress" type="id"/>
+    <item name="reservation_detail_info_in_progress" type="id"/>
+    <item name="imageViewMsgInProgress" type="id"/>
+    <item name="imageViewPhoneInProgress" type="id"/>
+
+    <!--id in the page of reservation_detail_info_finished.xml -->
+    <item name="btnRejectOrderFinished" type="id"/>
+    <item name="btnAcceptOrderFinished" type="id"/>
+    <item name="tvPhoneFinished" type="id"/>
+    <item name="tvNameFinished" type="id"/>
+    <item name="tvRemarkFinished" type="id"/>
+    <item name="orderDetailInfoFinished" type="id"/>
+     <item name="textViewTotalIncomeFinished" type="id"/>
+    <item name="textViewRemainingTimeFinished" type="id"/>
+    <item name="textViewOrderIdFinished" type="id"/>
+    <item name="reservation_detail_info_finished" type="id"/>
+
+
+    <item name="imageViewMsgFinished" type="id"/>
+    <item name="imageViewPhoneFinished" type="id"/>
+
+</resources>

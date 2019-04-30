@@ -60,7 +60,7 @@
         <item name="android:buttonStyle">
             @style/Widget.AppCompat.Button.Borderless.Colored
         </item>
-        <item name="colorAccent">#FFAB40</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
     <style name="ButtonAccept">
@@ -71,5 +71,10 @@
     <style name="ButtonReject">
         <item name="android:background">@color/colorLightGray</item>
         <item name="android:textColor">@color/colorSecondaryText</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 </resources>

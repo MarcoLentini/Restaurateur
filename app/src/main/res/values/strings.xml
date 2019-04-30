@@ -46,7 +46,6 @@
     <string name="ok_button">OK</string>
     <string name="cancel_button">CANCEL</string>
 
-
     <!-- Password -->
     <string name="password_title">Change Password</string>
     <string name="insert_old_password">Insert your actual password</string>
@@ -70,23 +69,100 @@
     <string name="perm_denied">Permission Denied</string>
     <string name="action_settings">Information</string>
 
-    <!--order page-->
-    <string name="total_num_products">Total Number Of Products</string>
-    <string name="remarks">Remarks</string>
-    <string name="Button_Accept">Accept</string>
-    <string name="Button_Reject">Reject</string>
-    <string name="total_income_info">Total income of this order</string>
+    <!--main_layout page-->
+    <string name="button_reservation_accept">Accept</string>
+    <string name="button_reservation_reject">Reject</string>
+    <string name="button_reservation_finish">Finish</string>
+    <string name="button_reservation_resume">Resume</string>
+    <string name="button_reservation_remove">Remove</string>
+    <string name="total_income_info">Total income </string>
+    <string name="notes">notes!</string>
 
-    <!-- order tabs -->
-    <string name="reservation_title">Reservation</string>
-    <string name="accepted_label">Accepted</string>
+    <!-- main_layout tabs -->
+    <string name="reservation_title">Reservations</string>
+    <string name="accepted_label">In progress</string>
     <string name="pending_label">Pending</string>
-    <string name="refused_label">Refused</string>
+    <string name="refused_label">Finished</string>
+
+    <!-- reservation card detail mode -->
+    <string name="reservation_details_title">Reservation details</string>
+    <string name="remarks">Notes</string>
 
     <!-- offers tabs-->
     <string name="offers_title">Offers</string>
     <string name="active_label">Active</string>
     <string name="disabled_label">Disabled</string>
+    <string name="history_title">History</string>
 
+    <string name="home_title">Home</string>
+
+    <string name="button_save">Save</string>
+    <string name="add_new_category">Insert the name of the new category</string>
+    <string name="new_category_title">Add new category</string>
+    <string name="invalid_category">Invalid category</string>
+
+    <string name="title_new_food">Add food offer</string>
+    <string name="no_dishes_offers">There are no dishes in this category</string>
+    <string name="no_category_offers">There is no category</string>
+
+
+    <!-- in offer_item_info.xml-->
+    <string name="FoodPic">Food Pictrue</string>
+    <string name="FoodQuantityValue">29</string>
+    <string name="FoodPriceValue">10</string>
+    <string name="FoodName">Food Name</string>
+    <string name="FoodCategory">Insert category</string>
+
+    <string name="FoodQuantity">Quantity</string>
+    <string name="FoodPrice">Price</string>
+    <string name="futureDevelopment">For future Development....</string>
+
+    <string name="hint_food_short_description">short description</string>
+
+    <!-- No need to translate -->
+    <string name="str_orderid">124</string>
+    <string name="str_time">15min</string>
+    <string name="str_income">10</string>
+    <string name="str_foodName">Pizza margherita</string>
+    <string name="str_number">x1</string>
+    <string name="str_foodprice">5€</string>
+    <string name="str_remark">do not put so much chilly this is a notice you can write as many words as you want plesae leave more notice here</string>
+    <string name="str_customer_name">Mr Wrong</string>
+    <string name="str_phonenumber">33456832901</string>
+    <string name="str_messagecustomer">messageCustomer</string>
+    <string name="str_callcustonmer">callCustonmer</string>
+    <string name="title_activity_edit_dishes">EditDishesActivity</string>
+    <string name="show_dish">Edit dish</string>
+
+
+    <string name="action_sign_in_short">Register</string>
+    <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
+    <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
+    <string name="change_email">Change Email</string>
+    <string name="change_password">Change Password</string>
+    <string name="send_password_reset_email">Send Password reset email</string>
+    <string name="remove_user">Remove user</string>
+    <string name="new_pass">New Password</string>
+    <string name="title_activity_profile">Firebase</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_name">Fullname</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_link_to_register">Not a member? Get registered in now!</string>
+    <string name="btn_link_to_login">Already registered. Login Me!</string>
+    <string name="title_activity_reset_password">ResetPasswordActivity</string>
+    <string name="btn_forgot_password">Forgot your password?</string>
+    <string name="btn_reset_password">Reset Password</string>
+    <string name="btn_back"><![CDATA[<< Back]]></string>
+    <string name="hint_new_email">New Email</string>
+    <string name="btn_change">Change</string>
+    <string name="btn_send">Send</string>
+    <string name="btn_remove">Remove</string>
+    <string name="btn_sign_out">Sign Out</string>
+    <string name="lbl_forgot_password">Forgot password?</string>
+    <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
+    <string name="action_settings_firebase">Firebase Account</string>
+    <string name="total_num_products">Numero Totale di Prodotti</string>
 
 </resources>

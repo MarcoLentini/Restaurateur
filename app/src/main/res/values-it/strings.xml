@@ -66,18 +66,87 @@
     <string name="image_disappear">L\'immagine selezionata non è più disponibile</string>
     <string name="action_settings">Informazioni</string>
 
-    <!--order page-->
+    <!-- main_layout page-->
     <string name="total_num_products">Total Number Of Products</string>
     <string name="remarks">Remarks</string>
-    <string name="Button_Accept">Accept Order</string>
-    <string name="Button_Reject">Reject Order</string>
-    <string name="total_income_info">Total income of this order</string>
+    <string name="button_reservation_accept">Accetta</string>
+    <string name="button_reservation_reject">Rifiuta</string>
+    <string name="button_reservation_finish">Termina</string>
+    <string name="button_reservation_resume">Ripristina</string>
+    <string name="button_reservation_remove">Rimuovi</string>
+    <string name="total_income_info">Totale</string>
     <string name="offers_title">Offerte</string>
-    <string name="pending_label">In attesa</string>
+    <string name="pending_label">In arrivo</string>
     <string name="reservation_title">Ordini</string>
-    <string name="accepted_label">Accetati</string>
-    <string name="refused_label">Rifiutati</string>
+    <string name="accepted_label">In gestione</string>
+    <string name="refused_label">Terminati</string>
     <string name="active_label">Attive</string>
     <string name="disabled_label">Disattive</string>
+    <string name="history_title">Storico</string>
 
+
+    <string name="home_title">Home</string>
+
+     <string name="button_save">SAVE</string>
+    <!--add_new_category.xml-->
+    <string name="add_new_category">Inserisci il nome della nuova categoria</string>
+    <string name="new_category_title">Nuova categoria</string>
+    <string name="invalid_category">Categoria invalida</string>
+    <string name="title_new_food">Aggiungi offerta</string>
+    <string name="no_dishes_offers">Non ci sono piatti disponibili in questa categoria</string>
+    <string name="no_category_offers">Non ci sono categorie disponibili</string>
+
+
+    <!-- in offer_item_info.xml-->
+    <string name="FoodPic">Food Pictrue</string>
+    <string name="FoodQuantityValue">29</string>
+    <string name="FoodPriceValue">10</string>
+
+    <string name="FoodName">Nome del cibo</string>
+    <string name="FoodQuantity">Quantità</string>
+    <string name="FoodPrice">Prezzo</string>
+    <string name="futureDevelopment">For future Development....</string>
+    <string name="primi">Primi</string>
+    <string name="notes">notes!</string>
+
+    <string name="hint_food_short_description">Descrizione di food</string>
+    <string name="str_orderid">124</string>
+    <string name="str_time">15min</string>
+    <string name="str_income">10</string>
+    <string name="str_foodName">Pizza margherita</string>
+    <string name="str_number">x1</string>
+    <string name="str_foodprice">5€</string>
+    <string name="str_remark">do not put so much chilly this is a notice you can write as many words as you want plesae leave more notice here</string>
+    <string name="str_customer_name">Mr Wrong</string>
+    <string name="str_phonenumber">33456832901</string>
+    <string name="str_messagecustomer">messageCustomer</string>
+    <string name="str_callcustonmer">callCustonmer</string>
+    <string name="show_dish">Il tuo piatto</string>
+    <string name="FoodCategory">Inserisci categoria</string>
+    <string name="reservation_details_title">Dettagli ordine</string>
+    <string name="action_settings_firebase">Firebase Account</string>
+    <string name="action_sign_in_short">Registrati</string>
+    <string name="auth_failed">Autenticazione fallita, controlla la tua email e password o registrati</string>
+    <string name="btn_back"><![CDATA[<< Indietro]]></string>
+    <string name="btn_change">Cambia</string>
+    <string name="btn_forgot_password">Password dimenticata?</string>
+    <string name="btn_link_to_login">Sei già registrato. Fai il login!</string>
+    <string name="btn_link_to_register">Non sei ancora registrato? Fallo ora!</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_remove">Rimuovi</string>
+    <string name="btn_reset_password">Reset Password</string>
+    <string name="btn_send">Invia</string>
+    <string name="btn_sign_out">Esci dall\'account</string>
+    <string name="change_email">Cambia Email</string>
+    <string name="change_password">Cambia Password</string>
+    <string name="email">Email</string>
+    <string name="forgot_password_msg">Abbiamo bisogno solo della tua Email di registrazione per inviarti le istruzioni per il reset della password</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_name">Nome Completo</string>
+    <string name="hint_new_email">Nuova Email</string>
+    <string name="hint_password">Password</string>
+    <string name="lbl_forgot_password">Password dimenticata?</string>
+    <string name="minimum_password">Password troppo corta, inserisci almeno 6 caratteri!</string>
+    <string name="new_pass">Nuova Password</string>
+    <string name="remove_user">Cancella Utente</string>
 </resources>
