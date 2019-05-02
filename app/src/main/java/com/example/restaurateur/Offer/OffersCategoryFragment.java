@@ -27,6 +27,7 @@ public class OffersCategoryFragment extends Fragment {
     private static final int ADD_CATEGORY_ACTIVITY = 1;
     private static final int EDIT_CATEGORY_ACTIVITY = 2;
     private View view;
+    private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter categoriesAdapter;
     private TextView tvNoCategories;
 
@@ -55,7 +56,7 @@ public class OffersCategoryFragment extends Fragment {
             }
         });
         RecyclerView recyclerView = view.findViewById(R.id.CategoryOfferRecyclerView);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         categoriesAdapter = new CategoriesListAdapter(getContext(), MainActivity.categoriesData);
         recyclerView.setAdapter(categoriesAdapter);
@@ -142,17 +143,21 @@ public class OffersCategoryFragment extends Fragment {
     private void removeCategory(int selectedPosition, Category selectedCategory) {
         MainActivity.categoriesData.remove(selectedPosition);
         categoriesAdapter.notifyItemRemoved(selectedPosition);
-        categoriesAdapter.notifyItemRangeChanged(selectedPosition, MainActivity.categoriesData.size());
         if(MainActivity.categoriesData.isEmpty())
             tvNoCategories.setVisibility(View.VISIBLE);
         View.OnClickListener snackbarListener = v -> {
             MainActivity.categoriesData.add(selectedPosition, selectedCategory);
             categoriesAdapter.notifyItemInserted(selectedPosition);
-            categoriesAdapter.notifyItemRangeChanged(selectedPosition, MainActivity.categoriesData.size());
+            restoreScrollPositionAfterUndo();
             if(tvNoCategories.getVisibility() == View.VISIBLE)
                 tvNoCategories.setVisibility(View.INVISIBLE);
         };
         Snackbar.make(view, getString(R.string.snackbar_category_removed), Snackbar.LENGTH_LONG)
                 .setAction(getString(R.string.snackbar_category_undo), snackbarListener).show();
+    }
+
+    private void restoreScrollPositionAfterUndo() {
+        if(((LinearLayoutManager)layoutManager).findFirstVisibleItemPosition() == 0)
+            layoutManager.scrollToPosition(0);
     }
 }

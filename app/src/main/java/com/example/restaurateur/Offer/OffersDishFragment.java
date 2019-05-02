@@ -29,6 +29,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
     private static final int ADD_FOOD_OFFER_ACTIVITY = 2;
     private static final int EDIT_DISHES_ACTIVITY = 3;
     private RecyclerView.Adapter dishesListAdapter;
+    private RecyclerView.LayoutManager layoutManager;
     private String category;
     private TextView tvNoDishes;
     private ArrayList<OfferModel> dishesOfCategory;
@@ -71,7 +72,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         // in content do not change the layout size of the RecyclerView
         /*recyclerView.setHasFixedSize(true);*/
         // use tvNoDishes linear layout manager
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         dishesListAdapter = new DishesListAdapter(getContext(), dishesOfCategory, this);
         recyclerView.setAdapter(dishesListAdapter);
@@ -103,17 +104,26 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         int selectedPosition = item.getGroupId();
         OfferModel selectedOffer = dishesOfCategory.get(selectedPosition);
 
-        switch (item.getItemId()) {
-            case 1:
-                AlertDialog.Builder removeAlertDialog = new AlertDialog.Builder(getActivity());
-                removeAlertDialog.setTitle("Do you really want to remove dish " + selectedOffer.getName() + "?");
-                removeAlertDialog.setPositiveButton("OK", (dialog, which) -> removeOffer(selectedPosition, selectedOffer));
-                removeAlertDialog.setNegativeButton("CANCEL", (dialog, which) -> {});
-                removeAlertDialog.show();
-                return true;
-
-            default: return super.onContextItemSelected(item);
+        if (item.getItemId() == 1) {
+            AlertDialog.Builder removeAlertDialog = new AlertDialog.Builder(getActivity());
+            removeAlertDialog.setTitle(getString(R.string.alert_dialog_offer_remove).
+                    concat(" " + selectedOffer.getName())  + "?");
+            removeAlertDialog.setPositiveButton(R.string.alert_dialog_offer_remove_btn_ok, (dialog, which) -> removeOffer(selectedPosition, selectedOffer));
+            removeAlertDialog.setNegativeButton(R.string.alert_dialog_offer_remove_btn_cancel, (dialog, which) -> {});
+            removeAlertDialog.show();
+            return true;
         }
+
+        if(MainActivity.categoriesData.size() > 1) {
+            if(item.getItemId() >= 21) {
+                String newCategory = item.getTitle().toString();
+                selectedOffer.setCategory(newCategory);
+                dishesListAdapter.notifyItemRemoved(selectedPosition);
+                Snackbar.make(view, getString(R.string.snackbar_offer_category_changed).concat(" " + newCategory), Snackbar.LENGTH_LONG).show();
+            }
+        }
+
+        return super.onContextItemSelected(item);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -123,7 +133,6 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         if(resultCode == RESULT_OK) {
 
             if (requestCode == EDIT_DISHES_ACTIVITY) {
-                String foodCategory = data.getExtras().getString("foodCategory");
                 String foodName = data.getExtras().getString("foodName");
                 String foodDescription = data.getExtras().getString("foodDescription");
                 int foodId = data.getExtras().getInt("foodId");
@@ -132,7 +141,6 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                 Double foodPrice = data.getExtras().getDouble("foodPrice");
                 String foodState = data.getExtras().getString("fooodState");
                 OfferModel om = MainActivity.offersData.get(foodId);
-                om.setCategory(foodCategory);
                 om.setDescription(foodDescription);
                 om.setImage(foodImage);
                 om.setName(foodName);
@@ -140,8 +148,6 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                 om.setQuantity(foodQuantity);
                 om.setState(foodState);
                 dishesListAdapter.notifyDataSetChanged(); // TODO find a better way to update
-                //if(MainActivity.categoriesData.get(foodCategory) == null) // TODO update also the category when the if is executed
-                //    MainActivity.categoriesData.put(foodCategory, new Category(foodCategory));
             }
 
             if(requestCode == ADD_FOOD_OFFER_ACTIVITY) {
@@ -171,18 +177,22 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         MainActivity.offersData.remove(selectedOffer.getId());
         dishesOfCategory.remove(selectedPosition);
         dishesListAdapter.notifyItemRemoved(selectedPosition);
-        dishesListAdapter.notifyItemRangeChanged(selectedPosition, dishesOfCategory.size());
         if(dishesOfCategory.isEmpty())
             tvNoDishes.setVisibility(View.VISIBLE);
         View.OnClickListener snackbarListener = v -> {
             MainActivity.offersData.put(selectedOffer.getId(), selectedOffer);
             dishesOfCategory.add(selectedPosition, selectedOffer);
             dishesListAdapter.notifyItemInserted(selectedPosition);
-            dishesListAdapter.notifyItemRangeChanged(selectedPosition, dishesOfCategory.size());
+            restoreScrollPositionAfterUndo();
             if(tvNoDishes.getVisibility() == View.VISIBLE)
                 tvNoDishes.setVisibility(View.INVISIBLE);
         };
         Snackbar.make(view, getString(R.string.snackbar_offer_remove), Snackbar.LENGTH_LONG)
                 .setAction(getString(R.string.snackbar_offer_undo), snackbarListener).show();
+    }
+
+    private void restoreScrollPositionAfterUndo() {
+        if(((LinearLayoutManager)layoutManager).findFirstVisibleItemPosition() == 0)
+            layoutManager.scrollToPosition(0);
     }
 }

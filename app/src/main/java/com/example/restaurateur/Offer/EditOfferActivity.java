@@ -12,8 +12,8 @@ import com.example.restaurateur.R;
 
 public class EditOfferActivity extends AppCompatActivity {
 
-    private TextInputLayout textInputFoodName, textInputFoodCategory, textInputFoodPrice, textInputFoodQuantity, textInputFoodDescription;
-    private EditText etFoodName, etFoodCategory, etFoodPrice, etFoodQuantity, etFoodDescription;
+    private TextInputLayout textInputFoodName, textInputFoodPrice, textInputFoodQuantity, textInputFoodDescription;
+    private EditText etFoodName, etFoodPrice, etFoodQuantity, etFoodDescription;
     private Button btnCancel, btnSave;
 
     @Override
@@ -22,7 +22,6 @@ public class EditOfferActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_dishes);
 
         Intent receivedIntent = getIntent();
-        String foodCategory = receivedIntent.getExtras().getString("foodCategory");
         String foodName = receivedIntent.getExtras().getString("foodName");
         String foodDescription = receivedIntent.getExtras().getString("foodDescription");
         int foodId = receivedIntent.getExtras().getInt("foodId");
@@ -37,13 +36,10 @@ public class EditOfferActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
 
         textInputFoodName = findViewById(R.id.text_input_food_name_e);
-        textInputFoodCategory = findViewById(R.id.text_input_food_category_e);
         textInputFoodPrice = findViewById(R.id.text_input_food_price);
         textInputFoodQuantity = findViewById(R.id.text_input_food_quantity);
         textInputFoodDescription = findViewById(R.id.text_input_food_description);
 
-        etFoodCategory = findViewById(R.id.edit_text_input_food_category_e);
-        etFoodCategory.setText(foodCategory);
         etFoodName = findViewById(R.id.edit_text_input_food_name_e);
         etFoodName.setHorizontallyScrolling(false);
         etFoodName.setLines(2);
@@ -71,7 +67,6 @@ public class EditOfferActivity extends AppCompatActivity {
                     Intent retIntent = new Intent(getApplicationContext(), OffersDishFragment.class);
                     Bundle bn = new Bundle();
                     bn.putInt("foodId", foodId);
-                    bn.putString("foodCategory",etFoodCategory.getText().toString());
                     bn.putString("foodName", etFoodName.getText().toString());
                     bn.putDouble("foodPrice", Double.parseDouble(etFoodPrice.getText().toString()));
                     bn.putInt("foodQuantity", Integer.parseInt(etFoodQuantity.getText().toString()));
@@ -88,7 +83,6 @@ public class EditOfferActivity extends AppCompatActivity {
 
     private boolean validateFoodName() {
         String foodNameInput = etFoodName.getText().toString();
-        String foodCategoryInput = etFoodCategory.getText().toString();
         String foodPriceInput = etFoodPrice.getText().toString();
         String foodQuantityInput = etFoodQuantity.getText().toString();
         String foodDescriptionInput = etFoodDescription.getText().toString();
@@ -97,11 +91,6 @@ public class EditOfferActivity extends AppCompatActivity {
             return false;
         } else
             textInputFoodName.setError(null);
-        if(foodCategoryInput.isEmpty()){
-            textInputFoodCategory.setError("Field can't be empty");
-            return false;
-        } else
-            textInputFoodCategory.setError(null);
         if(foodPriceInput.isEmpty()) {
             textInputFoodPrice.setError("Field can't be empty");
             return false;

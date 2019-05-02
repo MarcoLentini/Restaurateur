@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -38,20 +39,16 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
     public DishesListAdapter.DishesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = mInflater.inflate(R.layout.offer_item_info, parent, false);
-
+        DishesViewHolder holder = new DishesListAdapter.DishesViewHolder(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /*Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
-                        //start a new Activity that you can add food
                 Intent myIntent = new Intent(view.getContext(), EditOfferActivity.class);
-                TextView tvFoodId = v.findViewById(R.id.offer_food_id);
-                int id = Integer.parseInt(tvFoodId.getText().toString());
+                int position = holder.getAdapterPosition();
+                int id = dataSet.get(position).getId();
                 OfferModel selected = MainActivity.offersData.get(id);
                 Bundle bn = new Bundle();
                 bn.putInt("foodId", selected.getId());
-                bn.putString("foodCategory", selected.getCategory());
                 bn.putString("foodName", selected.getName());
                 bn.putDouble("foodPrice", selected.getPrice());
                 bn.putInt("foodQuantity", selected.getQuantity());
@@ -62,7 +59,7 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
                 parentFragment.startActivityForResult(myIntent, EDIT_DISHES_ACTIVITY);
             }});
 
-        return new DishesListAdapter.DishesViewHolder(view);
+        return holder;
     }
 
     @Override
@@ -110,7 +107,20 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             // I pass as first param to menu.add(...) the current adapter position that will be read in OffersDishFragment
-            menu.add(this.getAdapterPosition(), 1, 1, R.string.remove_dish_item);
+            menu.add(this.getAdapterPosition(), 1, 1, R.string.remove_offer_item);
+            if(MainActivity.categoriesData.size() > 1) {
+                SubMenu menuCategory = menu.addSubMenu(this.getAdapterPosition(), 2, 2, "Change category");
+                String currentCategory = dataSet.get(this.getAdapterPosition()).getCategory();
+                int subItemId = 21;
+                int subItemOrder = 1;
+                for (Category c : MainActivity.categoriesData) {
+                    if (!c.getCategoryName().equals(currentCategory)) {
+                        menuCategory.add(this.getAdapterPosition(), subItemId, subItemOrder, c.getCategoryName());
+                        subItemId++;
+                        subItemOrder++;
+                    }
+                }
+            }
         }
     }
 }
