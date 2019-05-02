@@ -9,7 +9,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
 
 public class ReservationsMainFragment extends Fragment implements TabLayout.BaseOnTabSelectedListener {
@@ -17,6 +19,14 @@ public class ReservationsMainFragment extends Fragment implements TabLayout.Base
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private PageReservations pageAdapter;
+    private TextView tvPendingReservationsNumber;
+    private int pendingReservationsNumber;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        pendingReservationsNumber = MainActivity.pendingReservationsData.size();
+    }
 
     @Nullable
     @Override
@@ -25,12 +35,17 @@ public class ReservationsMainFragment extends Fragment implements TabLayout.Base
 
         //Initializing the tablayout
         tabLayout = view.findViewById(R.id.tabLayout_reservations);
-
         //Adding the tabs using addTab() method
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.pending_label));
+        TabLayout.Tab tabPending = tabLayout.newTab();
+        tabPending.setCustomView(R.layout.tab_header_badge);
+        tabPending.setText(R.string.pending_label); // to make setText() work in the xml layout the TextView for the text must have the system Resource ID @android:id/text1
+        tabLayout.addTab(tabPending);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.accepted_label));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.refused_label));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        tvPendingReservationsNumber = view.findViewById(R.id.textViewActiveAlarmBadge);
+        initializeTvPendingReservationsNumber();
 
         //Initializing viewPager
         viewPager = view.findViewById(R.id.pager_reservations);
@@ -78,6 +93,30 @@ public class ReservationsMainFragment extends Fragment implements TabLayout.Base
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
 
+    }
+
+    private void initializeTvPendingReservationsNumber() {
+        if(pendingReservationsNumber > 0) {
+            tvPendingReservationsNumber.setText(String.valueOf(pendingReservationsNumber));
+            tvPendingReservationsNumber.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void incrementPendingReservationsNumber() {
+        if(pendingReservationsNumber == 0)
+            tvPendingReservationsNumber.setVisibility(View.VISIBLE);
+        pendingReservationsNumber++;
+        tvPendingReservationsNumber.setText(String.valueOf(pendingReservationsNumber));
+    }
+
+    public void decrementPendingReservationsNumber() {
+        if(pendingReservationsNumber >= 1) {
+            if(pendingReservationsNumber == 1)
+                tvPendingReservationsNumber.setVisibility(View.INVISIBLE);
+            pendingReservationsNumber--;
+            if(pendingReservationsNumber > 0)
+                tvPendingReservationsNumber.setText(String.valueOf(pendingReservationsNumber));
+        }
     }
 
 }
