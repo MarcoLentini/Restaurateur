@@ -102,7 +102,7 @@
     <string name="no_dishes_offers">当前菜单分类没有食品供应</string>
     <string name="no_category_offers">没有菜单分类，请添加</string>
 
-    <!-- in offer_item_info.xml-->
+    <!-- in offer_item_cardviewview.xml-->
     <string name="FoodPic">Food Pictrue</string>
     <string name="FoodQuantityValue">29</string>
     <string name="FoodPriceValue">10</string>

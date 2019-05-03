@@ -40,7 +40,7 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
     @Override
     public DishesListAdapter.DishesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = mInflater.inflate(R.layout.offer_item_info, parent, false);
+        View view = mInflater.inflate(R.layout.offer_item_cardview, parent, false);
         DishesViewHolder holder = new DishesListAdapter.DishesViewHolder(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +73,6 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
     @Override
     public void onBindViewHolder(@NonNull DishesListAdapter.DishesViewHolder dishesViewHolder, int position) {
 
-        TextView textViewFoodId = dishesViewHolder.textViewFoodId;
         TextView textViewFoodName = dishesViewHolder.textViewFoodName;
         TextView textViewQuantityOffer = dishesViewHolder.textViewQuantityOffer;
         TextView textViewPriceOffer = dishesViewHolder.textViewPriceOffer;
@@ -81,7 +80,6 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
         Switch switchOfferState = dishesViewHolder.switchOfferState;
 
         OfferModel tmpOM = dataSet.get(position);
-        textViewFoodId.setText(String.valueOf(tmpOM.getId()));
         textViewFoodName.setText(tmpOM.getName());
         textViewQuantityOffer.setText(String.valueOf(tmpOM.getQuantity()));
         DecimalFormat format = new DecimalFormat("0.00");
@@ -105,7 +103,6 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
 
     class DishesViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
-        TextView textViewFoodId;
         TextView textViewFoodName;
         TextView textViewQuantityOffer;
         TextView textViewPriceOffer;
@@ -114,7 +111,6 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
 
         DishesViewHolder(View itemView) {
             super(itemView);
-            this.textViewFoodId = itemView.findViewById(R.id.offer_food_id);
             this.textViewFoodName = itemView.findViewById(R.id.offer_food_name);
             this.textViewPriceOffer = itemView.findViewById(R.id.textViewPriceOfferValue);
             this.textViewQuantityOffer = itemView.findViewById(R.id.textViewQuantityOfferValue);

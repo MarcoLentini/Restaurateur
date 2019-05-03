@@ -106,7 +106,7 @@
     <string name="no_category_offers">There is no category</string>
 
 
-    <!-- in offer_item_info.xml-->
+    <!-- in offer_item_cardview.xml.xml-->
     <string name="FoodPic">Food Pictrue</string>
     <string name="FoodQuantityValue">35</string>
     <string name="FoodPriceValue">10</string>
