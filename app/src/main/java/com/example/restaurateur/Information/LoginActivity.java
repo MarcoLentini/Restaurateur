@@ -1,9 +1,12 @@
 package com.example.restaurateur.Information;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +16,8 @@ import android.widget.Toast;
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -20,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset;
+    private static final String restaurantDataFile = "RestaurantDataFile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +87,30 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                             }
                         } else {
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                            FirebaseFirestore.getInstance().collection("user").document(auth.getCurrentUser().getUid()).get()
+                                    .addOnCompleteListener(taskRestaurantId -> {
+                                        if (task.isSuccessful()) {
+                                            DocumentSnapshot document = taskRestaurantId.getResult();
+                                            if (document.exists()) {
+                                                String restID = (String) document.get("rest_id");
+                                                if(restID != null) {
+                                                    SharedPreferences sharedPref = getSharedPreferences(restaurantDataFile, Context.MODE_PRIVATE);
+                                                    SharedPreferences.Editor editor = sharedPref.edit();
+                                                    editor.putString("restaurantKey", restID);
+                                                    editor.commit();
+                                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                } else {
+                                                    // TODO first time registration of restaurant
+                                                }
+                                            } else {
+                                                Log.d("RestaurantID", "No such document");
+                                            }
+                                        } else {
+                                            Log.d("RestaurantID", "get failed with ", task.getException());
+                                        }
+                                    });
                         }
                     });
         });

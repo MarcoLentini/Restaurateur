@@ -27,15 +27,13 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
     private MainActivity fragmentActivity;
     private ArrayList<ReservationModel> inProgressDataSet;
     private LayoutInflater mInflater;
-    private HashMap<String, OfferModel> offersData;
 
     public InProgressReservationsListAdapter(Context context, ArrayList<ReservationModel> inProgressData,
-                                             HashMap<String, OfferModel> offersData, MainActivity fragmentActivity) {
+                                             MainActivity fragmentActivity) {
         this.context = context;
         this.fragmentActivity = fragmentActivity;
         this.mInflater = LayoutInflater.from(context);
         this.inProgressDataSet = inProgressData;
-        this.offersData = offersData;
     }
 
     @NonNull
@@ -62,7 +60,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
     @Override
     public void onBindViewHolder(@NonNull InProgressReservationViewHolder inProgressReservationViewHolder, int position) {
         TextView textViewOrderId = inProgressReservationViewHolder.textViewReservationId;
-        TextView textViewRemainingTime = inProgressReservationViewHolder.textViewRemainingTime;
+        TextView textViewTimestamp = inProgressReservationViewHolder.textViewTimestamp;
         TextView textViewTotalIncome = inProgressReservationViewHolder.textViewTotalIncome;
         TextView textViewOrderedFood = inProgressReservationViewHolder.textViewOrderedDishes;
         TextView textViewReservationNotes = inProgressReservationViewHolder.textViewReservationNotes;
@@ -70,13 +68,13 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
         Button btnRejectReservation = inProgressReservationViewHolder.btnRejectReservation;
 
         ReservationModel tmpRM = inProgressDataSet.get(position);
-        textViewOrderId.setText("" + tmpRM.getId());
-        textViewRemainingTime.setText("" + tmpRM.getRemainingMinutes() + " min");
-        textViewTotalIncome.setText("" + tmpRM.getTotalIncome());
+        textViewOrderId.setText("" + tmpRM.getRs_id());
+        textViewTimestamp.setText("" + tmpRM.getTimestamp());
+        textViewTotalIncome.setText("" + tmpRM.getTotal_income());
         String reservationOffer = "";
-        for (int i = 0; i < tmpRM.getReservatedDishes().size(); i++) {
-            String offerName = offersData.get(tmpRM.getReservatedDishes().get(i).getDishId()).getName();
-            reservationOffer += offerName + "(" + tmpRM.getReservatedDishes().get(i).getDishMultiplier() + ")  ";
+        for (int i = 0; i < tmpRM.getDishesArrayList().size(); i++) {
+            String offerName = tmpRM.getDishesArrayList().get(i).getDishName();
+            reservationOffer += offerName + "(" + tmpRM.getDishesArrayList().get(i).getDishQty() + ")  ";
         }
         textViewOrderedFood.setText(reservationOffer);
         if(!inProgressDataSet.get(position).getNotes().equals(""))
@@ -88,7 +86,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
                 fragmentActivity.removeItemFromInProgress(pos);//inProgressDataSet.remove(pos);
                 notifyItemRemoved(pos);
                 notifyItemRangeChanged(pos, inProgressDataSet.size());
-                tmpRM.setState(ReservationState.STATE_FINISHED_SUCCESS);
+                tmpRM.setRs_status(ReservationState.STATE_FINISHED_SUCCESS);
                 fragmentActivity.addItemToFinished(tmpRM);//finishedDataSet.add(tmpRM);
             }
         });
@@ -99,7 +97,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
                 fragmentActivity.removeItemFromInProgress(pos);//inProgressDataSet.remove(pos);
                 notifyItemRemoved(pos);
                 notifyItemRangeChanged(pos, inProgressDataSet.size());
-                tmpRM.setState(ReservationState.STATE_FINISHED_REJECTED);
+                tmpRM.setRs_status(ReservationState.STATE_FINISHED_REJECTED);
                 fragmentActivity.addItemToFinished(tmpRM);//finishedDataSet.add(tmpRM);
             }
         });
@@ -132,7 +130,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
 
    static class InProgressReservationViewHolder extends RecyclerView.ViewHolder {
         TextView textViewReservationId;
-        TextView textViewRemainingTime;
+        TextView textViewTimestamp;
         TextView textViewTotalIncome;
         TextView textViewOrderedDishes;
         TextView textViewReservationNotes;
@@ -142,7 +140,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
         InProgressReservationViewHolder(View itemView) {
             super(itemView);
             this.textViewReservationId = itemView.findViewById(R.id.textViewOrderIdReservationInProgress);
-            this.textViewRemainingTime = itemView.findViewById(R.id.textViewRemainingTimeReservationInProgress);
+            this.textViewTimestamp = itemView.findViewById(R.id.textViewRemainingTimeReservationInProgress);
             this.textViewTotalIncome = itemView.findViewById(R.id.textViewTotalIncomeReservationInProgress);
             this.textViewOrderedDishes = itemView.findViewById(R.id.textViewFoodReservationInProgress);
             this.textViewReservationNotes = itemView.findViewById(R.id.textViewStateReservationInProgress);

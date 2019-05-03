@@ -4,37 +4,38 @@ import java.io.Serializable;
 
 public class ReservatedDish implements Serializable {
 
-    private int dishId;
-    private int dishMultiplier;
-
     private String dishName;
     private Double dishPrice;
     private Long dishQty;
 
-    public ReservatedDish(int dishId, int dishMultiplier) {
-        this.dishId = dishId;
-        this.dishMultiplier = dishMultiplier;
+    public ReservatedDish(String dishName, Double dishPrice, Long dishQty) {
+
+        this.dishName = dishName;
+        this.dishPrice = dishPrice;
+        this.dishQty = dishQty;
     }
 
-    public ReservatedDish(String dish_name, Long dish_qty, double dish_price) {
-        this.dishName = dish_name;
-        this.dishQty = dish_qty;
-        this.dishPrice = dish_price;
+    public String getDishName() {
+        return dishName;
     }
 
-    public int getDishId() {
-        return dishId;
+    public void setDishName(String dishName) {
+        this.dishName = dishName;
     }
 
-    public void setDishId(int dishId) {
-        this.dishId = dishId;
+    public Double getDishPrice() {
+        return dishPrice;
     }
 
-    public int getDishMultiplier() {
-        return dishMultiplier;
+    public void setDishPrice(Double dishPrice) {
+        this.dishPrice = dishPrice;
     }
 
-    public void setDishMultiplier(int dishMultiplier) {
-        this.dishMultiplier = dishMultiplier;
+    public Long getDishQty() {
+        return dishQty;
+    }
+
+    public void setDishQty(Long dishQty) {
+        this.dishQty = dishQty;
     }
 }

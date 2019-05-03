@@ -30,12 +30,11 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
     private HashMap<String, OfferModel> offersData;
 
     public FinishedReservationsListAdapter(Context context, ArrayList<ReservationModel> finishedData,
-                                           HashMap<String, OfferModel> offersData, MainActivity fragmentActivity) {
+                                           MainActivity fragmentActivity) {
         this.context = context;
         this.fragmentActivity = fragmentActivity;
         this.mInflater = LayoutInflater.from(context);
         this.finishedDataSet = finishedData;
-        this.offersData = offersData;
     }
 
     @NonNull
@@ -63,7 +62,7 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
     @Override
     public void onBindViewHolder(@NonNull FinishedReservationViewHolder finishedReservationViewHolder, int position) {
         TextView textViewOrderId = finishedReservationViewHolder.textViewReservationId;
-        TextView textViewRemainingTime = finishedReservationViewHolder.textViewRemainingTime;
+        TextView textViewTimestamp = finishedReservationViewHolder.textViewTimestamp;
         TextView textViewTotalIncome = finishedReservationViewHolder.textViewTotalIncome;
         TextView textViewOrderedFood = finishedReservationViewHolder.textViewOrderedDishes;
         TextView textViewReservationState = finishedReservationViewHolder.textViewReservationState;
@@ -71,16 +70,16 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
         Button btnRemoveReservation = finishedReservationViewHolder.btnRemoveReservation;
 
         ReservationModel tmpRM = finishedDataSet.get(position);
-        textViewOrderId.setText("" + tmpRM.getId());
-        textViewRemainingTime.setText("" + tmpRM.getRemainingMinutes() + " min");
-        textViewTotalIncome.setText("" + tmpRM.getTotalIncome());
+        textViewOrderId.setText("" + tmpRM.getRs_id());
+        textViewTimestamp.setText("" + tmpRM.getTimestamp());
+        textViewTotalIncome.setText("" + tmpRM.getTotal_income());
         String reservationOffer = "";
-        for (int i = 0; i < tmpRM.getReservatedDishes().size(); i++) {
-            String offerName = offersData.get(tmpRM.getReservatedDishes().get(i).getDishId()).getName();
-            reservationOffer += offerName + "(" + tmpRM.getReservatedDishes().get(i).getDishMultiplier() + ")  ";
+        for (int i = 0; i < tmpRM.getDishesArrayList().size(); i++) {
+            String offerName = tmpRM.getDishesArrayList().get(i).getDishName();
+            reservationOffer += offerName + "(" + tmpRM.getDishesArrayList().get(i).getDishQty() + ")  ";
         }
         textViewOrderedFood.setText(reservationOffer);
-        textViewReservationState.setText(tmpRM.getState());
+        textViewReservationState.setText(tmpRM.getRs_status());
         btnResumeReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +87,7 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
                 fragmentActivity.removeItemFromFinished(pos);//finishedDataSet.remove(pos);
                 notifyItemRemoved(pos);
                 notifyItemRangeChanged(pos, finishedDataSet.size());
-                tmpRM.setState(ReservationState.STATE_IN_PROGRESS);
+                tmpRM.setRs_status(ReservationState.STATE_IN_PROGRESS);
                 fragmentActivity.addItemToInProgress(tmpRM);//inProgressDataSet.add(tmpRM);
             }
         });
@@ -131,7 +130,7 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
 
     static class FinishedReservationViewHolder extends RecyclerView.ViewHolder {
         TextView textViewReservationId;
-        TextView textViewRemainingTime;
+        TextView textViewTimestamp;
         TextView textViewTotalIncome;
         TextView textViewOrderedDishes;
         TextView textViewReservationState;
@@ -141,7 +140,7 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
         FinishedReservationViewHolder(View itemView) {
             super(itemView);
             this.textViewReservationId = itemView.findViewById(R.id.textViewOrderIdReservationFinished);
-            this.textViewRemainingTime = itemView.findViewById(R.id.textViewRemainingTimeReservationFinished);
+            this.textViewTimestamp = itemView.findViewById(R.id.textViewRemainingTimeReservationFinished);
             this.textViewTotalIncome = itemView.findViewById(R.id.textViewTotalIncomeReservationFinished);
             this.textViewOrderedDishes = itemView.findViewById(R.id.textViewFoodReservationFinished);
             this.textViewReservationState = itemView.findViewById(R.id.textViewStateReservationFinished);
