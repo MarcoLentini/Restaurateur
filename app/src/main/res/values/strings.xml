@@ -108,7 +108,7 @@
 
     <!-- in offer_item_info.xml-->
     <string name="FoodPic">Food Pictrue</string>
-    <string name="FoodQuantityValue">29</string>
+    <string name="FoodQuantityValue">35</string>
     <string name="FoodPriceValue">10</string>
     <string name="FoodName">Food Name</string>
     <string name="FoodCategory">Insert category</string>

@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.restaurateur.MainActivity;
@@ -58,6 +60,12 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
                 myIntent.putExtras(bn);
                 parentFragment.startActivityForResult(myIntent, EDIT_DISHES_ACTIVITY);
             }});
+        holder.switchOfferState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // TODO decidere cosa fare quando vado on-line off-line
+            }
+        });
 
         return holder;
     }
@@ -70,6 +78,7 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
         TextView textViewQuantityOffer = dishesViewHolder.textViewQuantityOffer;
         TextView textViewPriceOffer = dishesViewHolder.textViewPriceOffer;
         ImageView offer_food_pic = dishesViewHolder.offer_food_pic;
+        Switch switchOfferState = dishesViewHolder.switchOfferState;
 
         OfferModel tmpOM = dataSet.get(position);
         textViewFoodId.setText(String.valueOf(tmpOM.getId()));
@@ -79,6 +88,14 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
         String formattedPrice = format.format(tmpOM.getPrice());
         textViewPriceOffer.setText(formattedPrice);
         offer_food_pic.setImageResource(tmpOM.getImage());
+        if(tmpOM.getState().equals("Active")) {
+            switchOfferState.setChecked(true);
+            switchOfferState.setText("On-line");
+        }
+        else {
+            switchOfferState.setChecked(false);
+            switchOfferState.setText("Off-line");
+        }
     }
 
     @Override
@@ -93,6 +110,7 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
         TextView textViewQuantityOffer;
         TextView textViewPriceOffer;
         ImageView offer_food_pic;
+        Switch switchOfferState;
 
         DishesViewHolder(View itemView) {
             super(itemView);
@@ -101,6 +119,7 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
             this.textViewPriceOffer = itemView.findViewById(R.id.textViewPriceOfferValue);
             this.textViewQuantityOffer = itemView.findViewById(R.id.textViewQuantityOfferValue);
             this.offer_food_pic = itemView.findViewById(R.id.offer_food_pic);
+            switchOfferState = itemView.findViewById(R.id.offerStateSwitch);
             itemView.setOnCreateContextMenuListener(this);
         }
 

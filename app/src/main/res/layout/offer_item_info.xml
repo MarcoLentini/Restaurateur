@@ -4,120 +4,95 @@
     android:id="@+id/offer_item_cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="#FFFFFF"
     app:cardUseCompatPadding="true">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/linearLayoutOffer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/relativeLayout2">
+        android:orientation="horizontal"
+        android:padding="@dimen/dp16">
 
         <ImageView
             android:id="@+id/offer_food_pic"
             android:layout_width="@dimen/dp96"
             android:layout_height="@dimen/dp96"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="@dimen/dp16"
-            android:layout_marginLeft="@dimen/dp16"
-            android:layout_marginTop="@dimen/dp16"
-            android:layout_marginBottom="@dimen/dp16"
             android:contentDescription="@string/FoodPic"
             android:src="@drawable/img_rest_1" />
 
-        <TextView
-            android:id="@+id/offer_food_name"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayoutOfferData"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="@dimen/dp16"
+            android:orientation="vertical"
             android:layout_marginLeft="@dimen/dp16"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_marginEnd="@dimen/dp16"
-            android:layout_marginRight="@dimen/dp16"
-            android:layout_toEndOf="@+id/offer_food_pic"
-            android:layout_toRightOf="@+id/offer_food_pic"
-            android:text="@string/FoodName"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+            android:layout_marginStart="@dimen/dp16">
 
-        <TextView
-            android:id="@+id/textViewQuantityOffer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/offer_food_name"
-            android:layout_marginStart="@dimen/dp24"
-            android:layout_marginLeft="@dimen/dp24"
-            android:layout_marginTop="@dimen/dp16"
-            android:layout_marginEnd="@dimen/dp16"
-            android:layout_marginRight="@dimen/dp16"
-            android:layout_toEndOf="@+id/offer_food_pic"
-            android:layout_toRightOf="@+id/offer_food_pic"
-            android:text="@string/FoodQuantity"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-            android:layout_marginBottom="@dimen/dp8"/>
+            <TextView
+                android:id="@+id/offer_food_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/FoodName"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="2"/>
 
-        <TextView
-            android:id="@+id/textViewQuantityOfferValue"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/offer_food_name"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="@dimen/dp8"
-            android:layout_marginLeft="@dimen/dp8"
-            android:layout_marginTop="@dimen/dp16"
-            android:layout_marginEnd="@dimen/dp24"
-            android:layout_marginRight="@dimen/dp24"
-            android:layout_toEndOf="@+id/textViewQuantityOffer"
-            android:layout_toRightOf="@+id/textViewQuantityOffer"
-            android:text="@string/FoodQuantityValue"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:layout_marginBottom="@dimen/dp8"/>
+            <LinearLayout
+                android:id="@+id/linearLayoutOfferQuantityPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dp4">
 
-        <TextView
-            android:id="@+id/textViewPriceOffer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewQuantityOffer"
-            android:layout_marginStart="@dimen/dp24"
-            android:layout_marginLeft="@dimen/dp24"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_marginEnd="@dimen/dp16"
-            android:layout_marginRight="@dimen/dp16"
-            android:layout_toEndOf="@+id/offer_food_pic"
-            android:layout_toRightOf="@+id/offer_food_pic"
-            android:text="@string/FoodPrice"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-            android:layout_marginBottom="@dimen/dp8"/>
+                <TextView
+                    android:id="@+id/textViewQuantityOffer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/FoodQuantity"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
-        <TextView
-            android:id="@+id/textViewPriceOfferValue"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewQuantityOffer"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="@dimen/dp8"
-            android:layout_marginLeft="@dimen/dp8"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_marginEnd="@dimen/dp24"
-            android:layout_marginRight="@dimen/dp24"
-            android:layout_toEndOf="@+id/textViewPriceOffer"
-            android:layout_toRightOf="@+id/textViewPriceOffer"
-            android:drawableStart="@drawable/ic_currency_euro"
-            android:drawableLeft="@drawable/ic_currency_euro"
-            android:text="@string/FoodPriceValue"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            android:layout_marginBottom="@dimen/dp8"
-            />
+                <TextView
+                    android:id="@+id/textViewQuantityOfferValue"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/FoodQuantityValue"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_marginLeft="@dimen/dp8"
+                    android:layout_marginStart="@dimen/dp8"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/offer_food_id"
-            android:visibility="invisible" />
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/textViewPriceOffer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/FoodPrice"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+                <TextView
+                    android:id="@+id/textViewPriceOfferValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_currency_euro"
+                    android:drawableLeft="@drawable/ic_currency_euro"
+                    android:text="@string/FoodPriceValue"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_marginLeft="@dimen/dp8"
+                    android:layout_marginStart="@dimen/dp8"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/offer_food_id"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/offerStateSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp16"/>
+
+        </LinearLayout>
+    </LinearLayout>
 </android.support.v7.widget.CardView>

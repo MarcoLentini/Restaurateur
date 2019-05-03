@@ -11,7 +11,7 @@
     tools:context=".Information.UserInformationActivity">
 
     <RelativeLayout
-        android:id="@+id/relativeLayout2"
+        android:id="@+id/linearLayoutOffer"
         android:layout_width="@dimen/toolbar_profile_width"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -74,7 +74,7 @@
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutOffer">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
