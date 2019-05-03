@@ -13,4 +13,9 @@
         android:orderInCategory="100"
         android:title="@string/action_settings_firebase"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/upload"
+        android:orderInCategory="100"
+        android:title="@string/progress_uploading"
+        app:showAsAction="never" />
 </menu>

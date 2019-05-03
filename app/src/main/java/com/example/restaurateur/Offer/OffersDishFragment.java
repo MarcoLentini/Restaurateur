@@ -163,7 +163,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                 String foodCategory = data.getExtras().getString("category");
                 OfferModel offerDish = new OfferModel(foodId, foodName, foodCategory, foodPrice,
                                                 foodQuantity, image,"Active",foodDescription);
-                MainActivity.offersData.put(foodId, offerDish);
+                MainActivity.offersData.put(Integer.toString(foodId), offerDish);
                 dishesOfCategory.add(offerDish);
                 dishesListAdapter.notifyItemInserted(dishesOfCategory.size() - 1);
                 // TODO visualizzare il dato aggiunto secondo un ordine prestabilito
@@ -180,7 +180,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         if(dishesOfCategory.isEmpty())
             tvNoDishes.setVisibility(View.VISIBLE);
         View.OnClickListener snackbarListener = v -> {
-            MainActivity.offersData.put(selectedOffer.getId(), selectedOffer);
+            MainActivity.offersData.put(Integer.toString(selectedOffer.getId()), selectedOffer);
             dishesOfCategory.add(selectedPosition, selectedOffer);
             dishesListAdapter.notifyItemInserted(selectedPosition);
             restoreScrollPositionAfterUndo();

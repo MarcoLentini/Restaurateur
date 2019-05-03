@@ -8,6 +8,9 @@ public class Category {
         this.category = category;
     }
 
+    public Category(String menu_name, String image_url, String state) {
+    }
+
     public String getCategoryName() {
         return category;
     }

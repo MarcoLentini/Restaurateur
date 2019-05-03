@@ -26,6 +26,9 @@ public class OfferModel {
 
     }
 
+    public OfferModel(String id, String dish_name, String menu_name, Double dish_cost, Long dish_qty, String image_url, String state, String dish_descr) {
+    }
+
     public int getId() {
         return id;
     }

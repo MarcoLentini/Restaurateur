@@ -27,10 +27,10 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
     private MainActivity fragmentActivity;
     private ArrayList<ReservationModel> inProgressDataSet;
     private LayoutInflater mInflater;
-    private HashMap<Integer, OfferModel> offersData;
+    private HashMap<String, OfferModel> offersData;
 
     public InProgressReservationsListAdapter(Context context, ArrayList<ReservationModel> inProgressData,
-                                             HashMap<Integer, OfferModel> offersData, MainActivity fragmentActivity) {
+                                             HashMap<String, OfferModel> offersData, MainActivity fragmentActivity) {
         this.context = context;
         this.fragmentActivity = fragmentActivity;
         this.mInflater = LayoutInflater.from(context);

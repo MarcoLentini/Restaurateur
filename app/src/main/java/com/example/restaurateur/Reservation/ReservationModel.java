@@ -1,5 +1,7 @@
 package com.example.restaurateur.Reservation;
 
+import com.google.firebase.Timestamp;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -24,6 +26,9 @@ public class ReservationModel implements Comparable<ReservationModel>, Serializa
         this.reservatedDishes = reservatedDishes;
         this.state = state;
         this.totalIncome = totalIncome;
+    }
+
+    public ReservationModel(Long rs_id, String cust_id, Timestamp desidered_hour, String notes, String cust_phone, ArrayList<ReservatedDish> tmpArrayList, String rs_status, Double total_income) {
     }
 
     public ArrayList<ReservatedDish> getReservatedDishes() {

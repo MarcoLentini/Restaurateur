@@ -27,10 +27,10 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
     private MainActivity fragmentActivity;
     private ArrayList<ReservationModel> finishedDataSet;
     private LayoutInflater mInflater;
-    private HashMap<Integer, OfferModel> offersData;
+    private HashMap<String, OfferModel> offersData;
 
     public FinishedReservationsListAdapter(Context context, ArrayList<ReservationModel> finishedData,
-                                           HashMap<Integer, OfferModel> offersData, MainActivity fragmentActivity) {
+                                           HashMap<String, OfferModel> offersData, MainActivity fragmentActivity) {
         this.context = context;
         this.fragmentActivity = fragmentActivity;
         this.mInflater = LayoutInflater.from(context);
