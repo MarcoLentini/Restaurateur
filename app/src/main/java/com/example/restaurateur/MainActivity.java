@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
-import com.example.restaurateur.Helper.Firebase;
 import com.example.restaurateur.History.HistoryMainFragment;
 import com.example.restaurateur.Information.FirebaseAccount;
 import com.example.restaurateur.Information.UserInformationActivity;
@@ -134,11 +133,7 @@ public class MainActivity extends AppCompatActivity {
             onBackPressed();
             //getSupportFragmentManager().popBackStack();
         }
-        if (id == R.id.upload) {
 
-            Intent information = new Intent(this, Firebase.class);
-            startActivity(information);
-        }
         return super.onOptionsItemSelected(item);
     }
     // Bottom Menu
@@ -232,15 +227,14 @@ public class MainActivity extends AppCompatActivity {
                                     break;
                             }
                         }
+                        Collections.sort(pendingReservationsData);
+                        Collections.sort(inProgressReservationsData);
+                        Collections.sort(finishedReservationsData);
                     } else {
                         Log.d("QueryReservation", "No such document");
                     }
 
                 });
-
-        Collections.sort(pendingReservationsData);
-        Collections.sort(inProgressReservationsData);
-        Collections.sort(finishedReservationsData);
 
         db.collection("menus").whereEqualTo("rest_id", restaurantKey).get()
                 .addOnCompleteListener(task -> {

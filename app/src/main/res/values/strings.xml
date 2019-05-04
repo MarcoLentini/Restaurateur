@@ -194,5 +194,9 @@
     <string name="camera_button_text">Upload</string>
     <string name="label_link">Link to Uploaded File</string>
     <string name="label_download">Download File</string>
+    <string name="restaurant_address">Restaurant\'s Address</string>
+    <string name="restaurant_name">Restaurant Name</string>
+    <string name="restaurant_descr">Restaurant Description</string>
+    <string name="complete_rest_btn">Complete Registration</string>
 
 </resources>

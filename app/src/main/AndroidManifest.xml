@@ -15,7 +15,7 @@
         android:roundIcon="@drawable/restaurant_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service android:name=".Helper.MyUploadService" />
+
         <activity android:name=".Offer.EditCategoryActivity"></activity>
         <activity android:name=".Reservation.FinishedDetailsActivity" />
         <activity android:name=".Reservation.InProgressDetailsActivity" />
@@ -36,8 +36,9 @@
         </provider>
 
         <activity
-            android:name=".Helper.Firebase"
+            android:name=".Information.RegisterRest"
             android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".Information.ChangePwdActivity"
             android:windowSoftInputMode="adjustResize" />

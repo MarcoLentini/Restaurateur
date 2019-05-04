@@ -99,8 +99,8 @@ public class SignupActivity extends AppCompatActivity {
 
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                            db.collection("users")
-                                    .add(user)
+                            db.collection("users").document(auth.getCurrentUser().getUid())
+                                    .set(user)
                                     .addOnSuccessListener(documentReference ->  {
                                         startActivity(new Intent(SignupActivity.this, MainActivity.class));
                                         finish();

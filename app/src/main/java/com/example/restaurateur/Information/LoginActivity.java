@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText inputEmail, inputPassword;
     private FirebaseAuth auth;
+    private FirebaseFirestore db;
     private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset;
     private static final String restaurantDataFile = "RestaurantDataFile";
@@ -33,10 +34,16 @@ public class LoginActivity extends AppCompatActivity {
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
-        if (auth.getCurrentUser() != null) {
+        SharedPreferences sharedPref2 = getSharedPreferences(restaurantDataFile, Context.MODE_PRIVATE);
+        String restaurantKey = sharedPref2.getString("restaurantKey","");
+
+        if (auth.getCurrentUser() != null && !restaurantKey.equals("")) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
+        } else if(auth.getCurrentUser() != null) {
+            register_or_get_restaurant();
         }
 
         // set the view now
@@ -87,32 +94,40 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                             }
                         } else {
-                            FirebaseFirestore.getInstance().collection("user").document(auth.getCurrentUser().getUid()).get()
-                                    .addOnCompleteListener(taskRestaurantId -> {
-                                        if (task.isSuccessful()) {
-                                            DocumentSnapshot document = taskRestaurantId.getResult();
-                                            if (document.exists()) {
-                                                String restID = (String) document.get("rest_id");
-                                                if(restID != null) {
-                                                    SharedPreferences sharedPref = getSharedPreferences(restaurantDataFile, Context.MODE_PRIVATE);
-                                                    SharedPreferences.Editor editor = sharedPref.edit();
-                                                    editor.putString("restaurantKey", restID);
-                                                    editor.commit();
-                                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                                    startActivity(intent);
-                                                    finish();
-                                                } else {
-                                                    // TODO first time registration of restaurant
-                                                }
-                                            } else {
-                                                Log.d("RestaurantID", "No such document");
-                                            }
-                                        } else {
-                                            Log.d("RestaurantID", "get failed with ", task.getException());
-                                        }
-                                    });
+                            register_or_get_restaurant();
                         }
                     });
         });
+    }
+
+    private void register_or_get_restaurant(){
+        db.getInstance().collection("users").document(auth.getCurrentUser().getUid()).get()
+                .addOnCompleteListener(taskRestaurantId -> {
+                    if (taskRestaurantId.isSuccessful()) {
+                        DocumentSnapshot document = taskRestaurantId.getResult();
+                        if (document.exists()) {
+                            String restID = (String) document.get("rest_id");
+                            if(restID != null) {
+                                SharedPreferences sharedPref = getSharedPreferences(restaurantDataFile, Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putString("restaurantKey", restID);
+                                editor.commit();
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Intent intent = new Intent(LoginActivity.this, RegisterRest.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        } else {
+                            Log.d("RestaurantID", "No such document");
+                            finish();
+                        }
+                    } else {
+                        Log.d("RestaurantID", "get failed with ", taskRestaurantId.getException());
+                        finish();
+                    }
+                });
     }
 }
