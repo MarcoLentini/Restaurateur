@@ -48,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<Category> categoriesData;
     public static int idDishes = 26; //TODO idDishes and image_id for dishes are to be removed
     public static int[] availableImageId = {R.drawable.ic_offer_pizza, R.drawable.ic_offer_cake, R.drawable.ic_offer_coffee, R.drawable.ic_offer_fries};
-    private FirebaseAuth auth;
-    private FirebaseFirestore db;
-    private String restaurantKey;
+    public FirebaseAuth auth;
+    public FirebaseFirestore db;
+    public String restaurantKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
 
                             ReservationModel tmpReservationModel = new ReservationModel((Long) doc.get("rs_id"),
                                     (String) doc.get("cust_id"),
-                                    (Timestamp) doc.get("desidered_hour"),
+                                    (Timestamp) doc.get("upload_time"),
                                     (String) doc.get("notes"),
                                     (String) doc.get("cust_phone"),
                                     tmpArrayList,
@@ -236,16 +236,16 @@ public class MainActivity extends AppCompatActivity {
 
                 });
 
-        db.collection("menus").whereEqualTo("rest_id", restaurantKey).get()
+        db.collection("category").whereEqualTo("rest_id", restaurantKey).get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         QuerySnapshot document = task.getResult();
                         if (!document.isEmpty()) {
                             for(DocumentSnapshot doc : document){
                                 categoriesData.add(new Category(
-                                        (String) doc.get("menu_name"),
-                                        (String) doc.get("image_url"),
-                                        (String) doc.get("state")));
+                                        (String) doc.get("category_name"),
+                                        (String) doc.getId()));
+                                        //(String) doc.get("category_image_url")));
                                 doc.getReference().collection("dishes").get().addOnCompleteListener(task1 -> {
                                     if (task1.isSuccessful()) {
                                         QuerySnapshot document1 = task1.getResult();
@@ -254,12 +254,12 @@ public class MainActivity extends AppCompatActivity {
                                                 OfferModel tmpOM = new OfferModel(
                                                                  doc1.getId(),
                                                         (String) doc1.get("dish_name"),
-                                                        (String) doc.get("menu_name"),
+                                                        (String) doc.get("category_name"),
                                                         (Double) doc1.get("dish_cost"),
                                                         (Long) doc1.get("dish_qty"),
-                                                        (String) doc1.get("image_url"),
-                                                        (String) doc1.get("state"),
-                                                        (String) doc1.get("dish_descr"));
+                                                        (String) doc1.get("dish_image_url"),
+                                                        (String) doc1.get("dish_descr"),
+                                                        (Boolean) doc1.get("dish_state"));
                                                 offersData.put(doc1.getId(), tmpOM);
                                             }
                                         } else {

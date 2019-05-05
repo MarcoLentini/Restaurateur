@@ -47,16 +47,16 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
             public void onClick(View v) {
                 Intent myIntent = new Intent(view.getContext(), EditOfferActivity.class);
                 int position = holder.getAdapterPosition();
-                int id = dataSet.get(position).getId();
+                String id = dataSet.get(position).getId();
                 OfferModel selected = MainActivity.offersData.get(id);
                 Bundle bn = new Bundle();
-                bn.putInt("foodId", selected.getId());
+                bn.putString("foodId", selected.getId());
                 bn.putString("foodName", selected.getName());
                 bn.putDouble("foodPrice", selected.getPrice());
-                bn.putInt("foodQuantity", selected.getQuantity());
+                bn.putLong("foodQuantity", selected.getQuantity());
                 bn.putString("foodDescription", selected.getDescription());
-                bn.putInt("foodImage", selected.getImage());
-                bn.putString("foodState", selected.getState());
+                bn.putString("foodImage", selected.getImage());
+                bn.putBoolean("foodState", selected.getState());
                 myIntent.putExtras(bn);
                 parentFragment.startActivityForResult(myIntent, EDIT_DISHES_ACTIVITY);
             }});
@@ -85,8 +85,9 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
         DecimalFormat format = new DecimalFormat("0.00");
         String formattedPrice = format.format(tmpOM.getPrice());
         textViewPriceOffer.setText(formattedPrice);
-        offer_food_pic.setImageResource(tmpOM.getImage());
-        if(tmpOM.getState().equals("Active")) {
+        // Todo - resolve this
+        offer_food_pic.setImageResource(Integer.parseInt(tmpOM.getImage()));
+        if(tmpOM.getState()) {
             switchOfferState.setChecked(true);
             switchOfferState.setText("On-line");
         }

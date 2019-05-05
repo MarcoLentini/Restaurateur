@@ -34,13 +34,10 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
     public CategoriesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.category_cardview, parent, false);
         CategoriesViewHolder holder = new CategoriesViewHolder(view);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                String categoryName = dataSet.get(position).getCategoryName();
-                loadFragment(v, new OffersDishFragment(), categoryName);
-            }
+        view.setOnClickListener(v -> {
+            int position = holder.getAdapterPosition();
+            String categoryName = dataSet.get(position).getCategoryName();
+            loadFragment(v, new OffersDishFragment(), categoryName);
         });
 
         return holder;

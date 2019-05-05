@@ -32,7 +32,7 @@
                 android:src="@drawable/img_rest_1"
                 android:contentDescription="@string/FoodPic" />
             <com.mikhaellopez.circularimageview.CircularImageView
-                android:id="@+id/background_img"
+                android:id="@+id/background_img_offer"
                 android:layout_width="48sp"
                 android:layout_height="48sp"
                 android:layout_alignBottom="@id/offer_food_pic"
@@ -45,7 +45,6 @@
                 app:civ_shadow="true"
                 app:civ_shadow_radius="1" />
             <ImageView
-                android:id="@+id/img_plus"
                 android:layout_width="43sp"
                 android:layout_height="44sp"
                 android:layout_alignStart="@+id/background_img"

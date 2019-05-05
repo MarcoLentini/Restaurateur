@@ -55,7 +55,6 @@ public class RegisterRest extends Activity {
     private static final int GALLERY_REQUEST = 3;
     private static final int STORAGE_PERMISSION_CODE = 4;
     private static final int CAMERA_PERMISSION_CODE = 5;
-    private static final int PICK_IMAGE_REQUEST = 5;
 
     private Uri restaurant_image = null;
     private Uri file_image = null;

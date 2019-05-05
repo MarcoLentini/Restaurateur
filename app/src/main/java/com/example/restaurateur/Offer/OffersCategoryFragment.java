@@ -16,9 +16,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
+import com.google.firebase.firestore.DocumentReference;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -30,11 +35,13 @@ public class OffersCategoryFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter categoriesAdapter;
     private TextView tvNoCategories;
+    private MainActivity main;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("CAT_FRAGMENT", "onCreate(...) chiamato una volta sola!");
+        main = (MainActivity) getActivity();
     }
 
     @Override
@@ -47,13 +54,10 @@ public class OffersCategoryFragment extends Fragment {
         if(MainActivity.categoriesData.isEmpty())
             tvNoCategories.setVisibility(View.VISIBLE);
         FloatingActionButton fabCategory = view.findViewById(R.id.fabAddCategory);
-        fabCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //start a new Activity where you can add a new category
-                Intent myIntent = new Intent(getActivity(), AddNewCategoryActivity.class);
-                startActivityForResult(myIntent, ADD_CATEGORY_ACTIVITY);
-            }
+        fabCategory.setOnClickListener(view -> {
+            //start a new Activity where you can add a new category
+            Intent myIntent = new Intent(getActivity(), AddNewCategoryActivity.class);
+            startActivityForResult(myIntent, ADD_CATEGORY_ACTIVITY);
         });
         RecyclerView recyclerView = view.findViewById(R.id.CategoryOfferRecyclerView);
         layoutManager = new LinearLayoutManager(getActivity());
@@ -121,17 +125,32 @@ public class OffersCategoryFragment extends Fragment {
 
             if (requestCode == ADD_CATEGORY_ACTIVITY) {
                 String categoryName = data.getStringExtra("category");
-                Category category = new Category(categoryName);
-                MainActivity.categoriesData.add(category);
-                categoriesAdapter.notifyItemInserted(MainActivity.categoriesData.size() - 1);
-                if(tvNoCategories.getVisibility() == View.VISIBLE)
-                    tvNoCategories.setVisibility(View.INVISIBLE);
+                Map<String,String> cat = new HashMap<>();
+                cat.put("category_name",categoryName);
+                cat.put("rest_id",main.restaurantKey);
+
+                DocumentReference dr = main.db.collection("category").document();
+                dr.set(cat).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        Category category = new Category(categoryName, dr.getId());
+                        MainActivity.categoriesData.add(category);
+                        categoriesAdapter.notifyItemInserted(MainActivity.categoriesData.size() - 1);
+                        if(tvNoCategories.getVisibility() == View.VISIBLE)
+                            tvNoCategories.setVisibility(View.INVISIBLE);
+                    } else {
+                        // Probably only on timeout, from test the request are stored offline
+                        Toast.makeText(getContext(),"Internet problem, retry!", Toast.LENGTH_LONG).show();
+                    }
+                });
+
             }
 
             if (requestCode == EDIT_CATEGORY_ACTIVITY) {
                 int position = data.getIntExtra("selectedPosition", 0);
                 String categoryName = data.getStringExtra("categoryName");
                 MainActivity.categoriesData.get(position).setCategoryName(categoryName);
+                // Todo - update Firebase
+                // Todo - transaction
                 categoriesAdapter.notifyItemChanged(position);
                 Snackbar.make(view, getString(R.string.snackbar_category_edited), Snackbar.LENGTH_LONG)
                         .show();
@@ -142,6 +161,8 @@ public class OffersCategoryFragment extends Fragment {
 
     private void removeCategory(int selectedPosition, Category selectedCategory) {
         MainActivity.categoriesData.remove(selectedPosition);
+        // Todo - delete on firebase
+        // Todo - transaction
         categoriesAdapter.notifyItemRemoved(selectedPosition);
         if(MainActivity.categoriesData.isEmpty())
             tvNoCategories.setVisibility(View.VISIBLE);

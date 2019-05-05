@@ -2,6 +2,7 @@ package com.example.restaurateur.Offer;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,11 +16,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
+import com.google.firebase.firestore.DocumentReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Stream;
 
 import static android.app.Activity.RESULT_OK;
 import static com.example.restaurateur.MainActivity.availableImageId;
@@ -35,11 +41,17 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
     private ArrayList<OfferModel> dishesOfCategory;
     private View view;
 
+    private MainActivity main;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        main = (MainActivity) getActivity();
         Log.d("DISH_FRAGMENT", "onCreate(...) chiamato una volta sola!");
+
+        // Todo - passare id al posto del nome categoria
         category = getArguments().getString("Category");
+
         dishesOfCategory = new ArrayList<>();
         for(OfferModel om : MainActivity.offersData.values()) // TODO valutare se prendere direttamente dalla categoria la lista dei piatti
             if(om.getCategory().equals(category))
@@ -54,17 +66,14 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         if(dishesOfCategory.isEmpty())
             tvNoDishes.setVisibility(View.VISIBLE);
         FloatingActionButton fabDishes = view.findViewById(R.id.fabAddDish);
-        fabDishes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //start tvNoDishes new Activity that you can add food
-                Intent myIntent = new Intent(getActivity(), AddNewOfferActivity.class);
-                String category= ((MainActivity)getActivity()).getSupportActionBar().getTitle().toString();
-                Bundle bn = new Bundle();
-                bn.putString("category", category);
-                myIntent.putExtras(bn);
-                startActivityForResult(myIntent, ADD_FOOD_OFFER_ACTIVITY);
-            }
+        fabDishes.setOnClickListener(view -> {
+            //start tvNoDishes new Activity that you can add food
+            Intent myIntent = new Intent(getActivity(), AddNewOfferActivity.class);
+            String category= ((MainActivity)getActivity()).getSupportActionBar().getTitle().toString();
+            Bundle bn = new Bundle();
+            bn.putString("category", category);
+            myIntent.putExtras(bn);
+            startActivityForResult(myIntent, ADD_FOOD_OFFER_ACTIVITY);
         });
         //Returning the layout file after inflating
         RecyclerView recyclerView = view.findViewById(R.id.ActiveDishesRecyclerView);
@@ -133,54 +142,62 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         if(resultCode == RESULT_OK) {
 
             if (requestCode == EDIT_DISHES_ACTIVITY) {
+                // Todo - update on firebase
                 String foodName = data.getExtras().getString("foodName");
                 String foodDescription = data.getExtras().getString("foodDescription");
                 int foodId = data.getExtras().getInt("foodId");
-                int foodImage = data.getExtras().getInt("foodImage");
-                int foodQuantity = data.getExtras().getInt("foodQuantity");
+                String foodImage = data.getExtras().getString("foodImage");
+                Long foodQuantity = data.getExtras().getLong("foodQuantity");
                 Double foodPrice = data.getExtras().getDouble("foodPrice");
-                String foodState = data.getExtras().getString("fooodState");
                 OfferModel om = MainActivity.offersData.get(foodId);
                 om.setDescription(foodDescription);
                 om.setImage(foodImage);
                 om.setName(foodName);
                 om.setPrice(foodPrice);
                 om.setQuantity(foodQuantity);
-                om.setState(foodState);
                 dishesListAdapter.notifyDataSetChanged(); // TODO find a better way to update
             }
 
             if(requestCode == ADD_FOOD_OFFER_ACTIVITY) {
-                //TODO: to choise the id and the image: have to change it in future
-                int foodId = MainActivity.idDishes++;
-                java.util.Random random = new java.util.Random();
-                int random_computer_card = random.nextInt(availableImageId.length);
-                int image = availableImageId[random_computer_card];
+                String image = data.getExtras().getString("foodImage");
                 String foodName = data.getExtras().getString("foodName");
                 Double foodPrice = data.getExtras().getDouble("foodPrice");
-                Integer foodQuantity = data.getExtras().getInt("foodQuantity");
+                Long foodQuantity = data.getExtras().getLong("foodQuantity");
                 String foodDescription = data.getExtras().getString("foodDescription");
                 String foodCategory = data.getExtras().getString("category");
-                OfferModel offerDish = new OfferModel(foodId, foodName, foodCategory, foodPrice,
-                                                foodQuantity, image,"Active",foodDescription);
-                MainActivity.offersData.put(Integer.toString(foodId), offerDish);
-                dishesOfCategory.add(offerDish);
-                dishesListAdapter.notifyItemInserted(dishesOfCategory.size() - 1);
-                // TODO visualizzare il dato aggiunto secondo un ordine prestabilito
-                if(tvNoDishes.getVisibility() == View.VISIBLE)
-                    tvNoDishes.setVisibility(View.INVISIBLE);
+                Boolean foodState = data.getExtras().getBoolean("foodState");
+                OfferModel offerDish = new OfferModel(null, foodName, foodCategory, foodPrice,
+                        foodQuantity, image,foodDescription, foodState);
+
+                DocumentReference dr = main.db.collection("category").document(category).collection("dishes").document();
+                dr.set(offerDish).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        offerDish.setId(dr.getId());
+                        // Todo - modificare questa parte, i dishes sono dentro categoria
+                        MainActivity.offersData.put(dr.getId(), offerDish);
+                        dishesOfCategory.add(offerDish);
+                        dishesListAdapter.notifyItemInserted(dishesOfCategory.size() - 1);
+                        // TODO visualizzare il dato aggiunto secondo un ordine prestabilito
+                        if(tvNoDishes.getVisibility() == View.VISIBLE)
+                            tvNoDishes.setVisibility(View.INVISIBLE);
+                    } else {
+                        // Probably only on timeout, from test the request are stored offline
+                        Toast.makeText(getContext(),"Internet problem, retry!", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         }
     }
 
     private void removeOffer(int selectedPosition, OfferModel selectedOffer) {
+        // Todo - delete firebase
         MainActivity.offersData.remove(selectedOffer.getId());
         dishesOfCategory.remove(selectedPosition);
         dishesListAdapter.notifyItemRemoved(selectedPosition);
         if(dishesOfCategory.isEmpty())
             tvNoDishes.setVisibility(View.VISIBLE);
         View.OnClickListener snackbarListener = v -> {
-            MainActivity.offersData.put(Integer.toString(selectedOffer.getId()), selectedOffer);
+            MainActivity.offersData.put(selectedOffer.getId(), selectedOffer);
             dishesOfCategory.add(selectedPosition, selectedOffer);
             dishesListAdapter.notifyItemInserted(selectedPosition);
             restoreScrollPositionAfterUndo();

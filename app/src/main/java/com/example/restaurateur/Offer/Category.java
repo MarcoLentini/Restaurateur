@@ -3,12 +3,11 @@ package com.example.restaurateur.Offer;
 public class Category {
 
     private String category;
+    private String categoryID;
 
-    public Category(String category) {
+    public Category(String category, String id) {
         this.category = category;
-    }
-
-    public Category(String menu_name, String image_url, String state) {
+        this.categoryID = id;
     }
 
     public String getCategoryName() {
@@ -19,4 +18,12 @@ public class Category {
         this.category = category;
     }
 
+
+    public String getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(String categoryID) {
+        this.categoryID = categoryID;
+    }
 }
