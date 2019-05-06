@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<ReservationModel> pendingReservationsData;
     public static ArrayList<ReservationModel> inProgressReservationsData;
     public static ArrayList<ReservationModel> finishedReservationsData;
-    public static HashMap<String, OfferModel> offersData;
+    //public static HashMap<String, OfferModel> offersData;
     public static ArrayList<Category> categoriesData;
     public static int idDishes = 26; //TODO idDishes and image_id for dishes are to be removed
     public static int[] availableImageId = {R.drawable.ic_offer_pizza, R.drawable.ic_offer_cake, R.drawable.ic_offer_coffee, R.drawable.ic_offer_fries};
@@ -79,24 +79,13 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation_categories);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-//        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-//            @Override
-//            public void onBackStackChanged() {
-//                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-//                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//                } else {
-//                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-//                }
-//            }
-//        });
-
         loadFragment(new ReservationsMainFragment());
 
         pendingReservationsData = new ArrayList<>();
         inProgressReservationsData = new ArrayList<>();
         finishedReservationsData = new ArrayList<>();
         categoriesData = new ArrayList<>();
-        offersData = new HashMap<>();
+        // offersData = new HashMap<>();
         // fillWithData() is used to put data into the previous ArrayLists and the HashMap
         fillWithData();
     }
@@ -242,10 +231,10 @@ public class MainActivity extends AppCompatActivity {
                         QuerySnapshot document = task.getResult();
                         if (!document.isEmpty()) {
                             for(DocumentSnapshot doc : document){
-                                categoriesData.add(new Category(
+                                Category c = new Category(
                                         (String) doc.get("category_name"),
-                                        (String) doc.getId()));
-                                        //(String) doc.get("category_image_url")));
+                                        (String) doc.getId());
+                                        //(String) doc.get("category_image_url"));
                                 doc.getReference().collection("dishes").get().addOnCompleteListener(task1 -> {
                                     if (task1.isSuccessful()) {
                                         QuerySnapshot document1 = task1.getResult();
@@ -253,18 +242,20 @@ public class MainActivity extends AppCompatActivity {
                                             for(DocumentSnapshot doc1 : document1){
                                                 OfferModel tmpOM = new OfferModel(
                                                                  doc1.getId(),
-                                                        (String) doc1.get("dish_name"),
-                                                        (String) doc.get("category_name"),
-                                                        (Double) doc1.get("dish_cost"),
-                                                        (Long) doc1.get("dish_qty"),
-                                                        (String) doc1.get("dish_image_url"),
-                                                        (String) doc1.get("dish_descr"),
-                                                        (Boolean) doc1.get("dish_state"));
-                                                offersData.put(doc1.getId(), tmpOM);
+                                                        (String) doc1.get("name"),
+                                                        (String) doc.get("category"),
+                                                        (Double) doc1.get("price"),
+                                                        (Long) doc1.get("quantity"),
+                                                        (String) doc1.get("image"),
+                                                        (String) doc1.get("description"),
+                                                        (Boolean) doc1.get("state"));
+                                                //offersData.put(doc1.getId(), tmpOM);
+                                                c.getDishes().add(tmpOM);
                                             }
                                         } else {
                                             Log.d("QueryReservation", "No such document");
                                         }
+                                        categoriesData.add(c);
                                     } else {
                                         Log.d("QueryReservation", "get failed with ", task.getException());
                                     }

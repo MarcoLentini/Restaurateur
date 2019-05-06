@@ -36,9 +36,8 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
     private static final int EDIT_DISHES_ACTIVITY = 3;
     private RecyclerView.Adapter dishesListAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private String category;
+    private Category category;
     private TextView tvNoDishes;
-    private ArrayList<OfferModel> dishesOfCategory;
     private View view;
 
     private MainActivity main;
@@ -50,12 +49,8 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         Log.d("DISH_FRAGMENT", "onCreate(...) chiamato una volta sola!");
 
         // Todo - passare id al posto del nome categoria
-        category = getArguments().getString("Category");
-
-        dishesOfCategory = new ArrayList<>();
-        for(OfferModel om : MainActivity.offersData.values()) // TODO valutare se prendere direttamente dalla categoria la lista dei piatti
-            if(om.getCategory().equals(category))
-                dishesOfCategory.add(om);
+        int position = getArguments().getInt("Category");
+        category = MainActivity.categoriesData.get(position);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,7 +58,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         Log.d("DISH_FRAGMENT", "onCreateView chiamato!");
         view = inflater.inflate(R.layout.fragment_dishes_offers, container, false);
         tvNoDishes = view.findViewById(R.id.textViewDishesOffers);
-        if(dishesOfCategory.isEmpty())
+        if(category.getDishes().isEmpty())
             tvNoDishes.setVisibility(View.VISIBLE);
         FloatingActionButton fabDishes = view.findViewById(R.id.fabAddDish);
         fabDishes.setOnClickListener(view -> {
@@ -83,7 +78,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         // use tvNoDishes linear layout manager
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        dishesListAdapter = new DishesListAdapter(getContext(), dishesOfCategory, this);
+        dishesListAdapter = new DishesListAdapter(getContext(), category, this);
         recyclerView.setAdapter(dishesListAdapter);
 
         return view;
@@ -93,7 +88,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
     public void onResume() {
         super.onResume();
         Log.d("DISH_FRAGMENT", "onResume chiamato!");
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle(category);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(category.getCategoryName());
     }
 
     @Override
@@ -111,7 +106,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         int selectedPosition = item.getGroupId();
-        OfferModel selectedOffer = dishesOfCategory.get(selectedPosition);
+        OfferModel selectedOffer = category.getDishes().get(selectedPosition);
 
         if (item.getItemId() == 1) {
             AlertDialog.Builder removeAlertDialog = new AlertDialog.Builder(getActivity());
@@ -124,6 +119,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         }
 
         if(MainActivity.categoriesData.size() > 1) {
+            // TODO - update firebase
             if(item.getItemId() >= 21) {
                 String newCategory = item.getTitle().toString();
                 selectedOffer.setCategory(newCategory);
@@ -149,7 +145,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                 String foodImage = data.getExtras().getString("foodImage");
                 Long foodQuantity = data.getExtras().getLong("foodQuantity");
                 Double foodPrice = data.getExtras().getDouble("foodPrice");
-                OfferModel om = MainActivity.offersData.get(foodId);
+                OfferModel om = category.getDishes().get(foodId);
                 om.setDescription(foodDescription);
                 om.setImage(foodImage);
                 om.setName(foodName);
@@ -169,14 +165,12 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                 OfferModel offerDish = new OfferModel(null, foodName, foodCategory, foodPrice,
                         foodQuantity, image,foodDescription, foodState);
 
-                DocumentReference dr = main.db.collection("category").document(category).collection("dishes").document();
+                DocumentReference dr = main.db.collection("category").document(category.getCategoryID()).collection("dishes").document();
                 dr.set(offerDish).addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
                         offerDish.setId(dr.getId());
-                        // Todo - modificare questa parte, i dishes sono dentro categoria
-                        MainActivity.offersData.put(dr.getId(), offerDish);
-                        dishesOfCategory.add(offerDish);
-                        dishesListAdapter.notifyItemInserted(dishesOfCategory.size() - 1);
+                        category.getDishes().add(offerDish);
+                        dishesListAdapter.notifyItemInserted(category.getDishes().size() - 1);
                         // TODO visualizzare il dato aggiunto secondo un ordine prestabilito
                         if(tvNoDishes.getVisibility() == View.VISIBLE)
                             tvNoDishes.setVisibility(View.INVISIBLE);
@@ -190,22 +184,27 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
     }
 
     private void removeOffer(int selectedPosition, OfferModel selectedOffer) {
-        // Todo - delete firebase
-        MainActivity.offersData.remove(selectedOffer.getId());
-        dishesOfCategory.remove(selectedPosition);
-        dishesListAdapter.notifyItemRemoved(selectedPosition);
-        if(dishesOfCategory.isEmpty())
-            tvNoDishes.setVisibility(View.VISIBLE);
-        View.OnClickListener snackbarListener = v -> {
-            MainActivity.offersData.put(selectedOffer.getId(), selectedOffer);
-            dishesOfCategory.add(selectedPosition, selectedOffer);
-            dishesListAdapter.notifyItemInserted(selectedPosition);
-            restoreScrollPositionAfterUndo();
-            if(tvNoDishes.getVisibility() == View.VISIBLE)
-                tvNoDishes.setVisibility(View.INVISIBLE);
-        };
-        Snackbar.make(view, getString(R.string.snackbar_offer_remove), Snackbar.LENGTH_LONG)
-                .setAction(getString(R.string.snackbar_offer_undo), snackbarListener).show();
+        main.db.collection("category").document(category.getCategoryID())
+                .collection("dishes").document(selectedOffer.getId()).delete().addOnCompleteListener(task->{
+            if(task.isSuccessful()){
+                category.getDishes().remove(selectedOffer);
+                dishesListAdapter.notifyItemRemoved(selectedPosition);
+                if(category.getDishes().isEmpty())
+                    tvNoDishes.setVisibility(View.VISIBLE);
+                View.OnClickListener snackbarListener = v -> {
+                    // Todo - firebase revert - esiste un ondisappear della snack?
+                    category.getDishes().add(selectedOffer);
+                    dishesListAdapter.notifyItemInserted(selectedPosition);
+                    restoreScrollPositionAfterUndo();
+                    if(tvNoDishes.getVisibility() == View.VISIBLE)
+                        tvNoDishes.setVisibility(View.INVISIBLE);
+                };
+                Snackbar.make(view, getString(R.string.snackbar_offer_remove), Snackbar.LENGTH_LONG)
+                        .setAction(getString(R.string.snackbar_offer_undo), snackbarListener).show();
+            } else {
+                Log.e("OfferDish/Remove", "Remove Error");
+            }
+        });
     }
 
     private void restoreScrollPositionAfterUndo() {

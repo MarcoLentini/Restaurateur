@@ -2,6 +2,7 @@ package com.example.restaurateur.Offer;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
 
@@ -24,13 +26,13 @@ import java.util.ArrayList;
 class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesViewHolder> {
 
     private static final int EDIT_DISHES_ACTIVITY = 3;
-    private ArrayList<OfferModel> dataSet;
+    private Category category;
     private LayoutInflater mInflater;
     private Context context;
     private OffersDishFragment parentFragment;
 
-    public DishesListAdapter(Context context, ArrayList<OfferModel> dishes, OffersDishFragment parentFragment) {
-        this.dataSet = dishes;
+    public DishesListAdapter(Context context, Category category, OffersDishFragment parentFragment) {
+        this.category = category;
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
         this.parentFragment = parentFragment;
@@ -42,29 +44,25 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
 
         View view = mInflater.inflate(R.layout.offer_item_cardview, parent, false);
         DishesViewHolder holder = new DishesListAdapter.DishesViewHolder(view);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(view.getContext(), EditOfferActivity.class);
-                int position = holder.getAdapterPosition();
-                String id = dataSet.get(position).getId();
-                OfferModel selected = MainActivity.offersData.get(id);
-                Bundle bn = new Bundle();
-                bn.putString("foodId", selected.getId());
-                bn.putString("foodName", selected.getName());
-                bn.putDouble("foodPrice", selected.getPrice());
-                bn.putLong("foodQuantity", selected.getQuantity());
-                bn.putString("foodDescription", selected.getDescription());
-                bn.putString("foodImage", selected.getImage());
-                bn.putBoolean("foodState", selected.getState());
-                myIntent.putExtras(bn);
-                parentFragment.startActivityForResult(myIntent, EDIT_DISHES_ACTIVITY);
-            }});
-        holder.switchOfferState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // TODO decidere cosa fare quando vado on-line off-line
-            }
+        view.setOnClickListener(v -> {
+            Intent myIntent = new Intent(view.getContext(), EditOfferActivity.class);
+            int position = holder.getAdapterPosition();
+            //String id = dataSet.get(position).getId();
+            //OfferModel selected = MainActivity.categoriesDataget(position);
+            OfferModel selected = category.getDishes().get(position);
+            Bundle bn = new Bundle();
+            bn.putString("foodId", selected.getId());
+            bn.putString("foodName", selected.getName());
+            bn.putDouble("foodPrice", selected.getPrice());
+            bn.putLong("foodQuantity", selected.getQuantity());
+            bn.putString("foodDescription", selected.getDescription());
+            bn.putString("foodImage", selected.getImage());
+            bn.putBoolean("foodState", selected.getState());
+            myIntent.putExtras(bn);
+            parentFragment.startActivityForResult(myIntent, EDIT_DISHES_ACTIVITY);
+        });
+        holder.switchOfferState.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            // TODO decidere cosa fare quando vado on-line off-line
         });
 
         return holder;
@@ -79,14 +77,15 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
         ImageView offer_food_pic = dishesViewHolder.offer_food_pic;
         Switch switchOfferState = dishesViewHolder.switchOfferState;
 
-        OfferModel tmpOM = dataSet.get(position);
+        OfferModel tmpOM = category.getDishes().get(position);
         textViewFoodName.setText(tmpOM.getName());
         textViewQuantityOffer.setText(String.valueOf(tmpOM.getQuantity()));
         DecimalFormat format = new DecimalFormat("0.00");
         String formattedPrice = format.format(tmpOM.getPrice());
         textViewPriceOffer.setText(formattedPrice);
-        // Todo - resolve this
-        offer_food_pic.setImageResource(Integer.parseInt(tmpOM.getImage()));
+        // Todo - cambiare placeholder
+        Glide.with(this.context).load(Uri.parse(tmpOM.getImage())).placeholder(R.drawable.img_rest_1).into(offer_food_pic);
+        //offer_food_pic.setImageResource(Integer.parseInt(tmpOM.getImage()));
         if(tmpOM.getState()) {
             switchOfferState.setChecked(true);
             switchOfferState.setText("On-line");
@@ -99,7 +98,7 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
 
     @Override
     public int getItemCount() {
-        return dataSet.size();
+        return category.getDishes().size();
     }
 
     class DishesViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
@@ -126,11 +125,11 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
             menu.add(this.getAdapterPosition(), 1, 1, R.string.remove_offer_item);
             if(MainActivity.categoriesData.size() > 1) {
                 SubMenu menuCategory = menu.addSubMenu(this.getAdapterPosition(), 2, 2, "Change category");
-                String currentCategory = dataSet.get(this.getAdapterPosition()).getCategory();
+                // String currentCategory = category.getDishes().get(this.getAdapterPosition()).getCategory();
                 int subItemId = 21;
                 int subItemOrder = 1;
                 for (Category c : MainActivity.categoriesData) {
-                    if (!c.getCategoryName().equals(currentCategory)) {
+                    if (!c.getCategoryName().equals(category)) {
                         menuCategory.add(this.getAdapterPosition(), subItemId, subItemOrder, c.getCategoryName());
                         subItemId++;
                         subItemOrder++;

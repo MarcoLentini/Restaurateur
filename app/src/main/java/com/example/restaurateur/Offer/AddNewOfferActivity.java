@@ -44,7 +44,7 @@ public class AddNewOfferActivity extends AppCompatActivity {
     private Button btnCancel, btnSave;
     private View image_button;
     private String category;
-    private ProgressBar progressBar;
+    // private ProgressBar progressBar;
     private FirebaseAuth auth;
 
     private static final int CAMERA_REQUEST = 2;
@@ -96,7 +96,7 @@ public class AddNewOfferActivity extends AppCompatActivity {
                 bn.putString("category", category);
                 bn.putString("foodName", etFoodName.getText().toString());
                 bn.putDouble("foodPrice", Double.parseDouble(etFoodPrice.getText().toString()));
-                bn.putInt("foodQuantity", Integer.parseInt(etFoodQuantity.getText().toString()));
+                bn.putLong("foodQuantity", Long.parseLong(etFoodQuantity.getText().toString()));
                 bn.putString("foodDescription", etFoodDescription.getText().toString());
                 bn.putString("foodImage", offer_image.toString());
                 retIntent.putExtras(bn);
@@ -221,7 +221,7 @@ public class AddNewOfferActivity extends AppCompatActivity {
             // Upload succeeded
             Log.d(TAG, "uploadFromUri: getDownloadUri success");
             offer_image = downloadUri;
-            Glide.with(this).load(offer_image).placeholder(R.drawable.img_rest_1).into((ImageView) findViewById(R.id.restaurant_image));
+            Glide.with(this).load(offer_image).placeholder(R.drawable.img_rest_1).into((ImageView) findViewById(R.id.offer_food_pic));
             try {
                 deleteImage();
             } catch (IOException e) {
@@ -255,11 +255,11 @@ public class AddNewOfferActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        progressBar.setVisibility(View.GONE);
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        // progressBar.setVisibility(View.GONE);
+//    }
 
     /** Permission Function **/
 

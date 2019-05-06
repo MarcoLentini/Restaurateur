@@ -36,8 +36,8 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         CategoriesViewHolder holder = new CategoriesViewHolder(view);
         view.setOnClickListener(v -> {
             int position = holder.getAdapterPosition();
-            String categoryName = dataSet.get(position).getCategoryName();
-            loadFragment(v, new OffersDishFragment(), categoryName);
+            // String categoryID = dataSet.get(position).getCategoryID();
+            loadFragment(v, new OffersDishFragment(), position);
         });
 
         return holder;
@@ -75,11 +75,11 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         }
     }
 
-    private void loadFragment(View view, android.support.v4.app.Fragment fragment, String categoryName) {
+    private void loadFragment(View view, android.support.v4.app.Fragment fragment, int position) {
         // load fragment
         FragmentTransaction transaction = ((FragmentActivity)view.getContext()).getSupportFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
-        bundle.putString("Category", categoryName);
+        bundle.putInt("Category", position);
         // set Fragment class Arguments
         fragment.setArguments(bundle);
         transaction.replace(R.id.frame_container_main, fragment, "DishesOffers");

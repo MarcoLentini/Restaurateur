@@ -53,30 +53,22 @@ public class EditOfferActivity extends AppCompatActivity {
         etFoodDescription.setLines(3);
         etFoodDescription.setText(foodDescription);
         btnCancel = findViewById(R.id.etOfferBtnCancel_e);
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        btnCancel.setOnClickListener(v -> finish());
         btnSave = findViewById(R.id.etOfferBtnSave_e);
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(validateFoodName()) {
-                    Intent retIntent = new Intent(getApplicationContext(), OffersDishFragment.class);
-                    Bundle bn = new Bundle();
-                    bn.putInt("foodId", foodId);
-                    bn.putString("foodName", etFoodName.getText().toString());
-                    bn.putDouble("foodPrice", Double.parseDouble(etFoodPrice.getText().toString()));
-                    bn.putInt("foodQuantity", Integer.parseInt(etFoodQuantity.getText().toString()));
-                    bn.putString("foodDescription", etFoodDescription.getText().toString());
-                    bn.putInt("foodImage", foodImage);
-                    bn.putBoolean("foodState", foodState);
-                    retIntent.putExtras(bn);
-                    setResult(RESULT_OK, retIntent);
-                    finish();
-                }
+        btnSave.setOnClickListener(v -> {
+            if(validateFoodName()) {
+                Intent retIntent = new Intent(getApplicationContext(), OffersDishFragment.class);
+                Bundle bn = new Bundle();
+                bn.putInt("foodId", foodId);
+                bn.putString("foodName", etFoodName.getText().toString());
+                bn.putDouble("foodPrice", Double.parseDouble(etFoodPrice.getText().toString()));
+                bn.putInt("foodQuantity", Integer.parseInt(etFoodQuantity.getText().toString()));
+                bn.putString("foodDescription", etFoodDescription.getText().toString());
+                bn.putInt("foodImage", foodImage);
+                bn.putBoolean("foodState", foodState);
+                retIntent.putExtras(bn);
+                setResult(RESULT_OK, retIntent);
+                finish();
             }
         });
     }
