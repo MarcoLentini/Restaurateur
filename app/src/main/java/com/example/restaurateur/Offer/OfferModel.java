@@ -14,11 +14,11 @@ public class OfferModel {
     public OfferModel(String id, String name, String category, double price, Long quantity, String image, String description, Boolean state) {
         this.id = id;
         this.name = name;
-        this.category=category;
+        this.category = category;
         this.price = price;
-        this.quantity=quantity;
+        this.quantity = quantity;
         this.image = image;
-        this.description=description;
+        this.description = description;
         this.state = state;
     }
 

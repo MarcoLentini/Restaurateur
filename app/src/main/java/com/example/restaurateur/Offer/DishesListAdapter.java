@@ -41,7 +41,6 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
     @NonNull
     @Override
     public DishesListAdapter.DishesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = mInflater.inflate(R.layout.offer_item_cardview, parent, false);
         DishesViewHolder holder = new DishesListAdapter.DishesViewHolder(view);
         view.setOnClickListener(v -> {
@@ -62,7 +61,7 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
             parentFragment.startActivityForResult(myIntent, EDIT_DISHES_ACTIVITY);
         });
         holder.switchOfferState.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            // TODO decidere cosa fare quando vado on-line off-line
+            // TODO off-line grigine
             // Todo - update su firebase
             if(isChecked){
                 buttonView.setChecked(true);
@@ -132,14 +131,14 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             // I pass as first param to menu.add(...) the current adapter position that will be read in OffersDishFragment
             menu.add(this.getAdapterPosition(), 1, 1, R.string.remove_offer_item);
+
             if(MainActivity.categoriesData.size() > 1) {
                 SubMenu menuCategory = menu.addSubMenu(this.getAdapterPosition(), 2, 2, "Change category");
-                // Todo - upload change cat firebase
                 // String currentCategory = category.getDishes().get(this.getAdapterPosition()).getCategory();
                 int subItemId = 21;
                 int subItemOrder = 1;
                 for (Category c : MainActivity.categoriesData) {
-                    if (!c.getCategoryName().equals(category)) {
+                    if (!c.getCategoryName().equals(category.getCategoryName())) {
                         menuCategory.add(this.getAdapterPosition(), subItemId, subItemOrder, c.getCategoryName());
                         subItemId++;
                         subItemOrder++;

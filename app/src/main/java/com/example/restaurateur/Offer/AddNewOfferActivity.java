@@ -74,6 +74,9 @@ public class AddNewOfferActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(title);
 
+        // Todo - change placeholder
+        // offer_food_pic
+
         image_button = findViewById(R.id.background_img_offer);
         image_button.setOnClickListener(v-> invokeDialogImageProfile() );
 
@@ -135,11 +138,11 @@ public class AddNewOfferActivity extends AppCompatActivity {
             return false;
         } else
             textInputFoodDescription.setError(null);
-        // Todo - it is necessary upload an image?
-        if(offer_image == null) {
+
+        /*if(offer_image == null) {
             Toast.makeText(getApplicationContext(), "Insert an image or retry", Toast.LENGTH_LONG);
             return false;
-        }
+        }*/
 
         return true;
     }

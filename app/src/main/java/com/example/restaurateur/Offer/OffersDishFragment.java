@@ -20,9 +20,15 @@ import android.widget.Toast;
 
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Transaction;
 
 import static android.app.Activity.RESULT_OK;
+import static android.support.constraint.Constraints.TAG;
 
 public class OffersDishFragment extends android.support.v4.app.Fragment {
 
@@ -112,12 +118,35 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         }
 
         if(MainActivity.categoriesData.size() > 1) {
-            // TODO - update firebase - change category
             if(item.getItemId() >= 21) {
-                String newCategory = item.getTitle().toString();
-                selectedOffer.setCategory(newCategory);
-                dishesListAdapter.notifyItemRemoved(selectedPosition);
-                Snackbar.make(view, getString(R.string.snackbar_offer_category_changed).concat(" " + newCategory), Snackbar.LENGTH_LONG).show();
+                Category newCategory = null;
+                for(Category c : MainActivity.categoriesData)
+                    if(c.getCategoryName().equals(item.getTitle().toString())){
+                        newCategory = c;
+                        break;
+                    }
+                if(newCategory == null) { Log.e("Context/offer", "Sono morto"); main.finish(); }
+
+                final DocumentReference sfDocRef = main.db.collection("category").document(newCategory.getCategoryID()).collection("dishes").document();
+                final DocumentReference sfDocRef2 = main.db.collection("category").document(category.getCategoryID()).collection("dishes").document(selectedOffer.getId());
+
+                Category finalNewCategory = newCategory;
+                main.db.runTransaction((Transaction.Function<Void>) transaction -> {
+                    DocumentSnapshot snapshot = transaction.get(sfDocRef);
+                    // Add offer to the other category
+                    selectedOffer.setId(sfDocRef.getId());
+                    transaction.set(sfDocRef, selectedOffer);
+                    transaction.delete(sfDocRef2);
+
+                    // Success
+                    return null;
+                }).addOnSuccessListener(aVoid -> {
+                    finalNewCategory.getDishes().add(selectedOffer);
+                    category.getDishes().remove(selectedOffer);
+                    dishesListAdapter.notifyItemRemoved(selectedPosition);
+
+                    Snackbar.make(view, getString(R.string.snackbar_offer_category_changed).concat(" " + finalNewCategory), Snackbar.LENGTH_LONG).show();
+                }).addOnFailureListener(e -> Log.w(TAG, "Transaction failure.", e));
             }
         }
 
@@ -200,6 +229,8 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                     if(tvNoDishes.getVisibility() == View.VISIBLE)
                         tvNoDishes.setVisibility(View.INVISIBLE);
                 };
+
+                // Todo - snackbar ripensare con ondismiss
                 Snackbar.make(view, getString(R.string.snackbar_offer_remove), Snackbar.LENGTH_LONG)
                         .setAction(getString(R.string.snackbar_offer_undo), snackbarListener).show();
             } else {

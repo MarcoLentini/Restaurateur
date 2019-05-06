@@ -3,6 +3,7 @@ package com.example.restaurateur.Offer;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -20,12 +21,18 @@ import android.widget.Toast;
 
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Transaction;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
+import static android.support.constraint.Constraints.TAG;
 
 public class OffersCategoryFragment extends Fragment {
 
@@ -161,8 +168,7 @@ public class OffersCategoryFragment extends Fragment {
 
     private void removeCategory(int selectedPosition, Category selectedCategory) {
         MainActivity.categoriesData.remove(selectedPosition);
-        // Todo - delete on firebase
-        // Todo - transaction
+        // Todo - delete on firebase - farlo da function
         categoriesAdapter.notifyItemRemoved(selectedPosition);
         if(MainActivity.categoriesData.isEmpty())
             tvNoCategories.setVisibility(View.VISIBLE);
@@ -173,6 +179,7 @@ public class OffersCategoryFragment extends Fragment {
             if(tvNoCategories.getVisibility() == View.VISIBLE)
                 tvNoCategories.setVisibility(View.INVISIBLE);
         };
+        // Todo - snackbar rivedere
         Snackbar.make(view, getString(R.string.snackbar_category_removed), Snackbar.LENGTH_LONG)
                 .setAction(getString(R.string.snackbar_category_undo), snackbarListener).show();
     }

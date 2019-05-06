@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
 
 public class AddNewCategoryActivity extends AppCompatActivity {
@@ -56,8 +57,14 @@ public class AddNewCategoryActivity extends AppCompatActivity {
         if(foodCategoryInput.isEmpty()){
             textInputFoodCategory.setError("Field can't be empty");
             return false;
-        } else
+        } else{
+            for(Category c : MainActivity.categoriesData)
+                if(c.getCategoryName().equals(foodCategoryInput)){
+                    textInputFoodCategory.setError("Category already exists");
+                    return false;
+                }
             textInputFoodCategory.setError(null);
+        }
 
         return true;
     }

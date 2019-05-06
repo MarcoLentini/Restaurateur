@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
 
 public class EditCategoryActivity extends AppCompatActivity {
@@ -37,7 +38,7 @@ public class EditCategoryActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(v -> finish());
         btnSave = findViewById(R.id.etOfferBtnSave);
         btnSave.setOnClickListener(v -> {
-            if(validateCategoryInput()) { // TODO verificare che il nuovo nome non sia già presente nella lista delle categorie
+            if(validateCategoryInput()) {
                 Intent retIntent = new Intent(getApplicationContext(), OffersCategoryFragment.class);
                 Bundle bn = new Bundle();
                 bn.putInt("selectedPosition", receivedIntent.getExtras().getInt("selectedPosition"));
@@ -61,8 +62,14 @@ public class EditCategoryActivity extends AppCompatActivity {
         if(foodCategoryInput.isEmpty()){
             textInputFoodCategory.setError("Field can't be empty");
             return false;
-        } else
+        } else{
+            for(Category c : MainActivity.categoriesData)
+                if(c.getCategoryName().equals(foodCategoryInput)){
+                    textInputFoodCategory.setError("Category already exists");
+                    return false;
+                }
             textInputFoodCategory.setError(null);
+        }
 
         return true;
     }

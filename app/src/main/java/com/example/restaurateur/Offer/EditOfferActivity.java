@@ -64,6 +64,8 @@ public class EditOfferActivity extends AppCompatActivity {
         Integer foodId = receivedIntent.getExtras().getInt("foodId");
         String foodImage = receivedIntent.getExtras().getString("foodImage");
         offer_image = Uri.parse(foodImage);
+        // Todo - change placeholder
+        Glide.with(this).load(offer_image).placeholder(R.drawable.img_rest_1).into((ImageView) findViewById(R.id.offer_food_pic_e));
         Long foodQuantity = receivedIntent.getExtras().getLong("foodQuantity");
         Double foodPrice = receivedIntent.getExtras().getDouble("foodPrice");
         Boolean foodState = receivedIntent.getExtras().getBoolean("foodState");
@@ -139,11 +141,10 @@ public class EditOfferActivity extends AppCompatActivity {
             return false;
         } else
             textInputFoodQuantity.setError(null);
-        // Todo - it is necessary upload an image?
-        if(offer_image == null) {
+        /*if(offer_image == null) {
             Toast.makeText(getApplicationContext(), "Insert an image or retry", Toast.LENGTH_LONG);
             return false;
-        }
+        }*/
         return true;
     }
 
