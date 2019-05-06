@@ -22,13 +22,7 @@ import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
 import com.google.firebase.firestore.DocumentReference;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Stream;
-
 import static android.app.Activity.RESULT_OK;
-import static com.example.restaurateur.MainActivity.availableImageId;
 
 public class OffersDishFragment extends android.support.v4.app.Fragment {
 
@@ -37,6 +31,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
     private RecyclerView.Adapter dishesListAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private Category category;
+    private Integer categoryPosition;
     private TextView tvNoDishes;
     private View view;
 
@@ -48,9 +43,8 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         main = (MainActivity) getActivity();
         Log.d("DISH_FRAGMENT", "onCreate(...) chiamato una volta sola!");
 
-        // Todo - passare id al posto del nome categoria
-        int position = getArguments().getInt("Category");
-        category = MainActivity.categoriesData.get(position);
+        categoryPosition = getArguments().getInt("Category");
+        category = MainActivity.categoriesData.get(categoryPosition);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,9 +58,8 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         fabDishes.setOnClickListener(view -> {
             //start tvNoDishes new Activity that you can add food
             Intent myIntent = new Intent(getActivity(), AddNewOfferActivity.class);
-            String category= ((MainActivity)getActivity()).getSupportActionBar().getTitle().toString();
             Bundle bn = new Bundle();
-            bn.putString("category", category);
+            bn.putInt("category", categoryPosition);
             myIntent.putExtras(bn);
             startActivityForResult(myIntent, ADD_FOOD_OFFER_ACTIVITY);
         });
@@ -119,7 +112,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         }
 
         if(MainActivity.categoriesData.size() > 1) {
-            // TODO - update firebase
+            // TODO - update firebase - change category
             if(item.getItemId() >= 21) {
                 String newCategory = item.getTitle().toString();
                 selectedOffer.setCategory(newCategory);
@@ -138,7 +131,6 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
         if(resultCode == RESULT_OK) {
 
             if (requestCode == EDIT_DISHES_ACTIVITY) {
-                // Todo - update on firebase
                 String foodName = data.getExtras().getString("foodName");
                 String foodDescription = data.getExtras().getString("foodDescription");
                 int foodId = data.getExtras().getInt("foodId");
@@ -151,7 +143,16 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                 om.setName(foodName);
                 om.setPrice(foodPrice);
                 om.setQuantity(foodQuantity);
-                dishesListAdapter.notifyDataSetChanged(); // TODO find a better way to update
+                DocumentReference dr = main.db.collection("category").document(category.getCategoryID()).collection("dishes").document(om.getId());
+                dr.set(om).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        dishesListAdapter.notifyDataSetChanged(); // TODO find a better way to update
+                    } else {
+                        // Probably only on timeout, from test the request are stored offline
+                        Toast.makeText(getContext(),"Internet problem, retry!", Toast.LENGTH_LONG).show();
+                    }
+                });
+
             }
 
             if(requestCode == ADD_FOOD_OFFER_ACTIVITY) {

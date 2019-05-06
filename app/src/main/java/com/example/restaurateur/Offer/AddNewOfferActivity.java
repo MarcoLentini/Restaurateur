@@ -25,6 +25,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
@@ -43,7 +44,7 @@ public class AddNewOfferActivity extends AppCompatActivity {
     private EditText etFoodName, etFoodPrice, etFoodQuantity, etFoodDescription;
     private Button btnCancel, btnSave;
     private View image_button;
-    private String category;
+    private Category category;
     // private ProgressBar progressBar;
     private FirebaseAuth auth;
 
@@ -61,7 +62,9 @@ public class AddNewOfferActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_new_offer_item);
         Intent receivedIntent = getIntent();
-        category =  receivedIntent.getExtras().getString("category");
+
+        int categoryPosition =  receivedIntent.getExtras().getInt("category");
+        category = MainActivity.categoriesData.get(categoryPosition);
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -93,7 +96,7 @@ public class AddNewOfferActivity extends AppCompatActivity {
             if(validateFoodInput()) {
                 Intent retIntent = new Intent(getApplicationContext(), OffersDishFragment.class);
                 Bundle bn = new Bundle();
-                bn.putString("category", category);
+                bn.putString("category", category.getCategoryName());
                 bn.putString("foodName", etFoodName.getText().toString());
                 bn.putDouble("foodPrice", Double.parseDouble(etFoodPrice.getText().toString()));
                 bn.putLong("foodQuantity", Long.parseLong(etFoodQuantity.getText().toString()));

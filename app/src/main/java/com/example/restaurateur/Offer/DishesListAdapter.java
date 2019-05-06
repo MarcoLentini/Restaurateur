@@ -51,7 +51,7 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
             //OfferModel selected = MainActivity.categoriesDataget(position);
             OfferModel selected = category.getDishes().get(position);
             Bundle bn = new Bundle();
-            bn.putString("foodId", selected.getId());
+            bn.putInt("foodId", position);
             bn.putString("foodName", selected.getName());
             bn.putDouble("foodPrice", selected.getPrice());
             bn.putLong("foodQuantity", selected.getQuantity());
@@ -63,6 +63,15 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
         });
         holder.switchOfferState.setOnCheckedChangeListener((buttonView, isChecked) -> {
             // TODO decidere cosa fare quando vado on-line off-line
+            // Todo - update su firebase
+            if(isChecked){
+                buttonView.setChecked(true);
+                buttonView.setText("On-line");
+            }
+            else {
+                buttonView.setChecked(false);
+                buttonView.setText("Off-line");
+            }
         });
 
         return holder;
@@ -83,9 +92,9 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
         DecimalFormat format = new DecimalFormat("0.00");
         String formattedPrice = format.format(tmpOM.getPrice());
         textViewPriceOffer.setText(formattedPrice);
-        // Todo - cambiare placeholder
-        Glide.with(this.context).load(Uri.parse(tmpOM.getImage())).placeholder(R.drawable.img_rest_1).into(offer_food_pic);
-        //offer_food_pic.setImageResource(Integer.parseInt(tmpOM.getImage()));
+        // Todo - senza placeholder?
+        Glide.with(this.context).load(Uri.parse(tmpOM.getImage())).into(offer_food_pic);
+        // .placeholder(R.drawable.img_rest_1)
         if(tmpOM.getState()) {
             switchOfferState.setChecked(true);
             switchOfferState.setText("On-line");
@@ -125,6 +134,7 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
             menu.add(this.getAdapterPosition(), 1, 1, R.string.remove_offer_item);
             if(MainActivity.categoriesData.size() > 1) {
                 SubMenu menuCategory = menu.addSubMenu(this.getAdapterPosition(), 2, 2, "Change category");
+                // Todo - upload change cat firebase
                 // String currentCategory = category.getDishes().get(this.getAdapterPosition()).getCategory();
                 int subItemId = 21;
                 int subItemOrder = 1;

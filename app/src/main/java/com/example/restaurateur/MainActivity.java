@@ -44,10 +44,9 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<ReservationModel> pendingReservationsData;
     public static ArrayList<ReservationModel> inProgressReservationsData;
     public static ArrayList<ReservationModel> finishedReservationsData;
-    //public static HashMap<String, OfferModel> offersData;
     public static ArrayList<Category> categoriesData;
-    public static int idDishes = 26; //TODO idDishes and image_id for dishes are to be removed
-    public static int[] availableImageId = {R.drawable.ic_offer_pizza, R.drawable.ic_offer_cake, R.drawable.ic_offer_coffee, R.drawable.ic_offer_fries};
+    //TODO idDishes and image_id for dishes are to be removed
+    // public static int[] availableImageId = {R.drawable.ic_offer_pizza, R.drawable.ic_offer_cake, R.drawable.ic_offer_coffee, R.drawable.ic_offer_fries};
     public FirebaseAuth auth;
     public FirebaseFirestore db;
     public String restaurantKey;
@@ -85,8 +84,6 @@ public class MainActivity extends AppCompatActivity {
         inProgressReservationsData = new ArrayList<>();
         finishedReservationsData = new ArrayList<>();
         categoriesData = new ArrayList<>();
-        // offersData = new HashMap<>();
-        // fillWithData() is used to put data into the previous ArrayLists and the HashMap
         fillWithData();
     }
 
@@ -174,100 +171,97 @@ public class MainActivity extends AppCompatActivity {
     private void fillWithData() {
 
         db.collection("reservations").whereEqualTo("rest_id", restaurantKey).addSnapshotListener((EventListener<QuerySnapshot>) (document, e) -> {
+            if (e != null) return;
+            for(DocumentChange dc : document.getDocumentChanges()) {
+                if (dc.getType() == DocumentChange.Type.ADDED) {
+                    //TODO incremento
+                }
+            }
 
-                    if (e != null)
-                        return;
+            if (!document.isEmpty()) {
+                for (DocumentSnapshot doc : document) {
+                    ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
+                    for (HashMap<String, Object> dish : (ArrayList<HashMap<String, Object>>) doc.get("dishes")) {
+                        tmpArrayList.add(new ReservatedDish(
+                                (String) dish.get("dish_name"),
+                                (Double) dish.get("dish_price"),
+                                (Long) dish.get("dish_qty")));
+                    }
 
-                    for(DocumentChange dc : document.getDocumentChanges())
-                        if(dc.getType() == DocumentChange.Type.ADDED)
-                        {//TODO incremento
-                             }
+                    ReservationModel tmpReservationModel = new ReservationModel((Long) doc.get("rs_id"),
+                            (String) doc.get("cust_id"),
+                            (Timestamp) doc.get("upload_time"),
+                            (String) doc.get("notes"),
+                            (String) doc.get("cust_phone"),
+                            tmpArrayList,
+                            (String) doc.get("rs_status"),
+                            (Double) doc.get("total_income"));
+
+                    switch ((String) doc.get("rs_status")) {
+                        case ReservationState.STATE_PENDING:
+                            pendingReservationsData.add(tmpReservationModel);
+                            break;
+                        case ReservationState.STATE_IN_PROGRESS:
+                            inProgressReservationsData.add(tmpReservationModel);
+                            break;
+                        case ReservationState.STATE_FINISHED_SUCCESS:
+                            finishedReservationsData.add(tmpReservationModel);
+                            break;
+                        default:
+                            finishedReservationsData.add(tmpReservationModel);
+                            break;
+                    }
+                }
+                Collections.sort(pendingReservationsData);
+                Collections.sort(inProgressReservationsData);
+                Collections.sort(finishedReservationsData);
+            } else {
+                Log.d("QueryReservation", "No such document");
+            }
+        });
+
+        db.collection("category").whereEqualTo("rest_id", restaurantKey).get()
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    QuerySnapshot document = task.getResult();
                     if (!document.isEmpty()) {
-                        for (DocumentSnapshot doc : document) {
-                            ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
-                            for (HashMap<String, Object> dish : (ArrayList<HashMap<String, Object>>) doc.get("dishes")) {
-                                tmpArrayList.add(new ReservatedDish(
-                                        (String) dish.get("dish_name"),
-                                        (Double) dish.get("dish_price"),
-                                        (Long) dish.get("dish_qty")));
-                            }
-
-                            ReservationModel tmpReservationModel = new ReservationModel((Long) doc.get("rs_id"),
-                                    (String) doc.get("cust_id"),
-                                    (Timestamp) doc.get("upload_time"),
-                                    (String) doc.get("notes"),
-                                    (String) doc.get("cust_phone"),
-                                    tmpArrayList,
-                                    (String) doc.get("rs_status"),
-                                    (Double) doc.get("total_income"));
-
-                            switch ((String) doc.get("rs_status")) {
-                                case ReservationState.STATE_PENDING:
-                                    pendingReservationsData.add(tmpReservationModel);
-                                    break;
-                                case ReservationState.STATE_IN_PROGRESS:
-                                    inProgressReservationsData.add(tmpReservationModel);
-                                    break;
-                                case ReservationState.STATE_FINISHED_SUCCESS:
-                                    finishedReservationsData.add(tmpReservationModel);
-                                    break;
-                                default:
-                                    finishedReservationsData.add(tmpReservationModel);
-                                    break;
-                            }
+                        for(DocumentSnapshot doc : document){
+                            Category c = new Category(
+                                    (String) doc.get("category_name"),
+                                    (String) doc.getId());
+                            //(String) doc.get("category_image_url"));
+                            doc.getReference().collection("dishes").get().addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()) {
+                                    QuerySnapshot document1 = task1.getResult();
+                                    if (!document1.isEmpty()) {
+                                        for(DocumentSnapshot doc1 : document1){
+                                            OfferModel tmpOM = new OfferModel(
+                                                    doc1.getId(),
+                                                    (String) doc1.get("name"),
+                                                    (String) doc.get("category"),
+                                                    (Double) doc1.get("price"),
+                                                    (Long) doc1.get("quantity"),
+                                                    (String) doc1.get("image"),
+                                                    (String) doc1.get("description"),
+                                                    (Boolean) doc1.get("state"));
+                                            c.getDishes().add(tmpOM);
+                                        }
+                                    } else {
+                                        Log.d("QueryReservation", "No such document");
+                                    }
+                                    categoriesData.add(c);
+                                } else {
+                                    Log.d("QueryReservation", "get failed with ", task.getException());
+                                }
+                            });
                         }
-                        Collections.sort(pendingReservationsData);
-                        Collections.sort(inProgressReservationsData);
-                        Collections.sort(finishedReservationsData);
                     } else {
                         Log.d("QueryReservation", "No such document");
                     }
-
-                });
-
-        db.collection("category").whereEqualTo("rest_id", restaurantKey).get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        QuerySnapshot document = task.getResult();
-                        if (!document.isEmpty()) {
-                            for(DocumentSnapshot doc : document){
-                                Category c = new Category(
-                                        (String) doc.get("category_name"),
-                                        (String) doc.getId());
-                                        //(String) doc.get("category_image_url"));
-                                doc.getReference().collection("dishes").get().addOnCompleteListener(task1 -> {
-                                    if (task1.isSuccessful()) {
-                                        QuerySnapshot document1 = task1.getResult();
-                                        if (!document1.isEmpty()) {
-                                            for(DocumentSnapshot doc1 : document1){
-                                                OfferModel tmpOM = new OfferModel(
-                                                                 doc1.getId(),
-                                                        (String) doc1.get("name"),
-                                                        (String) doc.get("category"),
-                                                        (Double) doc1.get("price"),
-                                                        (Long) doc1.get("quantity"),
-                                                        (String) doc1.get("image"),
-                                                        (String) doc1.get("description"),
-                                                        (Boolean) doc1.get("state"));
-                                                //offersData.put(doc1.getId(), tmpOM);
-                                                c.getDishes().add(tmpOM);
-                                            }
-                                        } else {
-                                            Log.d("QueryReservation", "No such document");
-                                        }
-                                        categoriesData.add(c);
-                                    } else {
-                                        Log.d("QueryReservation", "get failed with ", task.getException());
-                                    }
-                                });
-                            }
-                        } else {
-                            Log.d("QueryReservation", "No such document");
-                        }
-                    } else {
-                        Log.d("QueryReservation", "get failed with ", task.getException());
-                    }
-                });
+                } else {
+                    Log.d("QueryReservation", "get failed with ", task.getException());
+                }
+            });
 
     }
 
