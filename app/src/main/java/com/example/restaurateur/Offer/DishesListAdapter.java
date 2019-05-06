@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -63,13 +64,26 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
         holder.switchOfferState.setOnCheckedChangeListener((buttonView, isChecked) -> {
             // TODO off-line grigine
             // Todo - update su firebase
+            OfferModel tmpO = category.getDishes().get(holder.getAdapterPosition());
             if(isChecked){
-                buttonView.setChecked(true);
-                buttonView.setText("On-line");
+                FirebaseFirestore.getInstance().collection("category").document(category.getCategoryID())
+                        .collection("dishes").document(tmpO.getId()).update("state",true).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        tmpO.setState(true);
+                        buttonView.setChecked(true);
+                        buttonView.setText("On-line");
+                    }
+                });
             }
             else {
-                buttonView.setChecked(false);
-                buttonView.setText("Off-line");
+                FirebaseFirestore.getInstance().collection("category").document(category.getCategoryID())
+                        .collection("dishes").document(tmpO.getId()).update("state",false).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        tmpO.setState(false);
+                        buttonView.setChecked(false);
+                        buttonView.setText("Off-line");
+                    }
+                });
             }
         });
 
