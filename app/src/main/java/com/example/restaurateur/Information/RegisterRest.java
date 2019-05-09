@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -44,7 +45,7 @@ import java.util.Map;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class RegisterRest extends Activity {
+public class RegisterRest extends AppCompatActivity {
     private EditText inputName, inputAddr, inputDescr;
     private Button btnSignUp;
     private View btnImage;
@@ -67,6 +68,10 @@ public class RegisterRest extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_rest);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        String title= getString(R.string.your_rest_title);
+        getSupportActionBar().setTitle(title);
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
 
@@ -352,4 +357,20 @@ public class RegisterRest extends Activity {
                 break;
         }
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        signOut();
+        onBackPressed();
+        return true;
+    }
+
+    //sign out method
+    public void signOut() {
+        auth.signOut();
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        finish();
+
+    }
+
 }

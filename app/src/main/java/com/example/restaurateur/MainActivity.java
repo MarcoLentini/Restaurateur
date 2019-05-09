@@ -105,11 +105,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings_firebase) {
 
-            Intent information = new Intent(this, FirebaseAccount.class);
-            startActivity(information);
-        }
         if (id == R.id.action_settings) {
 
             Intent information = new Intent(this, UserInformationActivity.class);

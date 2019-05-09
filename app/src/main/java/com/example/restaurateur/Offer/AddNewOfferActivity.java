@@ -139,10 +139,10 @@ public class AddNewOfferActivity extends AppCompatActivity {
         } else
             textInputFoodDescription.setError(null);
 
-        /*if(offer_image == null) {
+        if(offer_image == null) {
             Toast.makeText(getApplicationContext(), "Insert an image or retry", Toast.LENGTH_LONG);
             return false;
-        }*/
+        }
 
         return true;
     }

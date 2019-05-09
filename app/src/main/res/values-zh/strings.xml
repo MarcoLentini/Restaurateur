@@ -20,8 +20,6 @@
     <string name="delivery_service_field_id">delivery_service</string>
     <string name="pwd_field_id">user_password</string>
 
-    <string name="viewMore">更多资料</string>
-
     <string name="insert_username">请输入用户名</string>
     <string name="insert_email">请输入邮箱</string>
     <string name="insert_phone_number">请输入电话号码</string>

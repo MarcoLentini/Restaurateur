@@ -19,6 +19,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText inputEmail, inputPassword;
@@ -39,13 +42,13 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sharedPref2 = getSharedPreferences(restaurantDataFile, Context.MODE_PRIVATE);
         String restaurantKey = sharedPref2.getString("restaurantKey","");
 
+
         if (auth.getCurrentUser() != null && !restaurantKey.equals("")) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         } else if(auth.getCurrentUser() != null) {
             register_or_get_restaurant();
         }
-
         // set the view now
         setContentView(R.layout.activity_login);
 
@@ -54,10 +57,8 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         btnSignup = findViewById(R.id.btn_signup);
         btnLogin = findViewById(R.id.btn_login);
-        btnReset = findViewById(R.id.btn_reset_password);
+        btnReset = findViewById(R.id.btn_reset_password_log);
 
-        //Get Firebase auth instance
-        auth = FirebaseAuth.getInstance();
 
         btnSignup.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, SignupActivity.class)));
 
@@ -87,13 +88,14 @@ public class LoginActivity extends AppCompatActivity {
                         // signed in user can be handled in the listener.
                         progressBar.setVisibility(View.GONE);
                         if (!task.isSuccessful()) {
-                            // there was an error
-                            if (password.length() < 6) {
-                                inputPassword.setError(getString(R.string.minimum_password));
-                            } else {
-                                Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
-                            }
+                        if (!isValidEmail(email))
+                            inputPassword.setError(getString(R.string.invalid_mail));
+                        else if (!isValidPassword(password)) {
+                            inputPassword.setError(getString(R.string.invalid_password));
                         } else {
+                            Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                        }
+                    } else {
                             register_or_get_restaurant();
                         }
                     });
@@ -130,4 +132,34 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    public boolean isValidPassword(final String password) {
+
+        Pattern pattern;
+        Matcher matcher;
+
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$";
+
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        return matcher.matches();
+
+    }
+
+    public boolean isValidEmail(final String email) {
+
+        Pattern pattern;
+        Matcher matcher;
+
+        final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";;
+
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(email);
+
+        return matcher.matches();
+
+    }
+
 }

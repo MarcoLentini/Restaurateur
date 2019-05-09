@@ -42,9 +42,10 @@
     <string name="insert_delivery_info">Type your delivery info</string>
 
     <!-- Generic -->
-    <string name="viewMore">Show more information</string>
+    <string name="viewMore">Show restaurant\'s information</string>
     <string name="ok_button">OK</string>
     <string name="cancel_button">CANCEL</string>
+    <string name="remove_restaurant">Remove restaurant</string>
 
     <!-- Password -->
     <string name="password_title">Change Password</string>
@@ -197,6 +198,31 @@
     <string name="restaurant_address">Restaurant\'s Address</string>
     <string name="restaurant_name">Restaurant Name</string>
     <string name="restaurant_descr">Restaurant Description</string>
-    <string name="complete_rest_btn">Complete Registration</string>
+
+    <!-- activity_signup_biker-->
+    <string name="biker_name">Biker name</string>
+    <string name="biker_phone">Phone number</string>
+    <string name="biker_description">Your description</string>
+     <string name="username_updated">Username is updated.</string>
+    <string name="username_failed_update">Failed to update username!</string>
+    <string name="invalid_username">Invalid username. Use minimum 3 characters</string>
+    <string name="email_updated">Email address is updated. Please sign in with new email id!</string>
+    <string name="email_failed_updated">Failed to update email!</string>
+    <string name="phone_updated">Phone number is updated.</string>
+    <string name="phone_failed_updated">Failed to update phone number!</string>
+    <string name="invalid_mail">Enter valid email address!</string>
+    <string name="invalid_phone">Invalid phone number</string>
+    <string name="enter_email">Enter email address!</string>
+    <string name="became_biker">Became a biker!</string>
+    <string name="became_biker2">Do you want to became a biker?</string>
+    <string name="welcome_biker">Welcome among bikers!</string>
+    <string name="logout_title">Log out</string>
+    <string name="password_failed_updated">Failed to update password!</string>
+    <string name="profile_created">Your profile is created!</string>
+    <string name="complete_rest_btn">Complete registration</string>
+    <string name="your_rest_title">Your restaurant</string>
+    <string name="user_name">Username</string>
+    <string name="sign_up">Sign up</string>
+
 
 </resources>
