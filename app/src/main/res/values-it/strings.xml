@@ -25,7 +25,7 @@
     <string name="insert_old_password">Inserisci  password attuale</string>
     <string name="insert_password">Inserisci la nuova password</string>
     <string name="repeat_password">Re-inseririsci la nuova password</string>
-    <string name="invalid_password">Password invalida</string>
+    <string name="invalid_password">Password invalida! Deve contenere una maiuscola e un numero, e almeno 8 caratteri</string>
     <string name="different_password">Le due password sono diverse</string>
 
     <string name="insert_username">Inserisci il tuo username</string>

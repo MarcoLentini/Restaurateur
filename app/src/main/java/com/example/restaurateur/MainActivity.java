@@ -15,7 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.example.restaurateur.History.HistoryMainFragment;
-import com.example.restaurateur.Information.FirebaseAccount;
+import com.example.restaurateur.Information.LoginActivity;
 import com.example.restaurateur.Information.UserInformationActivity;
 import com.example.restaurateur.Offer.Category;
 import com.example.restaurateur.Offer.OfferModel;
@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() == null || restaurantKey.equals("")) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+
             finish();
         }
 
@@ -287,4 +289,6 @@ public class MainActivity extends AppCompatActivity {
     public void removeItemFromFinished(int position) {
         pendingReservationsData.remove(position);
     }
+
+
 }
