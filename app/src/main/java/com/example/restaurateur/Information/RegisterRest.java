@@ -90,6 +90,8 @@ public class RegisterRest extends AppCompatActivity {
         inputName = findViewById(R.id.restaurant_name);
         inputAddr = findViewById(R.id.restaurant_address);
         inputDescr = findViewById(R.id.restaurant_descr);
+        inputDescr.setHorizontallyScrolling(false);
+        inputDescr.setLines(2);
         progressBar = findViewById(R.id.progressBarRest);
         btnImage = findViewById(R.id.background_img_rest);
         tvRestaurantType = findViewById(R.id.textViewRestaurantType);
