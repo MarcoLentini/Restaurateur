@@ -148,7 +148,13 @@
 
         </android.support.design.widget.TextInputLayout>
 
-
+        <TextView
+            android:id="@+id/textViewRestaurantType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Select restaurant type"
+            android:drawableEnd="@drawable/ic_account_edit"
+            android:drawableRight="@drawable/ic_account_edit" />
 
         <Button
             android:id="@+id/complete_rest_btn"

@@ -3,6 +3,7 @@ package com.example.restaurateur.Information;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -25,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -39,6 +41,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -50,18 +53,26 @@ public class RegisterRest extends AppCompatActivity {
     private Button btnSignUp;
     private View btnImage;
     private ProgressBar progressBar;
+    private TextView tvRestaurantType;
     private FirebaseAuth auth;
 
     private static final int CAMERA_REQUEST = 2;
     private static final int GALLERY_REQUEST = 3;
     private static final int STORAGE_PERMISSION_CODE = 4;
     private static final int CAMERA_PERMISSION_CODE = 5;
+    private static final int MAX_RESTAURANT_TYPES = 3;
 
     private Uri restaurant_image = null;
     private Uri file_image = null;
     private static final String AuthorityFormat = "%s.fileprovider";
 
     private static final String restaurantDataFile = "RestaurantDataFile";
+    private int countChecked;
+    private ArrayList<Integer> selectedRestaurantTypes;
+    private String[] restaurantTypes = {"Pizza", "Cinese", "Giapponese", "Indiano", "Italiano", "Hamburger",
+            "Pasta", "Greca", "Panini", "Dolci", "Americano", "Argentino", "Brasiliano", "Messicano",
+            "Insalate", "Kebab", "Piadine", "Spagnolo", "Thailandese", "Vegetariano", "SenzaGlutine",
+            "Gelato"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +92,13 @@ public class RegisterRest extends AppCompatActivity {
         inputDescr = findViewById(R.id.restaurant_descr);
         progressBar = findViewById(R.id.progressBarRest);
         btnImage = findViewById(R.id.background_img_rest);
+        tvRestaurantType = findViewById(R.id.textViewRestaurantType);
+        tvRestaurantType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectRestaurantType();
+            }
+        });
 
         btnImage.setOnClickListener(v-> invokeDialogImageProfile());
 
@@ -373,4 +391,42 @@ public class RegisterRest extends AppCompatActivity {
 
     }
 
+
+    private void selectRestaurantType() {
+        countChecked = 0;
+        // setup the alert builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose up to 3 types");
+        selectedRestaurantTypes = new ArrayList();
+        builder.setMultiChoiceItems(restaurantTypes, null, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                if(isChecked) {
+                    if (countChecked <= MAX_RESTAURANT_TYPES - 1) {
+                        selectedRestaurantTypes.add(which);
+                        countChecked++;
+                    } else {
+                        //selected[which] = false;
+                        ((AlertDialog) dialog).getListView().setItemChecked(which, false);
+                    }
+                } else {
+                    selectedRestaurantTypes.remove(Integer.valueOf(which));
+                }
+            }
+        });
+        // add OK and Cancel buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String selectedString = "";
+                for(int pos : selectedRestaurantTypes)
+                    selectedString.concat(restaurantTypes[pos] + " ");
+                tvRestaurantType.setText(selectedString);
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        // create and show the alert dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 }

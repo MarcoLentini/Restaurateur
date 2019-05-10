@@ -177,21 +177,24 @@ public class MainActivity extends AppCompatActivity {
             if (!document.isEmpty()) {
                 for (DocumentSnapshot doc : document) {
                     ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
-                    for (HashMap<String, Object> dish : (ArrayList<HashMap<String, Object>>) doc.get("dishes")) {
-                        tmpArrayList.add(new ReservatedDish(
-                                (String) dish.get("dish_name"),
-                                (Double) dish.get("dish_price"),
-                                (Long) dish.get("dish_qty")));
+                    if(doc.get("dishes") != null) {
+                        for (HashMap<String, Object> dish : (ArrayList<HashMap<String, Object>>) doc.get("dishes")) {
+                            tmpArrayList.add(new ReservatedDish(
+                                    (String) dish.get("dish_name"),
+                                    (Double) dish.get("dish_price"),
+                                    (Long) dish.get("dish_qty")));
+                        }
                     }
 
-                    ReservationModel tmpReservationModel = new ReservationModel((Long) doc.get("rs_id"),
+                    ReservationModel tmpReservationModel = new ReservationModel(
+                            (Long) doc.get("rs_id") ,
                             (String) doc.get("cust_id"),
                             (Timestamp) doc.get("upload_time"),
                             (String) doc.get("notes"),
                             (String) doc.get("cust_phone"),
                             tmpArrayList,
                             (String) doc.get("rs_status"),
-                            (Double) doc.get("total_income"));
+                            (Double) doc.get("total_income") );
 
                     switch ((String) doc.get("rs_status")) {
                         case ReservationState.STATE_PENDING:
