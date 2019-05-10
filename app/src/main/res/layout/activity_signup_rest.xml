@@ -152,7 +152,16 @@
             android:id="@+id/textViewRestaurantType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:paddingStart="4dp"
+            android:paddingLeft="4dp"
             android:hint="Select restaurant type"
+            android:textColor="@android:color/white"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:drawableStart="@android:drawable/checkbox_off_background"
+            android:drawableLeft="@android:drawable/checkbox_off_background"
             android:drawableEnd="@drawable/ic_account_edit"
             android:drawableRight="@drawable/ic_account_edit" />
 

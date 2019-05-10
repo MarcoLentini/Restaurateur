@@ -71,7 +71,7 @@ public class RegisterRest extends AppCompatActivity {
     private ArrayList<Integer> selectedRestaurantTypes;
     private String[] restaurantTypes = {"Pizza", "Cinese", "Giapponese", "Indiano", "Italiano", "Hamburger",
             "Pasta", "Greca", "Panini", "Dolci", "Americano", "Argentino", "Brasiliano", "Messicano",
-            "Insalate", "Kebab", "Piadine", "Spagnolo", "Thailandese", "Vegetariano", "SenzaGlutine",
+            "Insalate", "Kebab", "Piadine", "Spagnolo", "Thailandese", "Vegetariano", "Senza Glutine",
             "Gelato"};
 
     @Override
@@ -411,6 +411,7 @@ public class RegisterRest extends AppCompatActivity {
                     }
                 } else {
                     selectedRestaurantTypes.remove(Integer.valueOf(which));
+                    countChecked--;
                 }
             }
         });
@@ -418,10 +419,19 @@ public class RegisterRest extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String selectedString = "";
-                for(int pos : selectedRestaurantTypes)
-                    selectedString.concat(restaurantTypes[pos] + " ");
-                tvRestaurantType.setText(selectedString);
+                if (!selectedRestaurantTypes.isEmpty()) {
+                    String selectedString = "";
+                    int currentCount = 1;
+                    for (int pos : selectedRestaurantTypes) {
+                        selectedString += restaurantTypes[pos];
+                        if(currentCount < selectedRestaurantTypes.size())
+                            selectedString += ", ";
+                        currentCount++;
+                    }
+                    Log.d("RESTTYPE", selectedString);
+                    tvRestaurantType.setText(selectedString);
+                    // TODO set the left drawable image as checked
+                }
             }
         });
         builder.setNegativeButton("Cancel", null);
