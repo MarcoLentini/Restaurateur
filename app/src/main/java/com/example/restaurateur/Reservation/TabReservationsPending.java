@@ -1,5 +1,6 @@
 package com.example.restaurateur.Reservation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -31,11 +32,17 @@ public class TabReservationsPending extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
         pendingReservationsAdapter = new PendingReservationsListAdapter(getContext(),
-                MainActivity.pendingReservationsData, (MainActivity)getActivity(),
+                MainActivity.pendingReservationsData, (MainActivity)getActivity(), this,
                 (ReservationsMainFragment)getParentFragment());
         recyclerView.setAdapter(pendingReservationsAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     public void sortDataAndNotify() {

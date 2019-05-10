@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
                     ReservationModel tmpReservationModel = new ReservationModel(
                             (Long) doc.get("rs_id") ,
                             (String) doc.get("cust_id"),
-                            (Timestamp) doc.get("upload_time"),
+                            (Timestamp) doc.get("delivery_time"),
                             (String) doc.get("notes"),
                             (String) doc.get("cust_phone"),
                             tmpArrayList,
