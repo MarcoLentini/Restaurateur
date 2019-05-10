@@ -128,6 +128,11 @@ public class RegisterRest extends AppCompatActivity {
                 return;
             }
 
+            if (tvRestaurantType.getText().equals("")) {
+                Toast.makeText(getApplicationContext(), "Select at least one tag", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             progressBar.setVisibility(View.VISIBLE);
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -140,6 +145,10 @@ public class RegisterRest extends AppCompatActivity {
             restaurant.put("rest_name", name);
             restaurant.put("rest_descr", description);
             restaurant.put("rest_image", restaurant_image.toString());
+            Map<String, Boolean> tags = new HashMap<>();
+            for(int pos : selectedRestaurantTypes)
+                tags.put(restaurantTypes[pos], true);
+            restaurant.put("tags", tags);
 
             // Get a new write batch
             WriteBatch batch = db.batch();
@@ -396,7 +405,7 @@ public class RegisterRest extends AppCompatActivity {
         countChecked = 0;
         // setup the alert builder
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Choose up to 3 types");
+        builder.setTitle("Choose restaurant tags(minimum 1 and maximum 3 tags)");
         selectedRestaurantTypes = new ArrayList();
         builder.setMultiChoiceItems(restaurantTypes, null, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
@@ -430,7 +439,8 @@ public class RegisterRest extends AppCompatActivity {
                     }
                     Log.d("RESTTYPE", selectedString);
                     tvRestaurantType.setText(selectedString);
-                    // TODO set the left drawable image as checked
+                    tvRestaurantType.setCompoundDrawablesWithIntrinsicBounds(
+                            android.R.drawable.checkbox_on_background, 0, R.drawable.ic_account_edit, 0);
                 }
             }
         });

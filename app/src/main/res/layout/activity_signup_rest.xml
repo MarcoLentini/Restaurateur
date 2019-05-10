@@ -156,7 +156,7 @@
             android:background="@color/colorPrimaryDark"
             android:paddingStart="4dp"
             android:paddingLeft="4dp"
-            android:hint="Select restaurant type"
+            android:hint="Select restaurant tag"
             android:textColor="@android:color/white"
             android:textAlignment="center"
             android:gravity="center_vertical"
