@@ -37,6 +37,7 @@ public class ViewMoreInfoActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        setContentView(R.layout.waiting_view);
 
         String titile = getString(R.string.InfoTitle);
         getSupportActionBar().setTitle(titile);

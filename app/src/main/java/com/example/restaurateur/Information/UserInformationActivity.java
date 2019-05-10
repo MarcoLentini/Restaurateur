@@ -97,7 +97,7 @@ public class UserInformationActivity extends AppCompatActivity {
         if (user == null || restaurantKey.equals("")) {
             finish();
         }
-
+        setContentView(R.layout.waiting_view);
 
         //Get Firestore instance
         db = FirebaseFirestore.getInstance();

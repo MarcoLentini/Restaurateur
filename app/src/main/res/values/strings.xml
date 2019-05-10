@@ -9,7 +9,7 @@
     <string name="default_user_phone_number">Insert phone number</string>
     <string name="default_user_address">Insert user address</string>
     <string name="default_opening_hours">Insert opening hours</string>
-    <string name="default_delivery_service">Insert delivery info</string>
+    <string name="default_delivery_service">Delivery info</string>
     <string name="default_user_notification">Insert notification </string>
 
     <!-- Field -->
@@ -223,6 +223,10 @@
     <string name="your_rest_title">Your restaurant</string>
     <string name="user_name">Username</string>
     <string name="sign_up">Sign up</string>
+    <string name="default_rest_name">Restaurant name</string>
+    <string name="rest_description">Restaurant\'s description</string>
+    <string name="delivery_fee_title">Delivery fee</string>
+    <string name="rest_tags_title">Restaurant\'s tag</string>
 
 
 </resources>
