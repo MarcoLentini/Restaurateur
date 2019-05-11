@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.Offer.OfferModel;
 import com.example.restaurateur.R;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,14 +28,20 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
     private MainActivity fragmentActivity;
     private ArrayList<ReservationModel> finishedDataSet;
     private LayoutInflater mInflater;
-    private HashMap<String, OfferModel> offersData;
+    private ReservationsMainFragment mainFragment;
+    private TabReservationsFinished tabFrag;
+    private FirebaseFirestore db;
+
 
     public FinishedReservationsListAdapter(Context context, ArrayList<ReservationModel> finishedData,
-                                           MainActivity fragmentActivity) {
+                                           MainActivity fragmentActivity,  TabReservationsFinished tabFrag, ReservationsMainFragment mainFragment) {
         this.context = context;
         this.fragmentActivity = fragmentActivity;
         this.mInflater = LayoutInflater.from(context);
         this.finishedDataSet = finishedData;
+        this.tabFrag = tabFrag;
+        this.mainFragment = mainFragment;
+        this.db = FirebaseFirestore.getInstance();
     }
 
     @NonNull
@@ -43,18 +50,14 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
         View view = mInflater.inflate(R.layout.finished_reservation_cardview, parent, false);
 
         FinishedReservationViewHolder holder = new FinishedReservationViewHolder(view);
-        view.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent myIntent = new Intent(fragmentActivity, FinishedDetailsActivity.class);
-               int itemPosition = holder.getAdapterPosition();
-               ReservationModel selectedRm = finishedDataSet.get(itemPosition);
-               Bundle bn = new Bundle();
-               bn.putSerializable("reservationCardData", selectedRm);
-               myIntent.putExtras(bn);
-               fragmentActivity.startActivity(myIntent);
-            }
-        });
+        view.setOnClickListener(v -> {
+            Intent myIntent = new Intent(mainFragment.getContext(), FinishedDetailsActivity.class);
+            int itemPosition = holder.getAdapterPosition();
+            Bundle bn = new Bundle();
+            bn.putInt("reservationCardData", itemPosition);
+            myIntent.putExtras(bn);
+            mainFragment.startActivityForResult(myIntent, tabFrag.FINISHED_REQ);
+         });
 
         return holder;
     }
@@ -80,10 +83,20 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
         }
         textViewOrderedFood.setText(reservationOffer);
         textViewReservationState.setText(tmpRM.getRs_status());
-        btnResumeReservation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos = finishedReservationViewHolder.getAdapterPosition();
+        btnResumeReservation.setOnClickListener(v -> {
+            int pos = finishedReservationViewHolder.getAdapterPosition();
+            finishedResume(pos);
+        });
+        btnRemoveReservation.setOnClickListener(v -> {
+            int pos = finishedReservationViewHolder.getAdapterPosition();
+            finishedReject(pos);
+        });
+    }
+
+    public void finishedResume(int pos){
+        ReservationModel tmpRM = finishedDataSet.get(pos);
+        db.collection("reservations").document(tmpRM.getReservation_id()).update("rs_status", ReservationState.STATE_IN_PROGRESS).addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
                 fragmentActivity.removeItemFromFinished(pos);//finishedDataSet.remove(pos);
                 notifyItemRemoved(pos);
                 notifyItemRangeChanged(pos, finishedDataSet.size());
@@ -91,36 +104,17 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
                 fragmentActivity.addItemToInProgress(tmpRM);//inProgressDataSet.add(tmpRM);
             }
         });
-        btnRemoveReservation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos = finishedReservationViewHolder.getAdapterPosition();
+    }
+
+    public void finishedReject(int pos){
+        ReservationModel tmpRM = finishedDataSet.get(pos);
+        db.collection("reservations").document(tmpRM.getReservation_id()).update("rs_status", ReservationState.STATE_STORED).addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
                 fragmentActivity.removeItemFromFinished(pos);//finishedDataSet.remove(pos);
                 notifyItemRemoved(pos);
                 notifyItemRangeChanged(pos, finishedDataSet.size());
-                // TODO probably we will need to save on the history database
             }
         });
-
-        /*finishedReservationViewHolder.itemView.setOnClickListener(v -> {
-            FinishedDetailsFragment finishedDetailsFragment = FinishedDetailsFragment.newInstance(tmpRM, position);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                finishedDetailsFragment.setSharedElementEnterTransition(new DetailsTransition());
-                finishedDetailsFragment.setEnterTransition(new Fade());
-                finishedDetailsFragment.setExitTransition(new Fade());
-                finishedDetailsFragment.setSharedElementReturnTransition(new DetailsTransition());
-            }
-
-            ViewCompat.setTransitionName(textViewOrderedFood,"lessDetailsFinish");
-            fragmentActivity.getSupportFragmentManager()
-                    .beginTransaction()
-                    .addSharedElement(textViewOrderedFood,
-                            "seeDetailsFinish")
-                    .replace(R.id.frame_container_main, finishedDetailsFragment)
-                    .addToBackStack(null)
-                    .commit();
-        });*/
     }
 
     @Override

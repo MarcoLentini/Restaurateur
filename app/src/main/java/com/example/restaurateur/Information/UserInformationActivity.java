@@ -78,6 +78,8 @@ public class UserInformationActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private int[] placeholders = {  R.drawable.img_rest_1, R.drawable.img_rest_2, R.drawable.img_rest_3, R.drawable.img_rest_4 };
 
+    // Todo - ricontrollare eliminazione utente
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

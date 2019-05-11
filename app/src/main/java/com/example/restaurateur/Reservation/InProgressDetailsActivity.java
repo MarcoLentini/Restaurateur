@@ -9,6 +9,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,7 +28,10 @@ public class InProgressDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(title);
         Intent receivedIntent = getIntent();
-        ReservationModel rm = (ReservationModel)receivedIntent.getExtras().getSerializable("reservationCardData");
+
+        Integer itemPosition = receivedIntent.getExtras().getInt("reservationCardData");
+        ReservationModel rm = MainActivity.inProgressReservationsData.get(itemPosition);
+
         TextView textViewIdReservation = findViewById(R.id.textViewIdReservation);
         textViewIdReservation.setText(String.valueOf(rm.getRs_id()));
         TextView textViewRemainingTimeReservation = findViewById(R.id.textViewRemainingTimeReservation);
@@ -97,6 +101,19 @@ public class InProgressDetailsActivity extends AppCompatActivity {
             ll.addView(tv2);
             pending_order_detail_info.addView(ll);
         }
+
+        Button btnFinish = findViewById(R.id.btnAcceptOrderInProgress);
+        btnFinish.setOnClickListener(v-> returnVal(itemPosition,"Finish"));
+    }
+
+    private void returnVal(int itemPosition, String ret){
+        Intent retIntent = new Intent();
+        Bundle bn = new Bundle();
+        bn.putInt("pos", itemPosition);
+        bn.putString("result", ret);
+        retIntent.putExtras(bn);
+        setResult(RESULT_OK, retIntent);
+        finish();
     }
 
     @Override

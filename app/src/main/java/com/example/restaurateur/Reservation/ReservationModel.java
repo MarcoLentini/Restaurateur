@@ -7,15 +7,7 @@ import java.util.ArrayList;
 
 public class ReservationModel implements Comparable<ReservationModel>, Serializable {
 
-    /*private int id;
-    private int customerId;
-    private int remainingMinutes;
-    private String notes;
-    private String customerPhoneNumber;
-    private ArrayList<ReservatedDish> reservatedDishes;
-    private String state;
-    private double totalIncome;*/
-
+    private String reservation_id;
     private Long rs_id;
     private String cust_id;
     private Timestamp timestamp;
@@ -25,9 +17,10 @@ public class ReservationModel implements Comparable<ReservationModel>, Serializa
     private String rs_status;
     private Double total_income;
 
-    public ReservationModel(Long rs_id, String cust_id, Timestamp timestamp, String notes,
+    public ReservationModel(String reservation_id, Long rs_id, String cust_id, Timestamp timestamp, String notes,
                             String cust_phone, ArrayList<ReservatedDish> dishesArrayList,
                             String rs_status, Double total_income) {
+        this.reservation_id = reservation_id;
         this.rs_id = rs_id;
         this.cust_id = cust_id;
         this.timestamp = timestamp;
@@ -118,5 +111,13 @@ public class ReservationModel implements Comparable<ReservationModel>, Serializa
     @Override
     public int compareTo(ReservationModel other) {
         return this.timestamp.compareTo(other.getTimestamp());
+    }
+
+    public String getReservation_id() {
+        return reservation_id;
+    }
+
+    public void setReservation_id(String reservation_id) {
+        this.reservation_id = reservation_id;
     }
 }

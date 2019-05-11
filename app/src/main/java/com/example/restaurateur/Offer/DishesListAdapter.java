@@ -63,7 +63,6 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
         });
         holder.switchOfferState.setOnCheckedChangeListener((buttonView, isChecked) -> {
             // TODO off-line grigine
-            // Todo - update su firebase
             OfferModel tmpO = category.getDishes().get(holder.getAdapterPosition());
             if(isChecked){
                 FirebaseFirestore.getInstance().collection("category").document(category.getCategoryID())

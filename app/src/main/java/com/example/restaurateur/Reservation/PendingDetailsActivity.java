@@ -9,9 +9,13 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.restaurateur.Information.ModifyInfoActivity;
+import com.example.restaurateur.Information.UserInformationActivity;
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
 
@@ -27,7 +31,10 @@ public class PendingDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(title);
         Intent receivedIntent = getIntent();
-        ReservationModel rm = (ReservationModel)receivedIntent.getExtras().getSerializable("reservationCardData");
+
+        Integer itemPosition = receivedIntent.getExtras().getInt("reservationCardData");
+        ReservationModel rm = MainActivity.pendingReservationsData.get(itemPosition);
+
         TextView textViewIdReservation = findViewById(R.id.textViewIdReservation);
         textViewIdReservation.setText(String.valueOf(rm.getRs_id()));
         TextView textViewRemainingTimeReservation = findViewById(R.id.textViewRemainingTimeReservation);
@@ -41,6 +48,7 @@ public class PendingDetailsActivity extends AppCompatActivity {
         TextView textViewCustomerPhoneNumberReservation = findViewById(R.id.customer_phone_number);
         textViewCustomerPhoneNumberReservation.setText(rm.getCust_phone());
         LinearLayout pending_order_detail_info = findViewById(R.id.pending_reservation_detail_info);
+
         for(ReservatedDish rd : rm.getDishesArrayList()){
             LinearLayout ll = new LinearLayout(this);
             // 16dp
@@ -97,6 +105,21 @@ public class PendingDetailsActivity extends AppCompatActivity {
             ll.addView(tv2);
             pending_order_detail_info.addView(ll);
         }
+
+        Button btnAccept = findViewById(R.id.Accept_Order);
+        btnAccept.setOnClickListener(v-> returnVal(itemPosition,"Accept"));
+        Button btnReject = findViewById(R.id.Reject_Order);
+        btnReject.setOnClickListener(v-> returnVal(itemPosition,"Reject"));
+    }
+
+    private void returnVal(int itemPosition, String ret){
+        Intent retIntent = new Intent();
+        Bundle bn = new Bundle();
+        bn.putInt("pos", itemPosition);
+        bn.putString("result", ret);
+        retIntent.putExtras(bn);
+        setResult(RESULT_OK, retIntent);
+        finish();
     }
 
     @Override

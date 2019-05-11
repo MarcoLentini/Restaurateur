@@ -1,5 +1,6 @@
 package com.example.restaurateur.Reservation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,11 +15,13 @@ import android.widget.TextView;
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
 
+import static android.app.Activity.RESULT_OK;
+
 public class ReservationsMainFragment extends Fragment implements TabLayout.BaseOnTabSelectedListener {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private PageReservations pageAdapter;
+    public PageReservations pageAdapter;
     private TextView tvPendingReservationsNumber;
     private int pendingReservationsNumber;
 
@@ -86,6 +89,15 @@ public class ReservationsMainFragment extends Fragment implements TabLayout.Base
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        pageAdapter.getTabPending().onActivityResult(requestCode,resultCode,data);
+        pageAdapter.getTabInProgress().onActivityResult(requestCode,resultCode,data);
+        pageAdapter.getTabFinished().onActivityResult(requestCode,resultCode,data);
+    }
+
+    @Override
     public void onTabUnselected(TabLayout.Tab tab) {
 
     }
@@ -99,6 +111,7 @@ public class ReservationsMainFragment extends Fragment implements TabLayout.Base
         if(pendingReservationsNumber > 0) {
             tvPendingReservationsNumber.setText(String.valueOf(pendingReservationsNumber));
             tvPendingReservationsNumber.setVisibility(View.VISIBLE);
+            pageAdapter.notifyDataSetChanged();
         }
     }
 

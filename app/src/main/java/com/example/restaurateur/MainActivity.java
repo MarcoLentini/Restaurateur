@@ -30,6 +30,7 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     public FirebaseAuth auth;
     public FirebaseFirestore db;
     public String restaurantKey;
+
+    private ReservationsMainFragment reservationsMainFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation_categories);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        loadFragment(new ReservationsMainFragment());
+        reservationsMainFragment = new ReservationsMainFragment();
+        loadFragment(reservationsMainFragment);
 
         pendingReservationsData = new ArrayList<>();
         inProgressReservationsData = new ArrayList<>();
@@ -96,6 +100,11 @@ public class MainActivity extends AppCompatActivity {
         if (auth.getCurrentUser() == null) {
             finish();
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -166,58 +175,96 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void fillWithData() {
+    private void getDataFromDoc(QuerySnapshot document){
+        if (!document.isEmpty()) {
+            for (DocumentSnapshot doc : document) {
+                ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
+                if (doc.get("dishes") != null) {
+                    for (HashMap<String, Object> dish : (ArrayList<HashMap<String, Object>>) doc.get("dishes")) {
+                        tmpArrayList.add(new ReservatedDish(
+                                (String) dish.get("dish_name"),
+                                (Double) dish.get("dish_price"),
+                                (Long) dish.get("dish_qty")));
+                    }
+                }
+                ReservationModel tmpReservationModel = new ReservationModel(
+                        doc.getId(),
+                        (Long) doc.get("rs_id"),
+                        (String) doc.get("cust_id"),
+                        (Timestamp) doc.get("delivery_time"),
+                        (String) doc.get("notes"),
+                        (String) doc.get("cust_phone"),
+                        tmpArrayList,
+                        (String) doc.get("rs_status"),
+                        (Double) doc.get("total_income"));
 
-        db.collection("reservations").whereEqualTo("rest_id", restaurantKey).addSnapshotListener((EventListener<QuerySnapshot>) (document, e) -> {
+                switch ((String) doc.get("rs_status")) {
+                    case ReservationState.STATE_PENDING:
+                        pendingReservationsData.add(tmpReservationModel);
+                        break;
+                    case ReservationState.STATE_IN_PROGRESS:
+                        inProgressReservationsData.add(tmpReservationModel);
+                        break;
+                    case ReservationState.STATE_FINISHED_SUCCESS:
+                        finishedReservationsData.add(tmpReservationModel);
+                        break;
+                    default:
+                        finishedReservationsData.add(tmpReservationModel);
+                        break;
+                }
+            }
+            Collections.sort(pendingReservationsData);
+            Collections.sort(inProgressReservationsData);
+            Collections.sort(finishedReservationsData);
+            reservationsMainFragment.pageAdapter.notifyDataSetChanged();
+        } else {
+            Log.d("QueryReservation", "No such document");
+        }
+    }
+
+    private void fillWithData() {
+        Query request = db.collection("reservations").whereEqualTo("rest_id", restaurantKey);
+
+        request.whereEqualTo("rs_status", "PENDING").addSnapshotListener((EventListener<QuerySnapshot>) (document, e) -> {
             if (e != null) return;
             for(DocumentChange dc : document.getDocumentChanges()) {
                 if (dc.getType() == DocumentChange.Type.ADDED) {
-                    //TODO incremento
-                }
-            }
-
-            if (!document.isEmpty()) {
-                for (DocumentSnapshot doc : document) {
                     ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
-                    if(doc.get("dishes") != null) {
-                        for (HashMap<String, Object> dish : (ArrayList<HashMap<String, Object>>) doc.get("dishes")) {
+                    if(dc.getDocument().get("dishes") != null) {
+                        for (HashMap<String, Object> dish : (ArrayList<HashMap<String, Object>>) dc.getDocument().get("dishes")) {
                             tmpArrayList.add(new ReservatedDish(
                                     (String) dish.get("dish_name"),
                                     (Double) dish.get("dish_price"),
                                     (Long) dish.get("dish_qty")));
                         }
-                    }
-
-                    ReservationModel tmpReservationModel = new ReservationModel(
-                            (Long) doc.get("rs_id") ,
-                            (String) doc.get("cust_id"),
-                            (Timestamp) doc.get("delivery_time"),
-                            (String) doc.get("notes"),
-                            (String) doc.get("cust_phone"),
-                            tmpArrayList,
-                            (String) doc.get("rs_status"),
-                            (Double) doc.get("total_income") );
-
-                    switch ((String) doc.get("rs_status")) {
-                        case ReservationState.STATE_PENDING:
-                            pendingReservationsData.add(tmpReservationModel);
-                            break;
-                        case ReservationState.STATE_IN_PROGRESS:
-                            inProgressReservationsData.add(tmpReservationModel);
-                            break;
-                        case ReservationState.STATE_FINISHED_SUCCESS:
-                            finishedReservationsData.add(tmpReservationModel);
-                            break;
-                        default:
-                            finishedReservationsData.add(tmpReservationModel);
-                            break;
+                        ReservationModel tmpReservationModel = new ReservationModel(
+                                dc.getDocument().getId(),
+                                (Long) dc.getDocument().get("rs_id") ,
+                                (String) dc.getDocument().get("cust_id"),
+                                (Timestamp) dc.getDocument().get("delivery_time"),
+                                (String) dc.getDocument().get("notes"),
+                                (String) dc.getDocument().get("cust_phone"),
+                                tmpArrayList,
+                                (String) dc.getDocument().get("rs_status"),
+                                (Double) dc.getDocument().get("total_income") );
+                        pendingReservationsData.add(tmpReservationModel);
                     }
                 }
-                Collections.sort(pendingReservationsData);
-                Collections.sort(inProgressReservationsData);
-                Collections.sort(finishedReservationsData);
-            } else {
-                Log.d("QueryReservation", "No such document");
+            }
+            Collections.sort(pendingReservationsData);
+            reservationsMainFragment.pageAdapter.notifyDataSetChanged();
+        });
+
+        request.whereEqualTo("rs_status", ReservationState.STATE_IN_PROGRESS).get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                QuerySnapshot document = task.getResult();
+                getDataFromDoc(document);
+            }
+        });
+        request.whereEqualTo("rs_status", ReservationState.STATE_FINISHED_SUCCESS).get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                QuerySnapshot document = task.getResult();
+                getDataFromDoc(document);
             }
         });
 
@@ -287,7 +334,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void removeItemFromFinished(int position) {
-        pendingReservationsData.remove(position);
+        finishedReservationsData.remove(position);
     }
 
 

@@ -156,32 +156,38 @@ public class OffersCategoryFragment extends Fragment {
                 int position = data.getIntExtra("selectedPosition", 0);
                 String categoryName = data.getStringExtra("categoryName");
                 MainActivity.categoriesData.get(position).setCategoryName(categoryName);
-                // Todo - update Firebase
-                // Todo - transaction
-                categoriesAdapter.notifyItemChanged(position);
-                Snackbar.make(view, getString(R.string.snackbar_category_edited), Snackbar.LENGTH_LONG)
-                        .show();
+                main.db.collection("category").document(MainActivity.categoriesData.get(position).getCategoryID()).update("category_name",categoryName).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        categoriesAdapter.notifyItemChanged(position);
+                        // Todo - check snackbar
+                        Snackbar.make(view, getString(R.string.snackbar_category_edited), Snackbar.LENGTH_LONG)
+                                .show();
+                    }
+                });
             }
 
         }
     }
 
     private void removeCategory(int selectedPosition, Category selectedCategory) {
-        MainActivity.categoriesData.remove(selectedPosition);
-        // Todo - delete on firebase - farlo da function
-        categoriesAdapter.notifyItemRemoved(selectedPosition);
-        if(MainActivity.categoriesData.isEmpty())
-            tvNoCategories.setVisibility(View.VISIBLE);
-        View.OnClickListener snackbarListener = v -> {
-            MainActivity.categoriesData.add(selectedPosition, selectedCategory);
-            categoriesAdapter.notifyItemInserted(selectedPosition);
-            restoreScrollPositionAfterUndo();
-            if(tvNoCategories.getVisibility() == View.VISIBLE)
-                tvNoCategories.setVisibility(View.INVISIBLE);
-        };
-        // Todo - snackbar rivedere
-        Snackbar.make(view, getString(R.string.snackbar_category_removed), Snackbar.LENGTH_LONG)
-                .setAction(getString(R.string.snackbar_category_undo), snackbarListener).show();
+        main.db.collection("category").document(selectedCategory.getCategoryID()).delete().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                MainActivity.categoriesData.remove(selectedPosition);
+                categoriesAdapter.notifyItemRemoved(selectedPosition);
+                if(MainActivity.categoriesData.isEmpty())
+                    tvNoCategories.setVisibility(View.VISIBLE);
+                View.OnClickListener snackbarListener = v -> {
+                    MainActivity.categoriesData.add(selectedPosition, selectedCategory);
+                    categoriesAdapter.notifyItemInserted(selectedPosition);
+                    restoreScrollPositionAfterUndo();
+                    if(tvNoCategories.getVisibility() == View.VISIBLE)
+                        tvNoCategories.setVisibility(View.INVISIBLE);
+                };
+                // Todo - snackbar rivedere
+                Snackbar.make(view, getString(R.string.snackbar_category_removed), Snackbar.LENGTH_LONG)
+                        .setAction(getString(R.string.snackbar_category_undo), snackbarListener).show();
+            }
+        });
     }
 
     private void restoreScrollPositionAfterUndo() {

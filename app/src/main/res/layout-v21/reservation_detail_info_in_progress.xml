@@ -367,15 +367,15 @@
                     android:textColor="@color/colorSecondaryText"
                     android:theme="@style/PrimaryFlatButton" />
 
-                <Button
-                    android:id="@+id/btnRejectOrderInProgress"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dp4"
-                    android:layout_weight="1"
-                    android:text="@string/button_reservation_reject"
-                    android:theme="@style/PrimaryFlatButton"
-                    style="?android:attr/borderlessButtonStyle"/>
+                <!--<Button-->
+                    <!--android:id="@+id/btnRejectOrderInProgress"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginEnd="@dimen/dp4"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:text="@string/button_reservation_reject"-->
+                    <!--android:theme="@style/PrimaryFlatButton"-->
+                    <!--style="?android:attr/borderlessButtonStyle"/>-->
             </LinearLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>

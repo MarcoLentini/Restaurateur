@@ -9,15 +9,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.restaurateur.R;
 import com.example.restaurateur.MainActivity;
 
 import java.util.Collections;
 
+import static android.app.Activity.RESULT_OK;
+import static android.widget.Toast.*;
+
 public class TabReservationsPending extends Fragment {
 
-    private RecyclerView.Adapter pendingReservationsAdapter;
+    public PendingReservationsListAdapter pendingReservationsAdapter;
+    public static final int PENDING_REQ = 55;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,8 +46,16 @@ public class TabReservationsPending extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
+        if(resultCode == RESULT_OK){
+            if(requestCode == PENDING_REQ){
+                int pos = data.getExtras().getInt("pos");
+                if(data.getExtras().getString("result").equals("Accept")){
+                    pendingReservationsAdapter.pendingAccept(pos);
+                } else {
+                    pendingReservationsAdapter.pendingReject(pos);
+                }
+            }
+        }
     }
 
     public void sortDataAndNotify() {

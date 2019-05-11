@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.Offer.OfferModel;
 import com.example.restaurateur.R;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,16 +25,22 @@ import java.util.HashMap;
 public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InProgressReservationsListAdapter.InProgressReservationViewHolder> {
 
     private Context context;
+    private ReservationsMainFragment mainFragment;
     private MainActivity fragmentActivity;
     private ArrayList<ReservationModel> inProgressDataSet;
     private LayoutInflater mInflater;
+    private FirebaseFirestore db;
+    private TabReservationsInProgress tabFrag;
 
     public InProgressReservationsListAdapter(Context context, ArrayList<ReservationModel> inProgressData,
-                                             MainActivity fragmentActivity) {
+                                             MainActivity fragmentActivity, TabReservationsInProgress tabFrag, ReservationsMainFragment mainFragment) {
         this.context = context;
+        this.mainFragment = mainFragment;
         this.fragmentActivity = fragmentActivity;
         this.mInflater = LayoutInflater.from(context);
         this.inProgressDataSet = inProgressData;
+        this.tabFrag = tabFrag;
+        db = FirebaseFirestore.getInstance();
     }
 
     @NonNull
@@ -41,17 +48,13 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
     public InProgressReservationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.in_progress_reservation_cardview, parent, false);
         InProgressReservationViewHolder holder = new InProgressReservationViewHolder(view);
-       view.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent myIntent = new Intent(fragmentActivity, InProgressDetailsActivity.class);
-               int itemPosition = holder.getAdapterPosition();
-               ReservationModel selectedRm = inProgressDataSet.get(itemPosition);
-               Bundle bn = new Bundle();
-               bn.putSerializable("reservationCardData", selectedRm);
-               myIntent.putExtras(bn);
-               fragmentActivity.startActivity(myIntent);
-          }
+       view.setOnClickListener(v -> {
+           Intent myIntent = new Intent(mainFragment.getContext(), InProgressDetailsActivity.class);
+           int itemPosition = holder.getAdapterPosition();
+           Bundle bn = new Bundle();
+           bn.putInt("reservationCardData", itemPosition);
+           myIntent.putExtras(bn);
+           mainFragment.startActivityForResult(myIntent, tabFrag.INPROGRESS_REQ);
       });
 
         return holder;
@@ -65,7 +68,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
         TextView textViewOrderedFood = inProgressReservationViewHolder.textViewOrderedDishes;
         TextView textViewReservationNotes = inProgressReservationViewHolder.textViewReservationNotes;
         Button btnFinishReservation = inProgressReservationViewHolder.btnFinishtReservation;
-        Button btnRejectReservation = inProgressReservationViewHolder.btnRejectReservation;
+//        Button btnRejectReservation = inProgressReservationViewHolder.btnRejectReservation;
 
         ReservationModel tmpRM = inProgressDataSet.get(position);
         textViewOrderId.setText("" + tmpRM.getRs_id());
@@ -79,10 +82,24 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
         textViewOrderedFood.setText(reservationOffer);
         if(!inProgressDataSet.get(position).getNotes().equals(""))
             textViewReservationNotes.setVisibility(View.VISIBLE);
-        btnFinishReservation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos = inProgressReservationViewHolder.getAdapterPosition();
+        btnFinishReservation.setOnClickListener(v -> {
+            int pos = inProgressReservationViewHolder.getAdapterPosition();
+            inprogressFinish(pos);
+        });
+//        btnRejectReservation.setOnClickListener(v -> {
+//            int pos = inProgressReservationViewHolder.getAdapterPosition();
+//            fragmentActivity.removeItemFromInProgress(pos);//inProgressDataSet.remove(pos);
+//            notifyItemRemoved(pos);
+//            notifyItemRangeChanged(pos, inProgressDataSet.size());
+//            tmpRM.setRs_status(ReservationState.STATE_FINISHED_REJECTED);
+//            fragmentActivity.addItemToFinished(tmpRM);//finishedDataSet.add(tmpRM);
+//        });
+    }
+
+    public void inprogressFinish(int pos){
+        ReservationModel tmpRM = inProgressDataSet.get(pos);
+        db.collection("reservations").document(tmpRM.getReservation_id()).update("rs_status", ReservationState.STATE_FINISHED_SUCCESS).addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
                 fragmentActivity.removeItemFromInProgress(pos);//inProgressDataSet.remove(pos);
                 notifyItemRemoved(pos);
                 notifyItemRangeChanged(pos, inProgressDataSet.size());
@@ -90,37 +107,6 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
                 fragmentActivity.addItemToFinished(tmpRM);//finishedDataSet.add(tmpRM);
             }
         });
-        btnRejectReservation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos = inProgressReservationViewHolder.getAdapterPosition();
-                fragmentActivity.removeItemFromInProgress(pos);//inProgressDataSet.remove(pos);
-                notifyItemRemoved(pos);
-                notifyItemRangeChanged(pos, inProgressDataSet.size());
-                tmpRM.setRs_status(ReservationState.STATE_FINISHED_REJECTED);
-                fragmentActivity.addItemToFinished(tmpRM);//finishedDataSet.add(tmpRM);
-            }
-        });
-
-       /*inProgressReservationViewHolder.itemView.setOnClickListener(v -> {
-           InProgressDetailsFragment inProgressDetailsFragment = InProgressDetailsFragment.newInstance(tmpRM,position);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                inProgressDetailsFragment.setSharedElementEnterTransition(new DetailsTransition());
-                inProgressDetailsFragment.setEnterTransition(new Fade());
-                inProgressDetailsFragment.setExitTransition(new Fade());
-                inProgressDetailsFragment.setSharedElementReturnTransition(new DetailsTransition());
-            }
-
-            ViewCompat.setTransitionName(textViewOrderedFood,"lessDetailsInProgress");
-            fragmentActivity.getSupportFragmentManager()
-                    .beginTransaction()
-                    .addSharedElement(textViewOrderedFood,
-                            "seeDetailsInProgress")
-                    .replace(R.id.frame_container_main, inProgressDetailsFragment)
-                    .addToBackStack(null)
-                    .commit();
-        });*/
     }
 
     @Override
@@ -135,7 +121,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
         TextView textViewOrderedDishes;
         TextView textViewReservationNotes;
         Button btnFinishtReservation;
-        Button btnRejectReservation;
+//        Button btnRejectReservation;
 
         InProgressReservationViewHolder(View itemView) {
             super(itemView);
@@ -145,7 +131,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
             this.textViewOrderedDishes = itemView.findViewById(R.id.textViewFoodReservationInProgress);
             this.textViewReservationNotes = itemView.findViewById(R.id.textViewStateReservationInProgress);
             btnFinishtReservation = itemView.findViewById(R.id.buttonResumeReservationInProgress);
-            btnRejectReservation = itemView.findViewById(R.id.buttonRemoveReservationInProgress);
+//            btnRejectReservation = itemView.findViewById(R.id.buttonRemoveReservationInProgress);
 
         }
     }

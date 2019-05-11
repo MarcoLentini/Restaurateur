@@ -1,5 +1,6 @@
 package com.example.restaurateur.Reservation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,11 +16,15 @@ import com.example.restaurateur.MainActivity;
 
 import java.util.Collections;
 
+import static android.app.Activity.RESULT_OK;
+
 public class TabReservationsInProgress extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter inProgressReservationsAdapter;
+    public InProgressReservationsListAdapter inProgressReservationsAdapter;
+    public static final int INPROGRESS_REQ = 56;
+
 
     @Nullable
     @Override
@@ -35,10 +40,22 @@ public class TabReservationsInProgress extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
         inProgressReservationsAdapter = new InProgressReservationsListAdapter(getContext(),
-                MainActivity.inProgressReservationsData, (MainActivity)getActivity());
+                MainActivity.inProgressReservationsData, (MainActivity)getActivity(), this, (ReservationsMainFragment)getParentFragment());
         recyclerView.setAdapter(inProgressReservationsAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK){
+            if(requestCode == INPROGRESS_REQ){
+                int pos = data.getExtras().getInt("pos");
+                if(data.getExtras().getString("result").equals("Finish")){
+                    inProgressReservationsAdapter.inprogressFinish(pos);
+                }
+            }
+        }
     }
 
     public void sortDataAndNotify() {
