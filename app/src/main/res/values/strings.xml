@@ -8,7 +8,7 @@
     <string name="default_user_description">Insert description</string>
     <string name="default_user_phone_number">Insert phone number</string>
     <string name="default_user_address">Insert user address</string>
-    <string name="default_opening_hours">Insert opening hours</string>
+    <string name="default_opening_hours">Select opening hours</string>
     <string name="default_delivery_service">Delivery info</string>
     <string name="default_user_notification">Insert notification </string>
 
@@ -42,7 +42,7 @@
     <string name="insert_delivery_info">Type your delivery info</string>
 
     <!-- Generic -->
-    <string name="viewMore">Show restaurant\'s information</string>
+    <string name="viewMore">Show restaurant</string>
     <string name="ok_button">OK</string>
     <string name="cancel_button">CANCEL</string>
     <string name="remove_restaurant">Remove restaurant</string>
@@ -163,7 +163,7 @@
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
     <string name="action_settings_firebase">Firebase Account</string>
-    <string name="total_num_products">Numero Totale di Prodotti</string>
+    <string name="total_num_products">Total Number Of Products</string>
     <!-- Offers - Category -->
     <string name="edit_category_item">Edit</string>
     <string name="remove_category_item">Remove</string>
@@ -203,7 +203,7 @@
     <string name="biker_name">Biker name</string>
     <string name="biker_phone">Phone number</string>
     <string name="biker_description">Your description</string>
-     <string name="username_updated">Username is updated.</string>
+    <string name="username_updated">Username is updated.</string>
     <string name="username_failed_update">Failed to update username!</string>
     <string name="invalid_username">Invalid username. Use minimum 3 characters</string>
     <string name="email_updated">Email address is updated. Please sign in with new email id!</string>
@@ -227,6 +227,37 @@
     <string name="rest_description">Restaurant\'s description</string>
     <string name="delivery_fee_title">Delivery fee</string>
     <string name="rest_tags_title">Restaurant\'s tag</string>
+    <string name="title_activity_modify_rest_info">ModifyRestInfoActivity</string>
+    <string name="insert_delivery_fee">Insert how much costs the delivery</string>
+    <string name="insert_rest_address">Insert restaurant address</string>
+    <string name="insert_rest_phone_number">Insert restaurant\'phone number</string>
+    <string name="insert_rest_description">Insert a little description about the restaurant</string>
+    <string name="insert_restname">Insert restaurant\'s name</string>
+    <string name="rest_name_failed_update">Failed to update restaurant name!</string>
+    <string name="invalid_rest_name">Invalid restaurant name</string>
+    <string name="description_updated">Description updated</string>
+    <string name="rest_descr_failed_update">Failed to update restaurant\'s description</string>
+    <string name="invalid_rest_descr">Invalid restaurant description</string>
+    <string name="invalid_fee">Invalid delivery fee</string>
+    <string name="fee_failed_updated">Failed to update delivery fee</string>
+    <string name="fee_updated">Delivery fee updated</string>
+    <string name="invalid_address">Invalid address</string>
+    <string name="address_failed_updated">Failed to update address</string>
+    <string name="address_updated">Address updated</string>
+    <string name="RestInfoTitle">Restaurant info</string>
+    <string name="failed_delete_rest">Failed to delete your restaurant!</string>
+    <string name="restaurant_delivery_fee">Delivery fee</string>
+    <string name="enter_name_rest">Enter name of restaurant!</string>
+    <string name="enter_address_rest">Enter address of restaurant!</string>
+    <string name="enter_description">Enter a short description!</string>
+    <string name="select_tags">Select at least one tag</string>
+    <string name="enter_delivery_fee">Enter a delivery fee!</string>
+    <string name="select_one_tags">Select at least one type for your restaurant</string>
+    <string name="tags_failed_updated">Failed update types</string>
+    <string name="tags_updated">Types updated</string>
+    <string name="set_timetable">Set timetable</string>
+    <string name="rest_timetable_failed_update">Failed to update restaurant timetable</string>
+    <string name="rest_timetable_updated">Updated restaurant timetable</string>
 
 
 </resources>

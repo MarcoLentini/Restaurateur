@@ -183,10 +183,6 @@ public class ModifyInfoActivity extends AppCompatActivity {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-
                 Intent intent;
                 Bundle Bn;
                 String userName;
@@ -367,7 +363,7 @@ public class ModifyInfoActivity extends AppCompatActivity {
                 }
 
                 if(fieldName.equals("user_address")||fieldName.equals("user_notification")||fieldName.equals("opening_hours")||fieldName.equals("delivery_service")){
-                    intent = new Intent(getApplicationContext(), ViewMoreInfoActivity.class);
+                    intent = new Intent(getApplicationContext(), RestInformationActivity.class);
                     Bn = new Bundle();
                     Bn.putString("field", fieldName);
                     Bn.putString("value", etEditInfo.getText().toString());
@@ -398,7 +394,7 @@ public class ModifyInfoActivity extends AppCompatActivity {
             bn.putString("field", fieldName);
             bn.putString("value", fieldValue);
 
-            Intent retIntent = new Intent(getApplicationContext(), ViewMoreInfoActivity.class);
+            Intent retIntent = new Intent(getApplicationContext(), RestInformationActivity.class);
             retIntent.putExtras(bn);
             setResult(1, retIntent);
             finish();

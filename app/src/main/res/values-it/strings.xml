@@ -42,7 +42,7 @@
     <string name="default_delivery_service">Inserisci informazioni di consegna</string>
     <string name="default_user_notification">Inserisci notifica </string>
 
-    <string name="viewMore">Mostra informazioni ristorante</string>
+    <string name="viewMore">Mostra ristorante</string>
 
     <string name="insert_address">Inserisci la tua mail</string>
     <string name="insert_notification">Inserisci la tua notifica </string>
@@ -67,7 +67,7 @@
     <string name="action_settings">Informazioni</string>
 
     <!-- main_layout page-->
-    <string name="total_num_products">Total Number Of Products</string>
+    <string name="total_num_products">Numero Totale di Prodotti</string>
     <string name="remarks">Remarks</string>
     <string name="button_reservation_accept">Accetta</string>
     <string name="button_reservation_reject">Rifiuta</string>

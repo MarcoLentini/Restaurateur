@@ -96,7 +96,23 @@
                 android:textColor="@android:color/white" />
 
         </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/restaurant_descr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
+                    android:focusable="true"
+                    android:gravity="start|top"
+                    android:hint="@string/restaurant_descr"
+                    android:textColor="@android:color/white"
+                    android:imeOptions="actionDone"/>
+
+
+            </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -112,40 +128,40 @@
                 android:textColor="@android:color/white" />
 
         </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/restaurant_descr"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textCapSentences"
-                android:focusable="true"
-                android:gravity="start|top"
-                android:hint="@string/restaurant_descr"
-                android:textColor="@android:color/white"
-                android:imeOptions="actionDone"/>
+                android:layout_height="wrap_content">
 
-            <!--android:imeActionId="@+id/login"-->
+                <EditText
+                    android:id="@+id/restaurant_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/biker_phone"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@android:color/white" />
 
-            <!--<EditText-->
-                <!--android:id="@+id/restaurant_descr"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:focusableInTouchMode="true"-->
-                <!--android:hint="@string/restaurant_descr"-->
-                <!--android:imeActionId="@+id/login"-->
-                <!--android:imeOptions="actionUnspecified"-->
-                <!--android:inputType="textPassword"-->
-                <!--android:maxLines="1"-->
-                <!--android:singleLine="true"-->
-                <!--android:textColor="@android:color/white" />-->
+            </android.support.design.widget.TextInputLayout>
 
-        </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
+                <EditText
+                    android:id="@+id/restaurant_delivery_fee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/restaurant_delivery_fee"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@android:color/white" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <TextView
             android:id="@+id/textViewRestaurantType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -156,12 +172,31 @@
             android:hint="Select restaurant tag"
             android:textColor="@android:color/white"
             android:textAlignment="center"
+            android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
             android:gravity="center_vertical"
             android:drawableStart="@android:drawable/checkbox_off_background"
             android:drawableLeft="@android:drawable/checkbox_off_background"
             android:drawableEnd="@drawable/ic_account_edit"
             android:drawableRight="@drawable/ic_account_edit" />
 
+            <TextView
+                android:id="@+id/textViewRestaurantTimetable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:background="@color/colorPrimaryDark"
+                android:paddingStart="4dp"
+                android:paddingLeft="4dp"
+                android:hint="@string/default_opening_hours"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:paddingTop="16dp"
+                android:drawableStart="@android:drawable/checkbox_off_background"
+                android:drawableLeft="@android:drawable/checkbox_off_background"
+                android:drawableEnd="@drawable/ic_account_edit"
+                android:drawableRight="@drawable/ic_account_edit" />
         <Button
             android:id="@+id/complete_rest_btn"
             style="?android:textAppearanceSmall"

@@ -35,8 +35,6 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -202,7 +200,8 @@ public class UserInformationActivity extends AppCompatActivity {
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
-                                }               }
+                                }
+                            }
 
                         } else {
                             Log.d("QueryReservation", "No such document");
@@ -216,7 +215,7 @@ public class UserInformationActivity extends AppCompatActivity {
 
 
     private void more_info_page(View view){
-        Intent intent = new Intent(this, ViewMoreInfoActivity.class);
+        Intent intent = new Intent(this, RestInformationActivity.class);
         startActivityForResult(intent, 1);
     }
 

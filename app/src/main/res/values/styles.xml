@@ -52,7 +52,8 @@
 
     <!-- for text -->
     <style name="AppTabTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Subtitle1</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Subtitle1
+        </item>
         <item name="textAllCaps">true</item>
     </style>
 
@@ -77,4 +78,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

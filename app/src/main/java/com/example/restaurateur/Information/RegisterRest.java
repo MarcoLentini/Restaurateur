@@ -45,29 +45,32 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.ObjLongConsumer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static android.support.constraint.Constraints.TAG;
 
 public class RegisterRest extends AppCompatActivity {
-    private EditText inputName, inputAddr, inputDescr;
+    private EditText inputName, inputAddr, inputDescr,inputPhone, inputDeliveryFee;
     private Button btnSignUp;
     private View btnImage;
     private ProgressBar progressBar;
-    private TextView tvRestaurantType;
+    private TextView tvRestaurantType,tvTimeTable;
     private FirebaseAuth auth;
 
     private static final int CAMERA_REQUEST = 2;
     private static final int GALLERY_REQUEST = 3;
     private static final int STORAGE_PERMISSION_CODE = 4;
     private static final int CAMERA_PERMISSION_CODE = 5;
-    private static final int MAX_RESTAURANT_TYPES = 3;
-
+    private static final int MAX_RESTAURANT_TYPES=3;
     private Uri restaurant_image = null;
     private Uri file_image = null;
     private static final String AuthorityFormat = "%s.fileprovider";
 
     private static final String restaurantDataFile = "RestaurantDataFile";
     private int countChecked;
+    private HashMap<String, Object> restTimetable;
     private ArrayList<Integer> selectedRestaurantTypes;
     private String[] restaurantTypes = {"Pizza", "Cinese", "Giapponese", "Indiano", "Italiano", "Hamburger",
             "Pasta", "Greca", "Panini", "Dolci", "Americano", "Argentino", "Brasiliano", "Messicano",
@@ -90,6 +93,8 @@ public class RegisterRest extends AppCompatActivity {
         inputName = findViewById(R.id.restaurant_name);
         inputAddr = findViewById(R.id.restaurant_address);
         inputDescr = findViewById(R.id.restaurant_descr);
+        inputPhone=findViewById(R.id.restaurant_phone);
+        inputDeliveryFee=findViewById(R.id.restaurant_delivery_fee);
         inputDescr.setHorizontallyScrolling(false);
         inputDescr.setLines(2);
         progressBar = findViewById(R.id.progressBarRest);
@@ -101,6 +106,14 @@ public class RegisterRest extends AppCompatActivity {
                 selectRestaurantType();
             }
         });
+        tvTimeTable=findViewById(R.id.textViewRestaurantTimetable);
+        tvTimeTable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               startActivityForResult(new Intent(RegisterRest.this,SetTimeTableActivity.class),1);
+
+            }
+        });
 
         btnImage.setOnClickListener(v-> invokeDialogImageProfile());
 
@@ -109,29 +122,45 @@ public class RegisterRest extends AppCompatActivity {
             String name = inputName.getText().toString().trim();
             String address = inputAddr.getText().toString().trim();
             String description = inputDescr.getText().toString().trim();
+            String phone= inputPhone.getText().toString().trim();
+            String deliveryFee=inputDeliveryFee.getText().toString().trim();
 
             if (TextUtils.isEmpty(name)) {
-                Toast.makeText(getApplicationContext(), "Enter name of restaurant!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.enter_name_rest), Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (TextUtils.isEmpty(address)) {
-                Toast.makeText(getApplicationContext(), "Enter address of restaurant!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.enter_address_rest), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (!isValidPhone(phone)) {
+                Toast.makeText(getApplicationContext(), getString(R.string.insert_phone_number), Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (TextUtils.isEmpty(description)) {
-                Toast.makeText(getApplicationContext(), "Enter a short description!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.enter_description), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (TextUtils.isEmpty(deliveryFee)) {
+                Toast.makeText(getApplicationContext(), getString(R.string.enter_delivery_fee), Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (restaurant_image == null){
-                Toast.makeText(getApplicationContext(), "Select an Image", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.select_photo), Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (tvRestaurantType.getText().equals("")) {
-                Toast.makeText(getApplicationContext(), "Select at least one tag", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.select_tags), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(restTimetable==null)
+            {
+                Toast.makeText(getApplicationContext(), getString(R.string.set_timetable), Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -144,6 +173,8 @@ public class RegisterRest extends AppCompatActivity {
             final Map<String, Object> restaurant = new HashMap<>();
             restaurant.put("user_id", userID);
             restaurant.put("rest_address", address);
+            restaurant.put("rest_phone",phone);
+            restaurant.put("delivery_fee",Double.parseDouble(deliveryFee));
             restaurant.put("rest_name", name);
             restaurant.put("rest_descr", description);
             restaurant.put("rest_image", restaurant_image.toString());
@@ -151,6 +182,7 @@ public class RegisterRest extends AppCompatActivity {
             for(int pos : selectedRestaurantTypes)
                 tags.put(restaurantTypes[pos], true);
             restaurant.put("tags", tags);
+            restaurant.put("timetable",restTimetable);
 
             // Get a new write batch
             WriteBatch batch = db.batch();
@@ -232,6 +264,14 @@ public class RegisterRest extends AppCompatActivity {
             }
             if(requestCode == GALLERY_REQUEST){
                 uploadOnFirebase(data.getData());
+            }
+        }
+        if(resultCode==2){
+            if(requestCode==1)
+            {
+               restTimetable= (HashMap<String,Object>) data.getExtras().getSerializable("timetable");
+                tvTimeTable.setCompoundDrawablesWithIntrinsicBounds(
+                        android.R.drawable.checkbox_on_background, 0, R.drawable.ic_account_edit, 0);
             }
         }
     }
@@ -450,5 +490,18 @@ public class RegisterRest extends AppCompatActivity {
         // create and show the alert dialog
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+    public boolean isValidPhone(final String phone) {
+
+        Pattern pattern;
+        Matcher matcher;
+
+        final String PHONE_PATTERN = "^[+]?[0-9]{10,13}$";
+
+        pattern = Pattern.compile(PHONE_PATTERN);
+        matcher = pattern.matcher(phone);
+
+        return matcher.matches();
+
     }
 }

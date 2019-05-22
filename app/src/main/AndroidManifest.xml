@@ -15,8 +15,11 @@
         android:roundIcon="@drawable/restaurant_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".Offer.EditCategoryActivity"></activity>
+        <activity android:name=".Information.EditTimeTableActivity"></activity>
+        <activity
+            android:name=".Information.ModifyRestInfoActivity"
+            android:label="@string/title_activity_modify_rest_info" />
+        <activity android:name=".Offer.EditCategoryActivity" />
         <activity android:name=".Reservation.FinishedDetailsActivity" />
         <activity android:name=".Reservation.InProgressDetailsActivity" />
         <activity android:name=".Reservation.PendingDetailsActivity" />
@@ -38,7 +41,6 @@
         <activity
             android:name=".Information.RegisterRest"
             android:windowSoftInputMode="adjustResize" />
-
         <activity
             android:name=".Information.ChangePwdActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -55,8 +57,9 @@
         <activity
             android:name=".Information.ModifyInfoActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".Information.ViewMoreInfoActivity" />
+        <activity android:name=".Information.RestInformationActivity" />
         <activity android:name=".Information.UserInformationActivity" />
+        <activity android:name=".Information.SetTimeTableActivity"/>
         <activity
             android:name=".Information.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">

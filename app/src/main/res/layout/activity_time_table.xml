@@ -1,0 +1,1072 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <LinearLayout
+        android:id="@+id/LinearLayoutOpeningHours"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/dp16"
+        android:focusableInTouchMode="true"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dp16"
+            android:paddingBottom="@dimen/dp16"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:text="Lunedì"
+
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <CheckBox
+                    android:id="@+id/openMonday"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="Chiuso" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayoutMonday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    android:text="Mattino"
+                    android:textAlignment="center"
+                    android:paddingTop="@dimen/dp16"
+                    android:paddingBottom="@dimen/dp16"
+                    android:paddingLeft="@dimen/dp8"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_monday_morning_from"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_monday_morning_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="From"
+                        android:gravity="start|top"
+                        android:lines="1"
+
+                        android:nextFocusDown="@+id/text_input_monday_morning_to"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_monday_morning_to"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_monday_morning_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="To"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_monday_afternoon_from"/>
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="match_parent"
+                        android:text="Pomeriggio"
+                        android:textAlignment="center"
+                        android:paddingTop="@dimen/dp16"
+                        android:paddingBottom="@dimen/dp8"
+                        android:paddingLeft="@dimen/dp8"
+
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/text_input_monday_afternoon_from"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2">
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/edit_text_monday_afternoon_from"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="From"
+                            android:gravity="start|top"
+                            android:lines="1"
+                            android:focusable="true"
+                            android:nextFocusDown="@+id/text_input_monday_afternoon_to"/>
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/text_input_monday_afternoon_to"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2">
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/edit_text_monday_afternoon_to"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="To"
+                            android:gravity="start|top"
+                            android:lines="1"
+                            android:focusable="true"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+            <CheckBox
+                android:id="@+id/sameTimetableMonday"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Scegli questo orario per tutti i giorni"
+               />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dp16"
+            android:paddingBottom="@dimen/dp16"
+
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent"
+                    android:text="Tuesday"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <CheckBox
+                    android:id="@+id/openTuesday"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="Closed" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayoutTuesday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    android:text="Mattino"
+                    android:textAlignment="center"
+                    android:paddingTop="@dimen/dp16"
+                    android:paddingBottom="@dimen/dp16"
+                    android:paddingLeft="@dimen/dp8"
+
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_tuesday_morning_from"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_tuesday_morning_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="From"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_tuesday_morning_to"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_tuesday_morning_to"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_tuesday_morning_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="To"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_tuesday_afternoon_from"/>
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    android:text="Pomeriggio"
+                    android:textAlignment="center"
+                    android:paddingTop="@dimen/dp16"
+                    android:paddingBottom="@dimen/dp16"
+                    android:paddingLeft="@dimen/dp8"
+
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_tuesday_afternoon_from"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_tuesday_afternoon_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="From"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_tuesday_afternoon_to"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_tuesday_afternoon_to"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_tuesday_afternoon_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="To"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+            <CheckBox
+                android:id="@+id/sameTimetableTuesday"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Scegli questo orario per tutti i giorni"
+                />
+        </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dp16"
+            android:paddingBottom="@dimen/dp16"
+
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent"
+                    android:text="Wednesday"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <CheckBox
+                    android:id="@+id/openWednesday"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="Closed" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayoutWednesday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    android:text="Mattino"
+                    android:textAlignment="center"
+                    android:paddingTop="@dimen/dp16"
+                    android:paddingBottom="@dimen/dp16"
+                    android:paddingLeft="@dimen/dp8"
+
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_wednesday_morning_from"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_wednesday_morning_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="From"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_wednesday_morning_to"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_wednesday_morning_to"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_wednesday_morning_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="To"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_wednesday_afternoon_from"/>
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    android:text="Pomeriggio"
+                    android:textAlignment="center"
+                    android:paddingTop="@dimen/dp16"
+                    android:paddingBottom="@dimen/dp16"
+                    android:paddingLeft="@dimen/dp8"
+
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_wednesday_afternoon_from"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_wednesday_afternoon_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="From"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_wednesday_afternoon_to"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_wednesday_afternoon_to"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_wednesday_afternoon_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="To"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+            <CheckBox
+                android:id="@+id/sameTimetableWednesday"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Scegli questo orario per tutti i giorni"
+                />
+        </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dp16"
+            android:paddingBottom="@dimen/dp16"
+
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent"
+                    android:text="Thursday"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <CheckBox
+                    android:id="@+id/openThursday"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="Closed" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutThursday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    android:text="Mattino"
+                    android:textAlignment="center"
+                    android:paddingTop="@dimen/dp16"
+                    android:paddingBottom="@dimen/dp16"
+                    android:paddingLeft="@dimen/dp8"
+
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_thursday_morning_from"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_thursday_morning_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="From"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_thursday_morning_to"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_thursday_morning_to"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_thursday_morning_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="To"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_thursday_afternoon_from"/>
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    android:text="Pomeriggio"
+                    android:textAlignment="center"
+                    android:paddingTop="@dimen/dp16"
+                    android:paddingBottom="@dimen/dp16"
+                    android:paddingLeft="@dimen/dp8"
+
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_thursday_afternoon_from"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_thursday_afternoon_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="From"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_thursday_afternoon_to"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_thursday_afternoon_to"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_thursday_afternoon_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="To"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+            <CheckBox
+                android:id="@+id/sameTimetableThursday"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Scegli questo orario per tutti i giorni"
+                />
+        </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dp16"
+            android:paddingBottom="@dimen/dp16"
+
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent"
+                    android:text="Friday"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <CheckBox
+                    android:id="@+id/openFriday"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="Closed" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayoutFriday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    android:text="Mattino"
+                    android:textAlignment="center"
+                    android:paddingTop="@dimen/dp16"
+                    android:paddingBottom="@dimen/dp16"
+                    android:paddingLeft="@dimen/dp8"
+
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_friday_morning_from"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_friday_morning_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="From"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_friday_morning_to"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_friday_morning_to"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_friday_morning_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="To"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_friday_afternoon_from"/>
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    android:text="Pomeriggio"
+                    android:textAlignment="center"
+                    android:paddingTop="@dimen/dp16"
+                    android:paddingBottom="@dimen/dp16"
+                    android:paddingLeft="@dimen/dp8"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_friday_afternoon_from"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_friday_afternoon_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="From"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_friday_afternoon_to"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_friday_afternoon_to"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_friday_afternoon_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="To"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+            <CheckBox
+                android:id="@+id/sameTimetableFriday"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Scegli questo orario per tutti i giorni"
+                />
+        </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dp16"
+            android:paddingBottom="@dimen/dp16"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent"
+                    android:text="Saturday"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <CheckBox
+                    android:id="@+id/openSaturday"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="Closed" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayoutSaturday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    android:text="Mattino"
+                    android:textAlignment="center"
+                    android:paddingTop="@dimen/dp16"
+                    android:paddingBottom="@dimen/dp16"
+                    android:paddingLeft="@dimen/dp8"
+
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_saturday_morning_from"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_saturday_morning_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="From"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_saturday_morning_to"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_saturday_morning_to"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_saturday_morning_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="To"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_saturday_afternoon_from"/>
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    android:text="Pomeriggio"
+                    android:textAlignment="center"
+                    android:paddingTop="@dimen/dp16"
+                    android:paddingBottom="@dimen/dp16"
+                    android:paddingLeft="@dimen/dp8"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_saturday_afternoon_from"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_saturday_afternoon_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="From"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_saturday_afternoon_to"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_saturday_afternoon_to"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_saturday_afternoon_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="To"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+            <CheckBox
+                android:id="@+id/sameTimetableSaturday"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Scegli questo orario per tutti i giorni"
+                />
+        </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dp16"
+            android:paddingBottom="@dimen/dp16"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent"
+                    android:text="Sunday"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <CheckBox
+                    android:id="@+id/openSunday"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="Closed" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayoutSunday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    android:text="Mattino"
+                    android:textAlignment="center"
+                    android:paddingTop="@dimen/dp16"
+                    android:paddingBottom="@dimen/dp16"
+                    android:paddingLeft="@dimen/dp8"
+
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_sunday_morning_from"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_sunday_morning_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="From"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_sunday_morning_to"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_sunday_morning_to"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_sunday_morning_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="To"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_sunday_afternoon_from"/>
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    android:text="Pomeriggio"
+                    android:textAlignment="center"
+                    android:paddingTop="@dimen/dp16"
+                    android:paddingBottom="@dimen/dp16"
+                    android:paddingLeft="@dimen/dp8"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_sunday_afternoon_from"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_sunday_afternoon_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="From"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        android:nextFocusDown="@+id/edit_text_sunday_afternoon_to"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_sunday_afternoon_to"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edit_text_sunday_afternoon_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="To"
+                        android:gravity="start|top"
+                        android:lines="1"
+                        android:focusable="true"
+                        />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+            <CheckBox
+                android:id="@+id/sameTimetableSunday"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Scegli questo orario per tutti i giorni"
+                />
+        </LinearLayout>
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+</ScrollView>
