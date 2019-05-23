@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.example.restaurateur.MainActivity;
+import com.example.restaurateur.Reservation.ReservationsMainFragment;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
@@ -22,12 +23,30 @@ public class ChooseBiker extends DialogFragment {
     private Top3Biker dataB;
 
     private ChooseBikerAdapter adapter;
+    private ReservationsMainFragment mainFragment;
+
+    public static ChooseBiker newInstance(ReservationsMainFragment mainFragment, String restAddr, int pos) {
+        ChooseBiker choose = new ChooseBiker();
+        Bundle b = new Bundle();
+        b.putString("restAddress", restAddr );
+        b.putInt("pos", pos);
+        choose.setArguments(b);
+        choose.setMainFragment(mainFragment);
+        return choose;
+    }
+
+    public void setMainFragment(ReservationsMainFragment mainFragment) {
+        this.mainFragment = mainFragment;
+    }
+
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+
         dataB = new Top3Biker();
 
         String restAddr = getArguments().getString("restAddress");
@@ -35,10 +54,11 @@ public class ChooseBiker extends DialogFragment {
         locationAddress.getAddressFromLocation(restAddr,
                 getContext(), new GeocoderHandler());
 
+        int pos = getArguments().getInt("pos");
         mRecyclerView = new RecyclerView(getContext());
         // you can use LayoutInflater.from(getContext()).inflate(...) if you have xml layout
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ChooseBikerAdapter(getContext(),dataB.getDataB(),(MainActivity)getActivity());
+        adapter = new ChooseBikerAdapter(getContext(),dataB.getDataB(),(MainActivity)getActivity(), pos, mainFragment,this);
         mRecyclerView.setAdapter(adapter);
 
         return new AlertDialog.Builder(getActivity())
@@ -46,12 +66,13 @@ public class ChooseBiker extends DialogFragment {
                 .setTitle("Choose Biker")
                 .setView(mRecyclerView)
                 // Todo - remove this?
-                .setPositiveButton(android.R.string.ok,
-                        (dialog, whichButton) -> {
-                            // do something
-                            Toast.makeText(getContext(), "Hello", Toast.LENGTH_LONG).show();
-                        }
-                ).create();
+//                .setPositiveButton(android.R.string.ok,
+//                        (dialog, whichButton) -> {
+//                            // do something
+//                            Toast.makeText(getContext(), "Hello", Toast.LENGTH_LONG).show();
+//                        }
+//                )
+                .create();
     }
 
     private void getBiker(GeoPoint restPosiion){
