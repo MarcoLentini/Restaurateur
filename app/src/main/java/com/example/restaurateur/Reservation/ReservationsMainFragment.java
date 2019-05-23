@@ -48,7 +48,6 @@ public class ReservationsMainFragment extends Fragment implements TabLayout.Base
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         tvPendingReservationsNumber = view.findViewById(R.id.textViewActiveAlarmBadge);
-        initializeTvPendingReservationsNumber();
 
         //Initializing viewPager
         viewPager = view.findViewById(R.id.pager_reservations);
@@ -62,6 +61,8 @@ public class ReservationsMainFragment extends Fragment implements TabLayout.Base
 
         //Adding onTabSelectedListener to swipe views
         tabLayout.addOnTabSelectedListener(this);
+
+        initializeTvPendingReservationsNumber();
 
         return view;
     }
