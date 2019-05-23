@@ -196,7 +196,8 @@ public class MainActivity extends AppCompatActivity {
                         (String) doc.get("cust_phone"),
                         tmpArrayList,
                         (String) doc.get("rs_status"),
-                        (Double) doc.get("total_income"));
+                        (Double) doc.get("total_income"),
+                        (String) doc.get("rest_address"));
 
                 switch ((String) doc.get("rs_status")) {
                     case ReservationState.STATE_PENDING:
@@ -246,7 +247,9 @@ public class MainActivity extends AppCompatActivity {
                                 (String) dc.getDocument().get("cust_phone"),
                                 tmpArrayList,
                                 (String) dc.getDocument().get("rs_status"),
-                                (Double) dc.getDocument().get("total_income") );
+                                (Double) dc.getDocument().get("total_income"),
+                                (String) dc.getDocument().get("rest_address")
+                        );
                         pendingReservationsData.add(tmpReservationModel);
                     }
                 }

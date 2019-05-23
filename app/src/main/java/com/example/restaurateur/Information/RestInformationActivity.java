@@ -558,80 +558,65 @@ public class RestInformationActivity extends AppCompatActivity {
                }else
                   // selectedRestTmp[j]=false;
 
-        builder.setMultiChoiceItems(restaurantTypes,selectedRestTmp, new DialogInterface.OnMultiChoiceClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                if(isChecked) {
-                    if (countChecked <= MAX_RESTAURANT_TYPES - 1) {
-                        selectedRestPos.add(which);
-                        selectedRestTmp[which]=true;
-                        countChecked++;
-                    } else {
-                        //selected[which] = false;
-                       ((CheckedTextView)((AlertDialog) dialog).getListView().getChildAt(which)).setChecked(false);
-                        selectedRestTmp[which]=false;
-
-
-                        int ciao=1;
-                    }
+        builder.setMultiChoiceItems(restaurantTypes,selectedRestTmp, (dialog, which, isChecked) -> {
+            if(isChecked) {
+                if (countChecked <= MAX_RESTAURANT_TYPES - 1) {
+                    selectedRestPos.add(which);
+                    selectedRestTmp[which]=true;
+                    countChecked++;
                 } else {
-                    if(selectedRestPos.contains(Integer.valueOf(which))) {
-                        selectedRestPos.remove(Integer.valueOf(which));
-                        selectedRestTmp[which] = false;
-                        countChecked--;
-                    }
+                    //selected[which] = false;
+                   ((CheckedTextView)((AlertDialog) dialog).getListView().getChildAt(which)).setChecked(false);
+                    selectedRestTmp[which]=false;
+
+
+                    int ciao=1;
+                }
+            } else {
+                if(selectedRestPos.contains(Integer.valueOf(which))) {
+                    selectedRestPos.remove(Integer.valueOf(which));
+                    selectedRestTmp[which] = false;
+                    countChecked--;
                 }
             }
         });
         // add OK and Cancel buttons
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setPositiveButton("OK", (dialog, which) -> {
 
-            }
         });
         builder.setNegativeButton("Cancel", null);
         // create and show the alert dialog
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                    if(!selectedRestPos.isEmpty()) {
-                        ArrayList<String> tagsArray = new ArrayList<>();
-                        Map<String, Object> tagsMap = new HashMap<>();
-                        for (int pos : selectedRestPos) {
-                            tagsArray.add(restaurantTypes[pos]);
-                            tagsMap.put(restaurantTypes[pos], true);
-                        }
-                        HashMap<String,Object> new_tags= new HashMap<String,Object>();
-                        new_tags.put("tags",tagsMap);
-                        db.collection("restaurant").document(restaurantKey).update(new_tags)
-                                .addOnSuccessListener(task3->{
-                                    restInfo.setTags(tagsArray);
-                                    Toast.makeText(RestInformationActivity.this, getString(R.string.tags_updated), Toast.LENGTH_LONG).show();
-                                    dialog.dismiss();
-                                })
-                                .addOnFailureListener(task3->{
-                                    Log.d("ModifyRestInfo", "Failed update rest address");
-                                    Toast.makeText(RestInformationActivity.this, getString(R.string.tags_failed_updated), Toast.LENGTH_LONG).show();
-
-                                });
-
-
-                    }else
-                    {
-                        Toast.makeText(RestInformationActivity.this, getString(R.string.select_one_tags), Toast.LENGTH_SHORT).show();
-
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+                if(!selectedRestPos.isEmpty()) {
+                    ArrayList<String> tagsArray = new ArrayList<>();
+                    Map<String, Object> tagsMap = new HashMap<>();
+                    for (int pos : selectedRestPos) {
+                        tagsArray.add(restaurantTypes[pos]);
+                        tagsMap.put(restaurantTypes[pos], true);
                     }
-            }
+                    HashMap<String,Object> new_tags= new HashMap<String,Object>();
+                    new_tags.put("tags",tagsMap);
+                    db.collection("restaurant").document(restaurantKey).update(new_tags)
+                            .addOnSuccessListener(task3->{
+                                restInfo.setTags(tagsArray);
+                                Toast.makeText(RestInformationActivity.this, getString(R.string.tags_updated), Toast.LENGTH_LONG).show();
+                                dialog.dismiss();
+                            })
+                            .addOnFailureListener(task3->{
+                                Log.d("ModifyRestInfo", "Failed update rest address");
+                                Toast.makeText(RestInformationActivity.this, getString(R.string.tags_failed_updated), Toast.LENGTH_LONG).show();
+
+                            });
 
 
+                }else
+                {
+                    Toast.makeText(RestInformationActivity.this, getString(R.string.select_one_tags), Toast.LENGTH_SHORT).show();
 
+                }
         });
 
     }
