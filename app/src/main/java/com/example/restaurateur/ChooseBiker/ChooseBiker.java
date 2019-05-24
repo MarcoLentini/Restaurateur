@@ -77,7 +77,7 @@ public class ChooseBiker extends DialogFragment {
 
     private void getBiker(GeoPoint restPosiion){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("bikers").whereEqualTo("status", "enabled").get().addOnCompleteListener(t -> {
+        db.collection("bikers").whereEqualTo("status", true).get().addOnCompleteListener(t -> {
             if(t.isSuccessful()){
                 if(!t.getResult().isEmpty()){
                     for(DocumentSnapshot bikerDoc : t.getResult()){
