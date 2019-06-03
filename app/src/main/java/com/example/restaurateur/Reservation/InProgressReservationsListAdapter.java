@@ -63,7 +63,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
     @Override
     public void onBindViewHolder(@NonNull InProgressReservationViewHolder inProgressReservationViewHolder, int position) {
         TextView textViewOrderId = inProgressReservationViewHolder.textViewReservationId;
-        TextView textViewTimestamp = inProgressReservationViewHolder.textViewTimestamp;
+        //TextView textViewTimestamp = inProgressReservationViewHolder.textViewTimestamp;
         TextView textViewTotalIncome = inProgressReservationViewHolder.textViewTotalIncome;
         TextView textViewOrderedFood = inProgressReservationViewHolder.textViewOrderedDishes;
         TextView textViewReservationNotes = inProgressReservationViewHolder.textViewReservationNotes;
@@ -72,7 +72,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
 
         ReservationModel tmpRM = inProgressDataSet.get(position);
         textViewOrderId.setText("" + tmpRM.getRs_id());
-        textViewTimestamp.setText("" + tmpRM.getTimestamp());
+        //textViewTimestamp.setText("" + tmpRM.getTimestamp());
         textViewTotalIncome.setText("" + tmpRM.getTotal_income());
         String reservationOffer = "";
         for (int i = 0; i < tmpRM.getDishesArrayList().size(); i++) {
@@ -116,7 +116,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
 
    static class InProgressReservationViewHolder extends RecyclerView.ViewHolder {
         TextView textViewReservationId;
-        TextView textViewTimestamp;
+        //TextView textViewTimestamp;
         TextView textViewTotalIncome;
         TextView textViewOrderedDishes;
         TextView textViewReservationNotes;
@@ -126,7 +126,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
         InProgressReservationViewHolder(View itemView) {
             super(itemView);
             this.textViewReservationId = itemView.findViewById(R.id.textViewOrderIdReservationInProgress);
-            this.textViewTimestamp = itemView.findViewById(R.id.textViewRemainingTimeReservationInProgress);
+            //.textViewTimestamp = itemView.findViewById(R.id.textViewRemainingTimeReservationInProgress);
             this.textViewTotalIncome = itemView.findViewById(R.id.textViewTotalIncomeReservationInProgress);
             this.textViewOrderedDishes = itemView.findViewById(R.id.textViewFoodReservationInProgress);
             this.textViewReservationNotes = itemView.findViewById(R.id.textViewStateReservationInProgress);

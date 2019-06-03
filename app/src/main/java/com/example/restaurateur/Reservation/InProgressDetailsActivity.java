@@ -34,8 +34,8 @@ public class InProgressDetailsActivity extends AppCompatActivity {
 
         TextView textViewIdReservation = findViewById(R.id.textViewIdReservation);
         textViewIdReservation.setText(String.valueOf(rm.getRs_id()));
-        TextView textViewRemainingTimeReservation = findViewById(R.id.textViewRemainingTimeReservation);
-        textViewRemainingTimeReservation.setText(String.valueOf(rm.getTimestamp()));
+        //TextView textViewRemainingTimeReservation = findViewById(R.id.textViewRemainingTimeReservation);
+        //textViewRemainingTimeReservation.setText(String.valueOf(rm.getTimestamp()));
         TextView textViewTotalIncomeReservation = findViewById(R.id.textViewTotalIncomeReservation);
         textViewTotalIncomeReservation.setText(String.valueOf(rm.getTotal_income()));
         TextView textViewNotesReservation = findViewById(R.id.textViewNotesReservation);

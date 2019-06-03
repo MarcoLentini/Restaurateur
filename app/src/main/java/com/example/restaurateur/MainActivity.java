@@ -252,11 +252,11 @@ public class MainActivity extends AppCompatActivity {
                         );
                         pendingReservationsData.add(tmpReservationModel);
                     }
+                    Collections.sort(pendingReservationsData);
+                    reservationsMainFragment.incrementPendingReservationsNumber();
+                    reservationsMainFragment.pageAdapter.notifyDataSetChanged();
                 }
             }
-            Collections.sort(pendingReservationsData);
-            reservationsMainFragment.incrementPendingReservationsNumber();
-            reservationsMainFragment.pageAdapter.notifyDataSetChanged();
         });
 
         request.whereEqualTo("rs_status", ReservationState.STATE_IN_PROGRESS).get().addOnCompleteListener(task -> {

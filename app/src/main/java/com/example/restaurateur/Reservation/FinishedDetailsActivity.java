@@ -34,8 +34,8 @@ public class FinishedDetailsActivity extends AppCompatActivity {
 
         TextView textViewIdReservation = findViewById(R.id.textViewIdReservation);
         textViewIdReservation.setText(String.valueOf(rm.getCust_id()));
-        TextView textViewRemainingTimeReservation = findViewById(R.id.textViewRemainingTimeReservation);
-        textViewRemainingTimeReservation.setText(String.valueOf(rm.getTimestamp()) + " min");
+        //TextView textViewRemainingTimeReservation = findViewById(R.id.textViewRemainingTimeReservation);
+        //textViewRemainingTimeReservation.setText(String.valueOf(rm.getTimestamp()) + " min");
         TextView textViewTotalIncomeReservation = findViewById(R.id.textViewTotalIncomeReservation);
         textViewTotalIncomeReservation.setText(String.valueOf(rm.getTotal_income()));
         TextView textViewNotesReservation = findViewById(R.id.textViewNotesReservation);
