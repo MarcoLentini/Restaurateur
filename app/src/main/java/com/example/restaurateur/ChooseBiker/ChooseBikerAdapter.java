@@ -76,20 +76,22 @@ public class ChooseBikerAdapter extends RecyclerView.Adapter<ChooseBikerAdapter.
         distBiker.setText("" + tmpB.getBikerDist());
 
         card.setOnClickListener(v->{
-            // Todo - move this login into ChooseBikerAdapter
             ReservationModel tmpRM = MainActivity.pendingReservationsData.get(orderPosition);
             db.collection("reservations").document(tmpRM.getReservation_id()).update(
                     "rs_status", ReservationState.STATE_IN_PROGRESS,
-                    "biker_id", tmpB.getBikerID()
+                    "biker_id", tmpB.getBikerID(),
+                    "biker_check", false
                     ).addOnCompleteListener(task -> {
                 if(task.isSuccessful()){
+                    dialog.dismiss();
                     main.removeItemFromPending(orderPosition);//pendingDataSet.remove(pos);
-                    notifyItemRemoved(orderPosition);
-                    notifyItemRangeChanged(orderPosition, MainActivity.pendingReservationsData.size());
+                    mainFragment.pageAdapter.notifyDataSetChanged();
                     tmpRM.setRs_status(ReservationState.STATE_IN_PROGRESS);
                     main.addItemToInProgress(tmpRM);//inProgressDataSet.add(tmpRM);
                     mainFragment.decrementPendingReservationsNumber();
-                    dialog.dismiss();
+
+                    // TODO - animation that move to in_progress tab
+
                 }
             });
         });

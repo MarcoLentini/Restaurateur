@@ -3,8 +3,10 @@ package com.example.restaurateur;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.Toast;
 
 import com.example.restaurateur.History.HistoryMainFragment;
 import com.example.restaurateur.Information.LoginActivity;
@@ -39,6 +42,7 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int PERMISSIONS_REQUEST = 100;
     private static final String restaurantDataFile = "RestaurantDataFile";
 
     private ActionBar toolbar;
@@ -46,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<ReservationModel> inProgressReservationsData;
     public static ArrayList<ReservationModel> finishedReservationsData;
     public static ArrayList<Category> categoriesData;
-    //TODO idDishes and image_id for dishes are to be removed
-    // public static int[] availableImageId = {R.drawable.ic_offer_pizza, R.drawable.ic_offer_cake, R.drawable.ic_offer_coffee, R.drawable.ic_offer_fries};
     public FirebaseAuth auth;
     public FirebaseFirestore db;
     public String restaurantKey;
@@ -194,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
                         (Timestamp) doc.get("delivery_time"),
                         (String) doc.get("notes"),
                         (String) doc.get("cust_phone"),
+                        (String) doc.get("cust_name"),
                         tmpArrayList,
                         (String) doc.get("rs_status"),
                         (Double) doc.get("total_income"),
@@ -245,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
                                 (Timestamp) dc.getDocument().get("delivery_time"),
                                 (String) dc.getDocument().get("notes"),
                                 (String) dc.getDocument().get("cust_phone"),
+                                (String) dc.getDocument().get("cust_name"),
                                 tmpArrayList,
                                 (String) dc.getDocument().get("rs_status"),
                                 (Double) dc.getDocument().get("total_income"),
@@ -342,4 +346,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
+        //If the permission has been granted...//
+        if (requestCode == PERMISSIONS_REQUEST && grantResults.length == 1
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            return;
+
+        } else {
+            //If the user denies the permission request, then display a snackBar with some more information//
+            Snackbar.make(findViewById(R.id.frame_container_main), "Please enable location services to allow GPS tracking",
+                    Snackbar.LENGTH_LONG).show();
+        }
+    }
 }

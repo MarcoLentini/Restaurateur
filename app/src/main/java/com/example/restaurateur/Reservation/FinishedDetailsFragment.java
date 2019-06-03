@@ -55,22 +55,22 @@ public class FinishedDetailsFragment extends Fragment {
         this.RM = args.containsKey("RM") ? (ReservationModel) args.getSerializable("RM") : null;
         this.position = args.containsKey("position") ? args.getInt("position"): null;
 
-        TextView textViewOrderIdFinished = view.findViewById(R.id.textViewOrderIdFinished);
+        TextView textViewOrderIdFinished = view.findViewById(R.id.textViewIdReservation);
         textViewOrderIdFinished.setText(Long.toString(RM.getRs_id()));
 
         TextView textViewRemainingTimeFinished = view.findViewById(R.id.textViewRemainingTimeFinished);
         textViewRemainingTimeFinished.setText(RM.getTimestamp().toString());
 
-        TextView textViewTotalIncomeFinished = view.findViewById(R.id.textViewTotalIncomeFinished);
+        TextView textViewTotalIncomeFinished = view.findViewById(R.id.customer_name);
         textViewTotalIncomeFinished.setText(Double.toString(RM.getTotal_income()));
 
-        TextView tvRemarkFinished = view.findViewById(R.id.tvRemarkFinished);
+        TextView tvRemarkFinished = view.findViewById(R.id.textViewNotesReservation);
         tvRemarkFinished.setText(RM.getNotes());
 
-        TextView tvNameFinished = view.findViewById(R.id.tvNameFinished);
-        tvNameFinished.setText(RM.getCust_id());
+        TextView tvNameFinished = view.findViewById(R.id.customer_name);
+        tvNameFinished.setText(RM.getCust_name());
 
-        TextView tvPhoneFinished = view.findViewById(R.id.tvPhoneFinished);
+        TextView tvPhoneFinished = view.findViewById(R.id.customer_phone_number);
         tvPhoneFinished.setText(RM.getCust_phone());
 
         LinearLayout orderDetailInfoFinished = view.findViewById(R.id.orderDetailInfoFinished);

@@ -13,13 +13,14 @@ public class ReservationModel implements Comparable<ReservationModel>, Serializa
     private Timestamp timestamp;
     private String notes;
     private String cust_phone;
+    private String cust_name;
     private ArrayList<ReservatedDish> dishesArrayList;
     private String rs_status;
     private Double total_income;
     private String rest_address;
 
     public ReservationModel(String reservation_id, Long rs_id, String cust_id, Timestamp timestamp, String notes,
-                            String cust_phone, ArrayList<ReservatedDish> dishesArrayList,
+                            String cust_phone, String cust_name, ArrayList<ReservatedDish> dishesArrayList,
                             String rs_status, Double total_income, String rest_address) {
         this.reservation_id = reservation_id;
         this.rs_id = rs_id;
@@ -27,6 +28,7 @@ public class ReservationModel implements Comparable<ReservationModel>, Serializa
         this.timestamp = timestamp;
         this.notes = notes;
         this.cust_phone = cust_phone;
+        this.cust_name = cust_name;
         this.dishesArrayList = dishesArrayList;
         this.rs_status = rs_status;
         this.total_income = total_income;
@@ -129,5 +131,13 @@ public class ReservationModel implements Comparable<ReservationModel>, Serializa
 
     public void setRest_address(String rest_address) {
         this.rest_address = rest_address;
+    }
+
+    public String getCust_name() {
+        return cust_name;
+    }
+
+    public void setCust_name(String cust_name) {
+        this.cust_name = cust_name;
     }
 }

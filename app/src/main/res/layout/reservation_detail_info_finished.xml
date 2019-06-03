@@ -306,32 +306,6 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/imageViewPhoneFinished"
-                android:layout_width="@dimen/dp16"
-                android:layout_height="@dimen/dp16"
-                android:layout_below="@+id/divider3"
-                android:layout_marginTop="@dimen/dp16"
-                android:layout_marginEnd="@dimen/dp24"
-                android:layout_marginRight="@dimen/dp24"
-                android:layout_toStartOf="@+id/imageViewMsgFinished"
-                android:layout_toLeftOf="@+id/imageViewMsgFinished"
-                android:src="@drawable/ic_order_call"
-                android:contentDescription="@string/str_callcustonmer"/>
-
-            <ImageView
-                android:id="@+id/imageViewMsgFinished"
-                android:layout_width="@dimen/dp16"
-                android:layout_height="@dimen/dp16"
-                android:layout_below="@+id/divider3"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="@dimen/dp16"
-                android:layout_marginEnd="@dimen/dp24"
-                android:layout_marginRight="@dimen/dp24"
-                android:src="@drawable/ic_order_msg"
-                android:contentDescription="@string/str_messagecustomer"/>
-
             <TextView
                 android:id="@+id/tvPhoneFinished"
                 android:layout_width="wrap_content"

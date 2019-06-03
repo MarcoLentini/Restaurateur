@@ -44,7 +44,7 @@ public class PendingDetailsActivity extends AppCompatActivity {
         TextView textViewNotesReservation = findViewById(R.id.textViewNotesReservation);
         textViewNotesReservation.setText(rm.getNotes());
         TextView textViewCustomerIdReservation = findViewById(R.id.customer_name);
-        textViewCustomerIdReservation.setText(String.valueOf(rm.getCust_id()));
+        textViewCustomerIdReservation.setText(String.valueOf(rm.getCust_name()));
         TextView textViewCustomerPhoneNumberReservation = findViewById(R.id.customer_phone_number);
         textViewCustomerPhoneNumberReservation.setText(rm.getCust_phone());
         LinearLayout pending_order_detail_info = findViewById(R.id.pending_reservation_detail_info);
