@@ -18,6 +18,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
 
 import com.example.restaurateur.History.HistoryMainFragment;
+import com.example.restaurateur.Home.HomeMainFragment;
 import com.example.restaurateur.Information.LoginActivity;
 import com.example.restaurateur.Information.UserInformationActivity;
 import com.example.restaurateur.Offer.Category;
@@ -151,8 +152,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.navigation_history:
-                toolbar.setTitle(R.string.history_title);
-                fragment = new HistoryMainFragment();
+                toolbar.setTitle(R.string.home_title);
+                fragment = new HomeMainFragment();
                 loadFragment(fragment);
                 return true;
         }

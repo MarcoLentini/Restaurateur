@@ -1,0 +1,288 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/llHomePageBusiness"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical"
+
+        android:background="@drawable/ic_bg">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginStart="@dimen/dp16"
+            android:layout_marginLeft="@dimen/dp16"
+            android:layout_marginEnd="@dimen/dp16"
+            android:layout_marginRight="@dimen/dp16">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/tvDailySoldIncome"
+                android:padding="@dimen/dp8"
+                android:text=""
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textAlignment="center"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/tvDailySoldQuantity"
+                android:padding="@dimen/dp8"
+                android:text=""
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textAlignment="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/dp16"
+            android:layout_marginStart="@dimen/dp16"
+            android:layout_marginLeft="@dimen/dp16"
+            android:layout_marginEnd="@dimen/dp16"
+            android:layout_marginRight="@dimen/dp16">
+            <TextView
+                android:id="@+id/tvDailySoldIncomeTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/dp8"
+                android:text="@string/title_daily_sold_income"
+                android:textColor="@color/colorSecondaryText"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:textAlignment="center"/>
+            <TextView
+                android:id="@+id/tvDailySoldQuantityTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/dp8"
+                android:text="@string/title_daily_sold_quantity"
+                android:textColor="@color/colorSecondaryText"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlLineOne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp24"
+        android:layout_marginLeft="@dimen/dp24"
+        android:layout_marginRight="@dimen/dp24"
+        android:layout_marginEnd="@dimen/dp24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llHomePageBusiness">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnHistoryOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="@dimen/dp24"
+            android:layout_marginLeft="@dimen/dp24"
+            android:layout_marginTop="@dimen/dp24"
+            android:padding="@dimen/dp16"
+            android:src="@drawable/ic_history" />
+
+        <TextView
+            android:id="@+id/tvHistoryOrders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnHistoryOrder"
+            android:layout_marginStart="@dimen/dp8"
+            android:layout_marginLeft="@dimen/dp8"
+            android:layout_marginTop="@dimen/dp4"
+            android:gravity="center"
+            android:padding="@dimen/dp4"
+            android:text="@string/title_history_order"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="12sp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnComments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/dp24"
+            android:padding="@dimen/dp16"
+            android:src="@drawable/ic_comments" />
+
+        <TextView
+            android:id="@+id/tvComments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnComments"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/dp4"
+            android:gravity="center"
+            android:padding="@dimen/dp4"
+            android:text="@string/title_comments"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="12sp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnAnalysis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorError"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp24"
+            android:layout_marginEnd="@dimen/dp24"
+            android:layout_marginRight="@dimen/dp24"
+            android:padding="@dimen/dp16"
+            android:src="@drawable/ic_analysis" />
+
+        <TextView
+            android:id="@+id/tvAnalysis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnAnalysis"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp4"
+            android:layout_marginEnd="@dimen/dp24"
+            android:layout_marginRight="@dimen/dp24"
+            android:gravity="center"
+            android:padding="@dimen/dp4"
+            android:text="@string/title_analysis"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="12sp" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlLineTwo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp24"
+        android:layout_marginLeft="@dimen/dp24"
+        android:layout_marginRight="@dimen/dp24"
+        android:layout_marginEnd="@dimen/dp24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlLineOne">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnTopDishes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:backgroundTint="@color/colorRed"
+            android:layout_marginStart="@dimen/dp24"
+            android:layout_marginLeft="@dimen/dp24"
+            android:layout_marginTop="@dimen/dp24"
+            android:padding="@dimen/dp16"
+            android:src="@drawable/ic_star" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnTopDishes"
+            android:layout_marginStart="@dimen/dp8"
+            android:layout_marginLeft="@dimen/dp8"
+            android:layout_marginTop="@dimen/dp4"
+            android:gravity="center"
+            android:padding="@dimen/dp4"
+            android:text="@string/title_top_sold_dishes"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="12sp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnOne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorLightGray"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/dp24"
+            android:padding="@dimen/dp16"
+            android:src="@drawable/ic_comments" />
+
+        <TextView
+            android:id="@+id/tvOne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnOne"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/dp4"
+            android:gravity="center"
+            android:padding="@dimen/dp4"
+            android:text="@string/title_comments"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="12sp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnMyAccountInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/design_default_color_primary_dark"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp24"
+            android:layout_marginEnd="@dimen/dp24"
+            android:layout_marginRight="@dimen/dp24"
+            android:padding="@dimen/dp16"
+            android:src="@drawable/ic_account_name" />
+
+        <TextView
+            android:id="@+id/tvTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnMyAccountInfo"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dp4"
+            android:layout_marginEnd="@dimen/dp8"
+            android:layout_marginRight="@dimen/dp8"
+            android:gravity="center"
+            android:padding="@dimen/dp4"
+            android:text="@string/title_account_info"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="12sp" />
+
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

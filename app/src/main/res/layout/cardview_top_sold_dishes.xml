@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="2dp"
+    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="#FFFFFF"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp56">
+
+        <TextView
+            android:id="@+id/tvRankingTopSold"
+            android:layout_width="@dimen/dp56"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/dp4"
+            android:gravity="center"
+            android:text=""
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_toEndOf="@+id/tvRankingTopSold"
+            android:layout_toRightOf="@+id/tvRankingTopSold"
+            android:layout_width="2dp"
+            android:layout_height="@dimen/dp56"
+            android:background="@color/colorDivider"/>
+
+        <RelativeLayout
+            android:id="@+id/rlRanking"
+            android:layout_toEndOf="@+id/divider1"
+            android:layout_toRightOf="@+id/divider1"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_margin="@dimen/dp4"
+            >
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/imgFoodPicTopSold"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/img_rest_1"
+                app:civ_border_color="@color/colorPrimaryDark"
+                app:civ_border_width="2sp" />
+
+            <ImageView
+                android:id="@+id/ivRankingTopSold"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:layout_alignBottom="@id/imgFoodPicTopSold"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_ranking_1st"
+                android:visibility="gone"
+                android:contentDescription="@string/contentDescription"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvFoodNameTopSold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp4"
+            android:layout_marginLeft="@dimen/dp4"
+            android:layout_marginTop="@dimen/dp8"
+            android:layout_marginEnd="@dimen/dp16"
+            android:layout_marginRight="@dimen/dp16"
+            android:layout_toStartOf="@+id/tvQuantityTopSold"
+            android:layout_toLeftOf="@+id/tvQuantityTopSold"
+            android:layout_toEndOf="@+id/rlRanking"
+            android:layout_toRightOf="@+id/rlRanking"
+            android:gravity="start"
+            android:text="@string/str_foodName"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageViewSold"
+            android:layout_width="40dp"
+            android:layout_height="46dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_sale"
+            android:contentDescription="@string/contentDescription" />
+
+        <TextView
+            android:id="@+id/tvQuantityTopSold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp4"
+            android:layout_marginRight="@dimen/dp4"
+            android:layout_toStartOf="@+id/imageViewSold"
+            android:layout_toLeftOf="@+id/imageViewSold"
+            android:drawablePadding="@dimen/dp4"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+
+
+
+</android.support.v7.widget.CardView>
