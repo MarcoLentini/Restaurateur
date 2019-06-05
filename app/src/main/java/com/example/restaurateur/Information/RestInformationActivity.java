@@ -201,7 +201,7 @@ public class RestInformationActivity extends AppCompatActivity {
                                                 db.collection("users").whereEqualTo("rest_id",restaurantKey).get()
                                                         .addOnSuccessListener(document->{
                                                             SharedPreferences.Editor editor = sharedPref.edit();
-                                                            editor.remove("restaurantKey");
+                                                            editor.remove("restaurantKey").apply();
                                                             Toast.makeText(RestInformationActivity.this, "Your restaurant profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
                                                             signOut();
                                                             finish();

@@ -9,5 +9,12 @@
         android:title="@string/action_settings"
         app:showAsAction="never"
         />
+    <item
+        android:id="@+id/information_rest"
+        android:orderInCategory="100"
+        android:title="@string/information_rest"
+        app:showAsAction="never"
+        />
+
 
 </menu>

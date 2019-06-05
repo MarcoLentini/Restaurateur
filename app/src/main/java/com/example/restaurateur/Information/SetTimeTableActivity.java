@@ -53,14 +53,12 @@ public class SetTimeTableActivity extends AppCompatActivity {
 
         String titile = getString(R.string.RestInfoTitle);
         getSupportActionBar().setTitle(titile);
-        SharedPreferences sharedPref = getSharedPreferences(RestaurantDataFile, Context.MODE_PRIVATE);
-        restaurantKey = sharedPref.getString("restaurantKey","");
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        if (user == null || restaurantKey.equals("")) {
+        if (user == null) {
             finish();
         }
 
@@ -323,15 +321,7 @@ public class SetTimeTableActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (auth.getCurrentUser() == null || restaurantKey.equals("")) {
 
-            finish();
-
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

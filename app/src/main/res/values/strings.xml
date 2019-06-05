@@ -200,7 +200,9 @@
     <string name="restaurant_descr">Restaurant Description</string>
 
     <!-- activity_signup_biker-->
+    <string name="biker_name">Biker name</string>
     <string name="biker_phone">Phone number</string>
+    <string name="biker_description">Your description</string>
     <string name="username_updated">Username is updated.</string>
     <string name="username_failed_update">Failed to update username!</string>
     <string name="invalid_username">Invalid username. Use minimum 3 characters</string>
@@ -211,6 +213,8 @@
     <string name="invalid_mail">Enter valid email address!</string>
     <string name="invalid_phone">Invalid phone number</string>
     <string name="enter_email">Enter email address!</string>
+    <string name="became_biker">Became a biker!</string>
+    <string name="became_biker2">Do you want to became a biker?</string>
     <string name="welcome_biker">Welcome among bikers!</string>
     <string name="logout_title">Log out</string>
     <string name="password_failed_updated">Failed to update password!</string>
@@ -262,6 +266,7 @@
     <string name="title_top_sold_dishes">TOP Sold Dishes</string>
     <string name="title_account_info">Account Info</string>
     <string name="contentDescription">TODO</string>
+    <string name="information_rest">Restaurant information</string>
 
 
 </resources>

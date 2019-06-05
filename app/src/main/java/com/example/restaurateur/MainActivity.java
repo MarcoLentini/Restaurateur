@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.restaurateur.History.HistoryMainFragment;
 import com.example.restaurateur.Home.HomeMainFragment;
 import com.example.restaurateur.Information.LoginActivity;
+import com.example.restaurateur.Information.RestInformationActivity;
 import com.example.restaurateur.Information.UserInformationActivity;
 import com.example.restaurateur.Offer.Category;
 import com.example.restaurateur.Offer.OfferModel;
@@ -123,6 +124,11 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
 
             Intent information = new Intent(this, UserInformationActivity.class);
+            startActivity(information);
+        }
+        if (id == R.id.information_rest) {
+
+            Intent information = new Intent(this, RestInformationActivity.class);
             startActivity(information);
         }
         if(id == android.R.id.home){

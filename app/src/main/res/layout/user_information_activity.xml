@@ -175,41 +175,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewUserEmail" />
 
-        <View
-            android:id="@+id/divider2"
-            android:layout_width="395dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@color/colorDivider"
-            app:layout_constraintBottom_toTopOf="@+id/textViewMoreInfo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewUserPhoneNumber" />
 
 
-        <TextView
-            android:id="@+id/textViewMoreInfo"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:background="?attr/selectableItemBackground"
-            android:drawableStart="@drawable/ic_account_more_info"
-            android:drawableLeft="@drawable/ic_account_more_info"
-            android:drawableEnd="@drawable/ic_arrow_right"
-            android:drawableRight="@drawable/ic_arrow_right"
-            android:drawablePadding="12dp"
-            android:maxEms="20"
-            android:maxLines="1"
-            android:text="@string/viewMore"
-            android:textAppearance="@android:style/TextAppearance.Large"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewUserPhoneNumber" />
 
         <View
             android:id="@+id/divider6"
@@ -221,7 +188,7 @@
             app:layout_constraintBottom_toTopOf="@+id/textViewChangePassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewMoreInfo" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewUserPhoneNumber" />
 
         <TextView
             android:id="@+id/textViewChangePassword"
@@ -244,7 +211,7 @@
             android:textAppearance="@android:style/TextAppearance.Large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewMoreInfo" />
+            app:layout_constraintTop_toBottomOf="@id/textViewUserPhoneNumber" />
 
         <View
             android:id="@+id/divider5"

@@ -408,7 +408,7 @@ public class ModifyInfoActivity extends AppCompatActivity {
     }
     public boolean isValidUsername(final String username) {
 
-        if(username.length()<=3)
+        if(username.length()<3)
             return true;
         else return false;
     }

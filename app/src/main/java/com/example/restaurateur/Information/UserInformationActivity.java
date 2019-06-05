@@ -47,7 +47,6 @@ public class UserInformationActivity extends AppCompatActivity {
     private TextView tvUserEmail;
     private TextView tvUserPhoneNumber;
     private TextView tvUserPassword;
-    private TextView tvViewMore;
     private TextView btnSignOut;
 
     private ImageView imageProfile;
@@ -130,13 +129,7 @@ public class UserInformationActivity extends AppCompatActivity {
                                 invokeDialogImageProfile();
                             });
 
-                            tvViewMore = findViewById(R.id.textViewMoreInfo);
-                            tvViewMore.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    more_info_page(v);
-                                }
-                            });
+
 
                             tvUserName = findViewById(R.id.textViewUserName);
                             tvUserName.setOnClickListener(new View.OnClickListener() {
@@ -476,6 +469,8 @@ public class UserInformationActivity extends AppCompatActivity {
     //sign out method
     public void signOut() {
         auth.signOut();
+        SharedPreferences sharedPref = getSharedPreferences(RestaurantDataFile, Context.MODE_PRIVATE);
+        sharedPref.edit().remove("restaurantKey").apply();
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         finish();
 
