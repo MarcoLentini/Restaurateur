@@ -18,7 +18,7 @@
     <string name="notification_field_id">user_notification</string>
     <string name="opening_hours_field_id">营业时间</string>
     <string name="delivery_service_field_id">delivery_service</string>
-    <string name="pwd_field_id">user_password</string>
+    <string name="pwd_field_id">用户密码</string>
 
     <string name="insert_username">请输入用户名</string>
     <string name="insert_email">请输入邮箱</string>
@@ -90,7 +90,7 @@
 
     <string name="home_title">店铺管理</string>
 
-      <string name="button_save">保存</string>
+    <string name="button_save">保存</string>
     <string name="add_new_category">请输入新的菜单分类</string>
     <string name="new_category_title">新餐单</string>
     <string name="invalid_category">分类不识别</string>
@@ -108,7 +108,7 @@
     <string name="FoodQuantity">库存</string>
     <string name="FoodPrice">价格</string>
     <string name="futureDevelopment">正在开发中</string>
-    <string name="notes">notes!</string>
+    <string name="notes">备注</string>
     <string name="hint_food_short_description">美食备注</string>
     <string name="str_orderid">124</string>
     <string name="str_time">15min</string>
@@ -119,8 +119,6 @@
     <string name="str_remark">do not put so much chilly this is a notice you can write as many words as you want plesae leave more notice here</string>
     <string name="str_customer_name">Mr Wrong</string>
     <string name="str_phonenumber">33456832901</string>
-    <string name="str_messagecustomer">messageCustomer</string>
-    <string name="str_callcustonmer">callCustonmer</string>
     <string name="action_settings_firebase">Firebase Account</string>
     <string name="edit_category_item">编辑</string>
     <string name="remove_category_item">删除</string>
@@ -131,13 +129,13 @@
     <string name="snackbar_offer_remove">该食品已成功删除</string>
     <string name="snackbar_offer_undo">撤销</string>
     <string name="snackbar_offer_category_changed">食品已成功移动到其他菜单</string>
-    <string name="alert_dialog_offer_remove">Do you really want to remove offer</string>
-    <string name="alert_dialog_offer_remove_btn_ok">OK</string>
-    <string name="alert_dialog_offer_remove_btn_cancel">CANCEL</string>
+    <string name="alert_dialog_offer_remove">确定要删除</string>
+    <string name="alert_dialog_offer_remove_btn_ok">确定</string>
+    <string name="alert_dialog_offer_remove_btn_cancel">取消</string>
     <string name="FoodCategory">输入菜单名称</string>
     <string name="action_sign_in_short">注册账户</string>
     <string name="auth_failed">用户不识别，请确认您的账户或密码！</string>
-    <string name="btn_back"><![CDATA[<< Back]]></string>
+    <string name="btn_back"><![CDATA[<< 返回]]></string>
     <string name="btn_change">更改密码</string>
     <string name="btn_forgot_password">忘记您的密码?</string>
     <string name="btn_link_to_login">已注册，点击登陆！</string>
@@ -153,7 +151,7 @@
     <string name="forgot_password_msg">请输入您的注册邮箱查收重置密码邮件。</string>
     <string name="download">下载</string>
     <string name="edit_category_title">编辑菜单名称</string>
-     <string name="hint_email">Email</string>
+     <string name="hint_email">邮箱</string>
     <string name="hint_name">名字</string>
     <string name="hint_new_email">新的邮箱地址</string>
     <string name="hint_password">密码</string>
@@ -161,11 +159,10 @@
     <string name="minimum_password">密码太短，请输入至少六位。</string>
     <string name="lbl_forgot_password">忘记密码？</string>
     <string name="label_download">下载文件</string>
-    <string name="label_link">Link to Uploaded File</string>
+    <string name="label_link">上传图片连接</string>
     <string name="progress_uploading">正在上传中…请稍后</string>
     <string name="progress_downloading">正在下载中…请稍后</string>
     <string name="progress_auth">正在注册中…请稍后</string>
-    <string name="rationale_storage">This sample reads images from your camera to demonstrate uploading.</string>
     <string name="remove_user">删除用户</string>
     <string name="reservation_details_title">订单详情</string>
     <string name="show_dish">编辑食品</string>
@@ -175,7 +172,6 @@
     <string name="upload_failure">上传失败</string>
     <string name="upload_success">上传完成</string>
     <string name="title_activity_reset_password">重置密码</string>
-    <string name="title_activity_profile">Firebase</string>
     <string name="title_activity_login">注册</string>
     <string name="title_activity_edit_dishes">编辑食品详情</string>
     <string name="take_photo_prompt">上传图片</string>
@@ -208,13 +204,13 @@
     <string name="delivery_fee_title">配送费用</string>
     <string name="default_rest_name">店铺名称</string>
     <string name="complete_rest_btn">完成注册</string>
-    <string name="title_daily_sold_income">Daily Sold Income €</string>
-    <string name="title_daily_sold_quantity">Daily Sold Quantity</string>
-    <string name="title_history_order">History Order</string>
-    <string name="title_comments">Comments</string>
-    <string name="title_analysis">Analysis</string>
-    <string name="title_top_sold_dishes">TOP Sold Dishes</string>
-    <string name="title_account_info">Account Info</string>
+    <string name="title_daily_sold_income">订单收入 €</string>
+    <string name="title_daily_sold_quantity">订单总量</string>
+    <string name="title_history_order">历史订单</string>
+    <string name="title_comments">评论</string>
+    <string name="title_analysis">分析</string>
+    <string name="title_top_sold_dishes">销售榜单</string>
+    <string name="title_account_info">账户信息</string>
     <string name="contentDescription">TODO</string>
     <string name="address_updated">地址更新成功</string>
     <string name="address_failed_updated">地址更新失败</string>
@@ -248,4 +244,7 @@
     <string name="enter_delivery_fee">请输入配送费用</string>
     <string name="enter_address_rest">请输入商铺地址</string>
     <string name="biker_phone">电话号码</string>
+    <string name="empty_tag_no_comments">还没有收到评论</string>
+    <string name="FoodCategoryPosition">菜单位置信息</string>
+    <string name="information_rest">店铺信息</string>
 </resources>

@@ -81,6 +81,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Home.TopSoldDishesActivity"/>
+        <activity android:name=".Home.CommentsActivity"/>
         <activity android:name=".Offer.AddNewOfferActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Offer.AddNewCategoryActivity" android:screenOrientation="portrait"/>
     </application>

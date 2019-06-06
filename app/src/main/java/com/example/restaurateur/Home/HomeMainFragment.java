@@ -47,6 +47,8 @@ public class HomeMainFragment  extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "You click FloatingActionButton fabComments");
+                Intent myIntent = new Intent(getActivity(), CommentsActivity.class);
+                startActivity(myIntent);
             }
         });
         fabAnalysis.setOnClickListener(new View.OnClickListener() {

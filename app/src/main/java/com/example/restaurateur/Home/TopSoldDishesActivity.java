@@ -44,7 +44,11 @@ public class TopSoldDishesActivity extends AppCompatActivity {
     // sort all the data with the monthlySold quantify
     public void fillWithData(){
         for (int i = 0; i < MyOffersData.id.length; i++){
-            TopSoldDishModel dishModel = new TopSoldDishModel(MyOffersData.offerName[i],MyOffersData.quantity[i],"");
+            TopSoldDishModel dishModel = new TopSoldDishModel(
+                    MyOffersData.offerName[i], //dish name
+                    MyOffersData.quantity[i],  //dish sold quantity
+                    ""                 //dish image
+            );
             topSoldDishesData.add(dishModel);
 
         }

@@ -118,8 +118,6 @@
     <string name="str_remark">do not put so much chilly this is a notice you can write as many words as you want plesae leave more notice here</string>
     <string name="str_customer_name">Mr Wrong</string>
     <string name="str_phonenumber">33456832901</string>
-    <string name="str_messagecustomer">messageCustomer</string>
-    <string name="str_callcustonmer">callCustonmer</string>
     <string name="show_dish">Il tuo piatto</string>
     <string name="FoodCategory">Inserisci categoria</string>
     <string name="reservation_details_title">Dettagli ordine</string>
@@ -173,4 +171,5 @@
     <string name="delivery_fee_title">Delivery fee</string>
     <string name="description_updated">Description updated</string>
     <string name="download">Download</string>
+    <string name="empty_tag_no_comments">There is no comments here up to now</string>
 </resources>
