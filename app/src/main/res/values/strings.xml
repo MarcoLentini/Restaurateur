@@ -267,6 +267,7 @@
     <string name="title_account_info">Account Info</string>
     <string name="contentDescription">TODO</string>
     <string name="information_rest">Restaurant information</string>
+    <string name="FoodCategoryPosition">Position in the list</string>
 
 
 </resources>

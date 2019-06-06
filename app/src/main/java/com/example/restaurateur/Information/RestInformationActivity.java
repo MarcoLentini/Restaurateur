@@ -269,42 +269,48 @@ public class RestInformationActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK) {
-            switch (data.getExtras().getString("field")) {
-                case "rest_name":
-                    RestName = data.getExtras().getString("value");
-                    if (!RestName.equals("")) {
-                        restInfo.setRest_name(RestName);
-                        tvRestName.setText(RestName);
-                    }
-                    break;
-                case "rest_description":
-                    restDescr = data.getExtras().getString("value");
-                    if (!restDescr.equals("")) {
-                        restInfo.setRest_name(restDescr);
-                    }
-                    break;
-                case "rest_address":
-                    restAddress = data.getExtras().getString("value");
-                    if(!restAddress.equals("")) {
-                        restInfo.setRest_address(restAddress);
-                        tvRestAddress.setText(restAddress);
-                    }
-                    break;
-                case "rest_phone_number":
-                    restPhoneNumber = data.getExtras().getString("value");
-                    if (!restPhoneNumber.equals("")) {
-                        restInfo.setRest_phone(restPhoneNumber);
-                        tvRestPhoneNumber.setText(restPhoneNumber);
-                    }
-                    break;
+            if (requestCode == CAMERA_REQUEST) {
+                uploadOnFirebase(file_image);
+            } else if (requestCode == GALLERY_REQUEST) {
+                uploadOnFirebase(data.getData());
+            } else {
+                switch (data.getExtras().getString("field")) {
+                    case "rest_name":
+                        RestName = data.getExtras().getString("value");
+                        if (!RestName.equals("")) {
+                            restInfo.setRest_name(RestName);
+                            tvRestName.setText(RestName);
+                        }
+                        break;
+                    case "rest_description":
+                        restDescr = data.getExtras().getString("value");
+                        if (!restDescr.equals("")) {
+                            restInfo.setRest_name(restDescr);
+                        }
+                        break;
+                    case "rest_address":
+                        restAddress = data.getExtras().getString("value");
+                        if (!restAddress.equals("")) {
+                            restInfo.setRest_address(restAddress);
+                            tvRestAddress.setText(restAddress);
+                        }
+                        break;
+                    case "rest_phone_number":
+                        restPhoneNumber = data.getExtras().getString("value");
+                        if (!restPhoneNumber.equals("")) {
+                            restInfo.setRest_phone(restPhoneNumber);
+                            tvRestPhoneNumber.setText(restPhoneNumber);
+                        }
+                        break;
 
-                case "delivery_fee":
-                    deliveryFee =Double.parseDouble( data.getExtras().getString("value"));
-                    if(!deliveryFee.equals("")) {
-                        restInfo.setDelivery_fee(deliveryFee);
-                    }
-                    break;
+                    case "delivery_fee":
+                        deliveryFee = Double.parseDouble(data.getExtras().getString("value"));
+                        if (!deliveryFee.equals("")) {
+                            restInfo.setDelivery_fee(deliveryFee);
+                        }
+                        break;
 
+                }
             }
         }
         if(resultCode==2)
@@ -390,7 +396,7 @@ public class RestInformationActivity extends AppCompatActivity {
             Map<String, Object> rest_im = new HashMap<>();
             rest_im.put("rest_image", restaurant_image.toString());
             restInfo.setRest_image(restaurant_image);
-            db.collection("rastaurant").document(restaurantKey).update(rest_im);
+            db.collection("restaurant").document(restaurantKey).update(rest_im);
 
         }).addOnFailureListener(exception -> {
             // Upload failed

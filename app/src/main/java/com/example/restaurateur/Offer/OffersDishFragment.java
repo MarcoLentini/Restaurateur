@@ -191,9 +191,8 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                 Long foodQuantity = data.getExtras().getLong("foodQuantity");
                 String foodDescription = data.getExtras().getString("foodDescription");
                 String foodCategory = data.getExtras().getString("category");
-                Boolean foodState = data.getExtras().getBoolean("foodState");
                 OfferModel offerDish = new OfferModel(null, foodName, foodCategory, foodPrice,
-                        foodQuantity, image,foodDescription, foodState);
+                        foodQuantity, image,foodDescription, true);
 
                 DocumentReference dr = main.db.collection("category").document(category.getCategoryID()).collection("dishes").document();
                 dr.set(offerDish).addOnCompleteListener(task -> {

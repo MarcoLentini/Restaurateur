@@ -35,5 +35,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add"
-        android:backgroundTint="@color/colorDivider" />
+        android:backgroundTint="@color/colorAccent" />
 </FrameLayout>

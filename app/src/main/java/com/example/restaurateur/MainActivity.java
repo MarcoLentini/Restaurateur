@@ -291,7 +291,8 @@ public class MainActivity extends AppCompatActivity {
                         for(DocumentSnapshot doc : document){
                             Category c = new Category(
                                     (String) doc.get("category_name"),
-                                    (String) doc.getId());
+                                    (String) doc.getId(),
+                                    (Long) doc.get("category_position"));
                             //(String) doc.get("category_image_url"));
                             doc.getReference().collection("dishes").get().addOnCompleteListener(task1 -> {
                                 if (task1.isSuccessful()) {
@@ -325,6 +326,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("QueryReservation", "get failed with ", task.getException());
                 }
             });
+        Collections.sort(categoriesData);
 
     }
 

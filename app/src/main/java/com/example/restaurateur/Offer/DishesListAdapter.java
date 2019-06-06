@@ -103,7 +103,7 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
         textViewQuantityOffer.setText(String.valueOf(tmpOM.getQuantity()));
         DecimalFormat format = new DecimalFormat("0.00");
         String formattedPrice = format.format(tmpOM.getPrice());
-        textViewPriceOffer.setText(formattedPrice);
+        textViewPriceOffer.setText("€ " +formattedPrice);
         // Todo - senza placeholder?
         Glide.with(this.context).load(Uri.parse(tmpOM.getImage())).into(offer_food_pic);
         // .placeholder(R.drawable.img_rest_1)

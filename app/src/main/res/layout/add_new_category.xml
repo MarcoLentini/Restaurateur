@@ -29,6 +29,28 @@
                 android:hint="@string/FoodCategory"
                 android:imeOptions="actionDone"
                 android:inputType="textCapSentences"
+                android:nextFocusDown="@+id/edit_text_input_food_category_position" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_input_food_category_position"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_food_category"
+           >
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edit_text_input_food_category_position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:gravity="start|top"
+                android:hint="@string/FoodCategoryPosition"
+                android:imeOptions="actionDone"
+                android:inputType="number"
                 android:nextFocusDown="@+id/etOfferBtnSave" />
         </android.support.design.widget.TextInputLayout>
 
@@ -39,7 +61,7 @@
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/dp24"
             android:layout_marginBottom="@dimen/dp24"
-            app:layout_constraintTop_toBottomOf="@+id/text_input_food_category">
+            app:layout_constraintTop_toBottomOf="@+id/text_input_food_category_position">
             <Button
                 android:id="@+id/etOfferBtnCancel"
                 android:theme="@style/PrimaryFlatButton"

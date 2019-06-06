@@ -28,6 +28,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -107,6 +108,7 @@ public class OffersCategoryFragment extends Fragment {
                 Bundle bn = new Bundle();
                 bn.putInt("selectedPosition", selectedPosition);
                 bn.putString("categoryName", selectedCategory.getCategoryName());
+                bn.putLong("categoryPosition", selectedCategory.getCategoryPosition());
                 myIntent.putExtras(bn);
                 startActivityForResult(myIntent, EDIT_CATEGORY_ACTIVITY);
                 return true;
@@ -132,15 +134,20 @@ public class OffersCategoryFragment extends Fragment {
 
             if (requestCode == ADD_CATEGORY_ACTIVITY) {
                 String categoryName = data.getStringExtra("category");
-                Map<String,String> cat = new HashMap<>();
+                Long categoryPosition = data.getExtras().getLong("position");
+
+                Map<String,Object> cat = new HashMap<>();
                 cat.put("category_name",categoryName);
+                cat.put("category_position",categoryPosition);
                 cat.put("rest_id",main.restaurantKey);
 
                 DocumentReference dr = main.db.collection("category").document();
                 dr.set(cat).addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
-                        Category category = new Category(categoryName, dr.getId());
+                        Category category = new Category(categoryName, dr.getId(),categoryPosition);
                         MainActivity.categoriesData.add(category);
+                        Collections.sort(MainActivity.categoriesData);
+                        categoriesAdapter.notifyDataSetChanged();
                         categoriesAdapter.notifyItemInserted(MainActivity.categoriesData.size() - 1);
                         if(tvNoCategories.getVisibility() == View.VISIBLE)
                             tvNoCategories.setVisibility(View.INVISIBLE);
@@ -155,15 +162,23 @@ public class OffersCategoryFragment extends Fragment {
             if (requestCode == EDIT_CATEGORY_ACTIVITY) {
                 int position = data.getIntExtra("selectedPosition", 0);
                 String categoryName = data.getStringExtra("categoryName");
+                Long categoryPosition = data.getExtras().getLong("categoryPosition");
                 MainActivity.categoriesData.get(position).setCategoryName(categoryName);
                 main.db.collection("category").document(MainActivity.categoriesData.get(position).getCategoryID()).update("category_name",categoryName).addOnCompleteListener(task -> {
-                    if(task.isSuccessful()){
-                        categoriesAdapter.notifyItemChanged(position);
-                        // Todo - check snackbar
-                        Snackbar.make(view, getString(R.string.snackbar_category_edited), Snackbar.LENGTH_LONG)
-                                .show();
+                    if(task.isSuccessful()) {
+                        MainActivity.categoriesData.get(position).setCategoryPosition(categoryPosition);
+                        main.db.collection("category").document(MainActivity.categoriesData.get(position).getCategoryID()).update("category_position", categoryPosition).addOnCompleteListener(task1 -> {
+                            if (task.isSuccessful()) {
+                                Collections.sort(MainActivity.categoriesData);
+                                categoriesAdapter.notifyDataSetChanged();
+                              //  categoriesAdapter.notifyItemChanged(position);
+                                // Todo - check snackbar
+                                Snackbar.make(view, getString(R.string.snackbar_category_edited), Snackbar.LENGTH_LONG)
+                                        .show();
+                            }
+                        });
                     }
-                });
+                    });
             }
 
         }

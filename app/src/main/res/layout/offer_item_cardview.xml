@@ -27,10 +27,17 @@
             android:orientation="vertical"
             android:layout_marginLeft="@dimen/dp16"
             android:layout_marginStart="@dimen/dp16">
+            <LinearLayout
+                android:id="@+id/linearLayoutOfferQuantityPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dp4">
 
             <TextView
                 android:id="@+id/offer_food_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/FoodName"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
@@ -39,54 +46,71 @@
                 android:ellipsize="end"
                 android:maxLines="2"/>
 
-            <LinearLayout
-                android:id="@+id/linearLayoutOfferQuantityPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dp4">
+                <Switch
+                    android:id="@+id/offerStateSwitch"
 
-                <TextView
-                    android:id="@+id/textViewQuantityOffer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/FoodQuantity"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/dp8"/>
 
-                <TextView
-                    android:id="@+id/textViewQuantityOfferValue"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/FoodQuantityValue"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                    android:layout_marginLeft="@dimen/dp8"
-                    android:layout_marginStart="@dimen/dp8"/>
-
-                <TextView
-                    android:id="@+id/textViewPriceOffer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/FoodPrice"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
-
-                <TextView
-                    android:id="@+id/textViewPriceOfferValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_currency_euro"
-                    android:drawableLeft="@drawable/ic_currency_euro"
-                    android:text="@string/FoodPriceValue"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:layout_marginLeft="@dimen/dp8"
-                    android:layout_marginStart="@dimen/dp8"/>
             </LinearLayout>
 
-            <Switch
-                android:id="@+id/offerStateSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp16"/>
+            <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/dp4">
+
+                    <TextView
+                        android:id="@+id/textViewQuantityOffer"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="@string/FoodQuantity"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+                    <TextView
+                        android:id="@+id/textViewQuantityOfferValue"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="@string/FoodQuantityValue"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_marginLeft="@dimen/dp8"
+                        android:layout_marginStart="@dimen/dp8"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/dp4">
+                        <TextView
+                            android:id="@+id/textViewPriceOffer"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="@string/FoodPrice"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+                        <TextView
+                            android:id="@+id/textViewPriceOfferValue"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                             android:text="@string/FoodPriceValue"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginStart="@dimen/dp8"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+
 
         </LinearLayout>
-    </LinearLayout>
+
 </android.support.v7.widget.CardView>
