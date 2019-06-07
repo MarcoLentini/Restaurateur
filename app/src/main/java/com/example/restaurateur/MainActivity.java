@@ -311,11 +311,12 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         Log.d("QueryReservation", "No such document");
                     }
+
                 } else {
                     Log.d("QueryReservation", "get failed with ", task.getException());
                 }
             });
-        Collections.sort(categoriesData);
+
 
     }
 

@@ -70,6 +70,7 @@ public class OffersCategoryFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.CategoryOfferRecyclerView);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+        Collections.sort(MainActivity.categoriesData);
         categoriesAdapter = new CategoriesListAdapter(getContext(), MainActivity.categoriesData);
         recyclerView.setAdapter(categoriesAdapter);
 
