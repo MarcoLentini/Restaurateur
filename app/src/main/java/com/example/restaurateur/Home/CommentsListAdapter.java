@@ -11,7 +11,10 @@ import android.widget.TextView;
 
 import com.example.restaurateur.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CommentsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
@@ -38,12 +41,16 @@ public class CommentsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         TextView textViewCustID = commentsViewHolder.textViewCustID;
         RatingBar ratingBarFoodQuality = commentsViewHolder.ratingBarFoodQuality;
         TextView textViewNotes = commentsViewHolder.textViewNotes;
+        TextView textViewDate= commentsViewHolder.textViewDate;
 
         CommentModel tmpComments = commentsDate.get(position);
         textViewCustID.setText(tmpComments.getUserId());
         ratingBarFoodQuality.isIndicator();
         ratingBarFoodQuality.setRating(tmpComments.getVoteForRestaurant());
         textViewNotes.setText(tmpComments.getNotes());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date date=tmpComments.getDate();
+        textViewDate.setText( dateFormat.format(date));
 
     }
 
@@ -56,12 +63,13 @@ public class CommentsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         TextView textViewCustID;
         RatingBar ratingBarFoodQuality;
         TextView textViewNotes;
-
+        TextView textViewDate;
         public CommentsViewHolder(View view) {
             super(view);
             this.textViewCustID = view.findViewById(R.id.myCommentsCustID);
             this.ratingBarFoodQuality = view.findViewById(R.id.showRatingFoodQuality);
             this.textViewNotes = view.findViewById(R.id.myCommentsCustNotes);
+            this.textViewDate= view.findViewById(R.id.date_of_comment);
         }
     }
 }

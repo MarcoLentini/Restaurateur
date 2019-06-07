@@ -129,13 +129,13 @@ public class RestInformationActivity extends AppCompatActivity {
                                 tags = new ArrayList<>(receivedTags.keySet());
                             }
                                 restInfo = new RestInformationModel(
-                                        (String) doc.get("rest_name"),
-                                        (String) doc.get("rest_descr"),
-                                        (String) doc.get("rest_address"),
-                                        (String) doc.get("rest_phone"),
-                                        (Double) doc.get("delivery_fee"),
-                                        (String) doc.get("user_id"),
-                                        Uri.parse((String) doc.get("rest_image")),
+                                         doc.getString("rest_name"),
+                                         doc.getString("rest_descr"),
+                                         doc.getString("rest_address"),
+                                         doc.getString("rest_phone"),
+                                         doc.getDouble("delivery_fee"),
+                                         doc.getString("user_id"),
+                                        Uri.parse( doc.getString("rest_image")),
                                         tags,
                                         (HashMap<String,Object>)doc.get("timetable")
                                 );

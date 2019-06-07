@@ -19,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class CommentsActivity extends AppCompatActivity {
@@ -70,7 +71,7 @@ public class CommentsActivity extends AppCompatActivity {
     public void fillWithData(){
         Log.d("QueryComments", "Start fill with data...");
         db.collection("comments")
-                .whereEqualTo("restId", "restaurantKey")
+                .whereEqualTo("restId", restaurantKey)
                 .addSnapshotListener((EventListener<QuerySnapshot>) (document, e) -> {
 
                     if (e != null) return;
@@ -79,10 +80,11 @@ public class CommentsActivity extends AppCompatActivity {
 
                                 CommentModel tmpComments = new CommentModel(
                                          dc.getDocument().getId(),
-                                        (String)dc.getDocument().get("restId"),//should be restid
-                                        (String) dc.getDocument().get("custName"),//should be user id
-                                        ((Double) dc.getDocument().get("voteForRestaurant")).floatValue(),//should be vote for restaurant
-                                        (String)dc.getDocument().get("notes") //should be notes
+                                        dc.getDocument().getString("restId"),//should be restid
+                                         dc.getDocument().getString("custName"),//should be user id
+                                        ( dc.getDocument().getDouble("voteForRestaurant")).floatValue(),//should be vote for restaurant
+                                        dc.getDocument().getString("notes"), //should be notes,
+                                        dc.getDocument().getDate("date")
                                 );
                                 //add this current order into the arraylist
                                 Log.e(TAG, "tmpComments" + tmpComments.getCommentsId());

@@ -22,6 +22,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -89,6 +91,9 @@ public class RegisterRest extends AppCompatActivity {
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
 
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        );
         btnSignUp = findViewById(R.id.complete_rest_btn);
         inputName = findViewById(R.id.restaurant_name);
         inputAddr = findViewById(R.id.restaurant_address);
@@ -165,6 +170,11 @@ public class RegisterRest extends AppCompatActivity {
             }
 
             progressBar.setVisibility(View.VISIBLE);
+            InputMethodManager inputManager = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
             String userID = auth.getCurrentUser().getUid();

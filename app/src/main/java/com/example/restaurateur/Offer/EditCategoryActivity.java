@@ -1,9 +1,11 @@
 package com.example.restaurateur.Offer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -47,6 +49,12 @@ public class EditCategoryActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(v -> finish());
         btnSave = findViewById(R.id.etOfferBtnSave);
         btnSave.setOnClickListener(v -> {
+            InputMethodManager inputManager = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+
             if(validateCategoryInput()) {
                 Intent retIntent = new Intent(getApplicationContext(), OffersCategoryFragment.class);
                 Bundle bn = new Bundle();

@@ -1,6 +1,7 @@
 package com.example.restaurateur.Offer;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaScannerConnection;
@@ -18,6 +19,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -76,7 +79,10 @@ public class AddNewOfferActivity extends AppCompatActivity {
 
         // Todo - change placeholder
         // offer_food_pic
-
+        setContentView(R.layout.activity_login);
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        );
         image_button = findViewById(R.id.background_img_offer);
         image_button.setOnClickListener(v-> invokeDialogImageProfile() );
 
@@ -96,6 +102,12 @@ public class AddNewOfferActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(v -> finish());
         btnSave = findViewById(R.id.etOfferBtnSave);
         btnSave.setOnClickListener(v -> {
+            InputMethodManager inputManager = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+
             if(validateFoodInput()) {
                 Intent retIntent = new Intent(getApplicationContext(), OffersDishFragment.class);
                 Bundle bn = new Bundle();

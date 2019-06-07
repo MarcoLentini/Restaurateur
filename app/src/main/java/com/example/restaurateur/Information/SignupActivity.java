@@ -21,6 +21,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -147,6 +148,12 @@ public class SignupActivity extends AppCompatActivity {
             }
 
             progressBar.setVisibility(View.VISIBLE);
+            InputMethodManager inputManager = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+
             //create user
             auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(SignupActivity.this, task -> {
@@ -262,8 +269,8 @@ public class SignupActivity extends AppCompatActivity {
             user_image = downloadUri;
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection("users").document(auth.getCurrentUser().getUid()).update("image_url",user_image.toString()).addOnCompleteListener(task->{
-                if(task.isSuccessful())
-                    Glide.with(this).load(user_image).placeholder(R.drawable.img_rest_1).into((ImageView) findViewById(R.id.img_profile));
+            //    if(task.isSuccessful())
+               //     Glide.with(this).load(user_image).placeholder(R.drawable.img_rest_1).into((ImageView) findViewById(R.id.img_profile));
             });
             try {
                 deleteImage();

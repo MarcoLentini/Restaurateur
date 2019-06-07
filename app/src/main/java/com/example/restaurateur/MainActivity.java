@@ -198,18 +198,18 @@ public class MainActivity extends AppCompatActivity {
                 }
                 ReservationModel tmpReservationModel = new ReservationModel(
                         doc.getId(),
-                        (Long) doc.get("rs_id"),
-                        (String) doc.get("cust_id"),
-                        (Timestamp) doc.get("delivery_time"),
-                        (String) doc.get("notes"),
-                        (String) doc.get("cust_phone"),
-                        (String) doc.get("cust_name"),
+                         doc.getLong("rs_id"),
+                         doc.getString("cust_id"),
+                         doc.getTimestamp("delivery_time"),
+                         doc.getString("notes"),
+                         doc.getString("cust_phone"),
+                         doc.getString("cust_name"),
                         tmpArrayList,
-                        (String) doc.get("rs_status"),
-                        (Double) doc.get("total_income"),
-                        (String) doc.get("rest_address"));
+                         doc.getString("rs_status"),
+                         doc.getDouble("total_income"),
+                         doc.getString("rest_address"));
 
-                switch ((String) doc.get("rs_status")) {
+                switch ( doc.getString("rs_status")) {
                     case ReservationState.STATE_PENDING:
                         pendingReservationsData.add(tmpReservationModel);
                         break;
@@ -250,16 +250,16 @@ public class MainActivity extends AppCompatActivity {
                         }
                         ReservationModel tmpReservationModel = new ReservationModel(
                                 dc.getDocument().getId(),
-                                (Long) dc.getDocument().get("rs_id") ,
-                                (String) dc.getDocument().get("cust_id"),
-                                (Timestamp) dc.getDocument().get("delivery_time"),
-                                (String) dc.getDocument().get("notes"),
-                                (String) dc.getDocument().get("cust_phone"),
-                                (String) dc.getDocument().get("cust_name"),
+                                 dc.getDocument().getLong("rs_id") ,
+                                 dc.getDocument().getString("cust_id"),
+                                 dc.getDocument().getTimestamp("delivery_time"),
+                                 dc.getDocument().getString("notes"),
+                                 dc.getDocument().getString("cust_phone"),
+                                 dc.getDocument().getString("cust_name"),
                                 tmpArrayList,
-                                (String) dc.getDocument().get("rs_status"),
-                                (Double) dc.getDocument().get("total_income"),
-                                (String) dc.getDocument().get("rest_address")
+                                 dc.getDocument().getString("rs_status"),
+                                 dc.getDocument().getDouble("total_income"),
+                                 dc.getDocument().getString("rest_address")
                         );
                         pendingReservationsData.add(tmpReservationModel);
                     }
@@ -290,9 +290,9 @@ public class MainActivity extends AppCompatActivity {
                     if (!document.isEmpty()) {
                         for(DocumentSnapshot doc : document){
                             Category c = new Category(
-                                    (String) doc.get("category_name"),
+                                     doc.getString("category_name"),
                                     (String) doc.getId(),
-                                    (Long) doc.get("category_position"));
+                                     doc.getLong("category_position"));
                             //(String) doc.get("category_image_url"));
                             doc.getReference().collection("dishes").get().addOnCompleteListener(task1 -> {
                                 if (task1.isSuccessful()) {
@@ -301,13 +301,13 @@ public class MainActivity extends AppCompatActivity {
                                         for(DocumentSnapshot doc1 : document1){
                                             OfferModel tmpOM = new OfferModel(
                                                     doc1.getId(),
-                                                    (String) doc1.get("name"),
-                                                    (String) doc.get("category"),
-                                                    (Double) doc1.get("price"),
-                                                    (Long) doc1.get("quantity"),
-                                                    (String) doc1.get("image"),
-                                                    (String) doc1.get("description"),
-                                                    (Boolean) doc1.get("state"));
+                                                     doc1.getString("name"),
+                                                     doc1.getString("category"),
+                                                     doc1.getDouble("price"),
+                                                     doc1.getLong("quantity"),
+                                                     doc1.getString("image"),
+                                                     doc1.getString("description"),
+                                                     doc1.getBoolean("state"));
                                             c.getDishes().add(tmpOM);
                                         }
                                     } else {

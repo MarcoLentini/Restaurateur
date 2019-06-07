@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -51,7 +53,9 @@ public class LoginActivity extends AppCompatActivity {
         }
         // set the view now
         setContentView(R.layout.activity_login);
-
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        );
         inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.password);
         progressBar = findViewById(R.id.progressBar);
@@ -79,6 +83,11 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             progressBar.setVisibility(View.VISIBLE);
+            InputMethodManager inputManager = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
 
             //authenticate user
             auth.signInWithEmailAndPassword(email, password)
@@ -108,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (taskRestaurantId.isSuccessful()) {
                         DocumentSnapshot document = taskRestaurantId.getResult();
                         if (document.exists()) {
-                            String restID = (String) document.get("rest_id");
+                            String restID =  document.getString("rest_id");
                             if(restID != null) {
                                 SharedPreferences sharedPref = getSharedPreferences(restaurantDataFile, Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPref.edit();

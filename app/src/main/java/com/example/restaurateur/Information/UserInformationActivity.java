@@ -108,16 +108,16 @@ public class UserInformationActivity extends AppCompatActivity {
                         if (doc.exists()) {
                             if(doc.get("image_url")!=null){
                             userInfo= new UserInformationModel(
-                                    (String) doc.get("username"),
-                                    (String) doc.get("email"),
-                                    (String) doc.get("phone"),
-                                    Uri.parse((String)doc.get("image_url"))
+                                     doc.getString("username"),
+                                     doc.getString("email"),
+                                     doc.getString("phone"),
+                                    Uri.parse(doc.getString("image_url"))
                             );
                             }else{
                                 userInfo= new UserInformationModel(
-                                        (String) doc.get("username"),
-                                        (String) doc.get("email"),
-                                        (String) doc.get("phone"));
+                                         doc.getString("username"),
+                                         doc.getString("email"),
+                                         doc.getString("phone"));
                             }
 
                             setContentView(R.layout.user_information_activity);

@@ -64,10 +64,15 @@ public class AddNewCategoryActivity extends AppCompatActivity {
         String foodCategoryInput = etFoodCategory.getText().toString();
         String foodCategoryInputPosition = etFoodCategoryPosition.getText().toString();
 
-        if(foodCategoryInput.isEmpty()|| foodCategoryInputPosition.isEmpty()){
+        if(foodCategoryInput.isEmpty()){
             textInputFoodCategory.setError("Field can't be empty");
             return false;
-        } else{
+        } else if(foodCategoryInputPosition.isEmpty())
+        {
+            textInputFoodCategoryPosition.setError("Field can't be empty");
+            return false;
+        }else
+        {
             for(Category c : MainActivity.categoriesData)
                 if(c.getCategoryName().equals(foodCategoryInput)){
                     textInputFoodCategory.setError("Category already exists");

@@ -1,18 +1,22 @@
 package com.example.restaurateur.Home;
 
+import java.util.Date;
+
 public class CommentModel {
     private String commentsId;
     private String restId;
     private String userName;
     private Float voteForRestaurant;
     private String notes;
+    private Date date;
 
-    public CommentModel(String commentsId, String restId, String userId, Float voteForRestaurant, String notes) {
+    public CommentModel(String commentsId, String restId, String userId, Float voteForRestaurant, String notes,Date date) {
         this.commentsId = commentsId;
         this.restId = restId;
         this.userName = userId;
         this.voteForRestaurant = voteForRestaurant;
         this.notes = notes;
+        this.date=date;
     }
 
     public String getCommentsId() {
@@ -53,5 +57,21 @@ public class CommentModel {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
