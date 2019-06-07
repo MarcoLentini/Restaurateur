@@ -84,6 +84,9 @@
         <activity android:name=".Home.CommentsActivity"/>
         <activity android:name=".Offer.AddNewOfferActivity" android:screenOrientation="portrait"/>
         <activity android:name=".Offer.AddNewCategoryActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Home.HistoryOrdersActivity"/>
+        <activity android:name=".Home.HistoryOrdersDetalisActivity"/>
+        <activity android:name=".Home.AnalysisActivity"/>
     </application>
 
 </manifest>

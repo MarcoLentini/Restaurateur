@@ -15,13 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.Toast;
 
-import com.example.restaurateur.History.HistoryMainFragment;
 import com.example.restaurateur.Home.HomeMainFragment;
 import com.example.restaurateur.Information.LoginActivity;
-import com.example.restaurateur.Information.RestInformationActivity;
-import com.example.restaurateur.Information.UserInformationActivity;
 import com.example.restaurateur.Offer.Category;
 import com.example.restaurateur.Offer.OfferModel;
 import com.example.restaurateur.Offer.OffersCategoryFragment;
@@ -29,7 +25,6 @@ import com.example.restaurateur.Reservation.ReservatedDish;
 import com.example.restaurateur.Reservation.ReservationModel;
 import com.example.restaurateur.Reservation.ReservationState;
 import com.example.restaurateur.Reservation.ReservationsMainFragment;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -120,17 +115,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        /*
-        if (id == R.id.action_settings) {
 
-            Intent information = new Intent(this, UserInformationActivity.class);
-            startActivity(information);
-        }
-        if (id == R.id.information_rest) {
-
-            Intent information = new Intent(this, RestInformationActivity.class);
-            startActivity(information);
-        }*/
         if(id == android.R.id.home){
             onBackPressed();
             //getSupportFragmentManager().popBackStack();

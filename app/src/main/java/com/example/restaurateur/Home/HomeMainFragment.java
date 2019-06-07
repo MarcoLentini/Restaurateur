@@ -19,6 +19,8 @@ import com.example.restaurateur.R;
 public class HomeMainFragment  extends Fragment {
 
     private final  static String TAG = "HomeMainFragment";
+    private TextView dailySoldIncome;
+    private TextView dailySoldQuantity;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +31,8 @@ public class HomeMainFragment  extends Fragment {
         Log.e(TAG, "onCreateView was called");
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
 
-        TextView dailySoldIncome = view.findViewById(R.id.tvDailySoldIncome);
-        TextView dailySoldQuantity = view.findViewById(R.id.tvDailySoldQuantity);
-
+        dailySoldIncome = view.findViewById(R.id.tvDailySoldIncome);
+        dailySoldQuantity = view.findViewById(R.id.tvDailySoldQuantity);
         //TODO daily sold income and daily sold quantity should be get from history order
 
         FloatingActionButton fabHistoryOrder = view.findViewById(R.id.btnHistoryOrder);
@@ -45,6 +46,8 @@ public class HomeMainFragment  extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "You click FloatingActionButton fabHistoryOrder");
+                Intent myIntent = new Intent(getActivity(), HistoryOrdersActivity.class);
+                startActivity(myIntent);
             }
         });
         fabComments.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +62,8 @@ public class HomeMainFragment  extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "You click FloatingActionButton fabAnalysis ");
+                Intent myIntent = new Intent(getActivity(), AnalysisActivity.class);
+                startActivity(myIntent);
             }
         });
         fabTopSoldDishes.setOnClickListener(new View.OnClickListener() {
