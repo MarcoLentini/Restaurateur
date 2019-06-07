@@ -2,22 +2,29 @@ package com.example.restaurateur.Reservation;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.transition.Fade;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.restaurateur.Information.RegisterRest;
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.Offer.OfferModel;
 import com.example.restaurateur.R;
+import com.example.restaurateur.Statitics.RestaurantStatistics;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.WriteBatch;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -105,6 +112,34 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
                 notifyItemRangeChanged(pos, inProgressDataSet.size());
                 tmpRM.setRs_status(ReservationState.STATE_FINISHED_SUCCESS);
                 fragmentActivity.addItemToFinished(tmpRM);//finishedDataSet.add(tmpRM);
+            }
+        });
+
+        // Get a new write batch
+        WriteBatch batch = db.batch();
+        DocumentReference restDRef = db.collection("restaurant_statistics").document();
+
+        for(ReservatedDish rd : tmpRM.getDishesArrayList()){
+            RestaurantStatistics rs = new RestaurantStatistics("",
+                tmpRM.getReservation_id(),
+                fragmentActivity.restaurantKey,
+                rd.getDishCategoryID(),
+                rd.getDishName(),
+                rd.getDishCategoryID()+rd.getDishName(),
+                Timestamp.now(),
+                rd.getDishQty(),
+                rd.getDishPrice()
+            );
+            batch.set(restDRef,rs);
+        }
+
+
+        // Commit the batch
+        batch.commit().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                // TODO - qua non faccio nulla
+            } else {
+                Log.d("RegisterRest", "Failed batch write");
             }
         });
     }

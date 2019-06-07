@@ -7,12 +7,14 @@ public class ReservatedDish implements Serializable {
     private String dishName;
     private Double dishPrice;
     private Long dishQty;
+    private String dishCategoryID;
 
-    public ReservatedDish(String dishName, Double dishPrice, Long dishQty) {
+    public ReservatedDish(String dishName, Double dishPrice, Long dishQty, String dishCategoryID) {
 
         this.dishName = dishName;
         this.dishPrice = dishPrice;
         this.dishQty = dishQty;
+        this.dishCategoryID = dishCategoryID;
     }
 
     public String getDishName() {
@@ -37,5 +39,13 @@ public class ReservatedDish implements Serializable {
 
     public void setDishQty(Long dishQty) {
         this.dishQty = dishQty;
+    }
+
+    public String getDishCategoryID() {
+        return dishCategoryID;
+    }
+
+    public void setDishCategoryID(String dishCategoryID) {
+        this.dishCategoryID = dishCategoryID;
     }
 }

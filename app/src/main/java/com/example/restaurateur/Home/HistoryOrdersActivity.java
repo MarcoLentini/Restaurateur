@@ -89,7 +89,8 @@ public class HistoryOrdersActivity extends AppCompatActivity {
                             tmpArrayList.add(new ReservatedDish(
                                     (String) dish.get("dish_name"),
                                     (Double) dish.get("dish_price"),
-                                    (Long) dish.get("dish_qty")));
+                                    (Long) dish.get("dish_qty"),
+                                    (String) dish.get("dish_category")));
                         }
                         ReservationModel tmpReservationModel = new ReservationModel(
                                 dc.getDocument().getId(),

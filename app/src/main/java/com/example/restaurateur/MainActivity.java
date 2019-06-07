@@ -178,7 +178,8 @@ public class MainActivity extends AppCompatActivity {
                         tmpArrayList.add(new ReservatedDish(
                                 (String) dish.get("dish_name"),
                                 (Double) dish.get("dish_price"),
-                                (Long) dish.get("dish_qty")));
+                                (Long) dish.get("dish_qty"),
+                                (String) dish.get("dish_category")));
                     }
                 }
                 ReservationModel tmpReservationModel = new ReservationModel(
@@ -231,7 +232,8 @@ public class MainActivity extends AppCompatActivity {
                             tmpArrayList.add(new ReservatedDish(
                                     (String) dish.get("dish_name"),
                                     (Double) dish.get("dish_price"),
-                                    (Long) dish.get("dish_qty")));
+                                    (Long) dish.get("dish_qty"),
+                                    (String) dish.get("dish_category")));
                         }
                         ReservationModel tmpReservationModel = new ReservationModel(
                                 dc.getDocument().getId(),
@@ -261,6 +263,8 @@ public class MainActivity extends AppCompatActivity {
                 getDataFromDoc(document);
             }
         });
+
+        // TODO - apply filter for today
         request.whereEqualTo("rs_status", ReservationState.STATE_FINISHED_SUCCESS).get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 QuerySnapshot document = task.getResult();

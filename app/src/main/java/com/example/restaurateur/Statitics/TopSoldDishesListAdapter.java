@@ -1,4 +1,4 @@
-package com.example.restaurateur.Home;
+package com.example.restaurateur.Statitics;
 
 import android.content.Context;
 import android.net.Uri;
@@ -17,10 +17,10 @@ import java.util.ArrayList;
 
 public class TopSoldDishesListAdapter extends RecyclerView.Adapter {
     private Context context;
-    private  ArrayList<TopSoldDishModel> topSoldDishesData;
+    private  ArrayList<RestaurantStatistics> topSoldDishesData;
     private LayoutInflater mInflater;
 
-    public TopSoldDishesListAdapter(Context context, ArrayList<TopSoldDishModel> topSoldDishesData) {
+    public TopSoldDishesListAdapter(Context context, ArrayList<RestaurantStatistics> topSoldDishesData) {
          this.context = context;
          this.topSoldDishesData = topSoldDishesData;
          this.mInflater = LayoutInflater.from(context);
@@ -43,7 +43,7 @@ public class TopSoldDishesListAdapter extends RecyclerView.Adapter {
         ImageView imageViewFoodPic = topSoldDishesViewHolder.imageViewFoodPic;
         ImageView imageViewRankingTopSold = topSoldDishesViewHolder.imageViewRankingTopSold;
 
-        TopSoldDishModel topSoldDish = topSoldDishesData.get(position);
+        RestaurantStatistics topSoldDish = topSoldDishesData.get(position);
         if (position == 0){
             imageViewRankingTopSold.setVisibility(View.VISIBLE);
             imageViewRankingTopSold.setImageResource(R.drawable.ic_ranking_1st);
@@ -55,17 +55,18 @@ public class TopSoldDishesListAdapter extends RecyclerView.Adapter {
             imageViewRankingTopSold.setImageResource(R.drawable.ic_ranking_3rd);
         }else  imageViewRankingTopSold.setVisibility(View.GONE);
 
-        Uri tmpUri = Uri.parse(topSoldDish.getImage());
-        Glide.with(context).load(tmpUri).placeholder(R.drawable.img_rest_1).into(imageViewFoodPic);
+        /*Uri tmpUri = Uri.parse(topSoldDish.getImage());
+        Glide.with(context).load(tmpUri).placeholder(R.drawable.img_rest_1).into(imageViewFoodPic);*/
         textViewRankingTopSold.setText(String.valueOf(position+1));
         textViewDishName.setText(topSoldDish.getDishName());
-        textViewDishSoldQuantity.setText(String.valueOf(topSoldDish.getMonthlySoldQuantity()));
+        //textViewDishSoldQuantity.setText(String.valueOf(topSoldDish.getMonthlySoldQuantity()));
+        textViewDishSoldQuantity.setText(String.valueOf(topSoldDish.getQty()));
 
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return topSoldDishesData.size();
     }
 
     private class TopSoldDishesViewHolder extends RecyclerView.ViewHolder {
