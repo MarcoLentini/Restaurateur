@@ -14,11 +14,15 @@ import android.widget.TextView;
 
 import com.example.restaurateur.Information.RestInformationActivity;
 import com.example.restaurateur.Information.UserInformationActivity;
+import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
+import com.example.restaurateur.Reservation.ReservationModel;
 
 public class HomeMainFragment  extends Fragment {
 
     private final  static String TAG = "HomeMainFragment";
+    private Double soldIncome = 0.00;
+    private int soldQuantity = 0;
     private TextView dailySoldIncome;
     private TextView dailySoldQuantity;
     @Override
@@ -33,7 +37,8 @@ public class HomeMainFragment  extends Fragment {
 
         dailySoldIncome = view.findViewById(R.id.tvDailySoldIncome);
         dailySoldQuantity = view.findViewById(R.id.tvDailySoldQuantity);
-        //TODO daily sold income and daily sold quantity should be get from history order
+
+        updateDailyIncomeAndSoldQuantity();
 
         FloatingActionButton fabHistoryOrder = view.findViewById(R.id.btnHistoryOrder);
         FloatingActionButton fabComments = view.findViewById(R.id.btnComments);
@@ -91,5 +96,18 @@ public class HomeMainFragment  extends Fragment {
             }
         });
         return  view;
+    }
+
+    public void updateDailyIncomeAndSoldQuantity(){
+        for(ReservationModel reservation : MainActivity.finishedReservationsData){
+            if (reservation.getRs_status().equals("DELIVERED")){
+                soldQuantity = soldQuantity +1;
+                soldIncome = soldIncome + reservation.getTotal_income();
+            }
+        }
+        dailySoldIncome.setText(String.valueOf(soldIncome));
+        dailySoldQuantity.setText(String.valueOf(soldQuantity));
+        soldQuantity = 0;
+        soldIncome = 0.00;
     }
 }
