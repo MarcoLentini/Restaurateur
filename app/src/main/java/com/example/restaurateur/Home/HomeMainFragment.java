@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.restaurateur.Information.RestInformationActivity;
 import com.example.restaurateur.Information.UserInformationActivity;
 import com.example.restaurateur.R;
 
@@ -31,11 +32,14 @@ public class HomeMainFragment  extends Fragment {
         TextView dailySoldIncome = view.findViewById(R.id.tvDailySoldIncome);
         TextView dailySoldQuantity = view.findViewById(R.id.tvDailySoldQuantity);
 
+        //TODO daily sold income and daily sold quantity should be get from history order
+
         FloatingActionButton fabHistoryOrder = view.findViewById(R.id.btnHistoryOrder);
         FloatingActionButton fabComments = view.findViewById(R.id.btnComments);
         FloatingActionButton fabAnalysis = view.findViewById(R.id.btnAnalysis);
         FloatingActionButton fabTopSoldDishes = view.findViewById(R.id.btnTopDishes);
         FloatingActionButton fabMyAccountInfo = view.findViewById(R.id.btnMyAccountInfo);
+        FloatingActionButton fabRestaurantInfo = view.findViewById(R.id.btnRestaurantInfo);
 
          fabHistoryOrder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +74,14 @@ public class HomeMainFragment  extends Fragment {
             public void onClick(View v) {
                 Log.d(TAG, "You click FloatingActionButton fabTopSoldDishes ");
                 Intent information = new Intent(getActivity(), UserInformationActivity.class);
+                startActivity(information);
+            }
+        });
+        fabRestaurantInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "You click FloatingActionButton fabRestaurantInfo ");
+                Intent information = new Intent(getActivity(), RestInformationActivity.class);
                 startActivity(information);
             }
         });

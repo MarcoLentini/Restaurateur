@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
+        /*
         if (id == R.id.action_settings) {
 
             Intent information = new Intent(this, UserInformationActivity.class);
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
             Intent information = new Intent(this, RestInformationActivity.class);
             startActivity(information);
-        }
+        }*/
         if(id == android.R.id.home){
             onBackPressed();
             //getSupportFragmentManager().popBackStack();

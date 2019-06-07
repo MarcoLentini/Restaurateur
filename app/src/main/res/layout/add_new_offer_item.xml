@@ -8,8 +8,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
+        >
 
         <RelativeLayout
             android:id="@+id/relativeLayoutFoodPic"
@@ -26,8 +25,6 @@
                 android:id="@+id/offer_food_pic"
                 android:layout_width="match_parent"
                 android:layout_height="600dp"
-                android:layout_marginTop="@dimen/activity_padding"
-                android:layout_marginBottom="@dimen/activity_padding"
                 android:scaleType="fitXY"
                 android:src="@drawable/img_rest_1"
                 android:contentDescription="@string/FoodPic" />

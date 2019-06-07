@@ -256,7 +256,7 @@
     <string name="title_comments">Comments</string>
     <string name="title_analysis">Analysis</string>
     <string name="title_top_sold_dishes">TOP Sold Dishes</string>
-    <string name="title_account_info">Account Info</string>
+    <string name="title_account_info">Account</string>
     <string name="contentDescription">TODO</string>
     <string name="empty_tag_no_comments">There is no comments here up to now</string>
     <string name="information_rest">Restaurant information</string>

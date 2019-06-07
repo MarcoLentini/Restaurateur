@@ -50,9 +50,10 @@
                     android:id="@+id/offerStateSwitch"
 
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingLeft="@dimen/dp8"/>
+                    android:paddingLeft="@dimen/dp8"
+                    android:paddingRight="@dimen/dp8"/>
 
             </LinearLayout>
 
