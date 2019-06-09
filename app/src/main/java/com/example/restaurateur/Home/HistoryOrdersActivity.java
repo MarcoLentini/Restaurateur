@@ -17,6 +17,7 @@ import com.example.restaurateur.Reservation.ReservatedDish;
 import com.example.restaurateur.Reservation.ReservationModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -79,36 +80,39 @@ public class HistoryOrdersActivity extends AppCompatActivity {
     public void fillWithData(){
         Query request = db.collection("reservations").whereEqualTo("rest_id", restaurantKey);
 
-        request.whereEqualTo("rs_status", "DELIVERED").addSnapshotListener((EventListener<QuerySnapshot>) (document, e) -> {
-            if (e != null) return;
-            for(DocumentChange dc : document.getDocumentChanges()) {
-                if (dc.getType() == DocumentChange.Type.ADDED) {
-                    ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
-                    if(dc.getDocument().get("dishes") != null) {
-                        for (HashMap<String, Object> dish : (ArrayList<HashMap<String, Object>>) dc.getDocument().get("dishes")) {
-                            tmpArrayList.add(new ReservatedDish(
-                                    (String) dish.get("dish_name"),
-                                    (Double) dish.get("dish_price"),
-                                    (Long) dish.get("dish_qty"),
-                                    (String) dish.get("dish_category")));
+        request.whereEqualTo("rs_status", "DELIVERED").get().addOnCompleteListener( t -> {
+            if (t.isSuccessful()){
+                QuerySnapshot documents = t.getResult();
+                if(!documents.isEmpty()){
+                    for(DocumentSnapshot dc : documents) {
+                        ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
+                        if(dc.get("dishes") != null) {
+                            for (HashMap<String, Object> dish : (ArrayList<HashMap<String, Object>>) dc.get("dishes")) {
+                                tmpArrayList.add(new ReservatedDish(
+                                        (String) dish.get("dish_name"),
+                                        (Double) dish.get("dish_price"),
+                                        (Long) dish.get("dish_qty"),
+                                        (String) dish.get("dish_category")));
+                            }
+
+                            ReservationModel tmpReservationModel = new ReservationModel(
+                                    dc.getId(),
+                                    dc.getLong("rs_id") ,
+                                    dc.getString("cust_id"),
+                                    dc.getTimestamp("delivery_time"),
+                                    dc.getString("notes"),
+                                    dc.getString("cust_phone"),
+                                    dc.getString("cust_name"),
+                                    tmpArrayList,
+                                    dc.getString("rs_status"),
+                                    dc.getDouble("total_income"),
+                                    dc.getString("rest_address")
+                                );
+                                historyOrdersData.add(tmpReservationModel);
                         }
-                        ReservationModel tmpReservationModel = new ReservationModel(
-                                dc.getDocument().getId(),
-                                dc.getDocument().getLong("rs_id") ,
-                                dc.getDocument().getString("cust_id"),
-                                dc.getDocument().getTimestamp("delivery_time"),
-                                dc.getDocument().getString("notes"),
-                                dc.getDocument().getString("cust_phone"),
-                                dc.getDocument().getString("cust_name"),
-                                tmpArrayList,
-                                dc.getDocument().getString("rs_status"),
-                                dc.getDocument().getDouble("total_income"),
-                                dc.getDocument().getString("rest_address")
-                        );
-                        historyOrdersData.add(tmpReservationModel);
+                        Collections.sort(historyOrdersData);
+                        historyOrdersListAdapter.notifyDataSetChanged();
                     }
-                    Collections.sort(historyOrdersData);
-                    historyOrdersListAdapter.notifyDataSetChanged();
                 }
             }
         });

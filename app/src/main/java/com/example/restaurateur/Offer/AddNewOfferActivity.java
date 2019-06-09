@@ -77,9 +77,6 @@ public class AddNewOfferActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(title);
 
-        // Todo - change placeholder
-        // offer_food_pic
-
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
         );

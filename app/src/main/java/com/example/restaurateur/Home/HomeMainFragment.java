@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -17,18 +16,18 @@ import android.widget.TextView;
 
 import com.example.restaurateur.Information.RestInformationActivity;
 import com.example.restaurateur.Information.UserInformationActivity;
-import com.example.restaurateur.Offer.MyOffersData;
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
 import com.example.restaurateur.Reservation.ReservationModel;
-import com.example.restaurateur.Statitics.RestaurantStatistics;
-import com.example.restaurateur.Statitics.TopSoldDishModel;
-import com.example.restaurateur.Statitics.TopSoldDishesActivity;
+import com.example.restaurateur.Home.TopSold.TopSoldDishesActivity;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class HomeMainFragment  extends Fragment {
 
@@ -84,6 +83,9 @@ public class HomeMainFragment  extends Fragment {
         fabAnalysis.setOnClickListener(v -> {
             Log.d(TAG, "You click FloatingActionButton fabAnalysis ");
             Intent myIntent = new Intent(getActivity(), AnalysisActivity.class);
+            Bundle b = new Bundle();
+            b.putParcelableArrayList("stats", restaurantStatistics);
+            myIntent.putExtras(b);
             startActivity(myIntent);
         });
         fabTopSoldDishes.setOnClickListener(v -> {
@@ -107,37 +109,45 @@ public class HomeMainFragment  extends Fragment {
         return  view;
     }
 
-    //TODO lab5 fill data from firebase data
-    // sort all the data with the monthlySold quantify
     public void fillWithData(){
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        Date yesterday_d = cal.getTime();
+
+        Timestamp yesterday = new Timestamp(yesterday_d);
 
         db.collection("restaurant_statistics").whereEqualTo("restaurantID",restaurantKey).get().addOnCompleteListener(t -> {
             if(t.isSuccessful()){
                 QuerySnapshot documents = t.getResult();
                 if(!documents.isEmpty()){
                     for(DocumentSnapshot doc : documents){
-                        RestaurantStatistics rs = new RestaurantStatistics(
-                                doc.getId(),
-                                doc.getString("reservationID"),
-                                doc.getString("restaurantID"),
-                                doc.getString("categoryID"),
-                                doc.getString("dishName"),
-                                doc.getString("hash"),
-                                doc.getTimestamp("timestamp"),
-                                doc.getLong("qty"),
-                                doc.getDouble("price")
-                        );
-                        restaurantStatistics.add(rs);
+                        if(getDays(new Date(), doc.getTimestamp("timestamp").toDate()) <= 1) {
+                            RestaurantStatistics rs = new RestaurantStatistics(
+                                    doc.getId(),
+                                    doc.getString("reservationID"),
+                                    doc.getString("restaurantID"),
+                                    doc.getString("categoryID"),
+                                    doc.getString("dishName"),
+                                    doc.getString("hash"),
+                                    doc.getTimestamp("timestamp"),
+                                    doc.getLong("qty"),
+                                    doc.getDouble("price")
+                            );
+                            restaurantStatistics.add(rs);
+                        }
                     }
                 }
             }
         });
     }
 
-    public ArrayList<RestaurantStatistics> getStatisticsData(){
-        return restaurantStatistics;
+    private int getDays(Date current, Date old) {
+        long difference = (current.getTime() - old.getTime()) / (24 * 60 * 60 * 1000);
+        int ret = ((Long) Math.abs(difference)).intValue();
+        return ret;
     }
 
     public void updateDailyIncomeAndSoldQuantity(){

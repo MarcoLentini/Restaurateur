@@ -195,7 +195,6 @@ public class RestInformationActivity extends AppCompatActivity {
                             tvRemoveRest=findViewById(R.id.textViewRemoveRest);
                             tvRemoveRest.setOnClickListener(v -> {
                                 if (user != null) {
-                                    //TODO: function su firebase che controlla se l'utente ha rest_id o user_id e lo elimini anche dall'auth
                                     db.collection("restaurant").document(restaurantKey).delete()
                                             .addOnSuccessListener(taskBikerId -> {
                                                 db.collection("users").whereEqualTo("rest_id",restaurantKey).get()

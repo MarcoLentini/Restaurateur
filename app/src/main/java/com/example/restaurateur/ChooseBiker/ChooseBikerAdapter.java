@@ -89,9 +89,6 @@ public class ChooseBikerAdapter extends RecyclerView.Adapter<ChooseBikerAdapter.
                     tmpRM.setRs_status(ReservationState.STATE_IN_PROGRESS);
                     main.addItemToInProgress(tmpRM);//inProgressDataSet.add(tmpRM);
                     mainFragment.decrementPendingReservationsNumber();
-
-                    // TODO - animation that move to in_progress tab
-
                 }
             });
         });

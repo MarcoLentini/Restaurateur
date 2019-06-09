@@ -1,13 +1,11 @@
-package com.example.restaurateur.Statitics;
-
-import java.io.Serializable;
+package com.example.restaurateur.Home.TopSold;
 
 public class TopSoldDishModel  {
       private String dishName;
-      private int monthlySoldQuantity;
+      private Long monthlySoldQuantity;
       private String image;
 
-    public TopSoldDishModel(String dishName, int monthlySoldQuantity, String image) {
+    public TopSoldDishModel(String dishName, Long monthlySoldQuantity, String image) {
         this.dishName = dishName;
         this.monthlySoldQuantity = monthlySoldQuantity;
         this.image = image;
@@ -29,11 +27,11 @@ public class TopSoldDishModel  {
         this.dishName = dishName;
     }
 
-    public int getMonthlySoldQuantity() {
+    public Long getMonthlySoldQuantity() {
         return monthlySoldQuantity;
     }
 
-    public void setMonthlySoldQuantity(int monthlySoldQuantity) {
+    public void setMonthlySoldQuantity(Long monthlySoldQuantity) {
         this.monthlySoldQuantity = monthlySoldQuantity;
     }
 

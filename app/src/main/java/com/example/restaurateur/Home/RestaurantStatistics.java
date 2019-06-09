@@ -1,12 +1,10 @@
-package com.example.restaurateur.Statitics;
+package com.example.restaurateur.Home;
 
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.firebase.Timestamp;
-
-import java.io.Serializable;
 
 public class RestaurantStatistics implements Parcelable {
 

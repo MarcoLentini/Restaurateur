@@ -2,12 +2,8 @@ package com.example.restaurateur.Reservation;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.transition.Fade;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,18 +12,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.restaurateur.Information.RegisterRest;
 import com.example.restaurateur.MainActivity;
-import com.example.restaurateur.Offer.OfferModel;
 import com.example.restaurateur.R;
-import com.example.restaurateur.Statitics.RestaurantStatistics;
+import com.example.restaurateur.Home.RestaurantStatistics;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.WriteBatch;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InProgressReservationsListAdapter.InProgressReservationViewHolder> {
 
@@ -137,7 +130,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
         // Commit the batch
         batch.commit().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
-                // TODO - qua non faccio nulla
+                // nothing to do
             } else {
                 Log.d("RegisterRest", "Failed batch write");
             }

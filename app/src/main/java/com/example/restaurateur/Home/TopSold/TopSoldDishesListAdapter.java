@@ -1,7 +1,6 @@
-package com.example.restaurateur.Statitics;
+package com.example.restaurateur.Home.TopSold;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,17 +9,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.restaurateur.R;
 
 import java.util.ArrayList;
 
 public class TopSoldDishesListAdapter extends RecyclerView.Adapter {
     private Context context;
-    private  ArrayList<RestaurantStatistics> topSoldDishesData;
+    private  ArrayList<TopSoldDishModel> topSoldDishesData;
     private LayoutInflater mInflater;
 
-    public TopSoldDishesListAdapter(Context context, ArrayList<RestaurantStatistics> topSoldDishesData) {
+    public TopSoldDishesListAdapter(Context context, ArrayList<TopSoldDishModel> topSoldDishesData) {
          this.context = context;
          this.topSoldDishesData = topSoldDishesData;
          this.mInflater = LayoutInflater.from(context);
@@ -43,7 +41,7 @@ public class TopSoldDishesListAdapter extends RecyclerView.Adapter {
         ImageView imageViewFoodPic = topSoldDishesViewHolder.imageViewFoodPic;
         ImageView imageViewRankingTopSold = topSoldDishesViewHolder.imageViewRankingTopSold;
 
-        RestaurantStatistics topSoldDish = topSoldDishesData.get(position);
+        TopSoldDishModel topSoldDish = topSoldDishesData.get(position);
         if (position == 0){
             imageViewRankingTopSold.setVisibility(View.VISIBLE);
             imageViewRankingTopSold.setImageResource(R.drawable.ic_ranking_1st);
@@ -60,7 +58,7 @@ public class TopSoldDishesListAdapter extends RecyclerView.Adapter {
         textViewRankingTopSold.setText(String.valueOf(position+1));
         textViewDishName.setText(topSoldDish.getDishName());
         //textViewDishSoldQuantity.setText(String.valueOf(topSoldDish.getMonthlySoldQuantity()));
-        textViewDishSoldQuantity.setText(String.valueOf(topSoldDish.getQty()));
+        textViewDishSoldQuantity.setText(String.valueOf(topSoldDish.getMonthlySoldQuantity()));
 
     }
 

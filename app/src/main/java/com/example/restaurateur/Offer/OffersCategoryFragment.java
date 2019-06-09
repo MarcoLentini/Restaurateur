@@ -173,7 +173,7 @@ public class OffersCategoryFragment extends Fragment {
                                 Collections.sort(MainActivity.categoriesData);
                                 categoriesAdapter.notifyDataSetChanged();
                               //  categoriesAdapter.notifyItemChanged(position);
-                                // Todo - check snackbar
+
                                 Snackbar.make(view, getString(R.string.snackbar_category_edited), Snackbar.LENGTH_LONG)
                                         .show();
                             }
@@ -199,7 +199,7 @@ public class OffersCategoryFragment extends Fragment {
                     if(tvNoCategories.getVisibility() == View.VISIBLE)
                         tvNoCategories.setVisibility(View.INVISIBLE);
                 };
-                // Todo - snackbar rivedere
+
                 Snackbar.make(view, getString(R.string.snackbar_category_removed), Snackbar.LENGTH_LONG)
                         .setAction(getString(R.string.snackbar_category_undo), snackbarListener).show();
             }

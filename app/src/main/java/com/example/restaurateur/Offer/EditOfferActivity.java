@@ -64,7 +64,7 @@ public class EditOfferActivity extends AppCompatActivity {
         Integer foodId = receivedIntent.getExtras().getInt("foodId");
         String foodImage = receivedIntent.getExtras().getString("foodImage");
         offer_image = Uri.parse(foodImage);
-        // Todo - change placeholder
+
         Glide.with(this).load(offer_image).placeholder(R.drawable.img_rest_1).into((ImageView) findViewById(R.id.offer_food_pic_e));
         Long foodQuantity = receivedIntent.getExtras().getLong("foodQuantity");
         Double foodPrice = receivedIntent.getExtras().getDouble("foodPrice");

@@ -75,8 +75,6 @@ public class UserInformationActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private int[] placeholders = {  R.drawable.img_rest_1, R.drawable.img_rest_2, R.drawable.img_rest_3, R.drawable.img_rest_4 };
 
-    // Todo - ricontrollare eliminazione utente
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -330,7 +328,7 @@ public class UserInformationActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            //TODO: ricontrollare che la update venga eseguita(functions)
+
             Map<String, Object> user_im = new HashMap<>();
             user_im.put("image_url", user_image.toString());
             userInfo.setImage(user_image);

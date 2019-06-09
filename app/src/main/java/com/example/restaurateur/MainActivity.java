@@ -25,6 +25,7 @@ import com.example.restaurateur.Reservation.ReservatedDish;
 import com.example.restaurateur.Reservation.ReservationModel;
 import com.example.restaurateur.Reservation.ReservationState;
 import com.example.restaurateur.Reservation.ReservationsMainFragment;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -34,7 +35,9 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
@@ -172,48 +175,50 @@ public class MainActivity extends AppCompatActivity {
     private void getDataFromDoc(QuerySnapshot document){
         if (!document.isEmpty()) {
             for (DocumentSnapshot doc : document) {
-                ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
-                if (doc.get("dishes") != null) {
-                    for (HashMap<String, Object> dish : (ArrayList<HashMap<String, Object>>) doc.get("dishes")) {
-                        tmpArrayList.add(new ReservatedDish(
-                                (String) dish.get("dish_name"),
-                                (Double) dish.get("dish_price"),
-                                (Long) dish.get("dish_qty"),
-                                (String) dish.get("dish_category")));
+                if (getDays(new Date(), doc.getTimestamp("timestamp").toDate()) <= 1) {
+                    ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
+                    if (doc.get("dishes") != null) {
+                        for (HashMap<String, Object> dish : (ArrayList<HashMap<String, Object>>) doc.get("dishes")) {
+                            tmpArrayList.add(new ReservatedDish(
+                                    (String) dish.get("dish_name"),
+                                    (Double) dish.get("dish_price"),
+                                    (Long) dish.get("dish_qty"),
+                                    (String) dish.get("dish_category")));
+                        }
+                    }
+                    ReservationModel tmpReservationModel = new ReservationModel(
+                            doc.getId(),
+                            doc.getLong("rs_id"),
+                            doc.getString("cust_id"),
+                            doc.getTimestamp("delivery_time"),
+                            doc.getString("notes"),
+                            doc.getString("cust_phone"),
+                            doc.getString("cust_name"),
+                            tmpArrayList,
+                            doc.getString("rs_status"),
+                            doc.getDouble("total_income"),
+                            doc.getString("rest_address"));
+
+                    switch (doc.getString("rs_status")) {
+                        case ReservationState.STATE_PENDING:
+                            pendingReservationsData.add(tmpReservationModel);
+                            break;
+                        case ReservationState.STATE_IN_PROGRESS:
+                            inProgressReservationsData.add(tmpReservationModel);
+                            break;
+                        case ReservationState.STATE_FINISHED_SUCCESS:
+                            finishedReservationsData.add(tmpReservationModel);
+                            break;
+                        default:
+                            finishedReservationsData.add(tmpReservationModel);
+                            break;
                     }
                 }
-                ReservationModel tmpReservationModel = new ReservationModel(
-                        doc.getId(),
-                         doc.getLong("rs_id"),
-                         doc.getString("cust_id"),
-                         doc.getTimestamp("delivery_time"),
-                         doc.getString("notes"),
-                         doc.getString("cust_phone"),
-                         doc.getString("cust_name"),
-                        tmpArrayList,
-                         doc.getString("rs_status"),
-                         doc.getDouble("total_income"),
-                         doc.getString("rest_address"));
-
-                switch ( doc.getString("rs_status")) {
-                    case ReservationState.STATE_PENDING:
-                        pendingReservationsData.add(tmpReservationModel);
-                        break;
-                    case ReservationState.STATE_IN_PROGRESS:
-                        inProgressReservationsData.add(tmpReservationModel);
-                        break;
-                    case ReservationState.STATE_FINISHED_SUCCESS:
-                        finishedReservationsData.add(tmpReservationModel);
-                        break;
-                    default:
-                        finishedReservationsData.add(tmpReservationModel);
-                        break;
-                }
+                Collections.sort(pendingReservationsData);
+                Collections.sort(inProgressReservationsData);
+                Collections.sort(finishedReservationsData);
+                reservationsMainFragment.pageAdapter.notifyDataSetChanged();
             }
-            Collections.sort(pendingReservationsData);
-            Collections.sort(inProgressReservationsData);
-            Collections.sort(finishedReservationsData);
-            reservationsMainFragment.pageAdapter.notifyDataSetChanged();
         } else {
             Log.d("QueryReservation", "No such document");
         }
@@ -264,7 +269,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // TODO - apply filter for today
         request.whereEqualTo("rs_status", ReservationState.STATE_FINISHED_SUCCESS).get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 QuerySnapshot document = task.getResult();
@@ -318,6 +322,12 @@ public class MainActivity extends AppCompatActivity {
             });
 
 
+    }
+
+    private int getDays(Date current, Date old) {
+        long difference = (current.getTime() - old.getTime()) / (24 * 60 * 60 * 1000);
+        int ret = ((Long) Math.abs(difference)).intValue();
+        return ret;
     }
 
     public void addItemToPending(ReservationModel rm) {

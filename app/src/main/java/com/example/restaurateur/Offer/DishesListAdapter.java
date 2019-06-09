@@ -62,7 +62,6 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
             parentFragment.startActivityForResult(myIntent, EDIT_DISHES_ACTIVITY);
         });
         holder.switchOfferState.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            // TODO off-line grigine
             OfferModel tmpO = category.getDishes().get(holder.getAdapterPosition());
             if(isChecked){
                 FirebaseFirestore.getInstance().collection("category").document(category.getCategoryID())
@@ -104,7 +103,7 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
         DecimalFormat format = new DecimalFormat("0.00");
         String formattedPrice = format.format(tmpOM.getPrice());
         textViewPriceOffer.setText("€ " +formattedPrice);
-        // Todo - senza placeholder?
+
         Glide.with(this.context).load(Uri.parse(tmpOM.getImage())).into(offer_food_pic);
         // .placeholder(R.drawable.img_rest_1)
         if(tmpOM.getState()) {

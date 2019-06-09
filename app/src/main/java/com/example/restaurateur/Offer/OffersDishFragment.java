@@ -175,7 +175,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                 DocumentReference dr = main.db.collection("category").document(category.getCategoryID()).collection("dishes").document(om.getId());
                 dr.set(om).addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
-                        dishesListAdapter.notifyDataSetChanged(); // TODO find a better way to update
+                        dishesListAdapter.notifyDataSetChanged();
                     } else {
                         // Probably only on timeout, from test the request are stored offline
                         Toast.makeText(getContext(),"Internet problem, retry!", Toast.LENGTH_LONG).show();
@@ -200,7 +200,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                         offerDish.setId(dr.getId());
                         category.getDishes().add(offerDish);
                         dishesListAdapter.notifyItemInserted(category.getDishes().size() - 1);
-                        // TODO visualizzare il dato aggiunto secondo un ordine prestabilito
+
                         if(tvNoDishes.getVisibility() == View.VISIBLE)
                             tvNoDishes.setVisibility(View.INVISIBLE);
                     } else {
@@ -221,7 +221,6 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                 if(category.getDishes().isEmpty())
                     tvNoDishes.setVisibility(View.VISIBLE);
                 View.OnClickListener snackbarListener = v -> {
-                    // Todo - firebase revert - esiste un ondisappear della snack?
                     category.getDishes().add(selectedOffer);
                     dishesListAdapter.notifyItemInserted(selectedPosition);
                     restoreScrollPositionAfterUndo();
@@ -229,7 +228,6 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                         tvNoDishes.setVisibility(View.INVISIBLE);
                 };
 
-                // Todo - snackbar ripensare con ondismiss
                 Snackbar.make(view, getString(R.string.snackbar_offer_remove), Snackbar.LENGTH_LONG)
                         .setAction(getString(R.string.snackbar_offer_undo), snackbarListener).show();
             } else {
