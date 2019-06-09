@@ -236,7 +236,7 @@ public class AddNewOfferActivity extends AppCompatActivity {
             // Upload succeeded
             Log.d(TAG, "uploadFromUri: getDownloadUri success");
             offer_image = downloadUri;
-            Glide.with(this).load(offer_image).placeholder(R.drawable.img_rest_1).into((ImageView) findViewById(R.id.offer_food_pic));
+            Glide.with(this).load(offer_image).placeholder(R.drawable.dish_pic).into((ImageView) findViewById(R.id.offer_food_pic));
             try {
                 deleteImage();
             } catch (IOException e) {

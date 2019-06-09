@@ -15,33 +15,53 @@
    >
     <RelativeLayout
         android:id="@+id/linearLayoutOffer"
-        android:layout_width="@dimen/toolbar_profile_width"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+        <RelativeLayout
+            android:id="@+id/img_profile1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            > <!-- border width -->
 
-
-        <com.mikhaellopez.circularimageview.CircularImageView
+        <ImageView
             android:id="@+id/img_profile"
             android:layout_width="@dimen/toolbar_profile_width"
             android:layout_height="@dimen/toolbar_profile_width"
             android:layout_marginTop="@dimen/activity_padding"
             android:layout_marginBottom="@dimen/activity_padding"
-            android:scaleType="centerInside"
+            android:src="@drawable/img_rest_1"
+
+
+            />
+    </RelativeLayout>
+       <!-- <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/img_profile"
+            android:layout_width="@dimen/toolbar_profile_width"
+            android:layout_height="@dimen/toolbar_profile_width"
+            android:layout_marginTop="@dimen/activity_padding"
+            android:layout_marginBottom="@dimen/activity_padding"
+            android:scaleType="centerCrop"
             android:src="@drawable/img_rest_1"
             app:civ_border_color="@color/colorPrimaryText"
             app:civ_border_width="2sp" />
-
+-->
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/background_img"
             android:layout_width="48sp"
             android:layout_height="48sp"
-            android:layout_alignBottom="@id/img_profile"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@id/img_profile1"
+            android:layout_alignEnd="@id/img_profile1"
+            android:layout_alignRight="@id/img_profile1"
+            android:layout_marginBottom="-24dp"
+            android:layout_marginEnd="-24dp"
+            android:layout_marginRight="-24dp"
+
             android:scaleType="centerInside"
             android:src="@drawable/background"
             app:civ_border_color="@android:color/white"
@@ -69,6 +89,8 @@
             android:cropToPadding="false"
             android:src="@drawable/ic_camera"
             android:tint="@android:color/white" />
+
+            -->
     </RelativeLayout>
 
 
@@ -239,9 +261,7 @@
             android:background="?attr/selectableItemBackground"
             android:drawableStart="@drawable/ic_account_logout"
             android:drawableLeft="@drawable/ic_account_logout"
-            android:drawableEnd="@drawable/ic_account_edit"
-            android:drawableRight="@drawable/ic_account_edit"
-            android:drawablePadding="12dp"
+             android:drawablePadding="12dp"
             android:maxEms="20"
             android:maxLines="1"
             android:text="@string/logout_title"

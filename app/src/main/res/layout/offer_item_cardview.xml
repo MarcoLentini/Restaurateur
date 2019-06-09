@@ -49,9 +49,8 @@
                 <Switch
                     android:id="@+id/offerStateSwitch"
 
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:paddingLeft="@dimen/dp8"
                     android:paddingRight="@dimen/dp8"/>
 
