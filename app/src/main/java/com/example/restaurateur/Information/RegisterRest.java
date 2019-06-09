@@ -194,6 +194,10 @@ public class RegisterRest extends AppCompatActivity {
             restaurant.put("tags", tags);
             restaurant.put("timetable",restTimetable);
 
+            restaurant.put("sumOfRating", 0.0);
+            restaurant.put("numbOfRating", 0);
+            restaurant.put("rating", 0.0);
+
             // Get a new write batch
             WriteBatch batch = db.batch();
 
