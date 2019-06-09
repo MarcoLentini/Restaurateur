@@ -80,7 +80,8 @@ public class ChooseBikerAdapter extends RecyclerView.Adapter<ChooseBikerAdapter.
             db.collection("reservations").document(tmpRM.getReservation_id()).update(
                     "rs_status", ReservationState.STATE_IN_PROGRESS,
                     "biker_id", tmpB.getBikerID(),
-                    "biker_check", false
+                    "biker_check", false,
+                    "restaurant_distance", tmpB.getBikerDist()
                     ).addOnCompleteListener(task -> {
                 if(task.isSuccessful()){
                     dialog.dismiss();
