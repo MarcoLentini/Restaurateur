@@ -166,220 +166,209 @@ public class ModifyInfoActivity extends AppCompatActivity {
         imm.showSoftInput(etEditInfo , InputMethodManager.SHOW_IMPLICIT);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
-        etEditInfo.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    btnOk.performClick();
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
-                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-                }
-
-                return false;
+        etEditInfo.setOnEditorActionListener((v, actionId, event) -> {
+            boolean handled = false;
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                btnOk.performClick();
+                InputMethodManager imm1 = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm1.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             }
+
+            return false;
         });
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent;
-                Bundle Bn;
-                String userName;
-                String userEmail;
-                String userPhoneNumber;
+        btnOk.setOnClickListener(v -> {
+            Intent intent;
+            Bundle Bn;
+            String userName;
+            String userEmail;
+            String userPhoneNumber;
 
-                switch (fieldName) {
-                    case "user_password":
+            switch (fieldName) {
+                case "user_password":
 
-                        AuthCredential credential = EmailAuthProvider
-                                .getCredential(user.getEmail(), etEditInfo.getText().toString());
-                        // Prompt the user to re-provide their sign-in credentials
-                        user.reauthenticate(credential)
-                                .addOnSuccessListener(aut -> {
+                    AuthCredential credential = EmailAuthProvider
+                            .getCredential(user.getEmail(), etEditInfo.getText().toString());
+                    // Prompt the user to re-provide their sign-in credentials
+                    user.reauthenticate(credential)
+                            .addOnSuccessListener(aut -> {
+                                Intent retIntent;
+                                Bundle bn;
+                                Log.d("modifyInfo", "User re-authenticated.");
+                                retIntent = new Intent(getApplicationContext(), ChangePwdActivity.class);
+                                startActivity(retIntent);
+                                finish();
+                            })
+                            .addOnFailureListener(noaut -> {
+                                Log.d("modifyInfo", "User failed re-authenticated.");
+                                Toast mioToast = Toast.makeText(ModifyInfoActivity.this,
+                                        getString(R.string.invalid_password),
+                                        Toast.LENGTH_LONG);
+                                mioToast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 64);
+                                InputMethodManager imm12 = (InputMethodManager)
+                                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm12.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
+                                mioToast.show();
+
+                                etEditInfo.selectAll();
+                            });
+
+
+                    break;
+                case "user_name":
+                    userName = etEditInfo.getText().toString();
+                    if (!isValidUsername(userName)) {
+                        Map<String, Object> user_name = new HashMap<>();
+                        user_name.put("username", userName);
+                        db.collection("users").document(auth.getCurrentUser().getUid()).update(user_name)
+                                .addOnSuccessListener(task -> {
                                     Intent retIntent;
                                     Bundle bn;
-                                    Log.d("modifyInfo", "User re-authenticated.");
-                                    retIntent = new Intent(getApplicationContext(), ChangePwdActivity.class);
-                                    startActivity(retIntent);
+                                    Toast.makeText(ModifyInfoActivity.this, getString(R.string.username_updated), Toast.LENGTH_LONG).show();
+                                    retIntent = new Intent(getApplicationContext(), UserInformationActivity.class);
+                                    bn = new Bundle();
+                                    bn.putString("field", fieldName);
+                                    bn.putString("value", etEditInfo.getText().toString());
+                                    retIntent.putExtras(bn);
+                                    setResult(RESULT_OK, retIntent);
                                     finish();
                                 })
-                                .addOnFailureListener(noaut -> {
-                                    Log.d("modifyInfo", "User failed re-authenticated.");
-                                    Toast mioToast = Toast.makeText(ModifyInfoActivity.this,
-                                            getString(R.string.invalid_password),
-                                            Toast.LENGTH_LONG);
-                                    mioToast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 64);
-                                    InputMethodManager imm = (InputMethodManager)
-                                            getSystemService(Context.INPUT_METHOD_SERVICE);
-                                    imm.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
-                                    mioToast.show();
+                                .addOnFailureListener((task -> {
+                                    Log.d("ModifyInfo", "failed update username");
 
-                                    etEditInfo.selectAll();
-                                });
+                                    Toast.makeText(ModifyInfoActivity.this, getString(R.string.username_failed_update), Toast.LENGTH_LONG).show();
+                                }));
+                    } else {
+                        Toast mioToast = Toast.makeText(ModifyInfoActivity.this,
+                                getString(R.string.invalid_username),
+                                Toast.LENGTH_LONG);
+                        mioToast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 64);
+                        InputMethodManager imm12 = (InputMethodManager)
+                                getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm12.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
+                        mioToast.show();
 
+                        etEditInfo.selectAll();
+                    }
+                    break;
+                case "user_email":
+                     credential = EmailAuthProvider
+                            .getCredential(user.getEmail(), etEditInfo.getText().toString());
+                    // Prompt the user to re-provide their sign-in credentials
+                    user.reauthenticate(credential)
+                            .addOnSuccessListener(aut -> {
+                                Log.d("modifyInfo", "User re-authenticated.");
+                                Intent intent1 = new Intent(getApplicationContext(), ModifyInfoActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("field", "new_mail");
+                                bundle.putString("value", fieldValue);
+                                intent1.putExtras(bundle);
+                                startActivity(intent1);
+                            })
+                            .addOnFailureListener(noaut -> {
+                                Log.d("modifyInfo", "User failed re-authenticated.");
+                                Toast mioToast = Toast.makeText(ModifyInfoActivity.this,
+                                        getString(R.string.invalid_password),
+                                        Toast.LENGTH_LONG);
+                                mioToast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 64);
+                                InputMethodManager imm12 = (InputMethodManager)
+                                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm12.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
+                                mioToast.show();
 
-                        break;
-                    case "user_name":
-                        userName = etEditInfo.getText().toString();
-                        if (!isValidUsername(userName)) {
-                            Map<String, Object> user_name = new HashMap<>();
-                            user_name.put("username", userName);
-                            db.collection("users").document(auth.getCurrentUser().getUid()).update(user_name)
-                                    .addOnSuccessListener(task -> {
-                                        Intent retIntent;
-                                        Bundle bn;
-                                        Toast.makeText(ModifyInfoActivity.this, getString(R.string.username_updated), Toast.LENGTH_LONG).show();
-                                        retIntent = new Intent(getApplicationContext(), UserInformationActivity.class);
-                                        bn = new Bundle();
-                                        bn.putString("field", fieldName);
-                                        bn.putString("value", etEditInfo.getText().toString());
-                                        retIntent.putExtras(bn);
-                                        setResult(RESULT_OK, retIntent);
-                                        finish();
-                                    })
-                                    .addOnFailureListener((task -> {
-                                        Log.d("ModifyInfo", "failed update username");
-
-                                        Toast.makeText(ModifyInfoActivity.this, getString(R.string.username_failed_update), Toast.LENGTH_LONG).show();
-                                    }));
-                        } else {
-                            Toast mioToast = Toast.makeText(ModifyInfoActivity.this,
-                                    getString(R.string.invalid_username),
-                                    Toast.LENGTH_LONG);
-                            mioToast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 64);
-                            InputMethodManager imm = (InputMethodManager)
-                                    getSystemService(Context.INPUT_METHOD_SERVICE);
-                            imm.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
-                            mioToast.show();
-
-                            etEditInfo.selectAll();
-                        }
-                        break;
-                    case "user_email":
-                         credential = EmailAuthProvider
-                                .getCredential(user.getEmail(), etEditInfo.getText().toString());
-                        // Prompt the user to re-provide their sign-in credentials
-                        user.reauthenticate(credential)
-                                .addOnSuccessListener(aut -> {
-                                    Log.d("modifyInfo", "User re-authenticated.");
-                                    Intent intent1 = new Intent(getApplicationContext(), ModifyInfoActivity.class);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("field", "new_mail");
-                                    bundle.putString("value", fieldValue);
-                                    intent1.putExtras(bundle);
-                                    startActivity(intent1);
+                                etEditInfo.selectAll();
+                            });
+                    break;
+                case "new_mail":
+                    userEmail = etEditInfo.getText().toString();
+                    if (isValidEmail(userEmail)) {
+                        Map<String, Object> user_email = new HashMap<>();
+                        user_email.put("email", userEmail);
+                        user.updateEmail(userEmail)
+                                .addOnSuccessListener(task -> {
+                                    db.collection("users").document(user.getUid()).update(user_email)
+                                            .addOnSuccessListener(task1 -> {
+                                                Toast.makeText(ModifyInfoActivity.this, getString(R.string.email_updated), Toast.LENGTH_LONG).show();
+                                                signOut();
+                                                finish();
+                                            })
+                                            .addOnFailureListener(task1 -> {
+                                                Log.d("BikerID", "Failed tast user db"+task1.getMessage());
+                                                Toast.makeText(ModifyInfoActivity.this, getString(R.string.email_failed_updated), Toast.LENGTH_LONG).show();
+                                                ;
+                                                etEditInfo.selectAll();
+                                            });
                                 })
-                                .addOnFailureListener(noaut -> {
-                                    Log.d("modifyInfo", "User failed re-authenticated.");
-                                    Toast mioToast = Toast.makeText(ModifyInfoActivity.this,
-                                            getString(R.string.invalid_password),
-                                            Toast.LENGTH_LONG);
-                                    mioToast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 64);
-                                    InputMethodManager imm = (InputMethodManager)
-                                            getSystemService(Context.INPUT_METHOD_SERVICE);
-                                    imm.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
-                                    mioToast.show();
-
+                                .addOnFailureListener(task2 -> {
+                                    Log.d("BikerID", "Failed update email auth"+task2.getMessage());
+                                    Toast.makeText(ModifyInfoActivity.this, getString(R.string.email_failed_updated), Toast.LENGTH_LONG).show();
                                     etEditInfo.selectAll();
                                 });
-                        break;
-                    case "new_mail":
-                        userEmail = etEditInfo.getText().toString();
-                        if (isValidEmail(userEmail)) {
-                            Map<String, Object> user_email = new HashMap<>();
-                            user_email.put("email", userEmail);
-                            user.updateEmail(userEmail)
-                                    .addOnSuccessListener(task -> {
-                                        db.collection("users").document(user.getUid()).update(user_email)
-                                                .addOnSuccessListener(task1 -> {
-                                                    Toast.makeText(ModifyInfoActivity.this, getString(R.string.email_updated), Toast.LENGTH_LONG).show();
-                                                    signOut();
-                                                    finish();
-                                                })
-                                                .addOnFailureListener(task1 -> {
-                                                    Log.d("BikerID", "Failed tast user db"+task1.getMessage());
-                                                    Toast.makeText(ModifyInfoActivity.this, getString(R.string.email_failed_updated), Toast.LENGTH_LONG).show();
-                                                    ;
-                                                    etEditInfo.selectAll();
-                                                });
-                                    })
-                                    .addOnFailureListener(task2 -> {
-                                        Log.d("BikerID", "Failed update email auth"+task2.getMessage());
-                                        Toast.makeText(ModifyInfoActivity.this, getString(R.string.email_failed_updated), Toast.LENGTH_LONG).show();
-                                        etEditInfo.selectAll();
-                                    });
-                        } else {
-                            Toast mioToast = Toast.makeText(ModifyInfoActivity.this,
-                                    getString(R.string.invalid_mail),
-                                    Toast.LENGTH_LONG);
-                            mioToast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 64);
-                            InputMethodManager imm = (InputMethodManager)
-                                    getSystemService(Context.INPUT_METHOD_SERVICE);
-                            imm.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
-                            mioToast.show();
+                    } else {
+                        Toast mioToast = Toast.makeText(ModifyInfoActivity.this,
+                                getString(R.string.invalid_mail),
+                                Toast.LENGTH_LONG);
+                        mioToast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 64);
+                        InputMethodManager imm12 = (InputMethodManager)
+                                getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm12.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
+                        mioToast.show();
 
-                            etEditInfo.selectAll();
-                        }
-                        break;
-                    case "user_phone_number":
-                        userPhoneNumber = etEditInfo.getText().toString();
-                        if (isValidPhone(userPhoneNumber)) {
-                            Map<String, Object> user_phone = new HashMap<>();
-                            user_phone.put("phone", userPhoneNumber);
-                            db.collection("users").document(auth.getCurrentUser().getUid()).update(user_phone)
-                                    .addOnSuccessListener((task -> {
-                                        Intent retIntent;
-                                        Bundle bn;
-                                        Toast.makeText(ModifyInfoActivity.this, getString(R.string.phone_updated), Toast.LENGTH_LONG).show();
-                                        retIntent = new Intent(getApplicationContext(), UserInformationActivity.class);
-                                        bn = new Bundle();
-                                        bn.putString("field", fieldName);
-                                        bn.putString("value", etEditInfo.getText().toString());
-                                        retIntent.putExtras(bn);
-                                        setResult(RESULT_OK, retIntent);
-                                        finish();
-                                    }))
-                                    .addOnFailureListener(task -> {
-                                        Log.d("BikerID", "Failed update phone");
-                                        Toast.makeText(ModifyInfoActivity.this, getString(R.string.phone_failed_updated), Toast.LENGTH_LONG).show();
-                                        etEditInfo.selectAll();
-                                    });
+                        etEditInfo.selectAll();
+                    }
+                    break;
+                case "user_phone_number":
+                    userPhoneNumber = etEditInfo.getText().toString();
+                    if (isValidPhone(userPhoneNumber)) {
+                        Map<String, Object> user_phone = new HashMap<>();
+                        user_phone.put("phone", userPhoneNumber);
+                        db.collection("users").document(auth.getCurrentUser().getUid()).update(user_phone)
+                                .addOnSuccessListener((task -> {
+                                    Intent retIntent;
+                                    Bundle bn;
+                                    Toast.makeText(ModifyInfoActivity.this, getString(R.string.phone_updated), Toast.LENGTH_LONG).show();
+                                    retIntent = new Intent(getApplicationContext(), UserInformationActivity.class);
+                                    bn = new Bundle();
+                                    bn.putString("field", fieldName);
+                                    bn.putString("value", etEditInfo.getText().toString());
+                                    retIntent.putExtras(bn);
+                                    setResult(RESULT_OK, retIntent);
+                                    finish();
+                                }))
+                                .addOnFailureListener(task -> {
+                                    Log.d("BikerID", "Failed update phone");
+                                    Toast.makeText(ModifyInfoActivity.this, getString(R.string.phone_failed_updated), Toast.LENGTH_LONG).show();
+                                    etEditInfo.selectAll();
+                                });
 
-                        } else {
-                            Toast mioToast = Toast.makeText(ModifyInfoActivity.this,
-                                    getString(R.string.invalid_phone),
-                                    Toast.LENGTH_LONG);
-                            mioToast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 64);
-                            InputMethodManager imm = (InputMethodManager)
-                                    getSystemService(Context.INPUT_METHOD_SERVICE);
-                            imm.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
-                            mioToast.show();
+                    } else {
+                        Toast mioToast = Toast.makeText(ModifyInfoActivity.this,
+                                getString(R.string.invalid_phone),
+                                Toast.LENGTH_LONG);
+                        mioToast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 64);
+                        InputMethodManager imm12 = (InputMethodManager)
+                                getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm12.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
+                        mioToast.show();
 
-                            etEditInfo.selectAll();
-                        }
-                        break;
+                        etEditInfo.selectAll();
+                    }
+                    break;
 
-                }
-
-                if(fieldName.equals("user_address")||fieldName.equals("user_notification")||fieldName.equals("opening_hours")||fieldName.equals("delivery_service")){
-                    intent = new Intent(getApplicationContext(), RestInformationActivity.class);
-                    Bn = new Bundle();
-                    Bn.putString("field", fieldName);
-                    Bn.putString("value", etEditInfo.getText().toString());
-                    intent.putExtras(Bn);
-                    setResult(1, intent);
-                    finish();
-                }
             }
-        });
 
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            if(fieldName.equals("user_address")||fieldName.equals("user_notification")||fieldName.equals("opening_hours")||fieldName.equals("delivery_service")){
+                intent = new Intent(getApplicationContext(), RestInformationActivity.class);
+                Bn = new Bundle();
+                Bn.putString("field", fieldName);
+                Bn.putString("value", etEditInfo.getText().toString());
+                intent.putExtras(Bn);
+                setResult(1, intent);
                 finish();
             }
         });
+
+        btnCancel.setOnClickListener(v -> finish());
     }
 
     @Override

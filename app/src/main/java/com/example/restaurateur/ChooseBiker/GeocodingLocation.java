@@ -3,21 +3,25 @@ package com.example.restaurateur.ChooseBiker;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.google.firebase.firestore.GeoPoint;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.CompletableFuture;
 
 public class GeocodingLocation {
 
     private static final String TAG = "GeocodingLocation";
 
     public static void getAddressFromLocation(final String locationAddress,
-                                              final Context context, final Handler handler) {
+                                              final Context context, final Handler handler, CompletableFuture<GeoPoint> geo) {
         Thread thread = new Thread() {
             @Override
             public void run() {
@@ -27,6 +31,9 @@ public class GeocodingLocation {
                     List<Address> addressList = geocoder.getFromLocationName(locationAddress, 1);
                     if (addressList != null && addressList.size() > 0) {
                         Address address = addressList.get(0);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            geo.complete(new GeoPoint(address.getLatitude(), address.getLongitude()));
+                        }
                         StringBuilder sb = new StringBuilder();
                         sb.append(address.getLatitude()).append(",");
                         sb.append(address.getLongitude());

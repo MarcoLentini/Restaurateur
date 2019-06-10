@@ -2,7 +2,6 @@ package com.example.restaurateur.Information;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -20,7 +19,6 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -137,7 +135,8 @@ public class RestInformationActivity extends AppCompatActivity {
                                          doc.getString("user_id"),
                                         Uri.parse( doc.getString("rest_image")),
                                         tags,
-                                        (HashMap<String,Object>)doc.get("timetable")
+                                        (HashMap<String,Object>)doc.get("timetable"),
+                                        doc.getGeoPoint("rest_position")
                                 );
 
 

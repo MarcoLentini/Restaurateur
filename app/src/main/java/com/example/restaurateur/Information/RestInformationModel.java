@@ -2,6 +2,8 @@ package com.example.restaurateur.Information;
 
 import android.net.Uri;
 
+import com.google.firebase.firestore.GeoPoint;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,9 +17,10 @@ class RestInformationModel {
     private String user_id;
     private Uri rest_image;
     private ArrayList<String> tags;
-   private  HashMap<String, Object> timetable;
+    private  HashMap<String, Object> timetable;
+    private GeoPoint rest_position;
 
-    public RestInformationModel(String rest_name, String rest_descr, String rest_address, String rest_phone, Double delivery_fee, String user_id, Uri rest_image, ArrayList<String> tags, HashMap<String, Object> timetable) {
+    public RestInformationModel(String rest_name, String rest_descr, String rest_address, String rest_phone, Double delivery_fee, String user_id, Uri rest_image, ArrayList<String> tags, HashMap<String, Object> timetable, GeoPoint rest_position) {
         this.rest_name = rest_name;
         this.rest_descr = rest_descr;
         this.rest_address = rest_address;
@@ -26,7 +29,8 @@ class RestInformationModel {
         this.user_id = user_id;
         this.rest_image = rest_image;
         this.tags=tags;
-       this.timetable=timetable;
+        this.timetable=timetable;
+        this.rest_position = rest_position;
     }
 
     public String getRest_name() {
@@ -99,5 +103,13 @@ class RestInformationModel {
 
     public void setTimetable(HashMap<String, Object> timetable) {
         this.timetable = timetable;
+    }
+
+    public GeoPoint getRest_position() {
+        return rest_position;
+    }
+
+    public void setRest_position(GeoPoint rest_position) {
+        this.rest_position = rest_position;
     }
 }

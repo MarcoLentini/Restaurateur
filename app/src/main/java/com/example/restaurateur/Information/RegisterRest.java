@@ -7,13 +7,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -32,11 +36,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.restaurateur.ChooseBiker.GeocodingLocation;
+import com.example.restaurateur.ChooseBiker.Top3Biker;
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
+import com.example.restaurateur.Reservation.PendingReservationsListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.WriteBatch;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -47,6 +55,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.function.ObjLongConsumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -54,6 +65,8 @@ import java.util.regex.Pattern;
 import static android.support.constraint.Constraints.TAG;
 
 public class RegisterRest extends AppCompatActivity {
+    private static final int PERMISSIONS_REQUEST = 100;
+
     private EditText inputName, inputAddr, inputDescr,inputPhone, inputDeliveryFee;
     private Button btnSignUp;
     private View btnImage;
@@ -78,6 +91,9 @@ public class RegisterRest extends AppCompatActivity {
             "Pasta", "Greca", "Panini", "Dolci", "Americano", "Argentino", "Brasiliano", "Messicano",
             "Insalate", "Kebab", "Piadine", "Spagnolo", "Thailandese", "Vegetariano", "Senza Glutine",
             "Gelato"};
+
+    private GeoPoint geo_address;
+    private CompletableFuture<GeoPoint> completableFuture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,20 +121,9 @@ public class RegisterRest extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBarRest);
         btnImage = findViewById(R.id.background_img_rest);
         tvRestaurantType = findViewById(R.id.textViewRestaurantType);
-        tvRestaurantType.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectRestaurantType();
-            }
-        });
+        tvRestaurantType.setOnClickListener(v -> selectRestaurantType());
         tvTimeTable=findViewById(R.id.textViewRestaurantTimetable);
-        tvTimeTable.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               startActivityForResult(new Intent(RegisterRest.this,SetTimeTableActivity.class),1);
-
-            }
-        });
+        tvTimeTable.setOnClickListener(v -> startActivityForResult(new Intent(RegisterRest.this,SetTimeTableActivity.class),1));
 
         btnImage.setOnClickListener(v-> invokeDialogImageProfile());
 
@@ -139,6 +144,20 @@ public class RegisterRest extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), getString(R.string.enter_address_rest), Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            // TODO - check address restaurant here
+            int res = check_GPS();
+            if(res == 0){
+                // progressBar.setVisibility(View.VISIBLE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    completableFuture = new CompletableFuture<>();
+                }
+
+                GeocodingLocation locationAddress = new GeocodingLocation();
+                locationAddress.getAddressFromLocation(address,
+                        this, new GeocoderHandler(), completableFuture);
+            }
+
             if (!isValidPhone(phone)) {
                 Toast.makeText(getApplicationContext(), getString(R.string.insert_phone_number), Toast.LENGTH_SHORT).show();
                 return;
@@ -198,6 +217,20 @@ public class RegisterRest extends AppCompatActivity {
             restaurant.put("numbOfRating", 0);
             restaurant.put("rating", 0.0);
 
+            // TODO - MARCO qua
+            // progressBar.setVisibility(View.VISIBLE);
+
+            try {
+                geo_address = completableFuture.get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            restaurant.put("rest_position", geo_address);
+
+
+
             // Get a new write batch
             WriteBatch batch = db.batch();
 
@@ -210,6 +243,8 @@ public class RegisterRest extends AppCompatActivity {
 
             // Commit the batch
             batch.commit().addOnCompleteListener(task -> {
+                // TODO - MARCO qua
+                // progressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()){
                     SharedPreferences sharedPref = getSharedPreferences(restaurantDataFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
@@ -517,5 +552,50 @@ public class RegisterRest extends AppCompatActivity {
 
         return matcher.matches();
 
+    }
+
+    private int check_GPS(){
+        LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            Snackbar.make(findViewById(R.id.regrestinfo), "Please active GPS!",
+                    Snackbar.LENGTH_LONG).show();
+//            Toast.makeText(getContext(), "Please active GPS!", Toast.LENGTH_LONG).show();
+            return 1;
+        }
+
+        //Check whether this app has access to the location permission//
+        int permission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+
+        //If the location permission has been granted, then start the TrackerService//
+        if (permission == PackageManager.PERMISSION_GRANTED) {
+            return 0;
+        } else {
+            //If the app doesn’t currently have access to the user’s location, then request access//
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST);
+            return 2;
+        }
+    }
+
+    private class GeocoderHandler extends Handler {
+        @Override
+        public void handleMessage(Message message) {
+            String locationAddress;
+            switch (message.what) {
+                case 1:
+                    Bundle bundle = message.getData();
+                    locationAddress = bundle.getString("address");
+                    break;
+                default:
+                    locationAddress = null;
+            }
+            if(locationAddress != null){
+                String lat = locationAddress.split(",")[0];
+                String lon = locationAddress.split(",")[1];
+
+            }
+
+        }
     }
 }
