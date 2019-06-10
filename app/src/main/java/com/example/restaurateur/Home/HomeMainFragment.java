@@ -124,20 +124,18 @@ public class HomeMainFragment  extends Fragment {
                 QuerySnapshot documents = t.getResult();
                 if(!documents.isEmpty()){
                     for(DocumentSnapshot doc : documents){
-                        if(getDays(new Date(), doc.getTimestamp("timestamp").toDate()) <= 1) {
-                            RestaurantStatistics rs = new RestaurantStatistics(
-                                    doc.getId(),
-                                    doc.getString("reservationID"),
-                                    doc.getString("restaurantID"),
-                                    doc.getString("categoryID"),
-                                    doc.getString("dishName"),
-                                    doc.getString("hash"),
-                                    doc.getTimestamp("timestamp"),
-                                    doc.getLong("qty"),
-                                    doc.getDouble("price")
-                            );
-                            restaurantStatistics.add(rs);
-                        }
+                        RestaurantStatistics rs = new RestaurantStatistics(
+                                doc.getId(),
+                                doc.getString("reservationID"),
+                                doc.getString("restaurantID"),
+                                doc.getString("categoryID"),
+                                doc.getString("dishName"),
+                                doc.getString("hash"),
+                                doc.getTimestamp("timestamp"),
+                                doc.getLong("qty"),
+                                doc.getDouble("price")
+                        );
+                        restaurantStatistics.add(rs);
                     }
                 }
             }
