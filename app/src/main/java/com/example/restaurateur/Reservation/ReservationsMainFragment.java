@@ -19,8 +19,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class ReservationsMainFragment extends Fragment implements TabLayout.BaseOnTabSelectedListener {
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+    public TabLayout tabLayout;
+    public ViewPager viewPager;
     public PageReservations pageAdapter;
     private TextView tvPendingReservationsNumber;
     private int pendingReservationsNumber;

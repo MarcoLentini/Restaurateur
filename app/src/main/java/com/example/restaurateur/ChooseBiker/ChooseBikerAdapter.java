@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -81,7 +83,7 @@ public class ChooseBikerAdapter extends RecyclerView.Adapter<ChooseBikerAdapter.
                     "rs_status", ReservationState.STATE_IN_PROGRESS,
                     "biker_id", tmpB.getBikerID(),
                     "biker_check", false,
-                    "restaurant_distance", tmpB.getBikerDist()
+                    "restaurant_distance", tmpB.getDist()
                     ).addOnCompleteListener(task -> {
                 if(task.isSuccessful()){
                     dialog.dismiss();
@@ -90,6 +92,8 @@ public class ChooseBikerAdapter extends RecyclerView.Adapter<ChooseBikerAdapter.
                     tmpRM.setRs_status(ReservationState.STATE_IN_PROGRESS);
                     main.addItemToInProgress(tmpRM);//inProgressDataSet.add(tmpRM);
                     mainFragment.decrementPendingReservationsNumber();
+
+                    mainFragment.viewPager.setCurrentItem(1);
                 }
             });
         });

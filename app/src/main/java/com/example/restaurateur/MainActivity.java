@@ -258,6 +258,7 @@ public class MainActivity extends AppCompatActivity {
                     Collections.sort(pendingReservationsData);
                     reservationsMainFragment.incrementPendingReservationsNumber();
                     reservationsMainFragment.pageAdapter.notifyDataSetChanged();
+                    reservationsMainFragment.pageAdapter.getTabPending().pendingReservationsAdapter.notifyDataSetChanged();
                 }
             }
         });
