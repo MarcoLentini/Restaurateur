@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.restaurateur.R;
 import com.example.restaurateur.Reservation.ReservationModel;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class HistoryOrdersListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -58,7 +59,10 @@ public class HistoryOrdersListAdapter extends RecyclerView.Adapter<RecyclerView.
         ReservationModel tmpRM = historyOrders.get(position);
         textViewOrderId.setText("" + tmpRM.getRs_id());
         //textViewTimestamp.setText("" + tmpRM.getTimestamp());
-        textViewTotalIncome.setText("" + tmpRM.getTotal_income());
+        DecimalFormat format = new DecimalFormat("0.00");
+        String formattedIncome = format.format(tmpRM.getTotal_income());
+        textViewTotalIncome.setText(formattedIncome);
+
         String reservationOffer = "";
         for (int i = 0; i < tmpRM.getDishesArrayList().size(); i++) {
             String offerName = tmpRM.getDishesArrayList().get(i).getDishName();

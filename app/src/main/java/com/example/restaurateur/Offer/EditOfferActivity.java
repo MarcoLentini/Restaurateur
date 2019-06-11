@@ -1,6 +1,7 @@
 package com.example.restaurateur.Offer;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaScannerConnection;
@@ -18,12 +19,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.restaurateur.Information.LoginActivity;
+import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
@@ -63,9 +68,16 @@ public class EditOfferActivity extends AppCompatActivity {
         String foodDescription = receivedIntent.getExtras().getString("foodDescription");
         Integer foodId = receivedIntent.getExtras().getInt("foodId");
         String foodImage = receivedIntent.getExtras().getString("foodImage");
+
+        auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() == null ) {
+            startActivity(new Intent(EditOfferActivity.this, LoginActivity.class));
+
+            finish();
+        }
         offer_image = Uri.parse(foodImage);
 
-        Glide.with(this).load(offer_image).placeholder(R.drawable.img_rest_1).into((ImageView) findViewById(R.id.offer_food_pic_e));
+        Glide.with(this).load(offer_image).placeholder(R.drawable.dish_pic).into((ImageView) findViewById(R.id.offer_food_pic_e));
         Long foodQuantity = receivedIntent.getExtras().getLong("foodQuantity");
         Double foodPrice = receivedIntent.getExtras().getDouble("foodPrice");
         Boolean foodState = receivedIntent.getExtras().getBoolean("foodState");
@@ -75,6 +87,9 @@ public class EditOfferActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(title);
 
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        );
         image_button = findViewById(R.id.background_img_offer_e);
         image_button.setOnClickListener(v-> invokeDialogImageProfile() );
 
@@ -228,7 +243,7 @@ public class EditOfferActivity extends AppCompatActivity {
             // Upload succeeded
             Log.d(TAG, "uploadFromUri: getDownloadUri success");
             offer_image = downloadUri;
-            Glide.with(this).load(offer_image).placeholder(R.drawable.img_rest_1).into((ImageView) findViewById(R.id.offer_food_pic));
+            Glide.with(this).load(offer_image).placeholder(R.drawable.dish_pic).into((ImageView) findViewById(R.id.offer_food_pic_e));
             try {
                 deleteImage();
             } catch (IOException e) {

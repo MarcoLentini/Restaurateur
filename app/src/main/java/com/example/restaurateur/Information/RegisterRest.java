@@ -145,7 +145,6 @@ public class RegisterRest extends AppCompatActivity {
                 return;
             }
 
-            // TODO - check address restaurant here
             int res = check_GPS();
             if(res == 0){
                 // progressBar.setVisibility(View.VISIBLE);
@@ -217,8 +216,7 @@ public class RegisterRest extends AppCompatActivity {
             restaurant.put("numbOfRating", 0);
             restaurant.put("rating", 0.0);
 
-            // TODO - MARCO qua
-            // progressBar.setVisibility(View.VISIBLE);
+             progressBar.setVisibility(View.VISIBLE);
 
             try {
                 geo_address = completableFuture.get();
@@ -243,8 +241,7 @@ public class RegisterRest extends AppCompatActivity {
 
             // Commit the batch
             batch.commit().addOnCompleteListener(task -> {
-                // TODO - MARCO qua
-                // progressBar.setVisibility(View.GONE);
+                 progressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()){
                     SharedPreferences sharedPref = getSharedPreferences(restaurantDataFile, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();

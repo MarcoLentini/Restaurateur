@@ -19,6 +19,7 @@ import com.example.restaurateur.Offer.OfferModel;
 import com.example.restaurateur.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -74,7 +75,10 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
         ReservationModel tmpRM = finishedDataSet.get(position);
         textViewOrderId.setText("" + tmpRM.getRs_id());
         //textViewTimestamp.setText("" + tmpRM.getTimestamp());
-        textViewTotalIncome.setText("" + tmpRM.getTotal_income());
+        DecimalFormat format = new DecimalFormat("0.00");
+        String formattedIncome = format.format(tmpRM.getTotal_income());
+        textViewTotalIncome.setText(formattedIncome);
+
         String reservationOffer = "";
         for (int i = 0; i < tmpRM.getDishesArrayList().size(); i++) {
             String offerName = tmpRM.getDishesArrayList().get(i).getDishName();

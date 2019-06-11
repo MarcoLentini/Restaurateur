@@ -48,7 +48,7 @@ public class CommentsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ratingBarFoodQuality.isIndicator();
         ratingBarFoodQuality.setRating(tmpComments.getVoteForRestaurant());
         textViewNotes.setText(tmpComments.getNotes());
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date=tmpComments.getDate();
         textViewDate.setText( dateFormat.format(date));
 

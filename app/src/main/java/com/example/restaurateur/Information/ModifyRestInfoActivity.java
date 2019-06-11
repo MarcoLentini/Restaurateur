@@ -27,6 +27,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,7 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
     private EditText etEditInfo;
     private Button btnOk;
     private Button btnCancel;
+    private ProgressBar progressBar;
     private String fieldName;
     private FirebaseAuth auth;
     private FirebaseFirestore db;
@@ -76,6 +78,7 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
         etEditInfo = findViewById(R.id.editTextChangeInfoRest);
         btnOk = findViewById(R.id.buttonOkRest);
         btnCancel = findViewById(R.id.buttonCancelRest);
+        progressBar=findViewById(R.id.progressBarRestMod);
         String title;
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -242,9 +245,15 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
                         rest_address.put("rest_address", restAddress);
 
                         int res = check_GPS();
-                        if(res == 0){
-                            // TODO - MARCO usare quest
-                            // progressBar.setVisibility(View.VISIBLE);
+                        if(res == 0) {
+
+                            progressBar.setVisibility(View.VISIBLE);
+                            InputMethodManager inputManager = (InputMethodManager)
+                                    getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                                    InputMethodManager.HIDE_NOT_ALWAYS);
+
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                                 completableFuture = new CompletableFuture<>();
                             }
@@ -252,37 +261,42 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
                             GeocodingLocation locationAddress = new GeocodingLocation();
                             locationAddress.getAddressFromLocation(restAddress,
                                     this, new ModifyRestInfoActivity.GeocoderHandler(), completableFuture);
-                        }
-                        try {
-                            geo_address = completableFuture.get();
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        rest_address.put("rest_position", geo_address);
 
-                        db.collection("restaurant").document(restaurantKey).update(rest_address)
-                                .addOnSuccessListener((task -> {
-                                    // TODO - MARCO qua
-                                    // progressBar.setVisibility(View.GONE);
-                                    Intent retIntent;
-                                    Bundle bn;
-                                    Toast.makeText(ModifyRestInfoActivity.this, getString(R.string.address_updated), Toast.LENGTH_LONG).show();
-                                    retIntent = new Intent(getApplicationContext(), RestInformationActivity.class);
-                                    bn = new Bundle();
-                                    bn.putString("field", fieldName);
-                                    bn.putString("value", etEditInfo.getText().toString());
-                                    retIntent.putExtras(bn);
-                                    setResult(RESULT_OK, retIntent);
-                                    finish();
-                                }))
-                                .addOnFailureListener(task -> {
-                                    Log.d("ModifyRestInfo", "Failed update rest address");
-                                    Toast.makeText(ModifyRestInfoActivity.this, getString(R.string.address_failed_updated), Toast.LENGTH_LONG).show();
-                                    etEditInfo.selectAll();
-                                });
+                            try {
+                                geo_address = completableFuture.get();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            rest_address.put("rest_position", geo_address);
 
+                            db.collection("restaurant").document(restaurantKey).update(rest_address)
+                                    .addOnSuccessListener((task -> {
+                                        InputMethodManager inputManager1 = (InputMethodManager)
+                                                getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                                        inputManager1.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                                                InputMethodManager.HIDE_NOT_ALWAYS);
+
+                                        progressBar.setVisibility(View.GONE);
+                                        Intent retIntent;
+                                        Bundle bn;
+                                        Toast.makeText(ModifyRestInfoActivity.this, getString(R.string.address_updated), Toast.LENGTH_LONG).show();
+                                        retIntent = new Intent(getApplicationContext(), RestInformationActivity.class);
+                                        bn = new Bundle();
+                                        bn.putString("field", fieldName);
+                                        bn.putString("value", etEditInfo.getText().toString());
+                                        retIntent.putExtras(bn);
+                                        setResult(RESULT_OK, retIntent);
+                                        finish();
+                                    }))
+                                    .addOnFailureListener(task -> {
+                                        Log.d("ModifyRestInfo", "Failed update rest address");
+                                        Toast.makeText(ModifyRestInfoActivity.this, getString(R.string.address_failed_updated), Toast.LENGTH_LONG).show();
+                                        etEditInfo.selectAll();
+                                    });
+                        }
                     } else {
                         Toast mioToast = Toast.makeText(ModifyRestInfoActivity.this,
                                 getString(R.string.invalid_address),
@@ -402,6 +416,12 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
     private int check_GPS(){
         LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            InputMethodManager inputManager = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+
             Snackbar.make(findViewById(R.id.modrestinfo), "Please active GPS!",
                     Snackbar.LENGTH_LONG).show();
             return 1;

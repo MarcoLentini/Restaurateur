@@ -12,7 +12,7 @@
 
         <RelativeLayout
             android:id="@+id/relativeLayoutFoodPic"
-            android:layout_width="140dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -20,41 +20,50 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <android.support.v7.widget.CardView
+            <RelativeLayout
+                android:id="@+id/linearLayoutOffer"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <RelativeLayout
+                    android:id="@+id/offer_food_pic1"
+                    android:layout_width="@dimen/toolbar_profile_width"
+                    android:layout_height="@dimen/toolbar_profile_width"
+                    android:background="@color/white"
+                    > <!-- border width -->
 
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:id="@+id/offer_food_pic1"
-                app:cardCornerRadius="60dp"
-                android:layout_centerHorizontal="true"
-                android:innerRadius="10dp"
-                android:shape="ring"
-                android:thicknessRatio="1.9">
-                <ImageView
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:id="@+id/offer_food_pic"
-                    android:src="@drawable/dish_pic"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true">
-                </ImageView>
-            </android.support.v7.widget.CardView>
+                    <ImageView
+                        android:id="@+id/offer_food_pic"
+                        android:layout_width="@dimen/toolbar_profile_width"
+                        android:layout_height="@dimen/toolbar_profile_width"
+                        android:src="@drawable/dish_pic"
+
+                        />
+                </RelativeLayout>
 
 
-            <com.mikhaellopez.circularimageview.CircularImageView
-                android:id="@+id/background_img_offer"
-                android:layout_width="48sp"
-                android:layout_height="48sp"
-                android:elevation="@dimen/dp16"
-                android:layout_alignBottom="@id/offer_food_pic1"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:scaleType="centerInside"
-                android:src="@drawable/background"
-                app:civ_border_color="@android:color/white"
-                app:civ_border_width="2sp"
-                app:civ_shadow="true"
-                app:civ_shadow_radius="1" />
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/background_img_offer"
+                    android:layout_width="48sp"
+                    android:layout_height="48sp"
+                    android:layout_alignBottom="@id/offer_food_pic1"
+                    android:layout_alignRight="@id/offer_food_pic1"
+                    android:layout_alignEnd="@id/offer_food_pic1"
+                    android:layout_marginBottom="-24dp"
+                    android:layout_marginEnd="-24dp"
+                    android:layout_marginRight="-24dp"
+
+                    android:scaleType="centerInside"
+                    android:src="@drawable/background"
+                    app:civ_border_color="@android:color/white"
+                    app:civ_border_width="2sp"
+                    app:civ_shadow="true"
+                    app:civ_shadow_radius="1" />
+
 
             <ImageView
                 android:id="@+id/img_plus"
@@ -80,7 +89,7 @@
 
 
 
-
+        </RelativeLayout>
 </RelativeLayout>
 
 

@@ -33,7 +33,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="match_parent"
-                android:text="Lunedì"
+                android:text="@string/monday"
 
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -42,7 +42,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:text="Chiuso" />
+                    android:text="@string/closed" />
 
             </LinearLayout>
             <LinearLayout
@@ -60,7 +60,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="match_parent"
-                    android:text="Mattino"
+                    android:text="@string/morning"
                     android:textAlignment="center"
                     android:paddingTop="@dimen/dp16"
                     android:paddingBottom="@dimen/dp16"
@@ -77,7 +77,7 @@
                         android:id="@+id/edit_text_monday_morning_from"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="From"
+                        android:hint="@string/from"
                         android:gravity="start|top"
                         android:lines="1"
 
@@ -94,7 +94,7 @@
                         android:id="@+id/edit_text_monday_morning_to"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="To"
+                        android:hint="@string/to"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -112,7 +112,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="3"
                         android:layout_height="match_parent"
-                        android:text="Pomeriggio"
+                        android:text="@string/afternoon"
                         android:textAlignment="center"
                         android:paddingTop="@dimen/dp16"
                         android:paddingBottom="@dimen/dp8"
@@ -130,7 +130,7 @@
                             android:id="@+id/edit_text_monday_afternoon_from"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="From"
+                            android:hint="@string/from"
                             android:gravity="start|top"
                             android:lines="1"
                             android:focusable="true"
@@ -147,7 +147,7 @@
                             android:id="@+id/edit_text_monday_afternoon_to"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="To"
+                            android:hint="@string/to"
                             android:gravity="start|top"
                             android:lines="1"
                             android:focusable="true"
@@ -158,7 +158,7 @@
                 android:id="@+id/sameTimetableMonday"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Scegli questo orario per tutti i giorni"
+                android:text="@string/select_this_time_for_all_the_days"
                />
             </LinearLayout>
         </LinearLayout>
@@ -182,7 +182,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="match_parent"
-                    android:text="Tuesday"
+                    android:text="@string/tuesday"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
                 <CheckBox
@@ -190,7 +190,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:text="Closed" />
+                    android:text="@string/closed" />
 
             </LinearLayout>
             <LinearLayout
@@ -209,7 +209,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="match_parent"
-                    android:text="Mattino"
+                    android:text="@string/morning"
                     android:textAlignment="center"
                     android:paddingTop="@dimen/dp16"
                     android:paddingBottom="@dimen/dp16"
@@ -227,7 +227,7 @@
                         android:id="@+id/edit_text_tuesday_morning_from"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="From"
+                        android:hint="@string/from"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -244,7 +244,7 @@
                         android:id="@+id/edit_text_tuesday_morning_to"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="To"
+                        android:hint="@string/to"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -263,7 +263,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="match_parent"
-                    android:text="Pomeriggio"
+                    android:text="@string/afternoon"
                     android:textAlignment="center"
                     android:paddingTop="@dimen/dp16"
                     android:paddingBottom="@dimen/dp16"
@@ -281,7 +281,7 @@
                         android:id="@+id/edit_text_tuesday_afternoon_from"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="From"
+                        android:hint="@string/from"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -298,7 +298,7 @@
                         android:id="@+id/edit_text_tuesday_afternoon_to"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="To"
+                        android:hint="@string/to"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -309,7 +309,7 @@
                 android:id="@+id/sameTimetableTuesday"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Scegli questo orario per tutti i giorni"
+                android:text="@string/select_this_time_for_all_the_days"
                 />
         </LinearLayout>
         </LinearLayout>
@@ -333,7 +333,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="match_parent"
-                    android:text="Wednesday"
+                    android:text="@string/wednesday"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
                 <CheckBox
@@ -341,7 +341,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:text="Closed" />
+                    android:text="@string/closed" />
 
             </LinearLayout>
             <LinearLayout
@@ -360,7 +360,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="match_parent"
-                    android:text="Mattino"
+                    android:text="@string/morning"
                     android:textAlignment="center"
                     android:paddingTop="@dimen/dp16"
                     android:paddingBottom="@dimen/dp16"
@@ -378,7 +378,7 @@
                         android:id="@+id/edit_text_wednesday_morning_from"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="From"
+                        android:hint="@string/from"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -395,7 +395,7 @@
                         android:id="@+id/edit_text_wednesday_morning_to"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="To"
+                        android:hint="@string/to"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -413,7 +413,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="match_parent"
-                    android:text="Pomeriggio"
+                    android:text="@string/afternoon"
                     android:textAlignment="center"
                     android:paddingTop="@dimen/dp16"
                     android:paddingBottom="@dimen/dp16"
@@ -431,7 +431,7 @@
                         android:id="@+id/edit_text_wednesday_afternoon_from"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="From"
+                        android:hint="@string/from"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -448,7 +448,7 @@
                         android:id="@+id/edit_text_wednesday_afternoon_to"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="To"
+                        android:hint="@string/to"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -483,7 +483,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="match_parent"
-                    android:text="Thursday"
+                    android:text="@string/thursday"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
                 <CheckBox
@@ -491,7 +491,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:text="Closed" />
+                    android:text="@string/closed" />
 
             </LinearLayout>
 
@@ -511,7 +511,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="match_parent"
-                    android:text="Mattino"
+                    android:text="@string/morning"
                     android:textAlignment="center"
                     android:paddingTop="@dimen/dp16"
                     android:paddingBottom="@dimen/dp16"
@@ -529,7 +529,7 @@
                         android:id="@+id/edit_text_thursday_morning_from"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="From"
+                        android:hint="@string/from"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -546,7 +546,7 @@
                         android:id="@+id/edit_text_thursday_morning_to"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="To"
+                        android:hint="@string/to"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -564,7 +564,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="match_parent"
-                    android:text="Pomeriggio"
+                    android:text="@string/afternoon"
                     android:textAlignment="center"
                     android:paddingTop="@dimen/dp16"
                     android:paddingBottom="@dimen/dp16"
@@ -582,7 +582,7 @@
                         android:id="@+id/edit_text_thursday_afternoon_from"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="From"
+                        android:hint="@string/from"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -599,7 +599,7 @@
                         android:id="@+id/edit_text_thursday_afternoon_to"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="To"
+                        android:hint="@string/to"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -635,7 +635,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="match_parent"
-                    android:text="Friday"
+                    android:text="@string/friday"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
                 <CheckBox
@@ -643,7 +643,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:text="Closed" />
+                    android:text="@string/closed" />
 
             </LinearLayout>
             <LinearLayout
@@ -662,7 +662,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="match_parent"
-                    android:text="Mattino"
+                    android:text="@string/morning"
                     android:textAlignment="center"
                     android:paddingTop="@dimen/dp16"
                     android:paddingBottom="@dimen/dp16"
@@ -680,7 +680,7 @@
                         android:id="@+id/edit_text_friday_morning_from"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="From"
+                        android:hint="@string/from"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -697,7 +697,7 @@
                         android:id="@+id/edit_text_friday_morning_to"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="To"
+                        android:hint="@string/to"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -715,7 +715,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="match_parent"
-                    android:text="Pomeriggio"
+                    android:text="@string/afternoon"
                     android:textAlignment="center"
                     android:paddingTop="@dimen/dp16"
                     android:paddingBottom="@dimen/dp16"
@@ -732,7 +732,7 @@
                         android:id="@+id/edit_text_friday_afternoon_from"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="From"
+                        android:hint="@string/from"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -749,7 +749,7 @@
                         android:id="@+id/edit_text_friday_afternoon_to"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="To"
+                        android:hint="@string/to"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -783,7 +783,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="match_parent"
-                    android:text="Saturday"
+                    android:text="@string/saturday"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
                 <CheckBox
@@ -791,7 +791,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:text="Closed" />
+                    android:text="@string/closed" />
 
             </LinearLayout>
             <LinearLayout
@@ -810,7 +810,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="match_parent"
-                    android:text="Mattino"
+                    android:text="@string/morning"
                     android:textAlignment="center"
                     android:paddingTop="@dimen/dp16"
                     android:paddingBottom="@dimen/dp16"
@@ -828,7 +828,7 @@
                         android:id="@+id/edit_text_saturday_morning_from"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="From"
+                        android:hint="@string/from"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -845,7 +845,7 @@
                         android:id="@+id/edit_text_saturday_morning_to"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="To"
+                        android:hint="@string/to"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -863,7 +863,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="match_parent"
-                    android:text="Pomeriggio"
+                    android:text="@string/afternoon"
                     android:textAlignment="center"
                     android:paddingTop="@dimen/dp16"
                     android:paddingBottom="@dimen/dp16"
@@ -880,7 +880,7 @@
                         android:id="@+id/edit_text_saturday_afternoon_from"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="From"
+                        android:hint="@string/from"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -897,7 +897,7 @@
                         android:id="@+id/edit_text_saturday_afternoon_to"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="To"
+                        android:hint="@string/to"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -932,7 +932,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="match_parent"
-                    android:text="Sunday"
+                    android:text="@string/sunday"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
                 <CheckBox
@@ -940,7 +940,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:text="Closed" />
+                    android:text="@string/closed" />
 
             </LinearLayout>
             <LinearLayout
@@ -959,7 +959,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="match_parent"
-                    android:text="Mattino"
+                    android:text="@string/morning"
                     android:textAlignment="center"
                     android:paddingTop="@dimen/dp16"
                     android:paddingBottom="@dimen/dp16"
@@ -977,7 +977,7 @@
                         android:id="@+id/edit_text_sunday_morning_from"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="From"
+                        android:hint="@string/from"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -994,7 +994,7 @@
                         android:id="@+id/edit_text_sunday_morning_to"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="To"
+                        android:hint="@string/to"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -1012,7 +1012,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="match_parent"
-                    android:text="Pomeriggio"
+                    android:text="@string/afternoon"
                     android:textAlignment="center"
                     android:paddingTop="@dimen/dp16"
                     android:paddingBottom="@dimen/dp16"
@@ -1029,7 +1029,7 @@
                         android:id="@+id/edit_text_sunday_afternoon_from"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="From"
+                        android:hint="@string/from"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"
@@ -1046,7 +1046,7 @@
                         android:id="@+id/edit_text_sunday_afternoon_to"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="To"
+                        android:hint="@string/to"
                         android:gravity="start|top"
                         android:lines="1"
                         android:focusable="true"

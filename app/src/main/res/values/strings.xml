@@ -77,7 +77,7 @@
     <string name="button_reservation_resume">Resume</string>
     <string name="button_reservation_remove">Remove</string>
     <string name="total_income_info">Total income </string>
-    <string name="notes">notes!</string>
+    <string name="notes">Notes!</string>
 
     <!-- main_layout tabs -->
     <string name="reservation_title">Reservations</string>
@@ -118,7 +118,7 @@
     <string name="FoodPrice">Price</string>
     <string name="futureDevelopment">For future Development....</string>
 
-    <string name="hint_food_short_description">short description</string>
+    <string name="hint_food_short_description">Short description</string>
 
     <!-- No need to translate -->
     <string name="str_orderid">124</string>
@@ -173,24 +173,11 @@
     <string name="snackbar_offer_remove">Offer removed</string>
     <string name="snackbar_offer_undo">UNDO</string>
     <string name="snackbar_offer_category_changed">Offer moved to category</string>
-    <string name="alert_dialog_offer_remove">Do you really want to remove offer</string>
+    <string name="alert_dialog_offer_remove">Do you really want to remove offer?</string>
     <string name="alert_dialog_offer_remove_btn_ok">OK</string>
     <string name="alert_dialog_offer_remove_btn_cancel">CANCEL</string>
 
-    <!-- Firebase storage -->
-    <string name="success">Success</string>
-    <string name="progress_uploading">Uploading…</string>
-    <string name="progress_downloading">Downloading…</string>
-    <string name="progress_auth">Signing In…</string>
-    <string name="upload_success">Upload finished</string>
-    <string name="upload_failure">Upload failed</string>
-    <string name="sign_in_anonymously">Sign In</string>
-    <string name="sign_in_prompt">Sign In to begin</string>
-    <string name="take_photo_prompt">Upload a Photo</string>
-    <string name="download">Download</string>
-    <string name="camera_button_text">Upload</string>
-    <string name="label_link">Link to Uploaded File</string>
-    <string name="label_download">Download File</string>
+
     <string name="restaurant_address">Restaurant\'s Address</string>
     <string name="restaurant_name">Restaurant Name</string>
     <string name="restaurant_descr">Restaurant Description</string>
@@ -252,7 +239,7 @@
     <string name="rest_timetable_updated">Updated restaurant timetable</string>
     <string name="title_daily_sold_income">Daily Sold Income</string>
     <string name="title_daily_sold_quantity">Daily Sold Quantity</string>
-    <string name="title_history_order">History Order</string>
+    <string name="title_history_order">Completed Orders</string>
     <string name="title_comments">Comments</string>
     <string name="title_analysis">Reservations per hour</string>
     <string name="title_top_sold_dishes">TOP Sold Dishes</string>
@@ -261,6 +248,19 @@
     <string name="empty_tag_no_comments">There is no comments here up to now</string>
     <string name="information_rest">Restaurant information</string>
     <string name="FoodCategoryPosition">Position in the list</string>
+    <string name="monday">Monday</string>
+    <string name="closed">Closed</string>
+    <string name="morning">Morning</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="afternoon">Afternoon</string>
+    <string name="select_this_time_for_all_the_days">Select this time for all the days</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
 
 
 </resources>

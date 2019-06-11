@@ -24,8 +24,8 @@
         app:layout_constraintTop_toTopOf="parent">
         <RelativeLayout
             android:id="@+id/img_profile1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/toolbar_profile_width"
+            android:layout_height="@dimen/toolbar_profile_width"
             android:background="@color/white"
             > <!-- border width -->
 
@@ -33,24 +33,12 @@
             android:id="@+id/img_profile"
             android:layout_width="@dimen/toolbar_profile_width"
             android:layout_height="@dimen/toolbar_profile_width"
-            android:layout_marginTop="@dimen/activity_padding"
-            android:layout_marginBottom="@dimen/activity_padding"
             android:src="@drawable/img_rest_1"
 
 
             />
     </RelativeLayout>
-       <!-- <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/img_profile"
-            android:layout_width="@dimen/toolbar_profile_width"
-            android:layout_height="@dimen/toolbar_profile_width"
-            android:layout_marginTop="@dimen/activity_padding"
-            android:layout_marginBottom="@dimen/activity_padding"
-            android:scaleType="centerCrop"
-            android:src="@drawable/img_rest_1"
-            app:civ_border_color="@color/colorPrimaryText"
-            app:civ_border_width="2sp" />
--->
+
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/background_img"
             android:layout_width="48sp"
@@ -90,7 +78,7 @@
             android:src="@drawable/ic_camera"
             android:tint="@android:color/white" />
 
-            -->
+
     </RelativeLayout>
 
 

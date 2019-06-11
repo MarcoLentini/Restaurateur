@@ -174,7 +174,7 @@ public class SignupActivity extends AppCompatActivity {
                             db.collection("users").document(auth.getCurrentUser().getUid())
                                     .set(user)
                                     .addOnSuccessListener(documentReference1 -> {
-                                        uploadOnFirebase(file_image);
+                                        uploadOnFirebase(user_image);
                                         Toast.makeText(SignupActivity.this, getString(R.string.profile_created),Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(SignupActivity.this, RegisterRest.class));
                                         finish();
@@ -269,8 +269,11 @@ public class SignupActivity extends AppCompatActivity {
             user_image = downloadUri;
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection("users").document(auth.getCurrentUser().getUid()).update("image_url",user_image.toString()).addOnCompleteListener(task->{
-            //    if(task.isSuccessful())
-               //     Glide.with(this).load(user_image).placeholder(R.drawable.img_rest_1).into((ImageView) findViewById(R.id.img_profile));
+                if(task.isSuccessful()){
+                    Toast.makeText(SignupActivity.this, getString(R.string.profile_created),Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(SignupActivity.this, RegisterRest.class));
+                    finish();
+                }
             });
             try {
                 deleteImage();

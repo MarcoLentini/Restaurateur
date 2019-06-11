@@ -125,6 +125,7 @@ public class PendingDetailsActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
+
         return true;
     }
 }

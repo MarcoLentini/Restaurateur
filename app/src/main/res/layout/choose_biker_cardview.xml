@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/biker_img_card"
-            android:layout_width="390dp"
-            android:layout_height="91dp"
+            android:layout_width="94dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             tools:srcCompat="@drawable/img_rest_1" />
 

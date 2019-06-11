@@ -21,6 +21,7 @@ package com.example.restaurateur.Reservation;
         import com.google.firebase.Timestamp;
 
         import java.io.Serializable;
+        import java.text.DecimalFormat;
 
 public class FinishedDetailsFragment extends Fragment {
 
@@ -62,7 +63,10 @@ public class FinishedDetailsFragment extends Fragment {
         textViewRemainingTimeFinished.setText(RM.getTimestamp().toString());
 
         TextView textViewTotalIncomeFinished = view.findViewById(R.id.customer_name);
-        textViewTotalIncomeFinished.setText(Double.toString(RM.getTotal_income()));
+        DecimalFormat format = new DecimalFormat("0.00");
+        String formattedIncome = format.format(RM.getTotal_income());
+        textViewTotalIncomeFinished.setText(formattedIncome);
+
 
         TextView tvRemarkFinished = view.findViewById(R.id.textViewNotesReservation);
         tvRemarkFinished.setText(RM.getNotes());
