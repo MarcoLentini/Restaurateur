@@ -70,23 +70,8 @@ public class ReservationsMainFragment extends Fragment implements TabLayout.Base
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         int pos = tab.getPosition();
-        // SORTING - When the user changes tab I sort the item inside the corresponding RecyclerView
-        // by calling "sortDataAndNotify" which will sort data and update the view
-        switch (pos) {
-            case 0:TabReservationsPending tabP = pageAdapter.getTabPending();
-                if(tabP != null)
-                    tabP.sortDataAndNotify();
-                break;
-            case 1:TabReservationsInProgress tabIp = pageAdapter.getTabInProgress();
-                if(tabIp != null)
-                    tabIp.sortDataAndNotify();
-                break;
-            case 2:TabReservationsFinished tabF = pageAdapter.getTabFinished();
-            if(tabF != null)
-                tabF.sortDataAndNotify();
-                break;
-        }
-        viewPager.setCurrentItem(tab.getPosition());
+
+        viewPager.setCurrentItem(pos);
     }
 
     @Override

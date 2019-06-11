@@ -69,7 +69,6 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
         TextView textViewTotalIncome = finishedReservationViewHolder.textViewTotalIncome;
         TextView textViewOrderedFood = finishedReservationViewHolder.textViewOrderedDishes;
         TextView textViewReservationState = finishedReservationViewHolder.textViewReservationState;
-        Button btnResumeReservation = finishedReservationViewHolder.btnResumeReservation;
         Button btnRemoveReservation = finishedReservationViewHolder.btnRemoveReservation;
 
         ReservationModel tmpRM = finishedDataSet.get(position);
@@ -83,10 +82,6 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
         }
         textViewOrderedFood.setText(reservationOffer);
         textViewReservationState.setText(tmpRM.getRs_status());
-        btnResumeReservation.setOnClickListener(v -> {
-            int pos = finishedReservationViewHolder.getAdapterPosition();
-            finishedResume(pos);
-        });
         btnRemoveReservation.setOnClickListener(v -> {
             int pos = finishedReservationViewHolder.getAdapterPosition();
             finishedReject(pos);
@@ -128,7 +123,6 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
         TextView textViewTotalIncome;
         TextView textViewOrderedDishes;
         TextView textViewReservationState;
-        Button btnResumeReservation;
         Button btnRemoveReservation;
 
         FinishedReservationViewHolder(View itemView) {
@@ -138,7 +132,6 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
             this.textViewTotalIncome = itemView.findViewById(R.id.textViewTotalIncomeReservationFinished);
             this.textViewOrderedDishes = itemView.findViewById(R.id.textViewFoodReservationFinished);
             this.textViewReservationState = itemView.findViewById(R.id.textViewStateReservationFinished);
-            this.btnResumeReservation = itemView.findViewById(R.id.buttonResumeReservationFinished);
             this.btnRemoveReservation = itemView.findViewById(R.id.buttonRemoveReservationFinished);
         }
     }

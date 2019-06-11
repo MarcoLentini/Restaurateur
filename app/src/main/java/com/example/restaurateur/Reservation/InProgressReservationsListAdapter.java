@@ -68,7 +68,6 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
         TextView textViewOrderedFood = inProgressReservationViewHolder.textViewOrderedDishes;
         TextView textViewReservationNotes = inProgressReservationViewHolder.textViewReservationNotes;
         Button btnFinishReservation = inProgressReservationViewHolder.btnFinishtReservation;
-//        Button btnRejectReservation = inProgressReservationViewHolder.btnRejectReservation;
 
         ReservationModel tmpRM = inProgressDataSet.get(position);
         textViewOrderId.setText("" + tmpRM.getRs_id());
@@ -86,14 +85,6 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
             int pos = inProgressReservationViewHolder.getAdapterPosition();
             inprogressFinish(pos);
         });
-//        btnRejectReservation.setOnClickListener(v -> {
-//            int pos = inProgressReservationViewHolder.getAdapterPosition();
-//            fragmentActivity.removeItemFromInProgress(pos);//inProgressDataSet.remove(pos);
-//            notifyItemRemoved(pos);
-//            notifyItemRangeChanged(pos, inProgressDataSet.size());
-//            tmpRM.setRs_status(ReservationState.STATE_FINISHED_REJECTED);
-//            fragmentActivity.addItemToFinished(tmpRM);//finishedDataSet.add(tmpRM);
-//        });
     }
 
     public void inprogressFinish(int pos){
@@ -149,7 +140,6 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
         TextView textViewOrderedDishes;
         TextView textViewReservationNotes;
         Button btnFinishtReservation;
-//        Button btnRejectReservation;
 
         InProgressReservationViewHolder(View itemView) {
             super(itemView);
@@ -159,8 +149,6 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
             this.textViewOrderedDishes = itemView.findViewById(R.id.textViewFoodReservationInProgress);
             this.textViewReservationNotes = itemView.findViewById(R.id.textViewStateReservationInProgress);
             btnFinishtReservation = itemView.findViewById(R.id.buttonResumeReservationInProgress);
-//            btnRejectReservation = itemView.findViewById(R.id.buttonRemoveReservationInProgress);
-
         }
     }
 }

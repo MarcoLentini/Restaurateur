@@ -7,14 +7,14 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 
 import com.example.restaurateur.Home.HomeMainFragment;
 import com.example.restaurateur.Information.LoginActivity;
@@ -25,7 +25,6 @@ import com.example.restaurateur.Reservation.ReservatedDish;
 import com.example.restaurateur.Reservation.ReservationModel;
 import com.example.restaurateur.Reservation.ReservationState;
 import com.example.restaurateur.Reservation.ReservationsMainFragment;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -35,7 +34,6 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -214,11 +212,8 @@ public class MainActivity extends AppCompatActivity {
                             break;
                     }
                 }
-                Collections.sort(pendingReservationsData);
-                Collections.sort(inProgressReservationsData);
-                Collections.sort(finishedReservationsData);
-                reservationsMainFragment.pageAdapter.notifyDataSetChanged();
             }
+            reservationsMainFragment.pageAdapter.notifyDataSetChanged();
         } else {
             Log.d("QueryReservation", "No such document");
         }
@@ -258,7 +253,6 @@ public class MainActivity extends AppCompatActivity {
                     Collections.sort(pendingReservationsData);
                     reservationsMainFragment.incrementPendingReservationsNumber();
                     reservationsMainFragment.pageAdapter.notifyDataSetChanged();
-                    reservationsMainFragment.pageAdapter.getTabPending().pendingReservationsAdapter.notifyDataSetChanged();
                 }
             }
         });
@@ -349,6 +343,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void addItemToFinished(ReservationModel rm) {
         finishedReservationsData.add(rm);
+        reservationsMainFragment.pageAdapter.notifyDataSetChanged();
     }
 
     public void removeItemFromFinished(int position) {

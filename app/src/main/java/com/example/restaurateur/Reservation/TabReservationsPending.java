@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,9 @@ import java.util.Collections;
 import static android.app.Activity.RESULT_OK;
 import static android.widget.Toast.*;
 
-public class TabReservationsPending extends Fragment {
+public class TabReservationsPending extends Fragment implements Updateable{
 
-    public PendingReservationsListAdapter pendingReservationsAdapter;
+    private PendingReservationsListAdapter pendingReservationsAdapter;
     public static final int PENDING_REQ = 55;
 
     @Override
@@ -40,6 +41,8 @@ public class TabReservationsPending extends Fragment {
                 MainActivity.pendingReservationsData, (MainActivity)getActivity(), this,
                 (ReservationsMainFragment)getParentFragment());
         recyclerView.setAdapter(pendingReservationsAdapter);
+        sortDataAndNotify();
+        Log.d("TRP", "onCreateView() chiamato");
 
         return view;
     }
@@ -58,8 +61,15 @@ public class TabReservationsPending extends Fragment {
         }
     }
 
-    public void sortDataAndNotify() {
+    private void sortDataAndNotify() {
         Collections.sort(MainActivity.pendingReservationsData);
-        pendingReservationsAdapter.notifyDataSetChanged();
+        if(pendingReservationsAdapter != null)
+            pendingReservationsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void update() {
+        sortDataAndNotify();
+        Log.d("TRP", "update() chiamato");
     }
 }

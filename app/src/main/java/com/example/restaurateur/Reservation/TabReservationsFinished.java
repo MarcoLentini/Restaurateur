@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +19,11 @@ import java.util.Collections;
 
 import static android.app.Activity.RESULT_OK;
 
-public class TabReservationsFinished extends Fragment {
+public class TabReservationsFinished extends Fragment implements Updateable {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    public FinishedReservationsListAdapter finishedReservationsAdapter;
+    private FinishedReservationsListAdapter finishedReservationsAdapter;
     public static final int FINISHED_REQ = 57;
 
 
@@ -42,6 +43,8 @@ public class TabReservationsFinished extends Fragment {
         finishedReservationsAdapter = new FinishedReservationsListAdapter(getContext(),
                 MainActivity.finishedReservationsData, (MainActivity)getActivity(), this, (ReservationsMainFragment)getParentFragment());
         recyclerView.setAdapter(finishedReservationsAdapter);
+        sortDataAndNotify();
+        Log.d("TabResPen","onCreateView()");
 
         return view;
     }
@@ -60,9 +63,15 @@ public class TabReservationsFinished extends Fragment {
         }
     }
 
-    public void sortDataAndNotify() {
+    private void sortDataAndNotify() {
         Collections.sort(MainActivity.finishedReservationsData);
-        finishedReservationsAdapter.notifyDataSetChanged();
+        if(finishedReservationsAdapter != null)
+            finishedReservationsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void update() {
+        sortDataAndNotify();
     }
 }
 

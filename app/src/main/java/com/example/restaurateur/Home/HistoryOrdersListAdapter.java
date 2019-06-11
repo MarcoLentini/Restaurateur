@@ -53,7 +53,6 @@ public class HistoryOrdersListAdapter extends RecyclerView.Adapter<RecyclerView.
         TextView textViewTotalIncome = historyOrdersViewHolder.textViewTotalIncome;
         TextView textViewOrderedFood = historyOrdersViewHolder.textViewOrderedDishes;
         TextView textViewReservationState = historyOrdersViewHolder.textViewReservationState;
-        Button btnResumeReservation = historyOrdersViewHolder.btnResumeReservation;
         Button btnRemoveReservation = historyOrdersViewHolder.btnRemoveReservation;
 
         ReservationModel tmpRM = historyOrders.get(position);
@@ -68,7 +67,6 @@ public class HistoryOrdersListAdapter extends RecyclerView.Adapter<RecyclerView.
         textViewOrderedFood.setText(reservationOffer);
         textViewReservationState.setText(tmpRM.getRs_status());
 
-        btnResumeReservation.setVisibility(View.GONE);
         btnRemoveReservation.setVisibility(View.GONE);
     }
 
@@ -83,7 +81,6 @@ public class HistoryOrdersListAdapter extends RecyclerView.Adapter<RecyclerView.
         TextView textViewTotalIncome;
         TextView textViewOrderedDishes;
         TextView textViewReservationState;
-        Button btnResumeReservation;
         Button btnRemoveReservation;
         public HistoryOrdersViewHolder(View view) {
             super(view);
@@ -92,7 +89,6 @@ public class HistoryOrdersListAdapter extends RecyclerView.Adapter<RecyclerView.
             this.textViewTotalIncome = itemView.findViewById(R.id.textViewTotalIncomeReservationFinished);
             this.textViewOrderedDishes = itemView.findViewById(R.id.textViewFoodReservationFinished);
             this.textViewReservationState = itemView.findViewById(R.id.textViewStateReservationFinished);
-            this.btnResumeReservation = itemView.findViewById(R.id.buttonResumeReservationFinished);
             this.btnRemoveReservation = itemView.findViewById(R.id.buttonRemoveReservationFinished);
         }
     }

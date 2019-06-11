@@ -18,11 +18,11 @@ import java.util.Collections;
 
 import static android.app.Activity.RESULT_OK;
 
-public class TabReservationsInProgress extends Fragment {
+public class TabReservationsInProgress extends Fragment implements Updateable {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    public InProgressReservationsListAdapter inProgressReservationsAdapter;
+    private InProgressReservationsListAdapter inProgressReservationsAdapter;
     public static final int INPROGRESS_REQ = 56;
 
 
@@ -42,6 +42,7 @@ public class TabReservationsInProgress extends Fragment {
         inProgressReservationsAdapter = new InProgressReservationsListAdapter(getContext(),
                 MainActivity.inProgressReservationsData, (MainActivity)getActivity(), this, (ReservationsMainFragment)getParentFragment());
         recyclerView.setAdapter(inProgressReservationsAdapter);
+        sortDataAndNotify();
 
         return view;
     }
@@ -58,8 +59,14 @@ public class TabReservationsInProgress extends Fragment {
         }
     }
 
-    public void sortDataAndNotify() {
+    private void sortDataAndNotify() {
         Collections.sort(MainActivity.inProgressReservationsData);
-        inProgressReservationsAdapter.notifyDataSetChanged();
+        if(inProgressReservationsAdapter != null)
+            inProgressReservationsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void update() {
+        sortDataAndNotify();
     }
 }
