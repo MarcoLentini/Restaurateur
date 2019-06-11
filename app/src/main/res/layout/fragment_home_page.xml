@@ -27,11 +27,8 @@
                 android:layout_weight="1"
                 android:id="@+id/tvDailySoldIncome"
                 android:padding="@dimen/dp8"
-                android:text=""
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="36sp"
-                android:textStyle="bold"
-                android:gravity="center"
+                android:textColor="@color/white"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
                 android:textAlignment="center"/>
             <TextView
                 android:layout_width="0dp"
@@ -39,11 +36,8 @@
                 android:layout_weight="1"
                 android:id="@+id/tvDailySoldQuantity"
                 android:padding="@dimen/dp8"
-                android:text=""
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="36sp"
-                android:textStyle="bold"
-                android:gravity="center"
+                android:textColor="@color/white"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
                 android:textAlignment="center"/>
         </LinearLayout>
         <LinearLayout
@@ -63,8 +57,7 @@
                 android:padding="@dimen/dp8"
                 android:text="@string/title_daily_sold_income"
                 android:textColor="@color/colorSecondaryText"
-                android:textSize="12sp"
-                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                 android:textAlignment="center"/>
             <TextView
                 android:id="@+id/tvDailySoldQuantityTitle"
@@ -74,8 +67,7 @@
                 android:padding="@dimen/dp8"
                 android:text="@string/title_daily_sold_quantity"
                 android:textColor="@color/colorSecondaryText"
-                android:textSize="12sp"
-                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                 android:textAlignment="center"/>
 
         </LinearLayout>
@@ -260,19 +252,13 @@
 
 
     </RelativeLayout>  -->
-
-
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:layout_gravity="center"
-        android:layout_marginStart="@dimen/dp16"
-        android:layout_marginLeft="@dimen/dp16"
-        android:layout_marginRight="@dimen/dp16"
-        android:layout_marginEnd="@dimen/dp16"
+        android:layout_margin="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/llHomePageBusiness">

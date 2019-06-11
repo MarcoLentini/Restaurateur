@@ -254,7 +254,7 @@
     <string name="title_daily_sold_quantity">Daily Sold Quantity</string>
     <string name="title_history_order">History Order</string>
     <string name="title_comments">Comments</string>
-    <string name="title_analysis">Analysis</string>
+    <string name="title_analysis">Reservations per hour</string>
     <string name="title_top_sold_dishes">TOP Sold Dishes</string>
     <string name="title_account_info">Account</string>
     <string name="contentDescription">TODO</string>

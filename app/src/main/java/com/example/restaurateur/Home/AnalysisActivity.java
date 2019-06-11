@@ -1,13 +1,9 @@
 package com.example.restaurateur.Home;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
-import com.example.restaurateur.Home.TopSold.TopSoldDishModel;
 import com.example.restaurateur.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -16,21 +12,20 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.firebase.Timestamp;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.TimeZone;
 
 public class AnalysisActivity extends AppCompatActivity {
+    private static final int WEEK = 1;
+    private static final int MONTH = 2;
     private static final int HOURS = 24;
     private static final int MINUTES = 60;
     private static final int SECONDS = 60;
-
-    private BarChart barChart;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,11 +37,13 @@ public class AnalysisActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(title);
 
-        barChart = findViewById(R.id.perHourChart);
+        BarChart lastWeekBarChart = findViewById(R.id.lastWeekBarChart);
+        BarChart lastMonthBarChart = findViewById(R.id.lastMonthBarChart);
 
         Bundle b = this.getIntent().getExtras();
         ArrayList<RestaurantStatistics> restaurantStatistics = b.getParcelableArrayList("stats");
-        setDataAndDrawChart(restaurantStatistics);
+        setDataAndDrawChart(lastWeekBarChart, aggregateByRangeHour(restaurantStatistics, WEEK));
+        setDataAndDrawChart(lastMonthBarChart, aggregateByRangeHour(restaurantStatistics, MONTH));
     }
 
     @Override
@@ -55,48 +52,43 @@ public class AnalysisActivity extends AppCompatActivity {
         return true;
     }
 
-    private ArrayList<Integer> aggregateByRangeHour(ArrayList<RestaurantStatistics> restaurantStatistics){
+    private ArrayList<Integer> aggregateByRangeHour(ArrayList<RestaurantStatistics> restaurantStatistics, int filter){
+        TimeZone tz = TimeZone.getDefault();
+        int offset = tz.getRawOffset() + tz.getDSTSavings();
         // 24 indices, one for each hour of day starting from 0 up to 23
         ArrayList<Integer> reservationsPerHour = new ArrayList<>();
         for(int i = 0; i < HOURS; i++)
             reservationsPerHour.add(i, 0);
+
+        Date refDate = Timestamp.now().toDate();
+        if(filter == WEEK)
+            refDate = getLastWeekStart();
+        else if(filter == MONTH)
+            refDate = getLastMonthStart();
         for(RestaurantStatistics rs : restaurantStatistics) {
-            int rangeHour = getRangeHourOfDay(rs.getTimestamp());
-            Integer reservations = reservationsPerHour.get(rangeHour);
-            reservations++;
-            reservationsPerHour.set(rangeHour, reservations);
+            Timestamp currentTimestamp = rs.getTimestamp();
+            if(!currentTimestamp.toDate().before(refDate)) {
+                int rangeHour = getRangeHourOfDay(currentTimestamp, offset);
+                Integer reservations = reservationsPerHour.get(rangeHour);
+                reservations++;
+                reservationsPerHour.set(rangeHour, reservations);
+            }
         }
 
         return reservationsPerHour;
-        /*HashMap<Integer, TopSoldDishModel> dailyDishTop = new HashMap<>();
-        for(RestaurantStatistics rs : restaurantStatistics){
-            int hour = rs.getTimestamp().toDate().getHours();
-            TopSoldDishModel tsdm;
-            if(dailyDishTop.containsKey(hour))
-                tsdm = dailyDishTop.get(hour);
-            else {
-                tsdm = new TopSoldDishModel(rs.getDishName(), new Long(0), null);
-                dailyDishTop.put(hour, tsdm);
-            }
-            tsdm.setMonthlySoldQuantity(tsdm.getMonthlySoldQuantity() + rs.getQty());
-        }*/
-
-        //return new ArrayList<>(dailyDishTop.values());
     }
 
 
-    // returns an Integere from 0 to 23
-    private int getRangeHourOfDay(Timestamp timestamp) {
+    // returns an Integer from 0 to 23 considering the current TimeZone(offset parameter)
+    private int getRangeHourOfDay(Timestamp timestamp, int offset) {
         Date date = timestamp.toDate();
-
-        return ((Long)((date.getTime() % (HOURS * MINUTES * SECONDS * 1000)) / (MINUTES * SECONDS * 1000))).intValue();
+        return ((Long)(((date.getTime() + offset) % (HOURS * MINUTES * SECONDS * 1000)) / (MINUTES * SECONDS * 1000))).intValue();
     }
 
-    private void setDataAndDrawChart(ArrayList<RestaurantStatistics> restaurantStatistics) {
-        ArrayList<Integer> reservationsPerHour = aggregateByRangeHour(restaurantStatistics);
+    private void setDataAndDrawChart(BarChart barChart, ArrayList<Integer> reservationsPerHour) {
         ArrayList<BarEntry> entries = new ArrayList<>();
-        for(int i = 0; i < HOURS; i++)
-            entries.add(new BarEntry(i, reservationsPerHour.get(i).floatValue()));
+        for(int i = 0; i < HOURS; i = i + 2)
+            entries.add(new BarEntry(i, (reservationsPerHour.get(i) + reservationsPerHour.get(i + 1))));
         BarDataSet dataSet = new BarDataSet(entries, null);
         // Dataset chart properties
         dataSet.setValueTextSize(12f);
@@ -132,7 +124,7 @@ public class AnalysisActivity extends AppCompatActivity {
                 if(value > 9)
                     return String.valueOf((int)value);
                 else
-                    return "0" + String.valueOf((int)value);
+                    return "0" + ((int)value);
             }
         };
         xAxis.setValueFormatter(xAxisFormatter);
@@ -145,4 +137,30 @@ public class AnalysisActivity extends AppCompatActivity {
 
         barChart.invalidate();
     }
+
+    private Date getLastWeekStart() {
+        Calendar c = Calendar.getInstance();
+        // set the calendar to start of 7th day ago
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        c.add(Calendar.DATE, -7);
+
+        return c.getTime();
+    }
+
+    private Date getLastMonthStart() {
+        Calendar c = Calendar.getInstance();
+        // set the calendar to start of 30th day ago
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        c.add(Calendar.DATE, -30);
+
+        return c.getTime();
+    }
+
+
 }
