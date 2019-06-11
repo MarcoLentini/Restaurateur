@@ -159,7 +159,7 @@
     <string name="alert_dialog_offer_remove_btn_ok">OK</string>
     <string name="alert_dialog_offer_remove_btn_cancel">CANCEL</string>
     <string name="camera_button_text">Upload</string>
-    <string name="title_daily_sold_income">Daily Sold Income €</string>
+    <string name="title_daily_sold_income">Daily Sold Income</string>
     <string name="title_daily_sold_quantity">Daily Sold Quantity</string>
     <string name="title_history_order">History Order</string>
     <string name="title_comments">Comments</string>

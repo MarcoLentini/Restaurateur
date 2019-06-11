@@ -25,6 +25,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -110,14 +111,7 @@ public class HomeMainFragment  extends Fragment {
     }
 
     public void fillWithData(){
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -1);
-        Date yesterday_d = cal.getTime();
-
-        Timestamp yesterday = new Timestamp(yesterday_d);
 
         db.collection("restaurant_statistics").whereEqualTo("restaurantID",restaurantKey).get().addOnCompleteListener(t -> {
             if(t.isSuccessful()){
@@ -142,12 +136,6 @@ public class HomeMainFragment  extends Fragment {
         });
     }
 
-    private int getDays(Date current, Date old) {
-        long difference = (current.getTime() - old.getTime()) / (24 * 60 * 60 * 1000);
-        int ret = ((Long) Math.abs(difference)).intValue();
-        return ret;
-    }
-
     public void updateDailyIncomeAndSoldQuantity(){
         for(ReservationModel reservation : MainActivity.finishedReservationsData){
             if (reservation.getRs_status().equals("DELIVERED")){
@@ -155,7 +143,9 @@ public class HomeMainFragment  extends Fragment {
                 soldIncome = soldIncome + reservation.getTotal_income();
             }
         }
-        dailySoldIncome.setText(String.valueOf(soldIncome));
+        DecimalFormat format = new DecimalFormat("0.00");
+        String formattedIncome = format.format(soldIncome);
+        dailySoldIncome.setText(formattedIncome + "€");
         dailySoldQuantity.setText(String.valueOf(soldQuantity));
         soldQuantity = 0;
         soldIncome = 0.00;

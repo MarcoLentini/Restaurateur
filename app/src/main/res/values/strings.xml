@@ -250,7 +250,7 @@
     <string name="set_timetable">Set timetable</string>
     <string name="rest_timetable_failed_update">Failed to update restaurant timetable</string>
     <string name="rest_timetable_updated">Updated restaurant timetable</string>
-    <string name="title_daily_sold_income">Daily Sold Income €</string>
+    <string name="title_daily_sold_income">Daily Sold Income</string>
     <string name="title_daily_sold_quantity">Daily Sold Quantity</string>
     <string name="title_history_order">History Order</string>
     <string name="title_comments">Comments</string>
