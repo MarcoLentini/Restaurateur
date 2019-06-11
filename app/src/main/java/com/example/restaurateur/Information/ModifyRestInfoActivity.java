@@ -337,7 +337,8 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
                     restFee = etEditInfo.getText().toString();
                     if (!restFee.equals("")) {
                         Map<String, Object> rest_fee = new HashMap<>();
-                        rest_fee.put("delivery_fee", restFee);
+                        Double inserted_fee = Double.parseDouble(restFee);
+                        rest_fee.put("delivery_fee", inserted_fee);
                         db.collection("restaurant").document(restaurantKey).update(rest_fee)
                                 .addOnSuccessListener((task -> {
                                     Intent retIntent;
