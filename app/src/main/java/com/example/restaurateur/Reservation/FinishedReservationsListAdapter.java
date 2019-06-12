@@ -136,7 +136,7 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
             //this.textViewTimestamp = itemView.findViewById(R.id.textViewRemainingTimeReservationFinished);
             this.textViewTotalIncome = itemView.findViewById(R.id.textViewTotalIncomeReservationFinished);
             this.textViewOrderedDishes = itemView.findViewById(R.id.textViewFoodReservationFinished);
-            this.textViewReservationState = itemView.findViewById(R.id.textViewStateReservationFinished);
+            this.textViewReservationState = itemView.findViewById(R.id.textViewDeliveryReservationFinished);
             this.btnRemoveReservation = itemView.findViewById(R.id.buttonRemoveReservationFinished);
         }
     }
