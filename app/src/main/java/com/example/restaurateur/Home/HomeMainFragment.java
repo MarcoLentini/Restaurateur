@@ -146,7 +146,7 @@ public class HomeMainFragment  extends Fragment {
                     for(DocumentSnapshot doc : documents){
                         if(doc.getTimestamp("timestamp").toDate().after(getToday())){
                             soldQuantity = soldQuantity +1;
-                            soldIncome = soldIncome + doc.getDouble("total_income");
+                            soldIncome = soldIncome + doc.getDouble("total_income") - doc.getDouble("delivery_fee");
                         }
                     }
                 }
