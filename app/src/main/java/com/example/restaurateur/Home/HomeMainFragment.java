@@ -59,10 +59,10 @@ public class HomeMainFragment  extends Fragment {
         restaurantStatistics = new ArrayList<>();
         fillWithData();
 
+        updateDailyIncomeAndSoldQuantity();
+
         dailySoldIncome = view.findViewById(R.id.tvDailySoldIncome);
         dailySoldQuantity = view.findViewById(R.id.tvDailySoldQuantity);
-
-        updateDailyIncomeAndSoldQuantity();
 
         FloatingActionButton fabHistoryOrder = view.findViewById(R.id.btnHistoryOrder);
         FloatingActionButton fabComments = view.findViewById(R.id.btnComments);
@@ -137,17 +137,42 @@ public class HomeMainFragment  extends Fragment {
     }
 
     public void updateDailyIncomeAndSoldQuantity(){
-        for(ReservationModel reservation : MainActivity.finishedReservationsData){
-            if (reservation.getRs_status().equals("DELIVERED")){
-                soldQuantity = soldQuantity +1;
-                soldIncome = soldIncome + reservation.getTotal_income();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("reservation").whereEqualTo("rest_id", restaurantKey).whereEqualTo("rs_status", "DELIVERED").get().addOnCompleteListener(t->{
+            if(t.isSuccessful()){
+                QuerySnapshot documents = t.getResult();
+                if(!documents.isEmpty()){
+                    for(DocumentSnapshot doc : documents){
+                        if(doc.getTimestamp("timestamp").toDate().after(getToday())){
+                            soldQuantity = soldQuantity +1;
+                            soldIncome = soldIncome + doc.getDouble("total_income");
+                        }
+                    }
+                }
             }
-        }
+        });
+//        for(RestaurantStatistics reservation : restaurantStatistics){
+//            if (reservation.getRs_status().equals("DELIVERED")){
+//
+//            }
+//        }
         DecimalFormat format = new DecimalFormat("0.00");
         String formattedIncome = format.format(soldIncome);
         dailySoldIncome.setText(formattedIncome + "€");
         dailySoldQuantity.setText(String.valueOf(soldQuantity));
         soldQuantity = 0;
         soldIncome = 0.00;
+    }
+
+    private Date getToday() {
+        Calendar c = Calendar.getInstance();
+        // set the calendar to start of today
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+
+        return c.getTime();
     }
 }
