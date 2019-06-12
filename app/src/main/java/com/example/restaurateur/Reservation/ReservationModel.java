@@ -124,7 +124,7 @@ public class ReservationModel implements Comparable<ReservationModel>, Serializa
 
     @Override
     public int compareTo(ReservationModel other) {
-        return this.timestamp.compareTo(other.getTimestamp());
+        return other.getTimestamp().compareTo(this.timestamp);
     }
 
     public String getReservation_id() {

@@ -14,8 +14,11 @@ import android.widget.TextView;
 import com.example.restaurateur.R;
 import com.example.restaurateur.Reservation.ReservationModel;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class HistoryOrdersListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -53,7 +56,7 @@ public class HistoryOrdersListAdapter extends RecyclerView.Adapter<RecyclerView.
         //TextView textViewTimestamp = historyOrdersViewHolder.textViewTimestamp;
         TextView textViewTotalIncome = historyOrdersViewHolder.textViewTotalIncome;
         TextView textViewOrderedFood = historyOrdersViewHolder.textViewOrderedDishes;
-        TextView textViewReservationState = historyOrdersViewHolder.textViewReservationState;
+        TextView textViewDeliveryTime = historyOrdersViewHolder.textViewDeliveryTime;
         Button btnRemoveReservation = historyOrdersViewHolder.btnRemoveReservation;
 
         ReservationModel tmpRM = historyOrders.get(position);
@@ -69,7 +72,10 @@ public class HistoryOrdersListAdapter extends RecyclerView.Adapter<RecyclerView.
             reservationOffer += offerName + "(" + tmpRM.getDishesArrayList().get(i).getDishQty() + ")  ";
         }
         textViewOrderedFood.setText(reservationOffer);
-        textViewReservationState.setText(tmpRM.getRs_status());
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date=tmpRM.getTimestamp().toDate();
+        textViewDeliveryTime.setText( dateFormat.format(date));
+
 
         btnRemoveReservation.setVisibility(View.GONE);
     }
@@ -84,7 +90,7 @@ public class HistoryOrdersListAdapter extends RecyclerView.Adapter<RecyclerView.
         //TextView textViewTimestamp;
         TextView textViewTotalIncome;
         TextView textViewOrderedDishes;
-        TextView textViewReservationState;
+        TextView textViewDeliveryTime;
         Button btnRemoveReservation;
         public HistoryOrdersViewHolder(View view) {
             super(view);
@@ -92,7 +98,7 @@ public class HistoryOrdersListAdapter extends RecyclerView.Adapter<RecyclerView.
             //this.textViewTimestamp = itemView.findViewById(R.id.textViewRemainingTimeReservationFinished);
             this.textViewTotalIncome = itemView.findViewById(R.id.textViewTotalIncomeReservationFinished);
             this.textViewOrderedDishes = itemView.findViewById(R.id.textViewFoodReservationFinished);
-            this.textViewReservationState = itemView.findViewById(R.id.textViewStateReservationFinished);
+            this.textViewDeliveryTime = itemView.findViewById(R.id.textViewDeliveryReservationFinished);
             this.btnRemoveReservation = itemView.findViewById(R.id.buttonRemoveReservationFinished);
         }
     }

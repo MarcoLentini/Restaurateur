@@ -110,6 +110,7 @@ public class HistoryOrdersActivity extends AppCompatActivity {
                                     dc.getDouble("dellivery_fee")
                                 );
                                 historyOrdersData.add(tmpReservationModel);
+
                         }
                         Collections.sort(historyOrdersData);
                         historyOrdersListAdapter.notifyDataSetChanged();
