@@ -36,6 +36,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -103,7 +104,10 @@ public class EditOfferActivity extends AppCompatActivity {
         etFoodName.setLines(2);
         etFoodName.setText(foodName);
         etFoodPrice = findViewById(R.id.edit_text_input_food_price_e);
-        etFoodPrice.setText(foodPrice.toString());
+        DecimalFormat format = new DecimalFormat("0.00");
+        String formattedPrice = format.format(foodPrice);
+        etFoodPrice.setText(formattedPrice);
+        //etFoodPrice.setText(foodPrice.toString());
         etFoodQuantity = findViewById(R.id.edit_text_input_food_quantity_e);
         etFoodQuantity.setText(foodQuantity.toString());
         etFoodDescription = findViewById(R.id.edit_text_input_food_description_e);
