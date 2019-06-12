@@ -1,6 +1,6 @@
 package com.example.restaurateur.Home.TopSold;
 
-public class TopSoldDishModel  {
+public class TopSoldDishModel  implements Comparable<TopSoldDishModel>{
       private String dishName;
       private Long monthlySoldQuantity;
       private String image;
@@ -29,6 +29,11 @@ public class TopSoldDishModel  {
 
     public Long getMonthlySoldQuantity() {
         return monthlySoldQuantity;
+    }
+
+    @Override
+    public int compareTo(TopSoldDishModel o) {
+        return o.getMonthlySoldQuantity().compareTo(this.monthlySoldQuantity);
     }
 
     public void setMonthlySoldQuantity(Long monthlySoldQuantity) {

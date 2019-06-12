@@ -10,6 +10,8 @@ import com.example.restaurateur.Home.RestaurantStatistics;
 import com.example.restaurateur.R;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class TopSoldDishesActivity extends AppCompatActivity {
@@ -59,8 +61,9 @@ public class TopSoldDishesActivity extends AppCompatActivity {
             }
             tsdm.setMonthlySoldQuantity(tsdm.getMonthlySoldQuantity() + rs.getQty());
         }
-
-        return new ArrayList<>(dailyDishTop.values());
+       ArrayList<TopSoldDishModel> topDishes= new ArrayList<>(dailyDishTop.values());
+        Collections.sort(topDishes);
+        return topDishes;
     }
 
 

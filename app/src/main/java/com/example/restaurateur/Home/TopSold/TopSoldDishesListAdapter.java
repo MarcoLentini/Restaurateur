@@ -43,14 +43,19 @@ public class TopSoldDishesListAdapter extends RecyclerView.Adapter {
 
         TopSoldDishModel topSoldDish = topSoldDishesData.get(position);
         if (position == 0){
-            imageViewRankingTopSold.setVisibility(View.VISIBLE);
-            imageViewRankingTopSold.setImageResource(R.drawable.ic_ranking_1st);
+            imageViewFoodPic.setImageResource(R.drawable.ic_ranking_1st);
+            //imageViewRankingTopSold.setVisibility(View.VISIBLE);
+            //imageViewRankingTopSold.setImageResource(R.drawable.ic_ranking_1st);
         }else if (position == 1){
-            imageViewRankingTopSold.setVisibility(View.VISIBLE);
-            imageViewRankingTopSold.setImageResource(R.drawable.ic_ranking_2nd);
+            //imageViewRankingTopSold.setVisibility(View.VISIBLE);
+            //imageViewRankingTopSold.setImageResource(R.drawable.ic_ranking_2nd);
+            imageViewFoodPic.setImageResource(R.drawable.ic_ranking_2nd);
+
         }else if (position == 2){
-            imageViewRankingTopSold.setVisibility(View.VISIBLE);
-            imageViewRankingTopSold.setImageResource(R.drawable.ic_ranking_3rd);
+            //imageViewRankingTopSold.setVisibility(View.VISIBLE);
+            //imageViewRankingTopSold.setImageResource(R.drawable.ic_ranking_3rd);
+            imageViewFoodPic.setImageResource(R.drawable.ic_ranking_3rd);
+
         }else  imageViewRankingTopSold.setVisibility(View.GONE);
 
         /*Uri tmpUri = Uri.parse(topSoldDish.getImage());
