@@ -48,6 +48,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ModifyRestInfoActivity extends AppCompatActivity {
+    private ProgressBar progressBarSavingChanges;
 
     private static final int PERMISSIONS_REQUEST = 100;
     private TextView tvInfoMessage;
@@ -70,6 +71,7 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_modify_rest_info);
+        progressBarSavingChanges = findViewById(R.id.progressBarSavingRestInfoChanges);
 
         SharedPreferences sharedPref = getSharedPreferences(restaurantDataFile, Context.MODE_PRIVATE);
         restaurantKey = sharedPref.getString("restaurantKey","");
@@ -160,6 +162,8 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
         });
 
         btnOk.setOnClickListener(v -> {
+            progressBarSavingChanges.setVisibility(View.VISIBLE);
+
             Intent intent;
             Bundle Bn;
             String restName,restDescr;
@@ -173,6 +177,8 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
                         rest_name.put("rest_name", restName);
                         db.collection("restaurant").document(restaurantKey).update(rest_name)
                                 .addOnSuccessListener(task -> {
+                                    progressBarSavingChanges.setVisibility(View.GONE);
+
                                     Intent retIntent;
                                     Bundle bn;
                                     Toast.makeText(ModifyRestInfoActivity.this, getString(R.string.username_updated), Toast.LENGTH_LONG).show();
@@ -185,6 +191,8 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
                                     finish();
                                 })
                                 .addOnFailureListener((task -> {
+                                    progressBarSavingChanges.setVisibility(View.GONE);
+
                                     Log.d("ModifyInfoRest", "failed update restaurant name");
 
                                     Toast.makeText(ModifyRestInfoActivity.this, getString(R.string.rest_name_failed_update), Toast.LENGTH_LONG).show();
@@ -198,6 +206,7 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
                                 getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm12.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
                         mioToast.show();
+                        progressBarSavingChanges.setVisibility(View.GONE);
 
                         etEditInfo.selectAll();
                     }
@@ -209,6 +218,8 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
                         rest_descr.put("rest_descr", restDescr);
                         db.collection("restaurant").document(restaurantKey).update(rest_descr)
                                 .addOnSuccessListener(task -> {
+                                    progressBarSavingChanges.setVisibility(View.GONE);
+
                                     Intent retIntent;
                                     Bundle bn;
                                     Toast.makeText(ModifyRestInfoActivity.this, getString(R.string.description_updated), Toast.LENGTH_LONG).show();
@@ -221,6 +232,8 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
                                     finish();
                                 })
                                 .addOnFailureListener((task -> {
+                                    progressBarSavingChanges.setVisibility(View.GONE);
+
                                     Log.d("ModifyInfoRest", "failed update restaurant description");
 
                                     Toast.makeText(ModifyRestInfoActivity.this, getString(R.string.rest_descr_failed_update), Toast.LENGTH_LONG).show();
@@ -234,6 +247,7 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
                                 getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm12.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
                         mioToast.show();
+                        progressBarSavingChanges.setVisibility(View.GONE);
 
                         etEditInfo.selectAll();
                     }
@@ -273,6 +287,8 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
 
                             db.collection("restaurant").document(restaurantKey).update(rest_address)
                                     .addOnSuccessListener((task -> {
+                                        progressBarSavingChanges.setVisibility(View.GONE);
+
                                         InputMethodManager inputManager1 = (InputMethodManager)
                                                 getSystemService(Context.INPUT_METHOD_SERVICE);
 
@@ -292,6 +308,8 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
                                         finish();
                                     }))
                                     .addOnFailureListener(task -> {
+                                        progressBarSavingChanges.setVisibility(View.GONE);
+
                                         Log.d("ModifyRestInfo", "Failed update rest address");
                                         Toast.makeText(ModifyRestInfoActivity.this, getString(R.string.address_failed_updated), Toast.LENGTH_LONG).show();
                                         etEditInfo.selectAll();
@@ -306,6 +324,7 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
                                 getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm12.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
                         mioToast.show();
+                        progressBarSavingChanges.setVisibility(View.GONE);
 
                         etEditInfo.selectAll();
                     }
@@ -317,6 +336,8 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
                         rest_phone.put("rest_phone", restPhoneNumber);
                         db.collection("restaurant").document(restaurantKey).update(rest_phone)
                                 .addOnSuccessListener((task -> {
+                                    progressBarSavingChanges.setVisibility(View.GONE);
+
                                     Intent retIntent;
                                     Bundle bn;
                                     Toast.makeText(ModifyRestInfoActivity.this, getString(R.string.phone_updated), Toast.LENGTH_LONG).show();
@@ -329,6 +350,8 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
                                     finish();
                                 }))
                                 .addOnFailureListener(task -> {
+                                    progressBarSavingChanges.setVisibility(View.GONE);
+
                                     Log.d("MOdifyRestInfo", "Failed update phone");
                                     Toast.makeText(ModifyRestInfoActivity.this, getString(R.string.phone_failed_updated), Toast.LENGTH_LONG).show();
                                     etEditInfo.selectAll();
@@ -343,6 +366,7 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
                                 getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm12.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
                         mioToast.show();
+                        progressBarSavingChanges.setVisibility(View.GONE);
 
                         etEditInfo.selectAll();
                     }
@@ -355,6 +379,8 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
                         rest_fee.put("delivery_fee", inserted_fee);
                         db.collection("restaurant").document(restaurantKey).update(rest_fee)
                                 .addOnSuccessListener((task -> {
+                                    progressBarSavingChanges.setVisibility(View.GONE);
+
                                     Intent retIntent;
                                     Bundle bn;
                                     Toast.makeText(ModifyRestInfoActivity.this, getString(R.string.fee_updated), Toast.LENGTH_LONG).show();
@@ -367,6 +393,8 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
                                     finish();
                                 }))
                                 .addOnFailureListener(task -> {
+                                    progressBarSavingChanges.setVisibility(View.GONE);
+
                                     Log.d("ModifyRestInfo", "Failed update delivery fee");
                                     Toast.makeText(ModifyRestInfoActivity.this, getString(R.string.fee_failed_updated), Toast.LENGTH_LONG).show();
                                     etEditInfo.selectAll();
@@ -381,6 +409,7 @@ public class ModifyRestInfoActivity extends AppCompatActivity {
                                 getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm12.showSoftInput(etEditInfo, InputMethodManager.SHOW_IMPLICIT);
                         mioToast.show();
+                        progressBarSavingChanges.setVisibility(View.GONE);
 
                         etEditInfo.selectAll();
                     }

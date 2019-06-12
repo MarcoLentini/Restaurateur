@@ -17,11 +17,12 @@ public class ReservationModel implements Comparable<ReservationModel>, Serializa
     private ArrayList<ReservatedDish> dishesArrayList;
     private String rs_status;
     private Double total_income;
+    private Double delivery_fee;
     private String rest_address;
 
     public ReservationModel(String reservation_id, Long rs_id, String cust_id, Timestamp timestamp, String notes,
                             String cust_phone, String cust_name, ArrayList<ReservatedDish> dishesArrayList,
-                            String rs_status, Double total_income, String rest_address) {
+                            String rs_status, Double total_income, String rest_address,Double delivery_fee) {
         this.reservation_id = reservation_id;
         this.rs_id = rs_id;
         this.cust_id = cust_id;
@@ -33,6 +34,15 @@ public class ReservationModel implements Comparable<ReservationModel>, Serializa
         this.rs_status = rs_status;
         this.total_income = total_income;
         this.rest_address = rest_address;
+        this.delivery_fee = delivery_fee;
+    }
+
+    public Double getDelivery_fee() {
+        return delivery_fee;
+    }
+
+    public void setDelivery_fee(Double delivery_fee) {
+        this.delivery_fee = delivery_fee;
     }
 
     public Long getRs_id() {
