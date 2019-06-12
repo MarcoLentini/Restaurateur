@@ -38,7 +38,7 @@ public class HistoryOrdersDetalisActivity extends AppCompatActivity {
         textViewIdReservation.setText(String.valueOf(rm.getRs_id()));
 
         TextView textViewTotalIncomeReservation = findViewById(R.id.textViewTotalIncomeReservation);
-        textViewTotalIncomeReservation.setText(String.format("%.2f",rm.getTotal_income())+"€");
+        textViewTotalIncomeReservation.setText(String.format("%.2f",(rm.getTotal_income()-rm.getDelivery_fee()))+"€");
         TextView textViewNotesReservation = findViewById(R.id.textViewNotesReservation);
         textViewNotesReservation.setText(rm.getNotes());
         TextView textViewCustomerIdReservation = findViewById(R.id.customer_name);

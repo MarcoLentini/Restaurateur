@@ -76,7 +76,7 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
         textViewOrderId.setText("" + tmpRM.getRs_id());
         //textViewTimestamp.setText("" + tmpRM.getTimestamp());
         DecimalFormat format = new DecimalFormat("0.00");
-        String formattedIncome = format.format(tmpRM.getTotal_income());
+        String formattedIncome = format.format((tmpRM.getTotal_income()-tmpRM.getDelivery_fee()));
         textViewTotalIncome.setText(formattedIncome);
 
         String reservationOffer = "";
@@ -107,13 +107,14 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
 
     public void finishedReject(int pos){
         ReservationModel tmpRM = finishedDataSet.get(pos);
-        db.collection("reservations").document(tmpRM.getReservation_id()).update("rs_status", ReservationState.STATE_STORED).addOnCompleteListener(task -> {
-            if(task.isSuccessful()) {
-                fragmentActivity.removeItemFromFinished(pos);//finishedDataSet.remove(pos);
-                notifyItemRemoved(pos);
-                notifyItemRangeChanged(pos, finishedDataSet.size());
-            }
-        });
+        fragmentActivity.removeItemFromFinished(pos);//finishedDataSet.remove(pos);
+        notifyItemRemoved(pos);
+        notifyItemRangeChanged(pos, finishedDataSet.size());
+//        db.collection("reservations").document(tmpRM.getReservation_id()).update("rs_status", ReservationState.STATE_STORED).addOnCompleteListener(task -> {
+//            if(task.isSuccessful()) {
+//
+//            }
+//        });
     }
 
     @Override

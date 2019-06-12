@@ -21,7 +21,9 @@ import com.example.restaurateur.Reservation.ReservationModel;
 import com.example.restaurateur.Reservation.ReservationState;
 import com.example.restaurateur.Reservation.ReservationsMainFragment;
 import com.example.restaurateur.Reservation.TabReservationsFinished;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.WriteBatch;
 
 import java.util.ArrayList;
 
@@ -79,12 +81,20 @@ public class ChooseBikerAdapter extends RecyclerView.Adapter<ChooseBikerAdapter.
 
         card.setOnClickListener(v->{
             ReservationModel tmpRM = MainActivity.pendingReservationsData.get(orderPosition);
-            db.collection("reservations").document(tmpRM.getReservation_id()).update(
+            DocumentReference reservation  = db.collection("reservations").document(tmpRM.getReservation_id());
+            DocumentReference biker  = db.collection("biker").document(tmpB.getBikerID());
+
+            WriteBatch batch = db.batch();
+
+            batch.update(reservation,
                     "rs_status", ReservationState.STATE_IN_PROGRESS,
                     "biker_id", tmpB.getBikerID(),
                     "biker_check", false,
                     "restaurant_distance", tmpB.getDist()
-                    ).addOnCompleteListener(task -> {
+                    );
+
+            batch.update(biker, "free", false);
+            batch.commit().addOnCompleteListener(task -> {
                 if(task.isSuccessful()){
                     dialog.dismiss();
                     main.removeItemFromPending(orderPosition);//pendingDataSet.remove(pos);

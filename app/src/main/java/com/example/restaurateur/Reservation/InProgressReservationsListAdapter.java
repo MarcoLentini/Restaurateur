@@ -74,7 +74,7 @@ public class InProgressReservationsListAdapter extends RecyclerView.Adapter<InPr
         textViewOrderId.setText("" + tmpRM.getRs_id());
         //textViewTimestamp.setText("" + tmpRM.getTimestamp());
         DecimalFormat format = new DecimalFormat("0.00");
-        String formattedIncome = format.format(tmpRM.getTotal_income());
+        String formattedIncome = format.format((tmpRM.getTotal_income()-tmpRM.getDelivery_fee()));
         textViewTotalIncome.setText(formattedIncome);
 
         String reservationOffer = "";
