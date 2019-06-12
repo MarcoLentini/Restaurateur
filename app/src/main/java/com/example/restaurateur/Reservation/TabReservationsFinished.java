@@ -44,7 +44,6 @@ public class TabReservationsFinished extends Fragment implements Updateable {
                 MainActivity.finishedReservationsData, (MainActivity)getActivity(), this, (ReservationsMainFragment)getParentFragment());
         recyclerView.setAdapter(finishedReservationsAdapter);
         sortDataAndNotify();
-        Log.d("TabResPen","onCreateView()");
 
         return view;
     }

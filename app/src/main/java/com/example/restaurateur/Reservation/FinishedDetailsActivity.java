@@ -118,9 +118,9 @@ public class FinishedDetailsActivity extends AppCompatActivity {
         finish();
     }
 
-//    @Override
-//    public boolean onSupportNavigateUp() {
-//        onBackPressed();
-//        return true;
-//    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }

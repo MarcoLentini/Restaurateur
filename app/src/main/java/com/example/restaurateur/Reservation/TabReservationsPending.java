@@ -42,7 +42,6 @@ public class TabReservationsPending extends Fragment implements Updateable{
                 (ReservationsMainFragment)getParentFragment());
         recyclerView.setAdapter(pendingReservationsAdapter);
         sortDataAndNotify();
-        Log.d("TRP", "onCreateView() chiamato");
 
         return view;
     }
@@ -63,13 +62,14 @@ public class TabReservationsPending extends Fragment implements Updateable{
 
     private void sortDataAndNotify() {
         Collections.sort(MainActivity.pendingReservationsData);
-        if(pendingReservationsAdapter != null)
+        if(pendingReservationsAdapter != null) {
             pendingReservationsAdapter.notifyDataSetChanged();
+            Log.d("PR", "sortDataAndNotify() chiamato in TabPending");
+        }
     }
 
     @Override
     public void update() {
         sortDataAndNotify();
-        Log.d("TRP", "update() chiamato");
     }
 }
