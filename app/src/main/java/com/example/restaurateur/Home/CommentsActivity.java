@@ -19,6 +19,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 
@@ -89,7 +91,8 @@ public class CommentsActivity extends AppCompatActivity {
                                 //add this current order into the arraylist
                                 Log.e(TAG, "tmpComments" + tmpComments.getCommentsId());
                                 commentsDate.add(tmpComments);
-                                commentsListAdapter.notifyDataSetChanged();
+                                 Collections.sort(commentsDate,CommentComparator);
+                            commentsListAdapter.notifyDataSetChanged();
                                 Log.d("Query comments", "get tmpComments from firebase and add successful to arraylist!"+tmpComments.getCommentsId());
                             }
                         }
@@ -102,5 +105,15 @@ public class CommentsActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+    public static Comparator<CommentModel> CommentComparator = (com1, com2) -> {
+
+        Date date1 = com1.getDate();
+        Date date2 = com2.getDate();
+
+        //ascending order
+        //return catPosition1.compareTo(catPosition2);
+        //descending order
+        return date2.compareTo(date1);
+    };
 
 }
