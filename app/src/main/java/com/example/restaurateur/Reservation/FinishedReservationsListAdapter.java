@@ -107,13 +107,14 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
 
     public void finishedReject(int pos){
         ReservationModel tmpRM = finishedDataSet.get(pos);
-        db.collection("reservations").document(tmpRM.getReservation_id()).update("rs_status", ReservationState.STATE_STORED).addOnCompleteListener(task -> {
-            if(task.isSuccessful()) {
-                fragmentActivity.removeItemFromFinished(pos);//finishedDataSet.remove(pos);
-                notifyItemRemoved(pos);
-                notifyItemRangeChanged(pos, finishedDataSet.size());
-            }
-        });
+        fragmentActivity.removeItemFromFinished(pos);//finishedDataSet.remove(pos);
+        notifyItemRemoved(pos);
+        notifyItemRangeChanged(pos, finishedDataSet.size());
+//        db.collection("reservations").document(tmpRM.getReservation_id()).update("rs_status", ReservationState.STATE_STORED).addOnCompleteListener(task -> {
+//            if(task.isSuccessful()) {
+//
+//            }
+//        });
     }
 
     @Override
