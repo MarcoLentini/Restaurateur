@@ -82,7 +82,7 @@ public class ChooseBikerAdapter extends RecyclerView.Adapter<ChooseBikerAdapter.
         card.setOnClickListener(v->{
             ReservationModel tmpRM = MainActivity.pendingReservationsData.get(orderPosition);
             DocumentReference reservation  = db.collection("reservations").document(tmpRM.getReservation_id());
-            DocumentReference biker  = db.collection("biker").document(tmpB.getBikerID());
+            DocumentReference biker  = db.collection("bikers").document(tmpB.getBikerID());
 
             WriteBatch batch = db.batch();
 

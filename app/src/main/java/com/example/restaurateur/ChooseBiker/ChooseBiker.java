@@ -66,7 +66,7 @@ public class ChooseBiker extends DialogFragment {
         mRecyclerView = new RecyclerView(getContext());
         // you can use LayoutInflater.from(getContext()).inflate(...) if you have xml layout
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ChooseBikerAdapter(getContext(),dataB.getDataB(),(MainActivity)getActivity(), pos, mainFragment,this);
+        adapter = new ChooseBikerAdapter(this.getContext(),dataB.getDataB(),(MainActivity)getActivity(), pos, mainFragment,this);
         mRecyclerView.setAdapter(adapter);
 
         return new AlertDialog.Builder(getActivity())
