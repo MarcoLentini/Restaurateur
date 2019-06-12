@@ -59,10 +59,11 @@ public class HomeMainFragment  extends Fragment {
         restaurantStatistics = new ArrayList<>();
         fillWithData();
 
-        updateDailyIncomeAndSoldQuantity();
 
         dailySoldIncome = view.findViewById(R.id.tvDailySoldIncome);
         dailySoldQuantity = view.findViewById(R.id.tvDailySoldQuantity);
+
+        updateDailyIncomeAndSoldQuantity();
 
         FloatingActionButton fabHistoryOrder = view.findViewById(R.id.btnHistoryOrder);
         FloatingActionButton fabComments = view.findViewById(R.id.btnComments);
@@ -157,6 +158,14 @@ public class HomeMainFragment  extends Fragment {
                     soldQuantity = 0;
                     soldIncome = 0.00;
                 }
+                else{
+                    DecimalFormat format = new DecimalFormat("0.00");
+                    String formattedIncome = format.format(soldIncome);
+                    dailySoldIncome.setText(formattedIncome + "€");
+                    dailySoldQuantity.setText(String.valueOf(soldQuantity));
+                    soldQuantity = 0;
+                    soldIncome = 0.00;
+            }
             }
         });
 //        for(RestaurantStatistics reservation : restaurantStatistics){
