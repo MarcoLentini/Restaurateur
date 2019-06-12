@@ -109,6 +109,7 @@ public class HistoryOrdersActivity extends AppCompatActivity {
                                     dc.getString("rest_address"),
                                     dc.getDouble("delivery_fee")
                                 );
+
                                 historyOrdersData.add(tmpReservationModel);
 
                         }
