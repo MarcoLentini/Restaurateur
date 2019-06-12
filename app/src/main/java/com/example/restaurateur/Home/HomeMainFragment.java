@@ -140,13 +140,13 @@ public class HomeMainFragment  extends Fragment {
     public void updateDailyIncomeAndSoldQuantity(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        db.collection("reservation").whereEqualTo("rest_id", restaurantKey).whereEqualTo("rs_status", "DELIVERED").get().addOnCompleteListener(t->{
+        db.collection("reservations").whereEqualTo("rest_id", restaurantKey).whereEqualTo("rs_status", "DELIVERED").get().addOnCompleteListener(t->{
             if(t.isSuccessful()){
                 QuerySnapshot documents = t.getResult();
                 if(!documents.isEmpty()){
                     for(DocumentSnapshot doc : documents){
                         if(doc.getTimestamp("timestamp").toDate().after(getToday())){
-                            soldQuantity = soldQuantity +1;
+                            soldQuantity = soldQuantity + 1;
                             soldIncome = soldIncome + doc.getDouble("total_income") - doc.getDouble("delivery_fee");
                         }
                     }
@@ -165,7 +165,7 @@ public class HomeMainFragment  extends Fragment {
                     dailySoldQuantity.setText(String.valueOf(soldQuantity));
                     soldQuantity = 0;
                     soldIncome = 0.00;
-            }
+                }
             }
         });
 //        for(RestaurantStatistics reservation : restaurantStatistics){
