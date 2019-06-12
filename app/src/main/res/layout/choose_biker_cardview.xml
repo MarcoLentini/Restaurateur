@@ -13,13 +13,20 @@
         android:layout_width="match_parent"
         android:layout_height="94dp"
         android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/biker_img_card"
-            android:layout_width="94dp"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            tools:srcCompat="@drawable/img_rest_1" />
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/biker_img_card"
+                android:layout_width="94dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                tools:srcCompat="@drawable/img_rest_1" />
+        </android.support.constraint.ConstraintLayout>
+
+
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
