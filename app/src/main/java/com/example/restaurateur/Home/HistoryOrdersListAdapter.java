@@ -72,7 +72,7 @@ public class HistoryOrdersListAdapter extends RecyclerView.Adapter<RecyclerView.
             reservationOffer += offerName + "(" + tmpRM.getDishesArrayList().get(i).getDishQty() + ")  ";
         }
         textViewOrderedFood.setText(reservationOffer);
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Date date=tmpRM.getTimestamp().toDate();
         textViewDeliveryTime.setText( dateFormat.format(date));
 
