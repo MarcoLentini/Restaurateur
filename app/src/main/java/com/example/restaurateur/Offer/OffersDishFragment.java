@@ -145,7 +145,7 @@ public class OffersDishFragment extends android.support.v4.app.Fragment {
                     category.getDishes().remove(selectedOffer);
                     dishesListAdapter.notifyItemRemoved(selectedPosition);
 
-                    Snackbar.make(view, getString(R.string.snackbar_offer_category_changed).concat(" " + finalNewCategory), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(view, getString(R.string.snackbar_offer_category_changed).concat(" " + finalNewCategory.getCategoryName()), Snackbar.LENGTH_LONG).show();
                 }).addOnFailureListener(e -> Log.w(TAG, "Transaction failure.", e));
             }
         }
