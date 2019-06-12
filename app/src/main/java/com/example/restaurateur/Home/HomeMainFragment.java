@@ -149,6 +149,13 @@ public class HomeMainFragment  extends Fragment {
                             soldIncome = soldIncome + doc.getDouble("total_income") - doc.getDouble("delivery_fee");
                         }
                     }
+
+                    DecimalFormat format = new DecimalFormat("0.00");
+                    String formattedIncome = format.format(soldIncome);
+                    dailySoldIncome.setText(formattedIncome + "€");
+                    dailySoldQuantity.setText(String.valueOf(soldQuantity));
+                    soldQuantity = 0;
+                    soldIncome = 0.00;
                 }
             }
         });
@@ -157,12 +164,7 @@ public class HomeMainFragment  extends Fragment {
 //
 //            }
 //        }
-        DecimalFormat format = new DecimalFormat("0.00");
-        String formattedIncome = format.format(soldIncome);
-        dailySoldIncome.setText(formattedIncome + "€");
-        dailySoldQuantity.setText(String.valueOf(soldQuantity));
-        soldQuantity = 0;
-        soldIncome = 0.00;
+
     }
 
     private Date getToday() {
