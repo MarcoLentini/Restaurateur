@@ -106,9 +106,11 @@ public class HistoryOrdersActivity extends AppCompatActivity {
                                     tmpArrayList,
                                     dc.getString("rs_status"),
                                     dc.getDouble("total_income"),
-                                    dc.getString("rest_address")
+                                    dc.getString("rest_address"),
+                                    dc.getDouble("dellivery_fee")
                                 );
                                 historyOrdersData.add(tmpReservationModel);
+
                         }
                         Collections.sort(historyOrdersData);
                         historyOrdersListAdapter.notifyDataSetChanged();
