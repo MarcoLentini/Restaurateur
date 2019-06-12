@@ -33,7 +33,7 @@ public class ChooseBiker extends DialogFragment {
 
     private Top3Biker dataB;
 
-    private ChooseBikerAdapter adapter;
+    public ChooseBikerAdapter adapter;
     private ReservationsMainFragment mainFragment;
 
     public static ChooseBiker newInstance(ReservationsMainFragment mainFragment, Top3Biker dataB, int pos) {
