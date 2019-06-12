@@ -68,6 +68,10 @@ public class TabReservationsPending extends Fragment implements Updateable{
         }
     }
 
+    public PendingReservationsListAdapter getAdapter(){
+        return pendingReservationsAdapter;
+    }
+
     @Override
     public void update() {
         sortDataAndNotify();
