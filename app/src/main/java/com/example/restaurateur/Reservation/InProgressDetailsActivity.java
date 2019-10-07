@@ -9,6 +9,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,21 +28,24 @@ public class InProgressDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(title);
         Intent receivedIntent = getIntent();
-        ReservationModel rm = (ReservationModel)receivedIntent.getExtras().getSerializable("reservationCardData");
+
+        Integer itemPosition = receivedIntent.getExtras().getInt("reservationCardData");
+        ReservationModel rm = MainActivity.inProgressReservationsData.get(itemPosition);
+
         TextView textViewIdReservation = findViewById(R.id.textViewIdReservation);
-        textViewIdReservation.setText(String.valueOf(rm.getId()));
-        TextView textViewRemainingTimeReservation = findViewById(R.id.textViewRemainingTimeReservation);
-        textViewRemainingTimeReservation.setText(String.valueOf(rm.getRemainingMinutes()) + " min");
+        textViewIdReservation.setText(String.valueOf(rm.getRs_id()));
+        //TextView textViewRemainingTimeReservation = findViewById(R.id.textViewRemainingTimeReservation);
+        //textViewRemainingTimeReservation.setText(String.valueOf(rm.getTimestamp()));
         TextView textViewTotalIncomeReservation = findViewById(R.id.textViewTotalIncomeReservation);
-        textViewTotalIncomeReservation.setText(String.valueOf(rm.getTotalIncome()));
+        textViewTotalIncomeReservation.setText(String.format("%.2f",(rm.getTotal_income()-rm.getDelivery_fee())) + "€");
         TextView textViewNotesReservation = findViewById(R.id.textViewNotesReservation);
         textViewNotesReservation.setText(rm.getNotes());
         TextView textViewCustomerIdReservation = findViewById(R.id.customer_name);
-        textViewCustomerIdReservation.setText(String.valueOf(rm.getCustomerId()));
+        textViewCustomerIdReservation.setText(String.valueOf(rm.getCust_name()));
         TextView textViewCustomerPhoneNumberReservation = findViewById(R.id.customer_phone_number);
-        textViewCustomerPhoneNumberReservation.setText(rm.getCustomerPhoneNumber());
+        textViewCustomerPhoneNumberReservation.setText(rm.getCust_phone());
         LinearLayout pending_order_detail_info = findViewById(R.id.pending_reservation_detail_info);
-        for(ReservatedDish rd : rm.getReservatedDishes()){
+        for(ReservatedDish rd : rm.getDishesArrayList()){
             LinearLayout ll = new LinearLayout(this);
             // 16dp
             float scale = getResources().getDisplayMetrics().density;
@@ -55,7 +59,7 @@ public class InProgressDetailsActivity extends AppCompatActivity {
             ll.setLayoutParams(params_ll);
             // Name of food
             TextView tv = new TextView(this);
-            tv.setText("▶" + MainActivity.offersData.get(rd.getDishId()).getName());
+            tv.setText("▶" + rd.getDishName());
 
             tv.setTextColor(Color.parseColor("#FF000000"));
             tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
@@ -66,7 +70,7 @@ public class InProgressDetailsActivity extends AppCompatActivity {
 
             // Quantity
             TextView tv1 = new TextView(this);
-            tv1.setText("x" + MainActivity.offersData.get(rd.getDishId()).getQuantity());
+            tv1.setText("x" + rd.getDishQty());
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 tv1.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
@@ -80,7 +84,7 @@ public class InProgressDetailsActivity extends AppCompatActivity {
 
             // Single price
             TextView tv2 = new TextView(this);
-            tv2.setText(String.format("%.2f", MainActivity.offersData.get(rd.getDishId()).getPrice()) + "€" );
+            tv2.setText(String.format("%.2f", rd.getDishPrice()) + "€" );
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 tv2.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
@@ -97,6 +101,19 @@ public class InProgressDetailsActivity extends AppCompatActivity {
             ll.addView(tv2);
             pending_order_detail_info.addView(ll);
         }
+
+        Button btnFinish = findViewById(R.id.btnAcceptOrderInProgress);
+        btnFinish.setOnClickListener(v-> returnVal(itemPosition,"Finish"));
+    }
+
+    private void returnVal(int itemPosition, String ret){
+        Intent retIntent = new Intent();
+        Bundle bn = new Bundle();
+        bn.putInt("pos", itemPosition);
+        bn.putString("result", ret);
+        retIntent.putExtras(bn);
+        setResult(RESULT_OK, retIntent);
+        finish();
     }
 
     @Override

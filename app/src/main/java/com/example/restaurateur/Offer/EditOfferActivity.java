@@ -1,20 +1,63 @@
 package com.example.restaurateur.Offer;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.restaurateur.Information.LoginActivity;
+import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.Locale;
+import java.util.UUID;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class EditOfferActivity extends AppCompatActivity {
 
-    private TextInputLayout textInputFoodName, textInputFoodCategory, textInputFoodPrice, textInputFoodQuantity, textInputFoodDescription;
-    private EditText etFoodName, etFoodCategory, etFoodPrice, etFoodQuantity, etFoodDescription;
+    private TextInputLayout textInputFoodName, textInputFoodPrice, textInputFoodQuantity, textInputFoodDescription;
+    private EditText etFoodName, etFoodPrice, etFoodQuantity, etFoodDescription;
     private Button btnCancel, btnSave;
+    private View image_button;
+    private FirebaseAuth auth;
+
+    private static final int CAMERA_REQUEST = 2;
+    private static final int GALLERY_REQUEST = 3;
+    private static final int STORAGE_PERMISSION_CODE = 4;
+    private static final int CAMERA_PERMISSION_CODE = 5;
+
+    private Uri offer_image;
+    private Uri file_image = null;
+    private static final String AuthorityFormat = "%s.fileprovider";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,34 +65,49 @@ public class EditOfferActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_dishes);
 
         Intent receivedIntent = getIntent();
-        String foodCategory = receivedIntent.getExtras().getString("foodCategory");
         String foodName = receivedIntent.getExtras().getString("foodName");
         String foodDescription = receivedIntent.getExtras().getString("foodDescription");
-        int foodId = receivedIntent.getExtras().getInt("foodId");
-        int foodImage = receivedIntent.getExtras().getInt("foodImage");
-        Integer foodQuantity = receivedIntent.getExtras().getInt("foodQuantity");
+        Integer foodId = receivedIntent.getExtras().getInt("foodId");
+        String foodImage = receivedIntent.getExtras().getString("foodImage");
+
+        auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() == null ) {
+            startActivity(new Intent(EditOfferActivity.this, LoginActivity.class));
+
+            finish();
+        }
+        offer_image = Uri.parse(foodImage);
+
+        Glide.with(this).load(offer_image).placeholder(R.drawable.dish_pic).into((ImageView) findViewById(R.id.offer_food_pic_e));
+        Long foodQuantity = receivedIntent.getExtras().getLong("foodQuantity");
         Double foodPrice = receivedIntent.getExtras().getDouble("foodPrice");
-        String foodState = receivedIntent.getExtras().getString("fooodState");
+        Boolean foodState = receivedIntent.getExtras().getBoolean("foodState");
 
         String title = getString(R.string.show_dish);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(title);
 
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        );
+        image_button = findViewById(R.id.background_img_offer_e);
+        image_button.setOnClickListener(v-> invokeDialogImageProfile() );
+
         textInputFoodName = findViewById(R.id.text_input_food_name_e);
-        textInputFoodCategory = findViewById(R.id.text_input_food_category_e);
         textInputFoodPrice = findViewById(R.id.text_input_food_price);
         textInputFoodQuantity = findViewById(R.id.text_input_food_quantity);
         textInputFoodDescription = findViewById(R.id.text_input_food_description);
 
-        etFoodCategory = findViewById(R.id.edit_text_input_food_category_e);
-        etFoodCategory.setText(foodCategory);
         etFoodName = findViewById(R.id.edit_text_input_food_name_e);
         etFoodName.setHorizontallyScrolling(false);
         etFoodName.setLines(2);
         etFoodName.setText(foodName);
         etFoodPrice = findViewById(R.id.edit_text_input_food_price_e);
-        etFoodPrice.setText(foodPrice.toString());
+        DecimalFormat format = new DecimalFormat("0.00");
+        String formattedPrice = format.format(foodPrice);
+        etFoodPrice.setText(formattedPrice);
+        //etFoodPrice.setText(foodPrice.toString());
         etFoodQuantity = findViewById(R.id.edit_text_input_food_quantity_e);
         etFoodQuantity.setText(foodQuantity.toString());
         etFoodDescription = findViewById(R.id.edit_text_input_food_description_e);
@@ -57,38 +115,28 @@ public class EditOfferActivity extends AppCompatActivity {
         etFoodDescription.setLines(3);
         etFoodDescription.setText(foodDescription);
         btnCancel = findViewById(R.id.etOfferBtnCancel_e);
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        btnCancel.setOnClickListener(v -> finish());
         btnSave = findViewById(R.id.etOfferBtnSave_e);
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(validateFoodName()) {
-                    Intent retIntent = new Intent(getApplicationContext(), OffersDishFragment.class);
-                    Bundle bn = new Bundle();
-                    bn.putInt("foodId", foodId);
-                    bn.putString("foodCategory",etFoodCategory.getText().toString());
-                    bn.putString("foodName", etFoodName.getText().toString());
-                    bn.putDouble("foodPrice", Double.parseDouble(etFoodPrice.getText().toString()));
-                    bn.putInt("foodQuantity", Integer.parseInt(etFoodQuantity.getText().toString()));
-                    bn.putString("foodDescription", etFoodDescription.getText().toString());
-                    bn.putInt("foodImage", foodImage);
-                    bn.putString("foodState", foodState);
-                    retIntent.putExtras(bn);
-                    setResult(RESULT_OK, retIntent);
-                    finish();
-                }
+        btnSave.setOnClickListener(v -> {
+            if(validateFoodName()) {
+                Intent retIntent = new Intent(getApplicationContext(), OffersDishFragment.class);
+                Bundle bn = new Bundle();
+                bn.putInt("foodId", foodId);
+                bn.putString("foodName", etFoodName.getText().toString());
+                bn.putDouble("foodPrice", Double.parseDouble(etFoodPrice.getText().toString()));
+                bn.putLong("foodQuantity", Long.parseLong(etFoodQuantity.getText().toString()));
+                bn.putString("foodDescription", etFoodDescription.getText().toString());
+                bn.putString("foodImage", foodImage);
+                bn.putBoolean("foodState", foodState);
+                retIntent.putExtras(bn);
+                setResult(RESULT_OK, retIntent);
+                finish();
             }
         });
     }
 
     private boolean validateFoodName() {
         String foodNameInput = etFoodName.getText().toString();
-        String foodCategoryInput = etFoodCategory.getText().toString();
         String foodPriceInput = etFoodPrice.getText().toString();
         String foodQuantityInput = etFoodQuantity.getText().toString();
         String foodDescriptionInput = etFoodDescription.getText().toString();
@@ -97,11 +145,6 @@ public class EditOfferActivity extends AppCompatActivity {
             return false;
         } else
             textInputFoodName.setError(null);
-        if(foodCategoryInput.isEmpty()){
-            textInputFoodCategory.setError("Field can't be empty");
-            return false;
-        } else
-            textInputFoodCategory.setError(null);
         if(foodPriceInput.isEmpty()) {
             textInputFoodPrice.setError("Field can't be empty");
             return false;
@@ -117,7 +160,10 @@ public class EditOfferActivity extends AppCompatActivity {
             return false;
         } else
             textInputFoodQuantity.setError(null);
-
+        /*if(offer_image == null) {
+            Toast.makeText(getApplicationContext(), "Insert an image or retry", Toast.LENGTH_LONG);
+            return false;
+        }*/
         return true;
     }
 
@@ -125,5 +171,212 @@ public class EditOfferActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    private void invokeDialogImageProfile(){
+        final String[] items = { getString(R.string.take_a_picture), getString(R.string.pick_from_gallery), getString(R.string.cancel_string)};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.select_photo));
+        builder.setItems(items, (d, i) -> {
+            if (items[i].equals(getString(R.string.take_a_picture))) {
+                invokeTakePicture();
+            } else if (items[i].equals(getString(R.string.pick_from_gallery))) {
+                invokeGallery();
+            } else if (items[i].equals(getString(R.string.cancel_string))) {
+                d.dismiss();
+            }
+        });
+        builder.show();
+    }
+    private void invokeTakePicture(){
+        if(hasPermission("Camera")){
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if(intent.resolveActivity(getPackageManager()) != null){
+                File photoFile = null;
+                try {
+                    photoFile = createImageFile();
+                } catch (IOException ex) {
+                    Log.e("[Camera Error]", ex.getMessage());
+                }
+
+                if(photoFile != null){
+                    String authority = String.format(Locale.getDefault(), AuthorityFormat, this.getPackageName());
+                    file_image = FileProvider.getUriForFile(this, authority, photoFile);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, file_image);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivityForResult(intent, CAMERA_REQUEST);
+                }
+            }
+        }
+    }
+    private void invokeGallery(){
+        if (hasPermission("Storage")) {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(intent, GALLERY_REQUEST);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK) {
+            if(requestCode == CAMERA_REQUEST)  {
+                uploadOnFirebase(file_image);
+            }
+            if(requestCode == GALLERY_REQUEST){
+                uploadOnFirebase(data.getData());
+            }
+        }
+    }
+
+    private void uploadOnFirebase(Uri fileUri){
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        final StorageReference photoRef = storageRef.child("photos/" + auth.getCurrentUser().getUid() + "/offers/")
+                .child(UUID.randomUUID().toString());
+
+        photoRef.putFile(fileUri).continueWithTask(task -> {
+            // Forward any exceptions
+            if (!task.isSuccessful())
+                throw task.getException();
+
+            Log.d(TAG, "uploadFromUri: upload success");
+
+            // Request the public download URL
+            return photoRef.getDownloadUrl();
+        }).addOnSuccessListener(downloadUri -> {
+            // Upload succeeded
+            Log.d(TAG, "uploadFromUri: getDownloadUri success");
+            offer_image = downloadUri;
+            Glide.with(this).load(offer_image).placeholder(R.drawable.dish_pic).into((ImageView) findViewById(R.id.offer_food_pic_e));
+            try {
+                deleteImage();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).addOnFailureListener(exception -> {
+            // Upload failed
+            Log.w(TAG, "uploadFromUri:onFailure", exception);
+        });
+    }
+
+    public void deleteImage() throws IOException {
+        File fdelete = createImageFile();
+        if (fdelete.exists()) {
+            if (fdelete.delete()) {
+                callBroadCast();
+            } else {
+            }
+        }
+    }
+
+    private void callBroadCast() {
+        if (Build.VERSION.SDK_INT >= 14) {
+            MediaScannerConnection.scanFile(this, new String[]{Environment.getExternalStorageDirectory().toString()}, null, (path, uri) -> {
+                Log.e("ExternalStorage", "Scanned " + path + ":");
+                Log.e("ExternalStorage", "-> uri=" + uri);
+            });
+        } else {
+            Log.e("-->", " < 14");
+            sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
+        }
+    }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        // progressBar.setVisibility(View.GONE);
+//    }
+
+    /** Permission Function **/
+
+    // Image profile still valid?
+    private boolean imageProfileIsValid() {
+        File img_prof = null;
+        try {
+            img_prof = createImageFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return img_prof.exists();
+    }
+    // For Image Profile -- URI
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String imageFileName = "ImageProfile";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = new File(storageDir + File.separator + imageFileName + ".jpg");
+
+        // Save a file: path for use with ACTION_VIEW intents
+        //currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    private boolean hasPermission(String perm){
+        if (Build.VERSION.SDK_INT >= 23) {
+            if(perm.equals("Storage")) {
+                if (checkPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE))
+                    return true;
+                else
+                    requestStoragePermission("Gallery");
+            } else if(perm.equals("Camera")){
+                if (checkPermission(android.Manifest.permission.CAMERA) && checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE))
+                    return true;
+                else
+                    requestCameraPermission();
+            }
+        }
+        else {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkPermission(String perm) {
+        int result = ContextCompat.checkSelfPermission(this, perm);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestStoragePermission(String type) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.perm_needed))
+                    .setMessage(getString(R.string.perm_why_1))
+                    .setPositiveButton(getString(R.string.ok_string), (dialog, which) -> ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE))
+                    .setNegativeButton(getString(R.string.cancel_string), (dialog, which) -> dialog.dismiss())
+                    .create().show();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+        }
+    }
+
+    private void requestCameraPermission(){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.perm_needed))
+                    .setMessage(getString(R.string.perm_why_2))
+                    .setPositiveButton(getString(R.string.ok_string), (dialog, which) -> ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_CODE))
+                    .setNegativeButton(getString(R.string.cancel_string), (dialog, which) -> dialog.dismiss())
+                    .create().show();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case STORAGE_PERMISSION_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    invokeGallery();
+                else
+                    Toast.makeText(this, getString(R.string.perm_denied), Toast.LENGTH_SHORT).show();
+                break;
+            case CAMERA_PERMISSION_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    invokeTakePicture();
+                else
+                    Toast.makeText(this, getString(R.string.perm_denied), Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.media.MediaScannerConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,20 +24,30 @@ import android.widget.TextView;
 import android.net.Uri;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.restaurateur.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class UserInformationActivity extends AppCompatActivity {
 
     private TextView tvUserName;
     private TextView tvUserEmail;
     private TextView tvUserPhoneNumber;
-    private TextView tvUserDescription;
-    private TextView tvViewMore;
+    private TextView tvUserPassword;
+    private TextView btnSignOut;
 
     private ImageView imageProfile;
     private Uri uriSelectedImage;
@@ -44,11 +55,13 @@ public class UserInformationActivity extends AppCompatActivity {
     private String userName;
     private String userEmail;
     private String userPhoneNumber;
-    private String userDescription;
 
     private SharedPreferences sharedPref;
-    private static final String userFile = "UserDataFile";
+    private static final String restaurantFile = "RestaurantDataFile";
 
+    private Uri user_image = null;
+    private Uri file_image = null;
+    private UserInformationModel userInfo;
     private static final int SECOND_ACTIVITY = 1;
     private static final int CAMERA_REQUEST = 2;
     private static final int GALLERY_REQUEST = 3;
@@ -56,132 +69,144 @@ public class UserInformationActivity extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_CODE = 5;
     private static final String AuthorityFormat = "%s.fileprovider";
 
+    private FirebaseFirestore db;
+    private String restaurantKey;
+    private static final String RestaurantDataFile = "RestaurantDataFile";
+    private FirebaseAuth auth;
     private int[] placeholders = {  R.drawable.img_rest_1, R.drawable.img_rest_2, R.drawable.img_rest_3, R.drawable.img_rest_4 };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_information_activity);
 
-        String title = getString(R.string.InfoTitle);
+        String title = getString(R.string.title_account_info);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(title);
 
-        // Image Profile
-        imageProfile = findViewById(R.id.img_profile);
-        imageProfile.setImageResource(placeholders[(int)(Math.random()*placeholders.length)]);
-        ImageView imageAddButton = findViewById(R.id.background_img);
-        imageAddButton.setOnClickListener(v -> {
-            invokeDialogImageProfile();
-        });
+        SharedPreferences sharedPref = getSharedPreferences(RestaurantDataFile, Context.MODE_PRIVATE);
+        restaurantKey = sharedPref.getString("restaurantKey","");
 
-        tvViewMore = findViewById(R.id.textViewMoreInfo);
-        tvViewMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               more_info_page(v);
-            }
-        });
+        //Get Firebase auth instance
+        auth = FirebaseAuth.getInstance();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        tvUserName = findViewById(R.id.textViewUserName);
-        tvUserName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    String idField = getString(R.string.name_field_id);
-                    invokeModifyInfoActivity(idField, userName);
-            }
-        });
-
-        tvUserEmail = findViewById(R.id.textViewUserEmail);
-        tvUserEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String idField = getString(R.string.email_field_id);
-                invokeModifyInfoActivity(idField,userEmail);
-            }
-        });
-
-        tvUserPhoneNumber = findViewById(R.id.textViewUserPhoneNumber);
-        tvUserPhoneNumber.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String idField = getString(R.string.phone_number__field_id);
-                invokeModifyInfoActivity(idField,userPhoneNumber);
-            }
-        });
-
-        tvUserDescription = findViewById(R.id.textViewUserDescription);
-        tvUserDescription.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String idField = getString(R.string.description_field_id);
-                invokeModifyInfoActivity(idField,userDescription);
-            }
-        });
-
-        imageProfile = findViewById(R.id.img_profile);
-        sharedPref =getSharedPreferences(userFile, Context.MODE_PRIVATE);
-        userName = sharedPref.getString("userName","");
-        if (!userName.equals(""))
-            tvUserName.setText(userName);
-
-        userEmail =sharedPref.getString("userEmail","");
-        if (!userEmail.equals(""))
-            tvUserEmail.setText(userEmail);
-
-        userPhoneNumber =sharedPref.getString("userPhoneNumber","");
-        if (!userPhoneNumber.equals(""))
-            tvUserPhoneNumber.setText(userPhoneNumber);
-
-        userDescription =sharedPref.getString("userDescription","");
-        if (!userDescription.equals(""))
-            tvUserDescription.setText(userDescription);
-
-        uriSelectedImage = Uri.parse(sharedPref.getString("userImage", ""));
-        if(!uriSelectedImage.toString().equals("")) {
-            imageProfile.setImageURI(uriSelectedImage);
-            if(imageProfile.getDrawable() == null)
-                imageProfile.setImageResource(placeholders[(int)(Math.random()*placeholders.length)]);
+        if (user == null || restaurantKey.equals("")) {
+            finish();
         }
+        setContentView(R.layout.waiting_view);
+
+        //Get Firestore instance
+        db = FirebaseFirestore.getInstance();
+
+        db.collection("users").document(auth.getCurrentUser().getUid()).get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot doc = task.getResult();
+                        if (doc.exists()) {
+                            if(doc.get("image_url")!=null){
+                            userInfo= new UserInformationModel(
+                                     doc.getString("username"),
+                                     doc.getString("email"),
+                                     doc.getString("phone"),
+                                    Uri.parse(doc.getString("image_url"))
+                            );
+                            }else{
+                                userInfo= new UserInformationModel(
+                                         doc.getString("username"),
+                                         doc.getString("email"),
+                                         doc.getString("phone"));
+                            }
+
+                            setContentView(R.layout.user_information_activity);
+
+                            // Image Profile
+                            imageProfile = findViewById(R.id.img_profile);
+                            ImageView imageAddButton = findViewById(R.id.background_img);
+                            imageAddButton.setOnClickListener(v -> {
+                                invokeDialogImageProfile();
+                            });
+
+
+
+                            tvUserName = findViewById(R.id.textViewUserName);
+                            tvUserName.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    String idField = getString(R.string.name_field_id);
+                                    invokeModifyInfoActivity(idField, userName);
+                                }
+                            });
+
+                            tvUserEmail = findViewById(R.id.textViewUserEmail);
+                            tvUserEmail.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    String idField = getString(R.string.email_field_id);
+                                    invokeModifyInfoActivity(idField,userEmail);
+                                }
+                            });
+
+                            tvUserPhoneNumber = findViewById(R.id.textViewUserPhoneNumber);
+                            tvUserPhoneNumber.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    String idField = getString(R.string.phone_number__field_id);
+                                    invokeModifyInfoActivity(idField,userPhoneNumber);
+                                }
+                            });
+
+                            tvUserPassword = findViewById(R.id.textViewChangePassword);
+                            tvUserPassword.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(getApplicationContext(), ModifyInfoActivity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("field", "user_password");
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                }
+                            });
+
+                            btnSignOut=findViewById(R.id.textViewLogOut);
+                            btnSignOut.setOnClickListener(v -> signOut());
+
+                            imageProfile = findViewById(R.id.img_profile);
+                            if(userInfo!=null) {
+                                userName = userInfo.getName();
+                                if (!userName.equals(""))
+                                    tvUserName.setText(userName);
+                                userEmail = userInfo.getMail();
+                                if (!userEmail.equals(""))
+                                    tvUserEmail.setText(userEmail);
+                                userPhoneNumber = userInfo.getPhone();
+                                if (!userPhoneNumber.equals(""))
+                                    tvUserPhoneNumber.setText(userPhoneNumber);
+
+                                uriSelectedImage = userInfo.getImage();
+                                if(uriSelectedImage!=null) {
+                                    Glide.with(this).load(uriSelectedImage).placeholder(R.drawable.img_rest_1).into((ImageView) findViewById(R.id.img_profile));
+                                    try {
+                                        deleteImage();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+
+                        } else {
+                            Log.d("QueryReservation", "No such document");
+                        }
+                    } else {
+                        Log.d("QueryReservation", "get failed with ", task.getException());
+                    }
+                });
     }
 
-    /** Invoke Intent **/
 
-    // Open dialog to choose if take a selfie or pick a photo on gallery
-    private void invokeDialogImageProfile(){
-        final String[] items = { getString(R.string.take_a_picture), getString(R.string.pick_from_gallery), getString(R.string.cancel_string)};
-        AlertDialog.Builder builder = new AlertDialog.Builder(UserInformationActivity.this);
-        builder.setTitle(getString(R.string.select_photo));
-        builder.setItems(items, (d, i) -> {
-            if (items[i].equals(getString(R.string.take_a_picture))) {
-                invokeTakePicture();
-            } else if (items[i].equals(getString(R.string.pick_from_gallery))) {
-                invokeGallery();
-            } else if (items[i].equals(getString(R.string.cancel_string))) {
-                d.dismiss();
-            }
-        });
-        builder.show();
-    }
-    private void invokeTakePicture(){
-        if(hasPermission("Camera")){
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            uriSelectedImage = setUriForImage(getApplicationContext());
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, uriSelectedImage);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivityForResult(intent, CAMERA_REQUEST);
-        }
-    }
-    private void invokeGallery(){
-        if (hasPermission("Storage")) {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, GALLERY_REQUEST);
-        }
-    }
 
     private void more_info_page(View view){
-        Intent intent = new Intent(this, ViewMoreInfoActivity.class);
+        Intent intent = new Intent(this, RestInformationActivity.class);
         startActivityForResult(intent, 1);
     }
 
@@ -199,78 +224,168 @@ public class UserInformationActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        if(resultCode == RESULT_OK) {
+         if(resultCode == RESULT_OK) {
             if(requestCode == SECOND_ACTIVITY) {
                 switch (data.getExtras().getString("field")) {
                     case "user_name":
                         userName = data.getExtras().getString("value");
-                        if(!userName.equals("")) {
-                            editor.putString("userName", userName);
-                            editor.commit();
+                        if (!userName.equals("")) {
+                            userInfo.setName(userName);
                             tvUserName.setText(userName);
                         }
                         break;
                     case "user_email":
                         userEmail = data.getExtras().getString("value");
-                        if(!userEmail.equals("")) {
-                            editor.putString("userEmail", userEmail);
-                            editor.commit();
+                        if (!userEmail.equals("")) {
+                            userInfo.setMail(userEmail);
                             tvUserEmail.setText(userEmail);
                         }
                         break;
                     case "user_phone_number":
-                        userPhoneNumber = data.getExtras().getString("value");
-                        if(!userPhoneNumber.equals("")) {
-                            editor.putString("userPhoneNumber", userPhoneNumber);
-                            editor.commit();
-                            tvUserPhoneNumber.setText(userPhoneNumber);
-                        }
+                    userPhoneNumber = data.getExtras().getString("value");
+                    if (!userPhoneNumber.equals("")) {
+                        userInfo.setPhone(userPhoneNumber);
+                        tvUserPhoneNumber.setText(userPhoneNumber);
+                    }
                         break;
-                    case "user_description":
-                        userDescription = data.getExtras().getString("value");
-                        if(!userDescription.equals("")) {
-                            editor.putString("userDescription", userDescription);
-                            editor.commit();
-                            tvUserDescription.setText(userDescription);
-                        }
-                        break;
+
                 }
             } else if(requestCode == CAMERA_REQUEST) {
-                editor.putString("userImage", uriSelectedImage.toString());
-                editor.commit();
-                imageProfile.setImageURI(uriSelectedImage);
+                uploadOnFirebase(file_image);
             } else if(requestCode == GALLERY_REQUEST) {
-                uriSelectedImage = data.getData();
-                editor.putString("userImage", uriSelectedImage.toString());
-                editor.commit();
-                imageProfile.setImageURI(uriSelectedImage);
+                uploadOnFirebase(data.getData());
             }
         }
     }
 
-    /** On Resume **/
+    private void invokeDialogImageProfile(){
+        final String[] items = { getString(R.string.take_a_picture), getString(R.string.pick_from_gallery), getString(R.string.cancel_string)};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.select_photo));
+        builder.setItems(items, (d, i) -> {
+            if (items[i].equals(getString(R.string.take_a_picture))) {
+                invokeTakePicture();
+            } else if (items[i].equals(getString(R.string.pick_from_gallery))) {
+                invokeGallery();
+            } else if (items[i].equals(getString(R.string.cancel_string))) {
+                d.dismiss();
+            }
+        });
+        builder.show();
+    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(uriSelectedImage == null || uriSelectedImage.toString().equals(""))
-            imageProfile.setImageResource(placeholders[(int)(Math.random()*placeholders.length)]);
-        else {
-            imageProfile.setImageURI(uriSelectedImage);
-            if(imageProfile.getDrawable() == null)
-                imageProfile.setImageResource(placeholders[(int)(Math.random()*placeholders.length)]);
+    private void invokeTakePicture(){
+        if(hasPermission("Camera")){
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if(intent.resolveActivity(getPackageManager()) != null){
+                File photoFile = null;
+                try {
+                    photoFile = createImageFile();
+                } catch (IOException ex) {
+                    Log.e("[Camera Error]", ex.getMessage());
+                }
+
+                if(photoFile != null){
+                    String authority = String.format(Locale.getDefault(), AuthorityFormat, this.getPackageName());
+                    file_image = FileProvider.getUriForFile(this, authority, photoFile);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, file_image);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivityForResult(intent, CAMERA_REQUEST);
+                }
+            }
         }
     }
 
-    /** onSupportNavigateUp **/
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
+    private void invokeGallery(){
+        if (hasPermission("Storage")) {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(intent, GALLERY_REQUEST);
+        }
     }
 
+
+    private void uploadOnFirebase(Uri fileUri){
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        final StorageReference photoRef = storageRef.child("photos/" + auth.getCurrentUser().getUid())
+                .child("UserImage.jpg");
+
+        photoRef.putFile(fileUri).continueWithTask(task -> {
+            // Forward any exceptions
+            if (!task.isSuccessful())
+                throw task.getException();
+
+            Log.d(TAG, "uploadFromUri: upload success");
+
+            // Request the public download URL
+            return photoRef.getDownloadUrl();
+        }).addOnSuccessListener(downloadUri -> {
+            // Upload succeeded
+            Log.d(TAG, "uploadFromUri: getDownloadUri success");
+            user_image = downloadUri;
+            Glide.with(this).load(user_image).placeholder(R.drawable.img_rest_1).into((ImageView) findViewById(R.id.img_profile));
+            try {
+                deleteImage();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Map<String, Object> user_im = new HashMap<>();
+            user_im.put("image_url", user_image.toString());
+            userInfo.setImage(user_image);
+            db.collection("users").document(auth.getCurrentUser().getUid()).update(user_im);
+
+        }).addOnFailureListener(exception -> {
+            // Upload failed
+            Log.w(TAG, "uploadFromUri:onFailure", exception);
+        });
+    }
+
+    public void deleteImage() throws IOException {
+        File fdelete = createImageFile();
+        if (fdelete.exists()) {
+            if (fdelete.delete()) {
+                callBroadCast();
+            } else {
+            }
+        }
+    }
+
+    private void callBroadCast() {
+        if (Build.VERSION.SDK_INT >= 14) {
+            MediaScannerConnection.scanFile(this, new String[]{Environment.getExternalStorageDirectory().toString()}, null, (path, uri) -> {
+                Log.e("ExternalStorage", "Scanned " + path + ":");
+                Log.e("ExternalStorage", "-> uri=" + uri);
+            });
+        } else {
+            Log.e("-->", " < 14");
+            sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
+        }
+    }
+
+
     /** Permission Function **/
+
+    // Image profile still valid?
+    private boolean imageProfileIsValid() {
+        File img_prof = null;
+        try {
+            img_prof = createImageFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return img_prof.exists();
+    }
+    // For Image Profile -- URI
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String imageFileName = "UserImage";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = new File(storageDir + File.separator + imageFileName + ".jpg");
+
+        // Save a file: path for use with ACTION_VIEW intents
+        //currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
 
     private boolean hasPermission(String perm){
         if (Build.VERSION.SDK_INT >= 23) {
@@ -293,7 +408,7 @@ public class UserInformationActivity extends AppCompatActivity {
     }
 
     private boolean checkPermission(String perm) {
-        int result = ContextCompat.checkSelfPermission(UserInformationActivity.this, perm);
+        int result = ContextCompat.checkSelfPermission(this, perm);
         return result == PackageManager.PERMISSION_GRANTED;
     }
 
@@ -302,7 +417,7 @@ public class UserInformationActivity extends AppCompatActivity {
             new AlertDialog.Builder(this)
                     .setTitle(getString(R.string.perm_needed))
                     .setMessage(getString(R.string.perm_why_1))
-                    .setPositiveButton(getString(R.string.ok_string), (dialog, which) -> ActivityCompat.requestPermissions(UserInformationActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE))
+                    .setPositiveButton(getString(R.string.ok_string), (dialog, which) -> ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE))
                     .setNegativeButton(getString(R.string.cancel_string), (dialog, which) -> dialog.dismiss())
                     .create().show();
         } else {
@@ -315,7 +430,7 @@ public class UserInformationActivity extends AppCompatActivity {
             new AlertDialog.Builder(this)
                     .setTitle(getString(R.string.perm_needed))
                     .setMessage(getString(R.string.perm_why_2))
-                    .setPositiveButton(getString(R.string.ok_string), (dialog, which) -> ActivityCompat.requestPermissions(UserInformationActivity.this, new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_CODE))
+                    .setPositiveButton(getString(R.string.ok_string), (dialog, which) -> ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_PERMISSION_CODE))
                     .setNegativeButton(getString(R.string.cancel_string), (dialog, which) -> dialog.dismiss())
                     .create().show();
         } else {
@@ -339,26 +454,36 @@ public class UserInformationActivity extends AppCompatActivity {
                     Toast.makeText(this, getString(R.string.perm_denied), Toast.LENGTH_SHORT).show();
                 break;
         }
+
+
     }
 
-    /** Helper Function **/
-
-    // For Image Profile -- URI
-    private static Uri setUriForImage(Context context) {
-        String authority = String.format(Locale.getDefault(), AuthorityFormat, context.getPackageName());
-        return FileProvider.getUriForFile(context, authority, getStoragePathForFile());
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
-    private static File getStoragePathForFile(){
-        String timeStamp =  new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        String imageFileName = "IMG_" + timeStamp + ".jpg";
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+    //sign out method
+    public void signOut() {
+        auth.signOut();
+        SharedPreferences sharedPref = getSharedPreferences(RestaurantDataFile, Context.MODE_PRIVATE);
+        sharedPref.edit().remove("restaurantKey").apply();
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        finish();
 
-        if(!storageDir.exists())
-            if(!storageDir.mkdirs()) {
-                Log.e("IMAGE PROFILE", "Error image photo!");
-                return null;
-            }
-        return new File(storageDir.getPath() + File.separator + imageFileName);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (auth.getCurrentUser() == null || restaurantKey.equals("")) {
+
+            finish();
+
+        }
+    }
+
+
+
 }

@@ -17,7 +17,9 @@ import android.widget.TextView;
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.Offer.OfferModel;
 import com.example.restaurateur.R;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -27,15 +29,20 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
     private MainActivity fragmentActivity;
     private ArrayList<ReservationModel> finishedDataSet;
     private LayoutInflater mInflater;
-    private HashMap<Integer, OfferModel> offersData;
+    private ReservationsMainFragment mainFragment;
+    private TabReservationsFinished tabFrag;
+    private FirebaseFirestore db;
+
 
     public FinishedReservationsListAdapter(Context context, ArrayList<ReservationModel> finishedData,
-                                           HashMap<Integer, OfferModel> offersData, MainActivity fragmentActivity) {
+                                           MainActivity fragmentActivity,  TabReservationsFinished tabFrag, ReservationsMainFragment mainFragment) {
         this.context = context;
         this.fragmentActivity = fragmentActivity;
         this.mInflater = LayoutInflater.from(context);
         this.finishedDataSet = finishedData;
-        this.offersData = offersData;
+        this.tabFrag = tabFrag;
+        this.mainFragment = mainFragment;
+        this.db = FirebaseFirestore.getInstance();
     }
 
     @NonNull
@@ -44,18 +51,14 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
         View view = mInflater.inflate(R.layout.finished_reservation_cardview, parent, false);
 
         FinishedReservationViewHolder holder = new FinishedReservationViewHolder(view);
-        view.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent myIntent = new Intent(fragmentActivity, FinishedDetailsActivity.class);
-               int itemPosition = holder.getAdapterPosition();
-               ReservationModel selectedRm = finishedDataSet.get(itemPosition);
-               Bundle bn = new Bundle();
-               bn.putSerializable("reservationCardData", selectedRm);
-               myIntent.putExtras(bn);
-               fragmentActivity.startActivity(myIntent);
-            }
-        });
+        view.setOnClickListener(v -> {
+            Intent myIntent = new Intent(mainFragment.getContext(), FinishedDetailsActivity.class);
+            int itemPosition = holder.getAdapterPosition();
+            Bundle bn = new Bundle();
+            bn.putInt("reservationCardData", itemPosition);
+            myIntent.putExtras(bn);
+            mainFragment.startActivityForResult(myIntent, tabFrag.FINISHED_REQ);
+         });
 
         return holder;
     }
@@ -63,65 +66,55 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
     @Override
     public void onBindViewHolder(@NonNull FinishedReservationViewHolder finishedReservationViewHolder, int position) {
         TextView textViewOrderId = finishedReservationViewHolder.textViewReservationId;
-        TextView textViewRemainingTime = finishedReservationViewHolder.textViewRemainingTime;
+        //TextView textViewTimestamp = finishedReservationViewHolder.textViewTimestamp;
         TextView textViewTotalIncome = finishedReservationViewHolder.textViewTotalIncome;
         TextView textViewOrderedFood = finishedReservationViewHolder.textViewOrderedDishes;
         TextView textViewReservationState = finishedReservationViewHolder.textViewReservationState;
-        Button btnResumeReservation = finishedReservationViewHolder.btnResumeReservation;
         Button btnRemoveReservation = finishedReservationViewHolder.btnRemoveReservation;
 
         ReservationModel tmpRM = finishedDataSet.get(position);
-        textViewOrderId.setText("" + tmpRM.getId());
-        textViewRemainingTime.setText("" + tmpRM.getRemainingMinutes() + " min");
-        textViewTotalIncome.setText("" + tmpRM.getTotalIncome());
+        textViewOrderId.setText("" + tmpRM.getRs_id());
+        //textViewTimestamp.setText("" + tmpRM.getTimestamp());
+        DecimalFormat format = new DecimalFormat("0.00");
+        String formattedIncome = format.format((tmpRM.getTotal_income()-tmpRM.getDelivery_fee()));
+        textViewTotalIncome.setText(formattedIncome);
+
         String reservationOffer = "";
-        for (int i = 0; i < tmpRM.getReservatedDishes().size(); i++) {
-            String offerName = offersData.get(tmpRM.getReservatedDishes().get(i).getDishId()).getName();
-            reservationOffer += offerName + "(" + tmpRM.getReservatedDishes().get(i).getDishMultiplier() + ")  ";
+        for (int i = 0; i < tmpRM.getDishesArrayList().size(); i++) {
+            String offerName = tmpRM.getDishesArrayList().get(i).getDishName();
+            reservationOffer += offerName + "(" + tmpRM.getDishesArrayList().get(i).getDishQty() + ")  ";
         }
         textViewOrderedFood.setText(reservationOffer);
-        textViewReservationState.setText(tmpRM.getState());
-        btnResumeReservation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos = finishedReservationViewHolder.getAdapterPosition();
+        textViewReservationState.setText(tmpRM.getRs_status());
+        btnRemoveReservation.setOnClickListener(v -> {
+            int pos = finishedReservationViewHolder.getAdapterPosition();
+            finishedReject(pos);
+        });
+    }
+
+    public void finishedResume(int pos){
+        ReservationModel tmpRM = finishedDataSet.get(pos);
+        db.collection("reservations").document(tmpRM.getReservation_id()).update("rs_status", ReservationState.STATE_IN_PROGRESS).addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
                 fragmentActivity.removeItemFromFinished(pos);//finishedDataSet.remove(pos);
                 notifyItemRemoved(pos);
                 notifyItemRangeChanged(pos, finishedDataSet.size());
-                tmpRM.setState(ReservationState.STATE_IN_PROGRESS);
+                tmpRM.setRs_status(ReservationState.STATE_IN_PROGRESS);
                 fragmentActivity.addItemToInProgress(tmpRM);//inProgressDataSet.add(tmpRM);
             }
         });
-        btnRemoveReservation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int pos = finishedReservationViewHolder.getAdapterPosition();
-                fragmentActivity.removeItemFromFinished(pos);//finishedDataSet.remove(pos);
-                notifyItemRemoved(pos);
-                notifyItemRangeChanged(pos, finishedDataSet.size());
-                // TODO probably we will need to save on the history database
-            }
-        });
+    }
 
-        /*finishedReservationViewHolder.itemView.setOnClickListener(v -> {
-            FinishedDetailsFragment finishedDetailsFragment = FinishedDetailsFragment.newInstance(tmpRM, position);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                finishedDetailsFragment.setSharedElementEnterTransition(new DetailsTransition());
-                finishedDetailsFragment.setEnterTransition(new Fade());
-                finishedDetailsFragment.setExitTransition(new Fade());
-                finishedDetailsFragment.setSharedElementReturnTransition(new DetailsTransition());
-            }
-
-            ViewCompat.setTransitionName(textViewOrderedFood,"lessDetailsFinish");
-            fragmentActivity.getSupportFragmentManager()
-                    .beginTransaction()
-                    .addSharedElement(textViewOrderedFood,
-                            "seeDetailsFinish")
-                    .replace(R.id.frame_container_main, finishedDetailsFragment)
-                    .addToBackStack(null)
-                    .commit();
-        });*/
+    public void finishedReject(int pos){
+        ReservationModel tmpRM = finishedDataSet.get(pos);
+        fragmentActivity.removeItemFromFinished(pos);//finishedDataSet.remove(pos);
+        notifyItemRemoved(pos);
+        notifyItemRangeChanged(pos, finishedDataSet.size());
+//        db.collection("reservations").document(tmpRM.getReservation_id()).update("rs_status", ReservationState.STATE_STORED).addOnCompleteListener(task -> {
+//            if(task.isSuccessful()) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -131,21 +124,19 @@ public class FinishedReservationsListAdapter extends RecyclerView.Adapter<Finish
 
     static class FinishedReservationViewHolder extends RecyclerView.ViewHolder {
         TextView textViewReservationId;
-        TextView textViewRemainingTime;
+        //TextView textViewTimestamp;
         TextView textViewTotalIncome;
         TextView textViewOrderedDishes;
         TextView textViewReservationState;
-        Button btnResumeReservation;
         Button btnRemoveReservation;
 
         FinishedReservationViewHolder(View itemView) {
             super(itemView);
             this.textViewReservationId = itemView.findViewById(R.id.textViewOrderIdReservationFinished);
-            this.textViewRemainingTime = itemView.findViewById(R.id.textViewRemainingTimeReservationFinished);
+            //this.textViewTimestamp = itemView.findViewById(R.id.textViewRemainingTimeReservationFinished);
             this.textViewTotalIncome = itemView.findViewById(R.id.textViewTotalIncomeReservationFinished);
             this.textViewOrderedDishes = itemView.findViewById(R.id.textViewFoodReservationFinished);
-            this.textViewReservationState = itemView.findViewById(R.id.textViewStateReservationFinished);
-            this.btnResumeReservation = itemView.findViewById(R.id.buttonResumeReservationFinished);
+            this.textViewReservationState = itemView.findViewById(R.id.textViewDeliveryReservationFinished);
             this.btnRemoveReservation = itemView.findViewById(R.id.buttonRemoveReservationFinished);
         }
     }

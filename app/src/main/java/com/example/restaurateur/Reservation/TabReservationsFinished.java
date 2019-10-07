@@ -1,11 +1,13 @@
 package com.example.restaurateur.Reservation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +17,15 @@ import com.example.restaurateur.MainActivity;
 
 import java.util.Collections;
 
-public class TabReservationsFinished extends Fragment {
+import static android.app.Activity.RESULT_OK;
+
+public class TabReservationsFinished extends Fragment implements Updateable {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter finishedReservationsAdapter;
+    private FinishedReservationsListAdapter finishedReservationsAdapter;
+    public static final int FINISHED_REQ = 57;
+
 
     @Nullable
     @Override
@@ -34,16 +40,37 @@ public class TabReservationsFinished extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
-        finishedReservationsAdapter = new FinishedReservationsListAdapter(getContext(), MainActivity.finishedReservationsData,
-                MainActivity.offersData, (MainActivity)getActivity());
+        finishedReservationsAdapter = new FinishedReservationsListAdapter(getContext(),
+                MainActivity.finishedReservationsData, (MainActivity)getActivity(), this, (ReservationsMainFragment)getParentFragment());
         recyclerView.setAdapter(finishedReservationsAdapter);
+        sortDataAndNotify();
 
         return view;
     }
 
-    public void sortDataAndNotify() {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK){
+            if(requestCode == FINISHED_REQ){
+                int pos = data.getExtras().getInt("pos");
+                if(data.getExtras().getString("result").equals("Resume")){
+                    finishedReservationsAdapter.finishedResume(pos);
+                } else {
+                    finishedReservationsAdapter.finishedReject(pos);
+                }
+            }
+        }
+    }
+
+    private void sortDataAndNotify() {
         Collections.sort(MainActivity.finishedReservationsData);
-        finishedReservationsAdapter.notifyDataSetChanged();
+        if(finishedReservationsAdapter != null)
+            finishedReservationsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void update() {
+        sortDataAndNotify();
     }
 }
 

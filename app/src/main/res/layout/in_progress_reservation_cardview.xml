@@ -33,18 +33,6 @@
                 android:textColor="@color/colorPrimaryDark" />
 
             <TextView
-                android:id="@+id/textViewRemainingTimeReservationInProgress"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableStart="@drawable/ic_hourglass"
-                android:drawableLeft="@drawable/ic_hourglass"
-                android:drawablePadding="4dp"
-                android:gravity="center_vertical"
-                android:textColor="@color/colorPrimaryDark"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-
-            <TextView
                 android:id="@+id/textViewStateReservationInProgress"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -113,12 +101,12 @@
                 android:text="@string/button_reservation_finish"
                 android:textColor="@color/colorSecondaryText"
                 android:theme="@style/PrimaryFlatButton" />
-            <Button
-                android:id="@+id/buttonRemoveReservationInProgress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_reservation_reject"
-                android:theme="@style/PrimaryFlatButton"/>
+            <!--<Button-->
+                <!--android:id="@+id/buttonRemoveReservationInProgress"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/button_reservation_reject"-->
+                <!--android:theme="@style/PrimaryFlatButton"/>-->
         </LinearLayout>
     </LinearLayout>
 

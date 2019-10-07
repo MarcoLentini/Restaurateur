@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.restaurateur.Information.SignupActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+        <LinearLayout
+            android:id="@+id/regrestinfo"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <RelativeLayout
+                android:id="@+id/linearLayoutOffer"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <RelativeLayout
+                    android:id="@+id/restaurant_image1"
+                    android:layout_width="@dimen/toolbar_profile_width"
+                    android:layout_height="@dimen/toolbar_profile_width"
+                    android:background="@color/colorPrimaryDark"
+                    > <!-- border width -->
+
+                    <ImageView
+                        android:id="@+id/restaurant_image"
+                        android:layout_width="@dimen/toolbar_profile_width"
+                        android:layout_height="@dimen/toolbar_profile_width"
+                        android:src="@drawable/img_rest_1"
+
+
+                        />
+                </RelativeLayout>
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/background_img_rest"
+                    android:layout_width="48sp"
+                    android:layout_height="48sp"
+                    android:layout_alignBottom="@id/restaurant_image1"
+                    android:layout_alignEnd="@id/restaurant_image1"
+                    android:layout_alignRight="@id/restaurant_image1"
+                    android:layout_marginBottom="-24dp"
+                    android:layout_marginEnd="-24dp"
+                    android:layout_marginRight="-24dp"
+
+                    android:scaleType="centerInside"
+                    android:src="@drawable/background"
+                    app:civ_border_color="@android:color/white"
+                    app:civ_border_width="2sp"
+                    app:civ_shadow="true"
+                    app:civ_shadow_radius="1" />
+
+                <ImageView
+                    android:id="@+id/img_plus"
+                    android:layout_width="43sp"
+                    android:layout_height="44sp"
+                    android:layout_alignStart="@+id/background_img_rest"
+                    android:layout_alignLeft="@+id/background_img_rest"
+                    android:layout_alignTop="@+id/background_img_rest"
+                    android:layout_alignEnd="@+id/background_img_rest"
+                    android:layout_alignRight="@+id/background_img_rest"
+                    android:layout_alignBottom="@+id/background_img_rest"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:contentDescription="@string/app_name"
+                    android:cropToPadding="false"
+                    android:src="@drawable/ic_camera"
+                    android:tint="@android:color/white" />
+
+
+            </RelativeLayout>
+
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/restaurant_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/restaurant_name"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@android:color/white" />
+
+        </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/restaurant_descr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
+                    android:focusable="true"
+                    android:gravity="start|top"
+                    android:hint="@string/restaurant_descr"
+                    android:textColor="@android:color/white"
+                    android:imeOptions="actionDone"/>
+
+
+            </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/restaurant_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/restaurant_address"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@android:color/white" />
+
+        </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/restaurant_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/biker_phone"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@android:color/white" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/restaurant_delivery_fee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/restaurant_delivery_fee"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@android:color/white" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <TextView
+            android:id="@+id/textViewRestaurantType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:paddingStart="4dp"
+            android:paddingLeft="4dp"
+            android:hint="Select restaurant tag"
+            android:textColor="@android:color/white"
+            android:textAlignment="center"
+            android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+            android:gravity="center_vertical"
+            android:drawableStart="@android:drawable/checkbox_off_background"
+            android:drawableLeft="@android:drawable/checkbox_off_background"
+            android:drawableEnd="@drawable/ic_account_edit"
+            android:drawableRight="@drawable/ic_account_edit" />
+
+            <TextView
+                android:id="@+id/textViewRestaurantTimetable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:background="@color/colorPrimaryDark"
+                android:paddingStart="4dp"
+                android:paddingLeft="4dp"
+                android:hint="@string/default_opening_hours"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:paddingTop="16dp"
+                android:drawableStart="@android:drawable/checkbox_off_background"
+                android:drawableLeft="@android:drawable/checkbox_off_background"
+                android:drawableEnd="@drawable/ic_account_edit"
+                android:drawableRight="@drawable/ic_account_edit" />
+        <Button
+            android:id="@+id/complete_rest_btn"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/bg_main"
+            android:text="@string/complete_rest_btn"
+            android:textColor="@color/btn_login_bg"
+            android:textStyle="bold" />
+
+        <!-- Link to Login Screen -->
+        <ProgressBar
+            android:id="@+id/progressBarRest"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+    </ScrollView>
+</android.support.design.widget.CoordinatorLayout>
+

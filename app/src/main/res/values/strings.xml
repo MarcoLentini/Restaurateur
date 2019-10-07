@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Restaurateur</string>
+    <string name="app_name">FoodEaTORest</string>
     <string name="InfoTitle">Information</string>
 
     <!-- Main Activity (Empty) -->
@@ -8,8 +8,8 @@
     <string name="default_user_description">Insert description</string>
     <string name="default_user_phone_number">Insert phone number</string>
     <string name="default_user_address">Insert user address</string>
-    <string name="default_opening_hours">Insert opening hours</string>
-    <string name="default_delivery_service">Insert delivery info</string>
+    <string name="default_opening_hours">Select opening hours</string>
+    <string name="default_delivery_service">Delivery info</string>
     <string name="default_user_notification">Insert notification </string>
 
     <!-- Field -->
@@ -42,16 +42,17 @@
     <string name="insert_delivery_info">Type your delivery info</string>
 
     <!-- Generic -->
-    <string name="viewMore">Show more information</string>
+    <string name="viewMore">Show restaurant</string>
     <string name="ok_button">OK</string>
     <string name="cancel_button">CANCEL</string>
+    <string name="remove_restaurant">Remove restaurant</string>
 
     <!-- Password -->
     <string name="password_title">Change Password</string>
     <string name="insert_old_password">Insert your actual password</string>
     <string name="insert_password">Insert the new password</string>
     <string name="repeat_password">Repeat the password</string>
-    <string name="invalid_password">Invalid password</string>
+    <string name="invalid_password">Invalid password! It must contain capital letter and number, and must have at least 8 characters</string>
     <string name="different_password">The two password are different</string>
 
     <!-- Image Profile -->
@@ -76,7 +77,7 @@
     <string name="button_reservation_resume">Resume</string>
     <string name="button_reservation_remove">Remove</string>
     <string name="total_income_info">Total income </string>
-    <string name="notes">notes!</string>
+    <string name="notes">Notes!</string>
 
     <!-- main_layout tabs -->
     <string name="reservation_title">Reservations</string>
@@ -106,9 +107,9 @@
     <string name="no_category_offers">There is no category</string>
 
 
-    <!-- in offer_item_info.xml-->
+    <!-- in offer_item_cardview.xml.xml-->
     <string name="FoodPic">Food Pictrue</string>
-    <string name="FoodQuantityValue">29</string>
+    <string name="FoodQuantityValue">35</string>
     <string name="FoodPriceValue">10</string>
     <string name="FoodName">Food Name</string>
     <string name="FoodCategory">Insert category</string>
@@ -117,7 +118,7 @@
     <string name="FoodPrice">Price</string>
     <string name="futureDevelopment">For future Development....</string>
 
-    <string name="hint_food_short_description">short description</string>
+    <string name="hint_food_short_description">Short description</string>
 
     <!-- No need to translate -->
     <string name="str_orderid">124</string>
@@ -129,21 +130,17 @@
     <string name="str_remark">do not put so much chilly this is a notice you can write as many words as you want plesae leave more notice here</string>
     <string name="str_customer_name">Mr Wrong</string>
     <string name="str_phonenumber">33456832901</string>
-    <string name="str_messagecustomer">messageCustomer</string>
-    <string name="str_callcustonmer">callCustonmer</string>
     <string name="title_activity_edit_dishes">EditDishesActivity</string>
     <string name="show_dish">Edit dish</string>
 
-
     <string name="action_sign_in_short">Register</string>
     <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
-    <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
+    <string name="auth_failed">Authentication failed!</string>
     <string name="change_email">Change Email</string>
     <string name="change_password">Change Password</string>
     <string name="send_password_reset_email">Send Password reset email</string>
     <string name="remove_user">Remove user</string>
     <string name="new_pass">New Password</string>
-    <string name="title_activity_profile">Firebase</string>
     <string name="title_activity_login">Sign in</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
@@ -163,6 +160,108 @@
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
     <string name="action_settings_firebase">Firebase Account</string>
-    <string name="total_num_products">Numero Totale di Prodotti</string>
+    <string name="total_num_products">Total Number Of Products</string>
+    <!-- Offers - Category -->
+    <string name="edit_category_item">Edit</string>
+    <string name="remove_category_item">Remove</string>
+    <string name="edit_category_title">Edit category</string>
+    <string name="snackbar_category_removed">Category removed</string>
+    <string name="snackbar_category_edited">Category modified</string>
+    <string name="snackbar_category_undo">UNDO</string>
+    <!-- Offers - Offer -->
+    <string name="remove_offer_item">Remove</string>
+    <string name="snackbar_offer_remove">Offer removed</string>
+    <string name="snackbar_offer_undo">UNDO</string>
+    <string name="snackbar_offer_category_changed">Offer moved to category</string>
+    <string name="alert_dialog_offer_remove">Do you really want to remove offer?</string>
+    <string name="alert_dialog_offer_remove_btn_ok">OK</string>
+    <string name="alert_dialog_offer_remove_btn_cancel">CANCEL</string>
+
+
+    <string name="restaurant_address">Restaurant\'s Address</string>
+    <string name="restaurant_name">Restaurant Name</string>
+    <string name="restaurant_descr">Restaurant Description</string>
+
+    <!-- activity_signup_biker-->
+    <string name="biker_phone">Phone number</string>
+    <string name="username_updated">Username is updated.</string>
+    <string name="username_failed_update">Failed to update username!</string>
+    <string name="invalid_username">Invalid username. Use minimum 3 characters</string>
+    <string name="email_updated">Email address is updated. Please sign in with new email id!</string>
+    <string name="email_failed_updated">Failed to update email!</string>
+    <string name="phone_updated">Phone number is updated.</string>
+    <string name="phone_failed_updated">Failed to update phone number!</string>
+    <string name="invalid_mail">Enter valid email address!</string>
+    <string name="invalid_phone">Invalid phone number</string>
+    <string name="enter_email">Enter email address!</string>
+    <string name="welcome_biker">Welcome among bikers!</string>
+    <string name="logout_title">Log out</string>
+    <string name="password_failed_updated">Failed to update password!</string>
+    <string name="profile_created">Your profile is created!</string>
+    <string name="complete_rest_btn">Complete registration</string>
+    <string name="your_rest_title">Your restaurant</string>
+    <string name="user_name">Username</string>
+    <string name="sign_up">Sign up</string>
+    <string name="default_rest_name">Restaurant name</string>
+    <string name="rest_description">Restaurant\'s description</string>
+    <string name="delivery_fee_title">Delivery fee</string>
+    <string name="rest_tags_title">Restaurant\'s tag</string>
+    <string name="title_activity_modify_rest_info">ModifyRestInfoActivity</string>
+    <string name="insert_delivery_fee">Insert how much costs the delivery</string>
+    <string name="insert_rest_address">Insert restaurant address</string>
+    <string name="insert_rest_phone_number">Insert restaurant\'phone number</string>
+    <string name="insert_rest_description">Insert a little description about the restaurant</string>
+    <string name="insert_restname">Insert restaurant\'s name</string>
+    <string name="rest_name_failed_update">Failed to update restaurant name!</string>
+    <string name="invalid_rest_name">Invalid restaurant name</string>
+    <string name="description_updated">Description updated</string>
+    <string name="rest_descr_failed_update">Failed to update restaurant\'s description</string>
+    <string name="invalid_rest_descr">Invalid restaurant description</string>
+    <string name="invalid_fee">Invalid delivery fee</string>
+    <string name="fee_failed_updated">Failed to update delivery fee</string>
+    <string name="fee_updated">Delivery fee updated</string>
+    <string name="invalid_address">Invalid address</string>
+    <string name="address_failed_updated">Failed to update address</string>
+    <string name="address_updated">Address updated</string>
+    <string name="RestInfoTitle">Restaurant info</string>
+    <string name="failed_delete_rest">Failed to delete your restaurant!</string>
+    <string name="restaurant_delivery_fee">Delivery fee</string>
+    <string name="enter_name_rest">Enter name of restaurant!</string>
+    <string name="enter_address_rest">Enter address of restaurant!</string>
+    <string name="enter_description">Enter a short description!</string>
+    <string name="select_tags">Select at least one tag</string>
+    <string name="enter_delivery_fee">Enter a delivery fee!</string>
+    <string name="select_one_tags">Select at least one type for your restaurant</string>
+    <string name="tags_failed_updated">Failed update types</string>
+    <string name="tags_updated">Types updated</string>
+    <string name="set_timetable">Set timetable</string>
+    <string name="rest_timetable_failed_update">Failed to update restaurant timetable</string>
+    <string name="rest_timetable_updated">Updated restaurant timetable</string>
+    <string name="title_daily_sold_income">Daily Sold Income</string>
+    <string name="title_daily_sold_quantity">Daily Sold Quantity</string>
+    <string name="title_history_order">Completed Orders</string>
+    <string name="title_comments">Comments</string>
+    <string name="title_analysis">Reservations per hour</string>
+    <string name="title_top_sold_dishes">TOP Sold Dishes</string>
+    <string name="title_account_info">Account</string>
+    <string name="contentDescription">TODO</string>
+    <string name="empty_tag_no_comments">There is no comments here up to now</string>
+    <string name="information_rest">Restaurant information</string>
+    <string name="FoodCategoryPosition">Position in the list</string>
+    <string name="monday">Monday</string>
+    <string name="closed">Closed</string>
+    <string name="morning">Morning</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="afternoon">Afternoon</string>
+    <string name="select_this_time_for_all_the_days">Select this time for all the days</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="default_notification_channel_id">CHANNELREST</string>
+
 
 </resources>

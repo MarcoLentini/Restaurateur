@@ -40,6 +40,6 @@
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        android:src="@drawable/ic_baseline_add_24px" />
 </FrameLayout>
 <!--</android.support.constraint.ConstraintLayout>-->

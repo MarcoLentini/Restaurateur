@@ -2,17 +2,24 @@ package com.example.restaurateur.Offer;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.restaurateur.MainActivity;
 import com.example.restaurateur.R;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -20,13 +27,13 @@ import java.util.ArrayList;
 class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesViewHolder> {
 
     private static final int EDIT_DISHES_ACTIVITY = 3;
-    private ArrayList<OfferModel> dataSet;
+    private Category category;
     private LayoutInflater mInflater;
     private Context context;
     private OffersDishFragment parentFragment;
 
-    public DishesListAdapter(Context context, ArrayList<OfferModel> dishes, OffersDishFragment parentFragment) {
-        this.dataSet = dishes;
+    public DishesListAdapter(Context context, Category category, OffersDishFragment parentFragment) {
+        this.category = category;
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
         this.parentFragment = parentFragment;
@@ -35,74 +42,121 @@ class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.DishesVie
     @NonNull
     @Override
     public DishesListAdapter.DishesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = mInflater.inflate(R.layout.offer_item_cardview, parent, false);
+        DishesViewHolder holder = new DishesListAdapter.DishesViewHolder(view);
+        view.setOnClickListener(v -> {
+            Intent myIntent = new Intent(view.getContext(), EditOfferActivity.class);
+            int position = holder.getAdapterPosition();
+            //String id = dataSet.get(position).getId();
+            //OfferModel selected = MainActivity.categoriesDataget(position);
+            OfferModel selected = category.getDishes().get(position);
+            Bundle bn = new Bundle();
+            bn.putInt("foodId", position);
+            bn.putString("foodName", selected.getName());
+            bn.putDouble("foodPrice", selected.getPrice());
+            bn.putLong("foodQuantity", selected.getQuantity());
+            bn.putString("foodDescription", selected.getDescription());
+            bn.putString("foodImage", selected.getImage());
+            bn.putBoolean("foodState", selected.getState());
+            myIntent.putExtras(bn);
+            parentFragment.startActivityForResult(myIntent, EDIT_DISHES_ACTIVITY);
+        });
+        holder.switchOfferState.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            OfferModel tmpO = category.getDishes().get(holder.getAdapterPosition());
+            if(isChecked){
+                FirebaseFirestore.getInstance().collection("category").document(category.getCategoryID())
+                        .collection("dishes").document(tmpO.getId()).update("state",true).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        tmpO.setState(true);
+                        buttonView.setChecked(true);
+                        buttonView.setText("On-line");
+                    }
+                });
+            }
+            else {
+                FirebaseFirestore.getInstance().collection("category").document(category.getCategoryID())
+                        .collection("dishes").document(tmpO.getId()).update("state",false).addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        tmpO.setState(false);
+                        buttonView.setChecked(false);
+                        buttonView.setText("Off-line");
+                    }
+                });
+            }
+        });
 
-        View view = mInflater.inflate(R.layout.offer_item_info, parent, false);
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               /*Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
-                        //start a new Activity that you can add food
-                Intent myIntent = new Intent(view.getContext(), EditOfferActivity.class);
-                TextView tvFoodId = v.findViewById(R.id.offer_food_id);
-                int id = Integer.parseInt(tvFoodId.getText().toString());
-                OfferModel selected = MainActivity.offersData.get(id);
-                Bundle bn = new Bundle();
-                bn.putInt("foodId", selected.getId());
-                bn.putString("foodCategory", selected.getCategory());
-                bn.putString("foodName", selected.getName());
-                bn.putDouble("foodPrice", selected.getPrice());
-                bn.putInt("foodQuantity", selected.getQuantity());
-                bn.putString("foodDescription", selected.getDescription());
-                bn.putInt("foodImage", selected.getImage());
-                bn.putString("foodState", selected.getState());
-                myIntent.putExtras(bn);
-                parentFragment.startActivityForResult(myIntent, EDIT_DISHES_ACTIVITY);
-            }});
-
-        return new DishesListAdapter.DishesViewHolder(view);
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull DishesListAdapter.DishesViewHolder dishesViewHolder, int position) {
 
-        TextView textViewFoodId = dishesViewHolder.textViewFoodId;
         TextView textViewFoodName = dishesViewHolder.textViewFoodName;
         TextView textViewQuantityOffer = dishesViewHolder.textViewQuantityOffer;
         TextView textViewPriceOffer = dishesViewHolder.textViewPriceOffer;
         ImageView offer_food_pic = dishesViewHolder.offer_food_pic;
+        Switch switchOfferState = dishesViewHolder.switchOfferState;
 
-        OfferModel tmpOM = dataSet.get(position);
-        textViewFoodId.setText(String.valueOf(tmpOM.getId()));
+        OfferModel tmpOM = category.getDishes().get(position);
         textViewFoodName.setText(tmpOM.getName());
         textViewQuantityOffer.setText(String.valueOf(tmpOM.getQuantity()));
         DecimalFormat format = new DecimalFormat("0.00");
         String formattedPrice = format.format(tmpOM.getPrice());
-        textViewPriceOffer.setText(formattedPrice);
-        offer_food_pic.setImageResource(tmpOM.getImage());
+        textViewPriceOffer.setText("€ " +formattedPrice);
+
+        Glide.with(this.context).load(Uri.parse(tmpOM.getImage())).into(offer_food_pic);
+        // .placeholder(R.drawable.img_rest_1)
+        if(tmpOM.getState()) {
+            switchOfferState.setChecked(true);
+            switchOfferState.setText("On-line");
+        }
+        else {
+            switchOfferState.setChecked(false);
+            switchOfferState.setText("Off-line");
+        }
     }
 
     @Override
     public int getItemCount() {
-        return dataSet.size();
+        return category.getDishes().size();
     }
 
-    class DishesViewHolder extends RecyclerView.ViewHolder {
+    class DishesViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
-        TextView textViewFoodId;
         TextView textViewFoodName;
         TextView textViewQuantityOffer;
         TextView textViewPriceOffer;
         ImageView offer_food_pic;
+        Switch switchOfferState;
 
         DishesViewHolder(View itemView) {
             super(itemView);
-            this.textViewFoodId = itemView.findViewById(R.id.offer_food_id);
             this.textViewFoodName = itemView.findViewById(R.id.offer_food_name);
             this.textViewPriceOffer = itemView.findViewById(R.id.textViewPriceOfferValue);
             this.textViewQuantityOffer = itemView.findViewById(R.id.textViewQuantityOfferValue);
             this.offer_food_pic = itemView.findViewById(R.id.offer_food_pic);
+            switchOfferState = itemView.findViewById(R.id.offerStateSwitch);
+            itemView.setOnCreateContextMenuListener(this);
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            // I pass as first param to menu.add(...) the current adapter position that will be read in OffersDishFragment
+            menu.add(this.getAdapterPosition(), 1, 1, R.string.remove_offer_item);
+
+            if(MainActivity.categoriesData.size() > 1) {
+                SubMenu menuCategory = menu.addSubMenu(this.getAdapterPosition(), 2, 2, "Change category");
+                // String currentCategory = category.getDishes().get(this.getAdapterPosition()).getCategory();
+                int subItemId = 21;
+                int subItemOrder = 1;
+                for (Category c : MainActivity.categoriesData) {
+                    if (!c.getCategoryName().equals(category.getCategoryName())) {
+                        menuCategory.add(this.getAdapterPosition(), subItemId, subItemOrder, c.getCategoryName());
+                        subItemId++;
+                        subItemOrder++;
+                    }
+                }
+            }
         }
     }
 }

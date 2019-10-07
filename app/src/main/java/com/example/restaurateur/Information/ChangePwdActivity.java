@@ -14,9 +14,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.restaurateur.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class ChangePwdActivity extends AppCompatActivity {
+
 
     private EditText etEditPwd2;
     private EditText etEditPwd1;
@@ -24,6 +28,11 @@ public class ChangePwdActivity extends AppCompatActivity {
     private Button btnCancel;
     private String fieldName;
     private int type; //indica in che caso siamo
+    private FirebaseAuth auth;
+    private FirebaseFirestore db;
+    private FirebaseUser user;
+    private static final String bikerDataFile = "BikerDataFile";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +48,21 @@ public class ChangePwdActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        Intent receivedIntent = getIntent();
-        fieldName = receivedIntent.getExtras().getString("field");
-
         title=getString(R.string.password_title);
         getSupportActionBar().setTitle(title);
 
+        auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() == null) {
+            finish();
+        }
+
+
+        //get current user
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+        //Get Firestore instance
+        db = FirebaseFirestore.getInstance();
 
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(etEditPwd1, InputMethodManager.SHOW_IMPLICIT);
@@ -55,8 +73,8 @@ public class ChangePwdActivity extends AppCompatActivity {
             boolean handled = false;
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 btnOk.performClick();
-                InputMethodManager imm12 = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm12.showSoftInput(etEditPwd2, InputMethodManager.SHOW_IMPLICIT);
+                InputMethodManager imm1 = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm1.showSoftInput(etEditPwd2, InputMethodManager.SHOW_IMPLICIT);
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             }
 
@@ -65,15 +83,24 @@ public class ChangePwdActivity extends AppCompatActivity {
 
         btnOk.setOnClickListener(v -> {
             if(etEditPwd1.getText().toString().equals(etEditPwd2.getText().toString())) {
-                Intent retIntent = new Intent(getApplicationContext(), UserInformationActivity.class);
-                Bundle bn = new Bundle();
-                String fieldValue= etEditPwd1.getText().toString();
-                bn.putString("field", fieldName);
-                bn.putString("value",fieldValue);
-                retIntent.putExtras(bn);
-                Log.d("password1", "onClick:old "+fieldValue);
-                setResult(1, retIntent);
-                finish();
+                user.updatePassword(etEditPwd1.getText().toString())
+                        .addOnSuccessListener(task->{
+                            Intent retIntent = new Intent(getApplicationContext(), UserInformationActivity.class);
+                            startActivity(retIntent);
+                            finish();
+                        })
+                        .addOnFailureListener(task->{Toast mioToast = Toast.makeText(ChangePwdActivity.this,
+                                getString(R.string.password_failed_updated),
+                                Toast.LENGTH_LONG);
+                            mioToast.setGravity(Gravity.BOTTOM, 0, 64);
+                            etEditPwd2.requestFocus();
+                            InputMethodManager imm12 = (InputMethodManager)
+                                    getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm12.showSoftInput(etEditPwd2, InputMethodManager.SHOW_IMPLICIT);
+                            mioToast.show();
+
+                            etEditPwd2.selectAll();});
+
 
             }else{
                 Toast mioToast = Toast.makeText(ChangePwdActivity.this,
@@ -81,9 +108,9 @@ public class ChangePwdActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG);
                 mioToast.setGravity(Gravity.BOTTOM, 0, 64);
                 etEditPwd2.requestFocus();
-                InputMethodManager imm1 = (InputMethodManager)
+                InputMethodManager imm12 = (InputMethodManager)
                         getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm1.showSoftInput(etEditPwd2, InputMethodManager.SHOW_IMPLICIT);
+                imm12.showSoftInput(etEditPwd2, InputMethodManager.SHOW_IMPLICIT);
                 mioToast.show();
 
                 etEditPwd2.selectAll();
@@ -101,4 +128,3 @@ public class ChangePwdActivity extends AppCompatActivity {
         return true;
     }
 }
-

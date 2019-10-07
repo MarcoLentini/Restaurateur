@@ -18,8 +18,10 @@ package com.example.restaurateur.Reservation;
 
         import com.example.restaurateur.MainActivity;
         import com.example.restaurateur.R;
+        import com.google.firebase.Timestamp;
 
         import java.io.Serializable;
+        import java.text.DecimalFormat;
 
 public class FinishedDetailsFragment extends Fragment {
 
@@ -54,27 +56,30 @@ public class FinishedDetailsFragment extends Fragment {
         this.RM = args.containsKey("RM") ? (ReservationModel) args.getSerializable("RM") : null;
         this.position = args.containsKey("position") ? args.getInt("position"): null;
 
-        TextView textViewOrderIdFinished = view.findViewById(R.id.textViewOrderIdFinished);
-        textViewOrderIdFinished.setText(Integer.toString(RM.getId()));
+        TextView textViewOrderIdFinished = view.findViewById(R.id.textViewIdReservation);
+        textViewOrderIdFinished.setText(Long.toString(RM.getRs_id()));
 
         TextView textViewRemainingTimeFinished = view.findViewById(R.id.textViewRemainingTimeFinished);
-        textViewRemainingTimeFinished.setText(Integer.toString(RM.getRemainingMinutes()) + " min");
+        textViewRemainingTimeFinished.setText(RM.getTimestamp().toString());
 
-        TextView textViewTotalIncomeFinished = view.findViewById(R.id.textViewTotalIncomeFinished);
-        textViewTotalIncomeFinished.setText(Double.toString(RM.getTotalIncome()));
+        TextView textViewTotalIncomeFinished = view.findViewById(R.id.customer_name);
+        DecimalFormat format = new DecimalFormat("0.00");
+        String formattedIncome = format.format(RM.getTotal_income());
+        textViewTotalIncomeFinished.setText(formattedIncome);
 
-        TextView tvRemarkFinished = view.findViewById(R.id.tvRemarkFinished);
+
+        TextView tvRemarkFinished = view.findViewById(R.id.textViewNotesReservation);
         tvRemarkFinished.setText(RM.getNotes());
 
-        TextView tvNameFinished = view.findViewById(R.id.tvNameFinished);
-        tvNameFinished.setText(Integer.toString(RM.getCustomerId()));
+        TextView tvNameFinished = view.findViewById(R.id.customer_name);
+        tvNameFinished.setText(RM.getCust_name());
 
-        TextView tvPhoneFinished = view.findViewById(R.id.tvPhoneFinished);
-        tvPhoneFinished.setText(RM.getCustomerPhoneNumber());
+        TextView tvPhoneFinished = view.findViewById(R.id.customer_phone_number);
+        tvPhoneFinished.setText(RM.getCust_phone());
 
         LinearLayout orderDetailInfoFinished = view.findViewById(R.id.orderDetailInfoFinished);
 
-        for(ReservatedDish rd : RM.getReservatedDishes()){
+        for(ReservatedDish rd : RM.getDishesArrayList()){
             LinearLayout ll = new LinearLayout(this.getContext());
             // 16dp
             float scale = getResources().getDisplayMetrics().density;
@@ -89,7 +94,7 @@ public class FinishedDetailsFragment extends Fragment {
 
             // Name of food
             TextView tv = new TextView(this.getContext());
-            tv.setText("▶" + MainActivity.offersData.get(rd.getDishId()).getName());
+            tv.setText("▶" + rd.getDishName());
 
             tv.setTextColor(Color.parseColor("#FF000000"));
             tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
@@ -101,7 +106,7 @@ public class FinishedDetailsFragment extends Fragment {
 
             // Quantity
             TextView tv1 = new TextView(this.getContext());
-            tv1.setText("x" + MainActivity.offersData.get(rd.getDishId()).getQuantity());
+            tv1.setText("x" + rd.getDishQty());
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 tv1.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
@@ -115,7 +120,7 @@ public class FinishedDetailsFragment extends Fragment {
 
             // Single price
             TextView tv2 = new TextView(this.getContext());
-            tv2.setText(String.format("%.2f", MainActivity.offersData.get(rd.getDishId()).getPrice()) + "€" );
+            tv2.setText(String.format("%.2f", rd.getDishPrice()) + "€" );
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 tv2.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);

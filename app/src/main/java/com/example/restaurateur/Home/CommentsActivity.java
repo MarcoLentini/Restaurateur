@@ -1,0 +1,119 @@
+package com.example.restaurateur.Home;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+
+import com.example.restaurateur.Information.LoginActivity;
+import com.example.restaurateur.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+
+
+public class CommentsActivity extends AppCompatActivity {
+    private static final String TAG = "CommentsActivity";
+    private RecyclerView recyclerViewComments;
+    private CommentsListAdapter commentsListAdapter;
+    private ArrayList<CommentModel> commentsDate;
+    public FirebaseAuth auth;
+    public FirebaseFirestore db;
+    public String restaurantKey;
+    private static final String restaurantDataFile = "RestaurantDataFile";
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_comments);
+
+        String title = getString(R.string.title_comments);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(title);
+        //Get Firebase auth instance
+        auth = FirebaseAuth.getInstance();
+        SharedPreferences sharedPref = getSharedPreferences(restaurantDataFile, Context.MODE_PRIVATE);
+        restaurantKey = sharedPref.getString("restaurantKey","");
+
+        //Get Firebase auth instance
+        auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() == null || restaurantKey.equals("")) {
+            startActivity(new Intent(CommentsActivity.this, LoginActivity.class));
+            finish();
+        }
+
+        //Get Firestore instance
+        db = FirebaseFirestore.getInstance();
+        //data
+        commentsDate = new ArrayList<>();
+        fillWithData();
+
+        //RecycleView comments
+        recyclerViewComments = findViewById(R.id.rvCommentsFromCustomer);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerViewComments.setLayoutManager(layoutManager);
+        //specify an Adapter
+        commentsListAdapter = new CommentsListAdapter(this,commentsDate);
+        recyclerViewComments.setAdapter(commentsListAdapter);
+    }
+
+    public void fillWithData(){
+        Log.d("QueryComments", "Start fill with data...");
+        db.collection("comments")
+                .whereEqualTo("restId", restaurantKey)
+                .addSnapshotListener((EventListener<QuerySnapshot>) (document, e) -> {
+
+                    if (e != null) return;
+                    for(DocumentChange dc : document.getDocumentChanges()) {
+                        if (dc.getType() == DocumentChange.Type.ADDED){
+
+                                CommentModel tmpComments = new CommentModel(
+                                         dc.getDocument().getId(),
+                                        dc.getDocument().getString("restId"),//should be restid
+                                         dc.getDocument().getString("custName"),//should be user id
+                                        ( dc.getDocument().getDouble("voteForRestaurant")).floatValue(),//should be vote for restaurant
+                                        dc.getDocument().getString("notes"), //should be notes,
+                                        dc.getDocument().getDate("date")
+                                );
+                                //add this current order into the arraylist
+                                Log.e(TAG, "tmpComments" + tmpComments.getCommentsId());
+                                commentsDate.add(tmpComments);
+                                 Collections.sort(commentsDate,CommentComparator);
+                            commentsListAdapter.notifyDataSetChanged();
+                                Log.d("Query comments", "get tmpComments from firebase and add successful to arraylist!"+tmpComments.getCommentsId());
+                            }
+                        }
+                });
+    }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+    public static Comparator<CommentModel> CommentComparator = (com1, com2) -> {
+
+        Date date1 = com1.getDate();
+        Date date2 = com2.getDate();
+
+        //ascending order
+        //return catPosition1.compareTo(catPosition2);
+        //descending order
+        return date2.compareTo(date1);
+    };
+
+}

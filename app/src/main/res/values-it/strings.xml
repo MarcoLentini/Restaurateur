@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Restaurateur</string>
+    <string name="app_name">FoodEaTORest</string>
     <string name="default_user_name">Inserisci username</string>
     <string name="default_user_email">Inserisci email</string>
     <string name="default_user_description">Inserisci  descrizione</string>
@@ -11,7 +11,7 @@
     <string name="description_field_id">user_description</string>
     <string name="address_field_id">user_address</string>
     <string name="notification_field_id">user_notification</string>
-    <string name="opening_hours_field_id">opening_hours</string>
+    <string name="opening_hours_field_id">Orario di apertura</string>
     <string name="delivery_service_field_id">delivery_service</string>
     <string name="pwd_field_id">user_password</string>
 
@@ -25,11 +25,11 @@
     <string name="insert_old_password">Inserisci  password attuale</string>
     <string name="insert_password">Inserisci la nuova password</string>
     <string name="repeat_password">Re-inseririsci la nuova password</string>
-    <string name="invalid_password">Password invalida</string>
+    <string name="invalid_password">Password invalida! Deve contenere una maiuscola e un numero, e almeno 8 caratteri</string>
     <string name="different_password">Le due password sono diverse</string>
 
     <string name="insert_username">Inserisci il tuo username</string>
-    <string name="insert_email">Inserisci la tua address</string>
+    <string name="insert_email">Inserisci la tua mail</string>
     <string name="insert_phone_number">Inserisci il tuo numero di telefono</string>
     <string name="insert_description">Descrivi te stesso</string>
 
@@ -42,7 +42,7 @@
     <string name="default_delivery_service">Inserisci informazioni di consegna</string>
     <string name="default_user_notification">Inserisci notifica </string>
 
-    <string name="viewMore">Mostra di più</string>
+    <string name="viewMore">Mostra ristorante</string>
 
     <string name="insert_address">Inserisci la tua mail</string>
     <string name="insert_notification">Inserisci la tua notifica </string>
@@ -64,10 +64,10 @@
     <string name="perm_why_1">Questo permesso è necessario per prendere una foto dalla Galleria</string>
     <string name="perm_denied">Permesso Negato</string>
     <string name="image_disappear">L\'immagine selezionata non è più disponibile</string>
-    <string name="action_settings">Informazioni</string>
+    <string name="action_settings">Informazioni account</string>
 
     <!-- main_layout page-->
-    <string name="total_num_products">Total Number Of Products</string>
+    <string name="total_num_products">Numero Totale di Prodotti</string>
     <string name="remarks">Remarks</string>
     <string name="button_reservation_accept">Accetta</string>
     <string name="button_reservation_reject">Rifiuta</string>
@@ -81,7 +81,7 @@
     <string name="accepted_label">In gestione</string>
     <string name="refused_label">Terminati</string>
     <string name="active_label">Attive</string>
-    <string name="disabled_label">Disattive</string>
+    <string name="disabled_label">Disattiva</string>
     <string name="history_title">Storico</string>
 
 
@@ -91,13 +91,13 @@
     <!--add_new_category.xml-->
     <string name="add_new_category">Inserisci il nome della nuova categoria</string>
     <string name="new_category_title">Nuova categoria</string>
-    <string name="invalid_category">Categoria invalida</string>
+    <string name="invalid_category">Categoria non valida</string>
     <string name="title_new_food">Aggiungi offerta</string>
     <string name="no_dishes_offers">Non ci sono piatti disponibili in questa categoria</string>
     <string name="no_category_offers">Non ci sono categorie disponibili</string>
 
 
-    <!-- in offer_item_info.xml-->
+    <!-- in offer_item_cardviewview.xml-->
     <string name="FoodPic">Food Pictrue</string>
     <string name="FoodQuantityValue">29</string>
     <string name="FoodPriceValue">10</string>
@@ -106,10 +106,9 @@
     <string name="FoodQuantity">Quantità</string>
     <string name="FoodPrice">Prezzo</string>
     <string name="futureDevelopment">For future Development....</string>
-    <string name="primi">Primi</string>
-    <string name="notes">notes!</string>
+    <string name="notes">Note</string>
 
-    <string name="hint_food_short_description">Descrizione di food</string>
+    <string name="hint_food_short_description">Descrizione del piatto</string>
     <string name="str_orderid">124</string>
     <string name="str_time">15min</string>
     <string name="str_income">10</string>
@@ -119,14 +118,12 @@
     <string name="str_remark">do not put so much chilly this is a notice you can write as many words as you want plesae leave more notice here</string>
     <string name="str_customer_name">Mr Wrong</string>
     <string name="str_phonenumber">33456832901</string>
-    <string name="str_messagecustomer">messageCustomer</string>
-    <string name="str_callcustonmer">callCustonmer</string>
     <string name="show_dish">Il tuo piatto</string>
     <string name="FoodCategory">Inserisci categoria</string>
     <string name="reservation_details_title">Dettagli ordine</string>
     <string name="action_settings_firebase">Firebase Account</string>
     <string name="action_sign_in_short">Registrati</string>
-    <string name="auth_failed">Autenticazione fallita, controlla la tua email e password o registrati</string>
+    <string name="auth_failed">Autenticazione fallita!</string>
     <string name="btn_back"><![CDATA[<< Indietro]]></string>
     <string name="btn_change">Cambia</string>
     <string name="btn_forgot_password">Password dimenticata?</string>
@@ -139,8 +136,7 @@
     <string name="btn_sign_out">Esci dall\'account</string>
     <string name="change_email">Cambia Email</string>
     <string name="change_password">Cambia Password</string>
-    <string name="email">Email</string>
-    <string name="forgot_password_msg">Abbiamo bisogno solo della tua Email di registrazione per inviarti le istruzioni per il reset della password</string>
+     <string name="forgot_password_msg">Abbiamo bisogno solo della tua Email di registrazione per inviarti le istruzioni per il reset della password</string>
     <string name="hint_email">Email</string>
     <string name="hint_name">Nome Completo</string>
     <string name="hint_new_email">Nuova Email</string>
@@ -149,4 +145,103 @@
     <string name="minimum_password">Password troppo corta, inserisci almeno 6 caratteri!</string>
     <string name="new_pass">Nuova Password</string>
     <string name="remove_user">Cancella Utente</string>
+    <string name="edit_category_item">Modifica</string>
+    <string name="remove_category_item">Elimina</string>
+    <string name="edit_category_title">Modifica categoria</string>
+    <string name="snackbar_category_removed">Categoria rimossa</string>
+    <string name="snackbar_category_edited">Categoria modificata</string>
+    <string name="snackbar_category_undo">ANNULLA</string>
+    <string name="remove_offer_item">Elimina</string>
+    <string name="snackbar_offer_remove">Piatto rimosso</string>
+    <string name="snackbar_offer_undo">ANNULLA</string>
+    <string name="snackbar_offer_category_changed">Piatto spostato nella categoria</string>
+    <string name="alert_dialog_offer_remove">Vuoi davvero eliminare il piatto?</string>
+    <string name="alert_dialog_offer_remove_btn_ok">OK</string>
+    <string name="alert_dialog_offer_remove_btn_cancel">CANCEL</string>
+    <string name="camera_button_text">Upload</string>
+    <string name="title_daily_sold_income">Incasso giornaliero €</string>
+    <string name="title_daily_sold_quantity">Numero prodotti venduti oggi</string>
+    <string name="title_history_order">Ordini completati</string>
+    <string name="title_comments">Recensioni</string>
+    <string name="title_analysis">Statistiche</string>
+    <string name="title_top_sold_dishes">Piatti più venduti</string>
+    <string name="title_account_info">Account</string>
+    <string name="contentDescription">TODO</string>
+    <string name="RestInfoTitle">Informazioni</string>
+    <string name="delivery_fee_title">Delivery fee</string>
+    <string name="description_updated">Descrizione aggiornata</string>
+    <string name="download">Download</string>
+    <string name="empty_tag_no_comments">Non ci sono ancora recensioni</string>
+    <string name="FoodCategoryPosition">Posizione nel menù</string>
+    <string name="address_failed_updated">Errore nell\'aggiornamento dell\'indirizzo</string>
+    <string name="address_updated">Indirizzo aggiornato</string>
+    <string name="afternoon">Pomeriggio</string>
+    <string name="biker_phone">Numero di telefono</string>
+    <string name="closed">Chiuso</string>
+    <string name="complete_rest_btn">Registrati</string>
+    <string name="default_rest_name">Nome del ristorante</string>
+    <string name="email_failed_updated">Errore nell\'aggiornamento dell\'email!</string>
+    <string name="email_updated">Email aggiornata. Accedi con la nuova mail!</string>
+    <string name="enter_address_rest">Inserisci l\'indirizzo del ristorante</string>
+    <string name="enter_delivery_fee">Inserisci spese di spedizione</string>
+    <string name="enter_description">Inserisci una breve descrizione</string>
+    <string name="enter_email">Inserisci email!</string>
+    <string name="enter_name_rest">Inserisci il nome del ristorante</string>
+    <string name="failed_delete_rest">Errore nel cancellare il ristorante</string>
+    <string name="fee_failed_updated">Erorre aggiornamento spese spedizione</string>
+    <string name="fee_updated">Spese di spedizioni aggiornate</string>
+    <string name="from">Dalle</string>
+    <string name="information_rest">"Informazioni del ristorante "</string>
+    <string name="insert_delivery_fee">Inserisci quanto costa la spedizione</string>
+    <string name="insert_rest_address">Inserisci l\'indirizzo del ristorante</string>
+    <string name="insert_rest_description">Inserisci una breve descrizione del risstorante</string>
+    <string name="insert_rest_phone_number">Inserisci il numero di telefono del ristorante</string>
+    <string name="insert_restname">Inserisci il nome del ristorante</string>
+    <string name="invalid_address">Indirizzo non valido</string>
+    <string name="invalid_fee">Spese di spedizione non valide</string>
+    <string name="invalid_mail">Inserisci email valida!</string>
+    <string name="invalid_phone">Numero di telefono non valido</string>
+    <string name="invalid_rest_descr">Descrizione non valida</string>
+    <string name="invalid_rest_name">Nome non valido</string>
+    <string name="invalid_username">Nome non valido. Usa almeno 3 caratteri.</string>
+    <string name="label_download">Scarica file.</string>
+    <string name="logout_title">Esci</string>
+    <string name="monday">Lunedì</string>
+    <string name="morning">Mattino</string>
+    <string name="password_failed_updated">Errore aggiornamento password</string>
+    <string name="phone_failed_updated">Errore aggiornamento numero di telefono</string>
+    <string name="phone_updated">Numero di telefono aggiornato</string>
+    <string name="profile_created">Hai creato un nuovo profilo!</string>
+    <string name="remove_restaurant">Elimina ristorante</string>
+    <string name="rest_descr_failed_update">Errore aggiornamento descrizione</string>
+    <string name="rest_description">Descrizione del ristorante</string>
+    <string name="rest_name_failed_update">Errore aggiornamento nome</string>
+    <string name="rest_tags_title">Tipo di ristorante</string>
+    <string name="rest_timetable_failed_update">Errore aggiornamento orario</string>
+    <string name="rest_timetable_updated">Orario di apertura aggiornato</string>
+    <string name="restaurant_address">Indizzio del ristorante</string>
+    <string name="restaurant_delivery_fee">Spese di spedizione</string>
+    <string name="restaurant_descr">Descrizione del ristorante</string>
+    <string name="restaurant_name">Nome del ristorante</string>
+    <string name="select_one_tags">Seleziona almeno un tipo per il tuo ristorante</string>
+    <string name="select_tags">Seleziona almeno un tipo</string>
+    <string name="select_this_time_for_all_the_days">Seleziona questo orario per tutti i giorni</string>
+    <string name="send_password_reset_email">Manda emeil per cambio passqord</string>
+    <string name="set_timetable">Seleziona orario di apertura</string>
+    <string name="sign_up">Registrati</string>
+    <string name="tags_failed_updated">Errore aggiornamento tipo</string>
+    <string name="tags_updated">Tipo di ristorante aggiornato</string>
+    <string name="title_activity_login">Entra</string>
+    <string name="to">Alle</string>
+    <string name="tuesday">Martedì</string>
+    <string name="user_name">Username</string>
+    <string name="username_failed_update">Errore aggiornamento nome</string>
+    <string name="username_updated">Username aggiornato</string>
+    <string name="welcome_biker">Benvenuto tra i biker</string>
+    <string name="your_rest_title">Il tuo ristorante</string>
+    <string name="saturday">Sabato</string>
+    <string name="friday">Venerdì</string>
+    <string name="sunday">Domenica</string>
+    <string name="thursday">Giovedì</string>
+    <string name="wednesday">Mercoledì</string>
 </resources>

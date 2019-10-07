@@ -4,27 +4,48 @@ import java.io.Serializable;
 
 public class ReservatedDish implements Serializable {
 
-    private int dishId;
-    private int dishMultiplier;
+    private String dishName;
+    private Double dishPrice;
+    private Long dishQty;
+    private String dishCategoryID;
 
-    public ReservatedDish(int dishId, int dishMultiplier) {
-        this.dishId = dishId;
-        this.dishMultiplier = dishMultiplier;
+    public ReservatedDish(String dishName, Double dishPrice, Long dishQty, String dishCategoryID) {
+
+        this.dishName = dishName;
+        this.dishPrice = dishPrice;
+        this.dishQty = dishQty;
+        this.dishCategoryID = dishCategoryID;
     }
 
-    public int getDishId() {
-        return dishId;
+    public String getDishName() {
+        return dishName;
     }
 
-    public void setDishId(int dishId) {
-        this.dishId = dishId;
+    public void setDishName(String dishName) {
+        this.dishName = dishName;
     }
 
-    public int getDishMultiplier() {
-        return dishMultiplier;
+    public Double getDishPrice() {
+        return dishPrice;
     }
 
-    public void setDishMultiplier(int dishMultiplier) {
-        this.dishMultiplier = dishMultiplier;
+    public void setDishPrice(Double dishPrice) {
+        this.dishPrice = dishPrice;
+    }
+
+    public Long getDishQty() {
+        return dishQty;
+    }
+
+    public void setDishQty(Long dishQty) {
+        this.dishQty = dishQty;
+    }
+
+    public String getDishCategoryID() {
+        return dishCategoryID;
+    }
+
+    public void setDishCategoryID(String dishCategoryID) {
+        this.dishCategoryID = dishCategoryID;
     }
 }

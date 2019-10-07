@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,15 +33,14 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
     @Override
     public CategoriesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.category_cardview, parent, false);
-        
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    loadFragment(v, new OffersDishFragment(), v.findViewById(R.id.textViewCategoryName));
-            }
+        CategoriesViewHolder holder = new CategoriesViewHolder(view);
+        view.setOnClickListener(v -> {
+            int position = holder.getAdapterPosition();
+            // String categoryID = dataSet.get(position).getCategoryID();
+            loadFragment(v, new OffersDishFragment(), position);
         });
 
-        return new CategoriesViewHolder(view);
+        return holder;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         TextView textViewCategoryName = categoriesViewHolder.textViewCategoryName;
 
         Category tmpRM = dataSet.get(position);
-        textViewCategoryName.setText("" + tmpRM.getCategory());
+        textViewCategoryName.setText(tmpRM.getCategoryName());
     }
 
     @Override
@@ -57,22 +57,29 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
         return dataSet.size();
     }
 
-    static class CategoriesViewHolder extends RecyclerView.ViewHolder {
+    public static class CategoriesViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         TextView textViewCategoryName;
 
         CategoriesViewHolder(View itemView) {
             super(itemView);
             this.textViewCategoryName = itemView.findViewById(R.id.textViewCategoryName);
+            itemView.setOnCreateContextMenuListener(this);
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            // I pass as first param to menu.add(...) the current adapter position that will be read in OffersCategoryFragment
+            menu.add(this.getAdapterPosition(), 1, 1, R.string.edit_category_item);
+            menu.add(this.getAdapterPosition(), 2, 2, R.string.remove_category_item);
         }
     }
 
-    private void loadFragment(View view, android.support.v4.app.Fragment fragment,TextView v) {
+    private void loadFragment(View view, android.support.v4.app.Fragment fragment, int position) {
         // load fragment
         FragmentTransaction transaction = ((FragmentActivity)view.getContext()).getSupportFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
-        String category = v.getText().toString();
-        bundle.putString("Category", category);
+        bundle.putInt("Category", position);
         // set Fragment class Arguments
         fragment.setArguments(bundle);
         transaction.replace(R.id.frame_container_main, fragment, "DishesOffers");

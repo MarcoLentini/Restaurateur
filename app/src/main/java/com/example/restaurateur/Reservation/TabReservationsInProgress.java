@@ -1,5 +1,6 @@
 package com.example.restaurateur.Reservation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,11 +16,15 @@ import com.example.restaurateur.MainActivity;
 
 import java.util.Collections;
 
-public class TabReservationsInProgress extends Fragment {
+import static android.app.Activity.RESULT_OK;
+
+public class TabReservationsInProgress extends Fragment implements Updateable {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter inProgressReservationsAdapter;
+    private InProgressReservationsListAdapter inProgressReservationsAdapter;
+    public static final int INPROGRESS_REQ = 56;
+
 
     @Nullable
     @Override
@@ -34,15 +39,34 @@ public class TabReservationsInProgress extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
-        inProgressReservationsAdapter = new InProgressReservationsListAdapter(getContext(), MainActivity.inProgressReservationsData,
-                MainActivity.offersData, (MainActivity)getActivity());
+        inProgressReservationsAdapter = new InProgressReservationsListAdapter(getContext(),
+                MainActivity.inProgressReservationsData, (MainActivity)getActivity(), this, (ReservationsMainFragment)getParentFragment());
         recyclerView.setAdapter(inProgressReservationsAdapter);
+        sortDataAndNotify();
 
         return view;
     }
 
-    public void sortDataAndNotify() {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK){
+            if(requestCode == INPROGRESS_REQ){
+                int pos = data.getExtras().getInt("pos");
+                if(data.getExtras().getString("result").equals("Finish")){
+                    inProgressReservationsAdapter.inprogressFinish(pos);
+                }
+            }
+        }
+    }
+
+    private void sortDataAndNotify() {
         Collections.sort(MainActivity.inProgressReservationsData);
-        inProgressReservationsAdapter.notifyDataSetChanged();
+        if(inProgressReservationsAdapter != null)
+            inProgressReservationsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void update() {
+        sortDataAndNotify();
     }
 }

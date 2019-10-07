@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relativeLayoutTabHeader"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@android:id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/AppTabTextAppearance"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/textViewActiveAlarmBadge"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toRightOf="@android:id/text1"
+        android:layout_toEndOf="@android:id/text1"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+        android:layout_marginLeft="2dp"
+        android:gravity="center"
+        android:background="@drawable/rounded_background_badge"
+        android:visibility="invisible"/>
+</RelativeLayout>

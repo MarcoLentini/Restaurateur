@@ -1,59 +1,77 @@
 package com.example.restaurateur;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 
-import com.example.restaurateur.History.HistoryMainFragment;
-import com.example.restaurateur.Information.FirebaseAccount;
+import com.example.restaurateur.Home.HomeMainFragment;
 import com.example.restaurateur.Information.LoginActivity;
-import com.example.restaurateur.Information.UserInformationActivity;
 import com.example.restaurateur.Offer.Category;
-import com.example.restaurateur.Offer.MyCategories;
-import com.example.restaurateur.Offer.MyOffersData;
 import com.example.restaurateur.Offer.OfferModel;
 import com.example.restaurateur.Offer.OffersCategoryFragment;
-import com.example.restaurateur.Reservation.MyReservationsData;
 import com.example.restaurateur.Reservation.ReservatedDish;
 import com.example.restaurateur.Reservation.ReservationModel;
 import com.example.restaurateur.Reservation.ReservationState;
 import com.example.restaurateur.Reservation.ReservationsMainFragment;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int PERMISSIONS_REQUEST = 100;
+    private static final String restaurantDataFile = "RestaurantDataFile";
+
     private ActionBar toolbar;
-    public static ArrayList<ReservationModel> pendingReservationsData; // remove static from all ArrayLists
+    public static ArrayList<ReservationModel> pendingReservationsData;
     public static ArrayList<ReservationModel> inProgressReservationsData;
     public static ArrayList<ReservationModel> finishedReservationsData;
-    public static HashMap<Integer, OfferModel> offersData;
-    public static HashMap<String, Category> categoriesData;
-    public static int idDishes = 26; //TODO idDishes and image_id for dishes are to be removed
-    //TODO:per scegliere id image a caso tra quelli dati (da togliere percò non so come recuperare l'immagine dei dishes immassa
-    public static int[] availableImageId = {R.drawable.ic_offer_pizza, R.drawable.ic_offer_cake, R.drawable.ic_offer_coffee, R.drawable.ic_offer_fries};
-    private FirebaseAuth auth;
+    public static ArrayList<Category> categoriesData;
+    public FirebaseAuth auth;
+    public FirebaseFirestore db;
+    public String restaurantKey;
+
+    private ReservationsMainFragment reservationsMainFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
 
+        SharedPreferences sharedPref = getSharedPreferences(restaurantDataFile, Context.MODE_PRIVATE);
+        restaurantKey = sharedPref.getString("restaurantKey","");
+
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() == null) {
+        if (auth.getCurrentUser() == null || restaurantKey.equals("")) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+
             finish();
         }
+
+        //Get Firestore instance
+        db = FirebaseFirestore.getInstance();
 
         //Adding TOOLBAR to the activity
         Toolbar toolbarMain = findViewById(R.id.toolbar_main);
@@ -65,26 +83,14 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation_categories);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-//        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-//            @Override
-//            public void onBackStackChanged() {
-//                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-//                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//                } else {
-//                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-//                }
-//            }
-//        });
-
-        loadFragment(new ReservationsMainFragment());
+        reservationsMainFragment = new ReservationsMainFragment();
+        loadFragment(reservationsMainFragment);
 
         pendingReservationsData = new ArrayList<>();
         inProgressReservationsData = new ArrayList<>();
         finishedReservationsData = new ArrayList<>();
-        categoriesData = new HashMap<>();
-        offersData = new HashMap<>();
-        // fillWithStaticData() is used to put data into the previous ArrayLists and the HashMap
-        fillWithStaticData();
+        categoriesData = new ArrayList<>();
+        fillWithData();
     }
 
     @Override
@@ -97,6 +103,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -105,20 +116,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings_firebase) {
 
-            Intent information = new Intent(this, FirebaseAccount.class);
-            startActivity(information);
-        }
-        if (id == R.id.action_settings) {
-
-            Intent information = new Intent(this, UserInformationActivity.class);
-            startActivity(information);
-        }
         if(id == android.R.id.home){
             onBackPressed();
             //getSupportFragmentManager().popBackStack();
         }
+
         return super.onOptionsItemSelected(item);
     }
     // Bottom Menu
@@ -141,8 +144,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.navigation_history:
-                toolbar.setTitle(R.string.history_title);
-                fragment = new HistoryMainFragment();
+                toolbar.setTitle(R.string.home_title);
+                fragment = new HomeMainFragment();
                 loadFragment(fragment);
                 return true;
         }
@@ -167,46 +170,163 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void fillWithStaticData() {
-        for (int i = 0; i < MyReservationsData.id.length; i++) {
-            ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
-            for(int j = 0; j < MyReservationsData.orderedDish[i].length; j++)
-                tmpArrayList.add(new ReservatedDish(MyReservationsData.orderedDish[i][j], MyReservationsData.multiplierDish[i][j]));
-            ReservationModel tmpReservationModel = new ReservationModel(MyReservationsData.id[i],
-                    MyReservationsData.customerId[i],
-                    MyReservationsData.remainingMinutes[i],
-                    MyReservationsData.notes[i],
-                    MyReservationsData.customerPhoneNumber[i],
-                    tmpArrayList,
-                    MyReservationsData.reservationState[i],
-                    MyReservationsData.totalIncome[i]);
-            switch(MyReservationsData.reservationState[i]) {
-                case ReservationState.STATE_PENDING:
-                    pendingReservationsData.add(tmpReservationModel);
-                    break;
-                case ReservationState.STATE_IN_PROGRESS:
-                    inProgressReservationsData.add(tmpReservationModel);
-                    break;
-                case ReservationState.STATE_FINISHED_SUCCESS:
-                    finishedReservationsData.add(tmpReservationModel);
-                    break;
-                default: finishedReservationsData.add(tmpReservationModel);
-                    break;
+    private void getDataFromDoc(QuerySnapshot document){
+        if (!document.isEmpty()) {
+            for (DocumentSnapshot doc : document) {
+                if (getDays(new Date(), doc.getTimestamp("timestamp").toDate()) <= 1) {
+                    ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
+                    if (doc.get("dishes") != null) {
+                        for (HashMap<String, Object> dish : (ArrayList<HashMap<String, Object>>) doc.get("dishes")) {
+                            tmpArrayList.add(new ReservatedDish(
+                                    (String) dish.get("dish_name"),
+                                    (Double) dish.get("dish_price"),
+                                    (Long) dish.get("dish_qty"),
+                                    (String) dish.get("dish_category")));
+                        }
+                    }
+                    ReservationModel tmpReservationModel = new ReservationModel(
+                            doc.getId(),
+                            doc.getLong("rs_id"),
+                            doc.getString("cust_id"),
+                            doc.getTimestamp("delivery_time"),
+                            doc.getString("notes"),
+                            doc.getString("cust_phone"),
+                            doc.getString("cust_name"),
+                            tmpArrayList,
+                            doc.getString("rs_status"),
+                            doc.getDouble("total_income"),
+                            doc.getString("rest_address"),
+                            doc.getDouble("delivery_fee")
+                    );
+
+                    switch (doc.getString("rs_status")) {
+                        case ReservationState.STATE_PENDING:
+                            pendingReservationsData.add(tmpReservationModel);
+                            break;
+                        case ReservationState.STATE_IN_PROGRESS:
+                            inProgressReservationsData.add(tmpReservationModel);
+                            break;
+                        case ReservationState.STATE_FINISHED_SUCCESS:
+                            finishedReservationsData.add(tmpReservationModel);
+                            break;
+                        default:
+                            finishedReservationsData.add(tmpReservationModel);
+                            break;
+                    }
+                }
             }
+            reservationsMainFragment.pageAdapter.notifyDataSetChanged();
+        } else {
+            Log.d("QueryReservation", "No such document");
         }
-        Collections.sort(pendingReservationsData);
-        Collections.sort(inProgressReservationsData);
-        Collections.sort(finishedReservationsData);
+    }
 
-        for(int i = 0; i< MyCategories.categories.length; i++)
-        {
-            categoriesData.put(MyCategories.categories[i], new Category(MyCategories.categories[i]));
-        }
+    private void fillWithData() {
+        Query request = db.collection("reservations").whereEqualTo("rest_id", restaurantKey);
 
-        for(int i = 0; i < MyOffersData.id.length; i++) {
-            OfferModel tmpOM = new OfferModel(MyOffersData.id[i], MyOffersData.offerName[i],MyOffersData.category[i], MyOffersData.price[i], MyOffersData.quantity[i],MyOffersData.image[i],MyOffersData.state[i],MyOffersData.description[i]);
-            offersData.put(MyOffersData.id[i], tmpOM);
-        }
+        request.whereEqualTo("rs_status", "PENDING").addSnapshotListener((EventListener<QuerySnapshot>) (document, e) -> {
+            if (e != null) return;
+            for(DocumentChange dc : document.getDocumentChanges()) {
+                if (dc.getType() == DocumentChange.Type.ADDED) {
+                    ArrayList<ReservatedDish> tmpArrayList = new ArrayList<>();
+                    if(dc.getDocument().get("dishes") != null) {
+                        for (HashMap<String, Object> dish : (ArrayList<HashMap<String, Object>>) dc.getDocument().get("dishes")) {
+                            tmpArrayList.add(new ReservatedDish(
+                                    (String) dish.get("dish_name"),
+                                    (Double) dish.get("dish_price"),
+                                    (Long) dish.get("dish_qty"),
+                                    (String) dish.get("dish_category")));
+                        }
+                        ReservationModel tmpReservationModel = new ReservationModel(
+                                dc.getDocument().getId(),
+                                 dc.getDocument().getLong("rs_id") ,
+                                 dc.getDocument().getString("cust_id"),
+                                 dc.getDocument().getTimestamp("delivery_time"),
+                                 dc.getDocument().getString("notes"),
+                                 dc.getDocument().getString("cust_phone"),
+                                 dc.getDocument().getString("cust_name"),
+                                tmpArrayList,
+                                 dc.getDocument().getString("rs_status"),
+                                 dc.getDocument().getDouble("total_income"),
+                                 dc.getDocument().getString("rest_address"),
+                                 dc.getDocument().getDouble("delivery_fee")
+                        );
+                        pendingReservationsData.add(tmpReservationModel);
+                    }
+                    Collections.sort(pendingReservationsData);
+                    reservationsMainFragment.incrementPendingReservationsNumber();
+                    reservationsMainFragment.pageAdapter.getTabPending().getAdapter().notifyDataSetChanged();
+                    reservationsMainFragment.pageAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        request.whereEqualTo("rs_status", ReservationState.STATE_IN_PROGRESS).get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                QuerySnapshot document = task.getResult();
+                getDataFromDoc(document);
+            }
+        });
+
+        request.whereEqualTo("rs_status", ReservationState.STATE_FINISHED_SUCCESS).get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                QuerySnapshot document = task.getResult();
+                getDataFromDoc(document);
+            }
+        });
+
+        db.collection("category").whereEqualTo("rest_id", restaurantKey).get()
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    QuerySnapshot document = task.getResult();
+                    if (!document.isEmpty()) {
+                        for(DocumentSnapshot doc : document){
+                            Category c = new Category(
+                                     doc.getString("category_name"),
+                                    (String) doc.getId(),
+                                     doc.getLong("category_position"));
+                            //(String) doc.get("category_image_url"));
+                            doc.getReference().collection("dishes").get().addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()) {
+                                    QuerySnapshot document1 = task1.getResult();
+                                    if (!document1.isEmpty()) {
+                                        for(DocumentSnapshot doc1 : document1){
+                                            OfferModel tmpOM = new OfferModel(
+                                                    doc1.getId(),
+                                                     doc1.getString("name"),
+                                                     doc1.getString("category"),
+                                                     doc1.getDouble("price"),
+                                                     doc1.getLong("quantity"),
+                                                     doc1.getString("image"),
+                                                     doc1.getString("description"),
+                                                     doc1.getBoolean("state"));
+                                            c.getDishes().add(tmpOM);
+                                        }
+                                    } else {
+                                        Log.d("QueryReservation", "No such document");
+                                    }
+                                    categoriesData.add(c);
+                                } else {
+                                    Log.d("QueryReservation", "get failed with ", task.getException());
+                                }
+                            });
+                        }
+                    } else {
+                        Log.d("QueryReservation", "No such document");
+                    }
+
+                } else {
+                    Log.d("QueryReservation", "get failed with ", task.getException());
+                }
+            });
+
+
+    }
+
+    private int getDays(Date current, Date old) {
+        long difference = (current.getTime() - old.getTime()) / (24 * 60 * 60 * 1000);
+        int ret = ((Long) Math.abs(difference)).intValue();
+        return ret;
     }
 
     public void addItemToPending(ReservationModel rm) {
@@ -227,9 +347,26 @@ public class MainActivity extends AppCompatActivity {
 
     public void addItemToFinished(ReservationModel rm) {
         finishedReservationsData.add(rm);
+        reservationsMainFragment.pageAdapter.notifyDataSetChanged();
     }
 
     public void removeItemFromFinished(int position) {
-        pendingReservationsData.remove(position);
+        finishedReservationsData.remove(position);
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
+        //If the permission has been granted...//
+        if (requestCode == PERMISSIONS_REQUEST && grantResults.length == 1
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            return;
+
+        } else {
+            //If the user denies the permission request, then display a snackBar with some more information//
+            Snackbar.make(findViewById(R.id.frame_container_main), "Please enable location services to allow GPS tracking",
+                    Snackbar.LENGTH_LONG).show();
+        }
     }
 }

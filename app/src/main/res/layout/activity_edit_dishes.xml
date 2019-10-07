@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".Information.ViewMoreInfoActivity">
+    tools:context=".Information.RestInformationActivity">
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,59 +13,89 @@
 
         <RelativeLayout
             android:id="@+id/relativeLayoutFoodPic"
-            android:layout_width="match_parent"
-            android:layout_height="156dp"
-            android:layout_marginTop="@dimen/dp8"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="@dimen/activity_padding"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/offer_food_pic_e"
-                android:layout_width="match_parent"
-                android:layout_height="600dp"
-                android:layout_marginTop="@dimen/activity_padding"
-                android:layout_marginBottom="@dimen/activity_padding"
-                android:scaleType="fitXY"
-                android:src="@drawable/img_rest_1"
-                android:contentDescription="@string/FoodPic" />
-            <com.mikhaellopez.circularimageview.CircularImageView
-                android:id="@+id/background_img"
-                android:layout_width="48sp"
-                android:layout_height="48sp"
-                android:layout_alignBottom="@id/offer_food_pic"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:scaleType="centerInside"
-                android:src="@drawable/background"
-                app:civ_border_color="@android:color/white"
-                app:civ_border_width="2sp"
-                app:civ_shadow="true"
-                app:civ_shadow_radius="1"
-                tools:ignore="NotSibling" />
-            <ImageView
-                android:id="@+id/img_plus"
-                android:layout_width="43sp"
-                android:layout_height="44sp"
-                android:layout_alignStart="@+id/background_img"
-                android:layout_alignLeft="@+id/background_img"
-                android:layout_alignTop="@+id/background_img"
-                android:layout_alignEnd="@+id/background_img"
-                android:layout_alignRight="@+id/background_img"
-                android:layout_alignBottom="@+id/background_img"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                android:contentDescription="@string/app_name"
-                android:cropToPadding="false"
-                android:src="@drawable/ic_camera"
-                android:tint="@android:color/white" />
+            <RelativeLayout
+                android:id="@+id/linearLayoutOffer"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <RelativeLayout
+                    android:id="@+id/offer_food_pic_e1"
+                    android:layout_width="@dimen/toolbar_profile_width"
+                    android:layout_height="@dimen/toolbar_profile_width"
+                    android:background="@color/white"
+                    > <!-- border width -->
+
+                    <ImageView
+                        android:id="@+id/offer_food_pic_e"
+                        android:layout_width="@dimen/toolbar_profile_width"
+                        android:layout_height="@dimen/toolbar_profile_width"
+                        android:src="@drawable/dish_pic"
+
+                        />
+                </RelativeLayout>
+
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/background_img_offer_e"
+                    android:layout_width="48sp"
+                    android:layout_height="48sp"
+                    android:layout_alignBottom="@id/offer_food_pic_e1"
+                    android:layout_alignRight="@id/offer_food_pic_e1"
+                    android:layout_alignEnd="@id/offer_food_pic_e1"
+                    android:layout_marginBottom="-24dp"
+                    android:layout_marginEnd="-24dp"
+                    android:layout_marginRight="-24dp"
+
+                    android:scaleType="centerInside"
+                    android:src="@drawable/background"
+                    app:civ_border_color="@android:color/white"
+                    app:civ_border_width="2sp"
+                    app:civ_shadow="true"
+                    app:civ_shadow_radius="1" />
+
+
+                <ImageView
+                    android:id="@+id/img_plus"
+                    android:layout_width="43sp"
+                    android:layout_height="44sp"
+                    android:elevation="17dp"
+                    android:layout_alignStart="@+id/background_img_offer_e"
+                    android:layout_alignLeft="@+id/background_img_offer_e"
+                    android:layout_alignTop="@+id/background_img_offer_e"
+                    android:layout_alignEnd="@+id/background_img_offer_e"
+                    android:layout_alignRight="@+id/background_img_offer_e"
+                    android:layout_alignBottom="@+id/background_img_offer_e"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:contentDescription="@string/app_name"
+                    android:cropToPadding="false"
+                    android:src="@drawable/ic_camera"
+                    android:tint="@android:color/white" />
+
+
+
+            </RelativeLayout>
         </RelativeLayout>
+
+
+
+
 
         <LinearLayout
             android:id="@+id/LinearLayoutFoodName"
@@ -87,23 +117,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/FoodName"
-                    android:gravity="start|top"
-                    android:inputType="textCapSentences"
-                    android:focusable="true"
-                    android:nextFocusDown="@+id/edit_text_input_food_category_e"
-                    android:imeOptions="actionNext"/>
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/text_input_food_category_e"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/edit_text_input_food_category_e"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/FoodCategory"
                     android:gravity="start|top"
                     android:inputType="textCapSentences"
                     android:focusable="true"

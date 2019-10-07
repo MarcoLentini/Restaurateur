@@ -1,22 +1,29 @@
 package com.example.restaurateur.Reservation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.restaurateur.R;
 import com.example.restaurateur.MainActivity;
 
 import java.util.Collections;
 
-public class TabReservationsPending extends Fragment {
+import static android.app.Activity.RESULT_OK;
+import static android.widget.Toast.*;
 
-    private RecyclerView.Adapter pendingReservationsAdapter;
+public class TabReservationsPending extends Fragment implements Updateable{
+
+    private PendingReservationsListAdapter pendingReservationsAdapter;
+    public static final int PENDING_REQ = 55;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,14 +38,42 @@ public class TabReservationsPending extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         // specify an Adapter
         pendingReservationsAdapter = new PendingReservationsListAdapter(getContext(),
-                MainActivity.pendingReservationsData, MainActivity.offersData, (MainActivity)getActivity());
+                MainActivity.pendingReservationsData, (MainActivity)getActivity(), this,
+                (ReservationsMainFragment)getParentFragment());
         recyclerView.setAdapter(pendingReservationsAdapter);
+        sortDataAndNotify();
 
         return view;
     }
 
-    public void sortDataAndNotify() {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK){
+            if(requestCode == PENDING_REQ){
+                int pos = data.getExtras().getInt("pos");
+                if(data.getExtras().getString("result").equals("Accept")){
+                    pendingReservationsAdapter.pendingAccept(pos);
+                } else {
+                    pendingReservationsAdapter.pendingReject(pos);
+                }
+            }
+        }
+    }
+
+    private void sortDataAndNotify() {
         Collections.sort(MainActivity.pendingReservationsData);
-        pendingReservationsAdapter.notifyDataSetChanged();
+        if(pendingReservationsAdapter != null) {
+            pendingReservationsAdapter.notifyDataSetChanged();
+            Log.d("PR", "sortDataAndNotify() chiamato in TabPending");
+        }
+    }
+
+    public PendingReservationsListAdapter getAdapter(){
+        return pendingReservationsAdapter;
+    }
+
+    @Override
+    public void update() {
+        sortDataAndNotify();
     }
 }

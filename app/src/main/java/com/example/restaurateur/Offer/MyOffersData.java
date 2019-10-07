@@ -7,7 +7,7 @@ public class MyOffersData {
             12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25 };
 
     public static String[] offerName = { "Pizza Margherita", "Pizza al tonno", "Pizza tricolore",
-            "Pizza con prosiutto cotto, friarielli, salsiccia e tanta gorgonzola", "Pizza quattro formaggi",
+            "Pizza con prosiutto cotto, friarielli, salsiccia e tanta gorgonzolaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "Pizza quattro formaggi",
             "Hamburger classico", "Cheeseburger", "Cheeseburger con bacon ed emmental" , "Pasta al forno",
             "Lasagne al pesto", "Lasagne alla bolognese", "Pasta al pomodoro e funghi", "Pasta al pesto",
             "Zucchine", "Patatine fritte", "Hamburger e patatine fritte", "Bistecca di pollo impanata",

@@ -1,61 +1,72 @@
 package com.example.restaurateur.Reservation;
 
+import com.google.firebase.Timestamp;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class ReservationModel implements Comparable<ReservationModel>, Serializable {
 
-    private int id;
-    private int customerId;
-    private int remainingMinutes;
+    private String reservation_id;
+    private Long rs_id;
+    private String cust_id;
+    private Timestamp timestamp;
     private String notes;
-    private String customerPhoneNumber;
-    private ArrayList<ReservatedDish> reservatedDishes;
-    private String state;
-    private double totalIncome;
+    private String cust_phone;
+    private String cust_name;
+    private ArrayList<ReservatedDish> dishesArrayList;
+    private String rs_status;
+    private Double total_income;
+    private Double delivery_fee;
+    private String rest_address;
 
-    public ReservationModel(int id, int customerId, int remainingMinutes, String notes,
-                            String customerPhoneNumber, ArrayList<ReservatedDish> reservatedDishes, String state, double totalIncome) {
-        this.id = id;
-        this.customerId = customerId;
-        this.remainingMinutes = remainingMinutes;
+    public ReservationModel(String reservation_id, Long rs_id, String cust_id, Timestamp timestamp, String notes,
+                            String cust_phone, String cust_name, ArrayList<ReservatedDish> dishesArrayList,
+                            String rs_status, Double total_income, String rest_address,Double delivery_fee) {
+        this.reservation_id = reservation_id;
+        this.rs_id = rs_id;
+        this.cust_id = cust_id;
+        this.timestamp = timestamp;
         this.notes = notes;
-        this.customerPhoneNumber = customerPhoneNumber;
-        this.reservatedDishes = reservatedDishes;
-        this.state = state;
-        this.totalIncome = totalIncome;
+        this.cust_phone = cust_phone;
+        this.cust_name = cust_name;
+        this.dishesArrayList = dishesArrayList;
+        this.rs_status = rs_status;
+        this.total_income = total_income;
+        this.rest_address = rest_address;
+        this.delivery_fee = delivery_fee;
     }
 
-    public ArrayList<ReservatedDish> getReservatedDishes() {
-        return reservatedDishes;
+    public Double getDelivery_fee() {
+        return delivery_fee;
     }
 
-    public void setReservatedDishes(ArrayList<ReservatedDish> reservatedDishes) {
-        this.reservatedDishes = reservatedDishes;
+    public void setDelivery_fee(Double delivery_fee) {
+        this.delivery_fee = delivery_fee;
     }
 
-    public int getId() {
-        return id;
+    public Long getRs_id() {
+        return rs_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setRs_id(Long rs_id) {
+        this.rs_id = rs_id;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public String getCust_id() {
+        return cust_id;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setCust_id(String cust_id) {
+        this.cust_id = cust_id;
     }
 
-    public int getRemainingMinutes() {
-        return remainingMinutes;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
-    public void setRemainingMinutes(int remainingMinutes) {
-        this.remainingMinutes = remainingMinutes;
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getNotes() {
@@ -66,32 +77,77 @@ public class ReservationModel implements Comparable<ReservationModel>, Serializa
         this.notes = notes;
     }
 
-    public String getCustomerPhoneNumber() {
-        return customerPhoneNumber;
+    public String getCust_phone() {
+        return cust_phone;
     }
 
-    public void setCustomerPhoneNumber(String customerPhoneNumber) {
+    public void setCust_phone(String cust_phone) {
+        this.cust_phone = cust_phone;
+    }
+
+    public ArrayList<ReservatedDish> getDishesArrayList() {
+        return dishesArrayList;
+    }
+
+    public void setDishesArrayList(ArrayList<ReservatedDish> dishesArrayList) {
+        this.dishesArrayList = dishesArrayList;
+    }
+
+    public String getRs_status() {
+        return rs_status;
+    }
+
+    public void setRs_status(String rs_status) {
+        this.rs_status = rs_status;
+    }
+
+    public Double getTotal_income() {
+        return total_income;
+    }
+
+    public void setTotal_income(Double total_income) {
+        this.total_income = total_income;
+    }
+
+    /*public ReservationModel(int id, int customerId, int remainingMinutes, String notes,
+                            String customerPhoneNumber, ArrayList<ReservatedDish> reservatedDishes, String state, double totalIncome) {
+        this.id = id;
+        this.customerId = customerId;
+        this.remainingMinutes = remainingMinutes;
+        this.notes = notes;
         this.customerPhoneNumber = customerPhoneNumber;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
+        this.reservatedDishes = reservatedDishes;
         this.state = state;
-    }
-
-    public double getTotalIncome() {
-        return totalIncome;
-    }
-
-    public void setTotalIncome(double totalIncome) {
         this.totalIncome = totalIncome;
-    }
+    }*/
+
 
     @Override
     public int compareTo(ReservationModel other) {
-        return this.getRemainingMinutes() - other.getRemainingMinutes();
+        return other.getTimestamp().compareTo(this.timestamp);
+    }
+
+    public String getReservation_id() {
+        return reservation_id;
+    }
+
+    public void setReservation_id(String reservation_id) {
+        this.reservation_id = reservation_id;
+    }
+
+    public String getRest_address() {
+        return rest_address;
+    }
+
+    public void setRest_address(String rest_address) {
+        this.rest_address = rest_address;
+    }
+
+    public String getCust_name() {
+        return cust_name;
+    }
+
+    public void setCust_name(String cust_name) {
+        this.cust_name = cust_name;
     }
 }
